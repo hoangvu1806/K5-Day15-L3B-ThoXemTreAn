@@ -76,7 +76,9 @@ python codebase/server.py        # API ở http://127.0.0.1:6161
 cd frontend && npm install && npm run dev    # mở http://localhost:3000
 ```
 
-Chi tiết giao diện: [frontend/README.md](frontend/README.md). Không có `.env` thì API chạy chế độ giả, lời phản hồi nút đáp án dùng câu viết sẵn trong kho.
+Chi tiết giao diện: [frontend/README.md](frontend/README.md). Không có `.env` (và không đặt biến môi trường `MODEL_PROVIDER`) thì API chạy chế độ giả: Giám khảo chấm bằng từ khóa, lời của Tin ghép từ câu viết sẵn trong `data/lines.json`, đọc to dùng giọng của trình duyệt.
+
+Màn mới của Sprint 3 còn là bản nháp (`duyet: false` trong `data/scenarios.json`), trẻ không gặp. Nhóm muốn chơi thử để duyệt thì chạy server với `GROWSAFE_SHOW_DRAFT_SCENES=1` (PowerShell: `$env:GROWSAFE_SHOW_DRAFT_SCENES="1"; python codebase/server.py`).
 
 ## Bản chạy thử — viết ở đâu
 
@@ -97,9 +99,11 @@ Chi tiết giao diện: [frontend/README.md](frontend/README.md). Không có `.e
 | Lời gọi AI ở quyết định trung tâm | **Thật** | Model: `openai/gpt-6-luna` qua OpenRouter, agent Google ADK + LiteLLM |
 | Guardrail (precheck 111, chặn injection, che thông tin, postcheck) | Thật | Viết bằng code, `codebase/guardrails.py` |
 | Kho tình huống, quy tắc chuẩn | Thật, nhóm tự soạn | 11 màn, 12 quy tắc có nguồn, `data/DATA_CARD.md`. Đáp án nút bấm và thẻ quy tắc chờ duyệt |
-| Giao diện game | Thật | `frontend/` (Next.js), gọi API `codebase/server.py` |
-| Lưu phiên, bản nháp cho phụ huynh | Tạm | Chỉ nằm trong bộ nhớ server, tắt là mất; chưa có đăng nhập cho người lớn |
-| Màn hội thoại, chế độ AI đóng vai | Chưa làm | Thiết kế ở `docs/game-flow.md` |
+| Giao diện game | Thật | `frontend/` (Next.js), gọi API `codebase/server.py`. Màn hình chính, bản đồ 6-10 / điện thoại 11-15, Sổ tay thẻ, Bàn tay tin cậy, Cài đặt, khoá người lớn |
+| Giọng nói | Thật | Câu cố định đọc sẵn thành file (`frontend/public/assets/voice/`); lời AI vừa viết đọc qua `POST /api/tts` (OpenRouter), lỗi thì dùng giọng trình duyệt. Mic: Web Speech API, hiện cùng ô gõ lúc trả lời, chỉ thu sau khi trẻ bấm bật, bấm lần nữa hoặc ngừng nói là tắt |
+| Lưu phiên, bản nháp cho phụ huynh | Tạm | Chỉ nằm trong bộ nhớ server, tắt là mất; chưa có đăng nhập cho người lớn. Tiến độ và thẻ lưu trong trình duyệt của trẻ |
+| Màn hội thoại người lạ (kịch bản có sẵn), thám tử nhận chiêu, màn bậc 4–5 | Có code, màn là bản nháp | 7 màn chờ Diệp duyệt (`data/DATA_CARD.md`) |
+| Chế độ AI đóng vai người lạ, màn AI biến tấu | Chưa làm | Chờ nhóm chốt mục 8 của `docs/de-xuat-sprint-3.md` |
 
 ## Dùng AI vào việc gì
 

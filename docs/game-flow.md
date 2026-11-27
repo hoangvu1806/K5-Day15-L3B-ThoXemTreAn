@@ -4,12 +4,13 @@ Bản chốt ngày 27/11. Minh dựa vào đây để làm assets, Diệp để 
 
 ## Một phiên chơi
 
-1. Phụ huynh hoặc giáo viên mở game, chọn nhóm tuổi 6-10 hoặc 11-15 và giới tính của trẻ (Nam / Nữ / Không muốn nói, không bắt buộc). Game không hỏi tên, không lưu thông tin định danh.
+1. Phụ huynh hoặc giáo viên mở game, chọn nhóm tuổi 6-10 hoặc 11-15, giới tính của trẻ (Nam / Nữ, bắt buộc, để chọn nhân vật chính Bin/Na hoặc Khôi/Mai). Game không hỏi tên hay biệt danh, không lưu thông tin định danh.
 2. Game mở màn đầu tiên hợp với nhóm tuổi và giới tính đó trong kho.
 3. Mỗi màn có một cảnh minh họa kèm lời kể tình huống, ví dụ "Một chú quen cho con kẹo và dặn đây là bí mật của hai chú cháu. Con sẽ làm gì?". Trẻ trả lời theo một trong hai cách:
-   - bấm một trong 2-3 nút đáp án có sẵn (hợp với trẻ nhỏ, trả lời nhanh)
-   - tự gõ hoặc chat cách mình sẽ làm, bằng lời của mình
-4. AI phản hồi: khen điều trẻ làm đúng, chỉ ra hành động an toàn còn thiếu, rồi cho thử lại, tối đa 2 lần mỗi màn. Câu trả lời mơ hồ ("con chạy") thì AI hỏi lại ("Con chạy tới chỗ ai?").
+   - tự gõ cách mình sẽ làm, bằng lời của mình
+   - hoặc giữ nút mic để nói, rồi bấm "Đúng rồi" để xác nhận chữ (người lớn bật mic)
+   Không còn nút đáp án (Sprint 3, `docs/de-xuat-tinh-nang.md` mục 4.3). Trẻ bí thì bấm "Gợi ý": Tin hỏi gợi mở, không đưa đáp án.
+4. AI phản hồi: khen điều trẻ làm đúng, chỉ ra hành động an toàn còn thiếu, rồi sang màn mới luôn: mỗi màn trẻ trả lời một lần, không thử lại. Câu trả lời mơ hồ ("con chạy") thì AI không hỏi lại mà nói ngắn cách làm an toàn; chỗ còn thiếu ghi vào mục "Từng màn" của báo cáo cho phụ huynh.
 5. Kết màn, trẻ nhận thẻ quy tắc của màn đó (ví dụ "Bí mật làm con sợ là bí mật xấu, con kể với người lớn") và sao hoặc huy hiệu.
 6. AI chọn màn tiếp theo trong kho, ưu tiên chủ đề trẻ còn yếu. Đủ 5 màn, hoặc hết màn phù hợp, thì kết phiên.
 7. Kết phiên, AI soạn bản nháp cho phụ huynh: con làm tốt gì, còn lúng túng ở đâu, một câu gợi ý để mở lời nói chuyện với con. Người lớn đọc rồi tự quyết dùng thế nào, game không tự gửi đi đâu.
@@ -60,7 +61,7 @@ Trẻ đọc rồi thì không rút lại được, nên câu nào AI nói trong
 
 - Màn về an toàn cơ thể, bí mật xấu, an toàn mạng thì cả hai giới chơi như nhau. Lời dặn giống hệt, chỉ đổi nhân vật trong cảnh cho trẻ thấy gần mình hơn.
 - Màn dậy thì (nhóm 11-15) mới tách theo giới: kinh nguyệt, ngực phát triển cho nữ; mộng tinh, vỡ giọng cho nam. Thêm vài màn để trẻ biết cả về giới còn lại.
-- Chọn "Không muốn nói" thì chỉ nhận màn dành cho cả hai giới, nhân vật trung tính.
+- Từ Sprint 3 không còn lựa chọn "Không muốn nói": giới tính chỉ dùng để chọn nhân vật chính (Bin/Na, Khôi/Mai). Một màn có một lời kể, tên nhân vật là ô `{ten}`, nên hai giới gặp đúng cùng tình huống, cùng lời dặn.
 - AI không bao giờ đổi lời dặn an toàn theo giới tính. Không nói "con gái phải cẩn thận hơn", "con trai thì không sao". Bước hậu kiểm chặn các câu kiểu này.
 - Giới tính chỉ nằm trong phiên chơi, không ghi vào bản nháp gửi phụ huynh, không lưu sau phiên.
 
@@ -87,7 +88,7 @@ Trong lúc chơi, AI không tự nghĩ tình huống mới để đưa thẳng c
 | Nhận ra trẻ đang kể chuyện thật, không phải trả lời game (lớp chặn thứ hai, sau lớp so từ khóa) | Lưu thông tin định danh của trẻ |
 | Soạn bản nháp tóm tắt cho người lớn, và soạn nháp màn mới cho nhóm duyệt | |
 
-Khi trẻ bấm nút đáp án, code tự biết đúng hay sai, AI chỉ viết lời phản hồi. Khi trẻ tự gõ, AI chấm.
+Trẻ luôn tự trả lời. Vai Giám khảo trả kết luận có cấu trúc trước, code giữ kết luận, rồi Tin mới viết lời theo kết luận đó (`codebase/agent.py`).
 
 ## Dữ liệu một màn (Diệp soạn trong `data/scenarios.json`)
 
@@ -150,7 +151,11 @@ Mỗi nhóm tuổi cần ít nhất 3 màn, mỗi màn một chủ đề khác n
 | Gọi | Gửi | Nhận |
 |---|---|---|
 | `POST /api/session` | `age_group`, `gender` (không bắt buộc), `dialogue_mode`: `kich_ban` (mặc định) hoặc `ai_dong_vai` (người lớn bật) | `session_id`, màn đầu tiên |
-| `POST /api/answer` | `session_id`, `scenario_id`, `choice_id` hoặc `text` | lời phản hồi, kết quả (`dat`, `chua_dat`, `hoi_lai`), câu người lạ nói tiếp nếu đang ở màn hội thoại, màn tiếp theo, `stopped` nếu phải dừng game hoặc thoát vai |
-| `POST /api/help` | `session_id` | nội dung màn "Con cần giúp" |
+| `POST /api/answer` | `session_id`, `scenario_id`, `text` (chữ gõ, hoặc chữ chuyển từ giọng nói đã được trẻ xác nhận) | lời phản hồi, kết quả (`dat`, `chua_dat`, `hoi_lai`), câu người lạ nói tiếp nếu đang ở màn hội thoại, màn tiếp theo, `stopped` nếu phải dừng game hoặc thoát vai |
+| `POST /api/level` | `session_id`, `location` | màn tiếp theo ở địa điểm đó (Đạo diễn chọn trong các màn đã duyệt, đã mở khoá), câu đầu của người lạ nếu là màn hội thoại |
+| `POST /api/hint` | `session_id`, `scenario_id` | một câu gợi ý, tối đa 1 lần mỗi lượt |
+| `POST /api/detective` | `session_id`, `scenario_id`, `text` | chiêu trẻ nhận ra, chiêu còn sót kèm câu người lạ đã dùng |
+| `POST /api/tts` | `session_id`, `text`, `role` | mp3, chỉ đọc chữ do game tạo ra trong phiên |
+| `POST /api/help` | `session_id` | nội dung màn cần giúp, viết riêng cho từng nhóm tuổi |
 | `POST /api/session/end` | `session_id` | bản nháp cho phụ huynh, trạng thái `cho_duyet` |
 | `POST /api/admin/scenario-draft` | `topic`, `age_group`, `genders`, `type` | bản nháp màn mới, trạng thái `cho_duyet`. Chỉ nhóm dùng, giao diện của trẻ không gọi |

@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import clsx from "clsx";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useLayoutEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { ui } from "@/lib/assets";
+import { helpLabel } from "@/lib/lines";
 import { sound } from "@/lib/sound";
 import { useGame } from "@/lib/store";
 
@@ -39,14 +40,36 @@ export function Chunky({
   );
 }
 
+/** Nút tròn dùng ảnh có sẵn (Nhà, Tạm dừng, Cài đặt, Nghe lại, Gợi ý). */
+export function IconButton({ src, label, onClick, size = 58, disabled, active }: {
+  src: string; label: string; onClick: () => void; size?: number; disabled?: boolean; active?: boolean;
+}) {
+  return (
+    <motion.button aria-label={label} title={label} disabled={disabled} whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.92 }}
+      onPointerEnter={() => sound.play("hover")} onClick={onClick}
+      className={clsx("relative shrink-0 rounded-full disabled:opacity-40", active && "ring-[5px] ring-[var(--sun)]")}
+      style={{ width: size, height: size }}>
+      <Pic src={src} w={512} h={512} className="h-full w-full drop-shadow-[0_4px_0_rgba(74,47,34,0.35)]" />
+    </motion.button>
+  );
+}
+
+/* ---------- Cỡ chữ theo cài đặt ---------- */
+export function useFontScale() {
+  const font = useGame((s) => s.saved.settings.font);
+  return font === "xl" ? 1.3 : font === "lg" ? 1.15 : 1;
+}
+
 /* ---------- Tự co cỡ chữ cho vừa khung: không tràn, không thanh cuộn ---------- */
 export function useFitText<T extends HTMLElement>(key: unknown, max: number, min: number) {
   const ref = useRef<T>(null);
+  const scale = useFontScale();
+  const top = Math.round(max * scale);
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
     const fit = () => {
-      let s = max;
+      let s = top;
       el.style.fontSize = s + "px";
       while (s > min && el.scrollHeight > el.clientHeight + 1) {
         s -= 1;
@@ -62,7 +85,7 @@ export function useFitText<T extends HTMLElement>(key: unknown, max: number, min
       alive = false;
       ro.disconnect();
     };
-  }, [key, max, min]);
+  }, [key, top, min]);
   return ref;
 }
 
@@ -124,46 +147,42 @@ export function StarPill({ stars }: { stars: number }) {
   );
 }
 
-/* ---------- Nút âm thanh (vẽ SVG cùng nét viền nâu) ---------- */
-function RoundIcon({ onClick, label, children, active = true }: { onClick: () => void; label: string; children: ReactNode; active?: boolean }) {
-  return (
-    <button aria-label={label} title={label} onClick={onClick}
-      className="btn-chunky h-[58px] w-[58px] p-0" style={{ ["--c" as string]: active ? "var(--cream)" : "#e9e1d4" }}>
-      <svg viewBox="0 0 32 32" className="h-[30px] w-[30px]" fill="none" stroke="var(--ink)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-        {children}
-      </svg>
-    </button>
-  );
-}
-
-export function SoundButtons() {
-  const { muted, music, toggleMute, toggleMusic } = useGame();
-  return (
-    <div className="flex gap-3">
-      <RoundIcon label={music ? "Tắt nhạc nền" : "Bật nhạc nền"} onClick={toggleMusic} active={music}>
-        <path d="M12 23V8l13-3v15" fill={music ? "var(--sun)" : "none"} />
-        <circle cx="9" cy="23" r="3.5" fill="var(--cream)" />
-        <circle cx="22" cy="20" r="3.5" fill="var(--cream)" />
-        {!music && <path d="M5 5l22 22" stroke="var(--coral)" />}
-      </RoundIcon>
-      <RoundIcon label={muted ? "Bật âm thanh" : "Tắt âm thanh"} onClick={toggleMute} active={!muted}>
-        <path d="M5 12h5l7-6v20l-7-6H5z" fill="var(--mint)" />
-        {muted ? <path d="M21 12l7 8M28 12l-7 8" stroke="var(--coral)" /> : <><path d="M21 11c2 2.5 2 7.5 0 10" /><path d="M25 7c4 4.5 4 13.5 0 18" /></>}
-      </RoundIcon>
-    </div>
-  );
-}
-
-/* ---------- Nút "Con cần giúp": luôn hiện, luôn chạy được kể cả khi mất mạng ---------- */
+/* ---------- Nút cần giúp: luôn hiện, luôn chạy được kể cả khi mất mạng ---------- */
 export function HelpButton() {
   const openHelp = useGame((s) => s.openHelp);
+  const age = useGame((s) => s.saved.profile?.age ?? "6-10");
+  const label = helpLabel(age);
   return (
-    <motion.button aria-label="Con cần giúp" onClick={() => void openHelp()}
+    <motion.button aria-label={label} onClick={() => void openHelp()}
       whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
-      className="btn-chunky h-[62px] gap-2 pl-2 pr-6 text-[22px]" style={{ ["--c" as string]: "#ffd6cc" }}>
+      className="btn-chunky relative z-[80] h-[62px] gap-2 pl-2 pr-6 text-[22px]" style={{ ["--c" as string]: "#ffd6cc" }}>
       <Pic src={ui.help} w={512} h={512} className="h-[50px] w-[50px]" />
-      Con cần giúp
+      {label}
     </motion.button>
+  );
+}
+
+/**
+ * Thanh trên cùng ở mọi màn chơi (de-xuat-sprint-3.md mục 6):
+ * trái: Nhà (hỏi lại nếu đang giữa màn), Tạm dừng · giữa: tiến độ · phải: Cài đặt, nút cần giúp.
+ */
+export function TopBar({ midLevel = false, center }: { midLevel?: boolean; center?: ReactNode }) {
+  const { progress, setOverlay, goHome } = useGame();
+  return (
+    <div className="absolute inset-x-6 top-4 z-40 flex items-center justify-between gap-4">
+      <div className="flex items-center gap-3">
+        <IconButton src={ui.home} label="Về màn hình chính" onClick={() => (midLevel ? setOverlay("confirmHome") : goHome())} />
+        <IconButton src={ui.pause} label="Tạm dừng" onClick={() => setOverlay("pause")} />
+        <StarPill stars={progress.stars} />
+      </div>
+      <div className="flex items-center">
+        {center ?? <div className="panel-soft rounded-full! px-4 py-[7px]"><ProgressTrail index={progress.index} total={progress.total} size={40} /></div>}
+      </div>
+      <div className="flex items-center gap-3">
+        <IconButton src={ui.settings} label="Cài đặt" onClick={() => setOverlay("settings")} />
+        <HelpButton />
+      </div>
+    </div>
   );
 }
 
@@ -173,14 +192,43 @@ export function Toast() {
   if (!error) return null;
   return (
     <motion.div initial={{ y: -80, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-      className="panel absolute left-1/2 top-[96px] z-50 flex -translate-x-1/2 items-center gap-4 rounded-full! px-6 py-3">
+      className="panel absolute left-1/2 top-[96px] z-[90] flex -translate-x-1/2 items-center gap-4 rounded-full! px-6 py-3">
       <span className="text-[20px] font-bold">Ôi, {error.charAt(0).toLowerCase() + error.slice(1)}. Mình thử lại nhé!</span>
       <Chunky size="sm" color="var(--mint)" onClick={clearError}>Được</Chunky>
     </motion.div>
   );
 }
 
+/** Mất mạng: hiện băng thông báo, vẫn cho mở Sổ tay và Bàn tay tin cậy. */
+export function OfflineBanner() {
+  const online = useGame((s) => s.online);
+  return (
+    <AnimatePresence>
+      {!online && (
+        <motion.div initial={{ y: 60 }} animate={{ y: 0 }} exit={{ y: 60 }}
+          className="absolute inset-x-0 bottom-0 z-[95] flex h-[48px] items-center justify-center gap-3 bg-[var(--sun)] font-display text-[20px] font-bold">
+          Mất mạng rồi. Sổ tay và Bàn tay tin cậy vẫn mở được. Nút cần giúp vẫn chạy.
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 /* ---------- Bóng mờ dưới chân nhân vật ---------- */
 export function GroundShadow({ width, className }: { width: number; className?: string }) {
   return <div className={clsx("absolute rounded-[50%]", className)} style={{ width, height: width * 0.14, background: "radial-gradient(closest-side, rgb(74 47 34 / 0.28), transparent)" }} />;
+}
+
+/* ---------- Lớp phủ có nền mờ ---------- */
+export function Modal({ children, onClose, z = 60 }: { children: ReactNode; onClose?: () => void; z?: number }) {
+  return (
+    <motion.div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: z }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <div className="absolute inset-0 bg-[rgb(74_47_34/0.45)] backdrop-blur-[3px]" onClick={onClose} />
+      <motion.div initial={{ y: 50, scale: 0.95 }} animate={{ y: 0, scale: 1 }} exit={{ y: 30, scale: 0.97 }}
+        transition={{ type: "spring", stiffness: 220, damping: 22 }} className="relative">
+        {children}
+      </motion.div>
+    </motion.div>
+  );
 }

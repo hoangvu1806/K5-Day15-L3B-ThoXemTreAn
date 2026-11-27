@@ -156,15 +156,15 @@
  "scene_S6-02_tell_bin": {
   "role": "tin610",
   "voice": "Puck",
-  "text": "Cô Lan hàng xóm cho Bin một bịch kẹo to, rồi ôm Bin hồi lâu. Lúc Bin sắp về, cô ghé tai dặn nhỏ: chuyện cô ôm con lúc nãy, mình giữ riêng hai cô cháu thôi nhé, đừng kể mẹ.",
-  "seconds": 12.41,
+  "text": "Cô Lan hàng xóm cho Bin một bịch kẹo to. Lúc ôm tạm biệt, tay cô cứ đưa dần lên gần đùi Bin, càng lúc càng gần giữa hai chân, Bin né ra mà cô vẫn kéo lại ôm tiếp. Cô cười, ghé tai dặn nhỏ: chuyện này của riêng hai cô cháu thôi, đừng kể với mẹ nhé.",
+  "seconds": 17.91,
   "file": "voice/scene_S6-02_tell_bin.mp3"
  },
  "scene_S6-02_tell_na": {
   "role": "tin610",
   "voice": "Puck",
-  "text": "Cô Lan hàng xóm cho Na một bịch kẹo to, rồi ôm Na hồi lâu. Lúc Na sắp về, cô ghé tai dặn nhỏ: chuyện cô ôm con lúc nãy, mình giữ riêng hai cô cháu thôi nhé, đừng kể mẹ.",
-  "seconds": 13.33,
+  "text": "Cô Lan hàng xóm cho Na một bịch kẹo to. Lúc ôm tạm biệt, tay cô cứ đưa dần lên gần đùi Na, càng lúc càng gần giữa hai chân, Na né ra mà cô vẫn kéo lại ôm tiếp. Cô cười, ghé tai dặn nhỏ: chuyện này của riêng hai cô cháu thôi, đừng kể với mẹ nhé.",
+  "seconds": 15.48,
   "file": "voice/scene_S6-02_tell_na.mp3"
  },
  "scene_S6-02_ask_bin": {

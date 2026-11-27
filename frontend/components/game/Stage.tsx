@@ -17,7 +17,10 @@ export default function Stage({ backdrop, children }: { backdrop: string; childr
       const vv = window.visualViewport;
       const vw = vv?.width ?? window.innerWidth;
       const vh = vv?.height ?? window.innerHeight;
-      setBox({ scale: Math.min(vw / STAGE_W, vh / STAGE_H), vw, vh });
+      const pad = Math.min(vw, vh) < 600 ? 12 : 24;
+      const availW = Math.max(200, vw - pad * 2);
+      const availH = Math.max(200, vh - pad * 2);
+      setBox({ scale: Math.min(availW / STAGE_W, availH / STAGE_H), vw, vh });
     };
     measure();
     window.addEventListener("resize", measure);

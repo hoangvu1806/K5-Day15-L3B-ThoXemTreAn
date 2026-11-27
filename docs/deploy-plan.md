@@ -47,7 +47,12 @@ VPS ── Nginx (TLS Let's Encrypt, giới hạn lượt gọi)
   - `Restart=always` để tự chạy lại khi lỗi.
   - Chỉ 1 worker, vì phiên chơi và bản nháp nằm trong RAM của một tiến trình (request của một phiên phải về đúng tiến trình đó).
 - **Frontend:** build ra file tĩnh rồi chép vào `/var/www/growsafe`. Nginx phục vụ thẳng, có cache cho ảnh và assets.
-- **Không dùng DB.** Phiên chơi và bản nháp chỉ sống trong RAM, trong lúc chơi. Kết phiên, API (`POST /api/session/end`, chưa làm) trả bản nháp về luôn để màn hình người lớn hiện ngay trên máy đang chơi. Người lớn đọc, tự chép hoặc tải về nếu muốn giữ; server không giữ lại gì. Cách này cũng hợp nguyên tắc "thu ít dữ liệu nhất": không có kho dữ liệu về trẻ nào để lộ. Đổi lại, restart backend giữa phiên thì phiên đó mất, trẻ chơi lại từ màn mới.
+- **Phiên chơi và bản nháp: chỉ trong RAM.** Phiên chơi và bản nháp chỉ sống trong lúc chơi. Kết phiên, `POST /api/session/end` trả bản nháp về luôn để màn hình người lớn hiện ngay trên máy đang chơi. Người lớn đọc, tự chép hoặc tải về nếu muốn giữ; server không giữ lại. Đổi lại, restart backend giữa phiên thì phiên đó mất, trẻ chơi lại từ màn mới.
+- **Tài khoản và bộ thẻ: SQLite** (quyết định 28/11, cho tính năng đăng nhập, nhánh `feature/auth`).
+  - Code ở `codebase/auth.py`. Một file `/var/lib/growsafe/growsafe.db` (đặt `GROWSAFE_DB=/var/lib/growsafe/growsafe.db` trong `.env` hoặc file systemd), nằm ngoài thư mục code để deploy không đụng tới. Chủ sở hữu là user `growsafe`, quyền `600`. Bật `PRAGMA journal_mode=WAL`. Máy dev dùng `data/runtime/growsafe.db` (đã có trong `.gitignore`).
+  - Chỉ lưu: tên đăng nhập, mật khẩu đã băm (`hashlib.scrypt`, salt riêng), phiên đăng nhập (chỉ lưu bản băm của token), mã các thẻ đã nhận. Không lưu câu trả lời của trẻ, giới tính, bản nháp. Không có email nên không có quên mật khẩu.
+  - Màn đăng ký nhắc không dùng tên thật làm tên đăng nhập. Chưa đăng nhập vẫn chơi được, chỉ không lưu thẻ.
+  - Vì sao không dùng Neon: một VPS, một tiến trình, dữ liệu rất nhỏ. SQLite không cần cài, không thêm mạng hay bên thứ ba giữ dữ liệu liên quan tới trẻ. Chuyển sang Postgres khi cần chạy nhiều server: mọi truy vấn gom trong một file `db.py` để đổi một chỗ.
 - **Secrets:** `.env` nằm ở `/opt/growsafe/.env`, chủ sở hữu là user `growsafe`, quyền `600`. Không commit, không chép vào ảnh chụp hay log. `.gitignore` đã chặn `.env`.
 - **Ba môi trường:**
 
@@ -71,7 +76,7 @@ Với app này, đổi prompt, đổi model hay sửa kho tình huống đều n
 6. **Cách deploy lên VPS:** merge vào `main` rồi gắn tag (vd `v0.3`). Trên VPS chạy một script `deploy.sh` cố định:
    `git fetch --tags` → `git checkout v0.3` → `pip install -r requirements.txt` → `systemctl restart growsafe` → gọi `/health`, không trả `ok` thì tự quay lại tag cũ.
    Có thể để GitHub Actions SSH vào chạy script này, dùng một SSH key riêng chỉ được chạy `deploy.sh`.
-7. **Rollback:** `deploy.sh <tag cũ>`. Vì không có DB nên quay lại tag cũ là đủ, không phải chuyển dữ liệu.
+7. **Rollback:** `deploy.sh <tag cũ>`. File SQLite nằm ngoài thư mục code nên không bị ghi đè. `deploy.sh` sao lưu file DB trước mỗi lần deploy. Đổi cấu trúc bảng thì chỉ thêm cột hoặc bảng, không xoá, để code của tag cũ vẫn đọc được.
 8. Deploy vào giờ ít người chơi, vì restart làm mất phiên đang chơi.
 
 ## 3. Bảo vệ production khi đang chạy
@@ -128,10 +133,11 @@ Với app này, đổi prompt, đổi model hay sửa kho tình huống đều n
 - **Khi đổi kho:** người duyệt nội dung đối chiếu lời dặn an toàn với nguồn của quy tắc trong `data/guidelines.json` (qua `guideline_codes` của màn). Trường `source` trong `data/scenarios.json` chỉ cho biết tình huống lấy từ đâu (11 màn: 3 từ phiếu khảo sát, 8 `tu_viet`).
 - **Trước pilot:** `data/guidelines.json` còn ghi chú nguồn chưa kiểm (UNESCO "chưa kiểm số mục và link") và một nguồn UNICEF "CHƯA TÌM ĐƯỢC tài liệu cụ thể". Phải kiểm xong hoặc bỏ quy tắc đó trước khi trẻ thật chơi.
 - **Gia hạn:** domain `canthansaulungkiabeiu.site` và VPS đều trả tiền theo kỳ. Ghi ngày hết hạn, bật tự gia hạn, giao một người theo dõi.
-- **Sao lưu:** không có DB nên chỉ cần lưu cấu hình dựng lại máy: file Nginx, file systemd, `deploy.sh`. Nên để các file này trong repo (vd thư mục `deploy/`). `.env` không vào repo; người giữ key cất trong trình quản lý mật khẩu của nhóm.
+- **Sao lưu DB:** cron mỗi đêm chạy `sqlite3 /var/lib/growsafe/growsafe.db ".backup /var/backups/growsafe/growsafe-$(date +%F).db"`, giữ 14 bản gần nhất, rồi chép ra ngoài VPS (vd máy của một thành viên hoặc kho lưu trữ có mã hoá). Mỗi tháng thử khôi phục một bản để chắc bản sao lưu dùng được. Không dùng `cp` trên file đang chạy.
+- **Sao lưu cấu hình:** lưu các file dựng lại máy: file Nginx, file systemd, `deploy.sh`. Nên để các file này trong repo (vd thư mục `deploy/`). `.env` không vào repo; người giữ key cất trong trình quản lý mật khẩu của nhóm.
 
 ## 6. Lộ trình
 
 1. **Demo hackathon (28/11):** VPS, Nginx, HTTPS cho `canthansaulungkiabeiu.site`, backend chạy bằng systemd, khoá SSH và tường lửa. Sửa ít nhất lỗi 1 và 3 ở mục 0 trước khi đưa link ra ngoài.
-2. **Pilot một lớp học:** sửa đủ 3 lỗi ở mục 0, trả bản nháp theo phiên rồi xoá khỏi RAM, dọn phiên cũ, giới hạn lượt gọi ở Nginx, staging có basic auth, eval trong CI, `deploy.sh` có tự rollback, bước phụ huynh đồng ý. Vẫn không dùng DB.
-3. **Mở rộng:** bỏ `_lock` (chuyển trace sang `contextvars` trong bản production, vì `tracing.py` của khung hackathon không được sửa), thêm lớp nhận diện xâm hại bằng model, rồi mới bật chế độ AI đóng vai. Chỉ cân nhắc VPS thứ hai hoặc DB khi một tiến trình không còn đủ tải, hay phụ huynh cần xem lại bản nháp trên máy khác.
+2. **Pilot một lớp học:** sửa đủ 3 lỗi ở mục 0, trả bản nháp theo phiên rồi xoá khỏi RAM, dọn phiên cũ, giới hạn lượt gọi ở Nginx, staging có basic auth, eval trong CI, `deploy.sh` có tự rollback, bước phụ huynh đồng ý. Đăng nhập lưu bộ thẻ bằng SQLite, có cron sao lưu.
+3. **Mở rộng:** bỏ `_lock` (chuyển trace sang `contextvars` trong bản production, vì `tracing.py` của khung hackathon không được sửa), thêm lớp nhận diện xâm hại bằng model, rồi mới bật chế độ AI đóng vai. Chỉ cân nhắc VPS thứ hai hoặc chuyển SQLite sang Postgres (vd Neon) khi một tiến trình không còn đủ tải.

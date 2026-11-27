@@ -4,12 +4,11 @@
     "age_group": "6-10",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "vung_rieng_tu",
-    "situation": "Bạn Na sang nhà chú hàng xóm chơi. Chú bảo Na ngồi lên đùi để xem vết muỗi đốt, rồi tay chú cứ đưa dần xuống dưới, chạm vào chỗ không ai được chạm vào. Nếu con là Na, con sẽ làm gì?",
+    "situation": "Chiều nay {ten} sang nhà chú Hải đá bóng với mấy bạn trong xóm. Đá xong các bạn về hết, chỉ còn mỗi {ten} ở lại. Chú Hải gọi {ten} lại, bảo ngồi lên đùi chú để xem vết muỗi đốt, rồi tay chú cứ đưa dần xuống dưới, chạm vào chỗ không ai được chạm vào. Cậu là {ten}, giờ làm gì đây?",
     "key_actions": [
       {
         "action": "A: nói KHÔNG",
@@ -24,7 +23,8 @@
           "đừng",
           "không nhận",
           "ko nhận"
-        ]
+        ],
+        "code": "A"
       },
       {
         "action": "B: rời đi, chạy về nhà",
@@ -36,7 +36,8 @@
           "tránh xa",
           "đi chỗ khác",
           "tránh ra"
-        ]
+        ],
+        "code": "B"
       },
       {
         "action": "C: kể với bố mẹ hoặc người lớn tin cậy",
@@ -53,13 +54,14 @@
           "người lớn",
           "cô giáo",
           "thầy cô"
-        ]
+        ],
+        "code": "C"
       }
     ],
     "source": "tu_viet",
     "tieu_de": "Chú hàng xóm",
-    "tinh_huong": "Bạn Na sang nhà chú hàng xóm chơi. Chú bảo Na ngồi lên đùi để xem vết muỗi đốt, rồi tay chú cứ đưa dần xuống dưới, chạm vào chỗ không ai được chạm vào.",
-    "cau_hoi": "Nếu con là Na, con sẽ làm gì?",
+    "tinh_huong": "Chiều nay {ten} sang nhà chú Hải đá bóng với mấy bạn trong xóm. Đá xong các bạn về hết, chỉ còn mỗi {ten} ở lại. Chú Hải gọi {ten} lại, bảo ngồi lên đùi chú để xem vết muỗi đốt, rồi tay chú cứ đưa dần xuống dưới, chạm vào chỗ không ai được chạm vào.",
+    "cau_hoi": "Cậu là {ten}, giờ làm gì đây?",
     "y_can_co": [
       "A: nói KHÔNG",
       "B: rời đi, chạy về nhà",
@@ -74,44 +76,32 @@
       "R04",
       "R09"
     ],
-    "choices": [
-      {
-        "id": "A",
-        "text": "Ngồi im vì sợ chú giận",
-        "correct": false,
-        "feedback": "Sợ chú giận là chuyện dễ hiểu. Nhưng chỗ đồ bơi che là của riêng con. Con nói KHÔNG, chạy về nhà và kể với mẹ nhé."
-      },
-      {
-        "id": "B",
-        "text": "Nói KHÔNG, chạy về nhà và kể với mẹ",
-        "correct": true,
-        "feedback": "Giỏi quá! Con nói KHÔNG, rời đi rồi kể với mẹ. Đủ cả ba bước luôn!"
-      },
-      {
-        "id": "C",
-        "text": "Để chú sờ rồi không kể với ai",
-        "correct": false,
-        "feedback": "Không ai được chạm vào chỗ đồ bơi che của con. Con nói KHÔNG, chạy đi và kể với bố mẹ. Con không có lỗi gì cả."
-      }
-    ],
-    "rule_card": "Chỗ đồ bơi che là của riêng con. Không ai được chạm vào.",
+    "rule_card": "Vùng đồ bơi che là của riêng cậu thôi, không ai được nhìn hay chạm vào đó cả.",
     "scene": {
       "bg": "bg_living_room",
-      "npc": "npc_man_friendly",
+      "npc": "npc_uncle_hai",
       "card": "body"
-    }
+    },
+    "location": "home",
+    "tier": 2,
+    "hints": [
+      "hint_A",
+      "hint_C",
+      "hint_feel"
+    ],
+    "duyet": true,
+    "voice": "scene_S6-01"
   },
   {
     "id": "S6-02",
     "age_group": "6-10",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "bi_mat",
-    "situation": "Một người quen cho Bin kẹo, rồi ôm Bin rất lâu. Người đó dặn: chuyện này là bí mật, không được kể với bố mẹ. Đây là bí mật tốt hay bí mật xấu? Bin nên làm gì?",
+    "situation": "Cô Lan hàng xóm cho {ten} một bịch kẹo to. Lúc ôm tạm biệt, tay cô cứ đưa dần lên gần đùi {ten}, càng lúc càng gần giữa hai chân, {ten} né ra mà cô vẫn kéo lại ôm tiếp. Cô cười, ghé tai dặn nhỏ: chuyện này của riêng hai cô cháu thôi, đừng kể với mẹ nhé. Đây là bí mật tốt hay bí mật xấu? {ten} làm gì bây giờ?",
     "key_actions": [
       {
         "action": "Nhận ra đây là bí mật xấu, không phải giữ",
@@ -121,7 +111,8 @@
           "ko giữ",
           "không phải giữ",
           "không cần giữ"
-        ]
+        ],
+        "code": "secret"
       },
       {
         "action": "C: kể với bố mẹ",
@@ -138,13 +129,14 @@
           "người lớn",
           "cô giáo",
           "thầy cô"
-        ]
+        ],
+        "code": "C"
       }
     ],
     "source": "tu_viet",
     "tieu_de": "Kẹo và bí mật",
-    "tinh_huong": "Một người quen cho Bin kẹo, rồi ôm Bin rất lâu. Người đó dặn: chuyện này là bí mật, không được kể với bố mẹ.",
-    "cau_hoi": "Đây là bí mật tốt hay bí mật xấu? Bin nên làm gì?",
+    "tinh_huong": "Cô Lan hàng xóm cho {ten} một bịch kẹo to. Lúc ôm tạm biệt, tay cô cứ đưa dần lên gần đùi {ten}, càng lúc càng gần giữa hai chân, {ten} né ra mà cô vẫn kéo lại ôm tiếp. Cô cười, ghé tai dặn nhỏ: chuyện này của riêng hai cô cháu thôi, đừng kể với mẹ nhé.",
+    "cau_hoi": "Đây là bí mật tốt hay bí mật xấu? {ten} làm gì bây giờ?",
     "y_can_co": [
       "Nhận ra đây là bí mật xấu",
       "C: kể với bố mẹ",
@@ -159,44 +151,31 @@
       "R04",
       "R09"
     ],
-    "choices": [
-      {
-        "id": "A",
-        "text": "Giữ bí mật vì đã nhận kẹo",
-        "correct": false,
-        "feedback": "Nhận kẹo rồi cũng không phải giữ bí mật xấu đâu. Bin kể với bố mẹ nhé."
-      },
-      {
-        "id": "B",
-        "text": "Đây là bí mật xấu, Bin kể với bố mẹ",
-        "correct": true,
-        "feedback": "Đúng rồi! Bí mật bắt giấu bố mẹ là bí mật xấu. Kể với bố mẹ là rất dũng cảm."
-      },
-      {
-        "id": "C",
-        "text": "Không kể vì sợ bị mắng",
-        "correct": false,
-        "feedback": "Bố mẹ sẽ không mắng con đâu. Con không có lỗi. Bí mật xấu thì con kể với bố mẹ nhé."
-      }
-    ],
-    "rule_card": "Bí mật làm con khó chịu là bí mật xấu. Con kể với bố mẹ.",
+    "rule_card": "Bí mật nào làm cậu thấy sợ hay khó chịu thì đó là bí mật xấu, cứ kể cho bố mẹ nghe.",
     "scene": {
       "bg": "bg_cafe_street",
       "npc": "npc_neighbor_secret",
       "card": "secret"
-    }
+    },
+    "location": "home",
+    "tier": 2,
+    "hints": [
+      "hint_secret",
+      "hint_C"
+    ],
+    "duyet": true,
+    "voice": "scene_S6-02"
   },
   {
     "id": "S6-03",
     "age_group": "6-10",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "nguoi_la",
-    "situation": "Một người con chưa gặp bao giờ đến gần và nói: Mẹ con bận, nhờ chú đón con về. Đi với chú nhé. Con sẽ làm gì?",
+    "situation": "{ten} đang trèo cầu trượt ở công viên thì có một chú đội mũ lưỡi trai lại gần. Chú bảo: mẹ con bận quá, nhờ chú qua đón con, đi với chú nhé. {ten} thì chưa gặp chú này bao giờ. Nếu là {ten} thì làm sao đây?",
     "key_actions": [
       {
         "action": "A: nói không đi theo",
@@ -207,7 +186,8 @@
           "ko theo",
           "từ chối",
           "không lên xe"
-        ]
+        ],
+        "code": "A"
       },
       {
         "action": "B: ở lại chỗ đông người",
@@ -218,7 +198,8 @@
           "đứng yên",
           "chạy vào",
           "bảo vệ"
-        ]
+        ],
+        "code": "B"
       },
       {
         "action": "C: tìm người lớn tin cậy hoặc gọi bố mẹ hỏi lại",
@@ -236,13 +217,14 @@
           "cô giáo",
           "thầy cô",
           "gọi"
-        ]
+        ],
+        "code": "C"
       }
     ],
     "source": "tu_viet",
     "tieu_de": "Người lạ ở cổng công viên",
-    "tinh_huong": "Một người con chưa gặp bao giờ đến gần và nói: Mẹ con bận, nhờ chú đón con về. Đi với chú nhé.",
-    "cau_hoi": "Con sẽ làm gì?",
+    "tinh_huong": "{ten} đang trèo cầu trượt ở công viên thì có một chú đội mũ lưỡi trai lại gần. Chú bảo: mẹ con bận quá, nhờ chú qua đón con, đi với chú nhé. {ten} thì chưa gặp chú này bao giờ.",
+    "cau_hoi": "Nếu là {ten} thì làm sao đây?",
     "y_can_co": [
       "A: nói không đi",
       "B: ở lại chỗ đông người, không lên xe",
@@ -256,44 +238,32 @@
       "R07",
       "R04"
     ],
-    "choices": [
-      {
-        "id": "A",
-        "text": "Đi theo vì chú biết tên mẹ",
-        "correct": false,
-        "feedback": "Người lạ biết tên mẹ vẫn là người lạ. Con nói không đi, ở chỗ đông người và gọi mẹ hỏi lại nhé."
-      },
-      {
-        "id": "B",
-        "text": "Không đi, ở chỗ đông người và gọi mẹ hỏi lại",
-        "correct": true,
-        "feedback": "Tuyệt vời! Con không đi theo, ở chỗ đông người và gọi mẹ để hỏi. Rất an toàn!"
-      },
-      {
-        "id": "C",
-        "text": "Nhận quà rồi đi theo chú",
-        "correct": false,
-        "feedback": "Quà không làm người lạ thành người quen. Con nói không đi và tìm người lớn tin cậy nhé."
-      }
-    ],
-    "rule_card": "Không đi theo người lạ, kể cả khi họ nói bố mẹ nhờ.",
+    "rule_card": "Người lạ nói mẹ nhờ đón cũng mặc kệ, cậu không đi đâu. Ở lại tìm cô giáo hay bác bảo vệ.",
     "scene": {
       "bg": "bg_park_bench",
       "npc": "npc_man_insistent",
       "card": "stranger"
-    }
+    },
+    "location": "park",
+    "tier": 1,
+    "hints": [
+      "hint_B",
+      "hint_A",
+      "hint_C"
+    ],
+    "duyet": true,
+    "voice": "scene_S6-03"
   },
   {
     "id": "S6-04",
     "age_group": "6-10",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "ranh_gioi_nguoi_than",
-    "situation": "Hôm đi ăn giỗ, bà muốn hôn má Su. Su không thích nên né đi. Có người nói: bà thương con mà. Su không thích thì Su có thể làm gì?",
+    "situation": "Hôm đi ăn giỗ, bà định thơm má {ten} một cái, {ten} không thích nên né sang bên. Có bác ngồi gần cười bảo: bà thương con mà, có gì đâu. {ten} không thích thì có làm gì được không?",
     "key_actions": [
       {
         "action": "A: được nói không, nói lịch sự",
@@ -303,7 +273,8 @@
           "ko thích",
           "từ chối",
           "né"
-        ]
+        ],
+        "code": "A"
       },
       {
         "action": "Chào bà bằng cách khác",
@@ -313,7 +284,8 @@
           "chào",
           "bắt tay",
           "ôm nhẹ"
-        ]
+        ],
+        "code": "other"
       },
       {
         "action": "C: nói với bố mẹ nếu bị ép",
@@ -330,13 +302,14 @@
           "người lớn",
           "cô giáo",
           "thầy cô"
-        ]
+        ],
+        "code": "C"
       }
     ],
     "source": "nguoi_dung: phiếu khảo sát 17",
     "tieu_de": "Bà muốn hôn má",
-    "tinh_huong": "Hôm đi ăn giỗ, bà muốn hôn má Su. Su không thích nên né đi. Có người nói: bà thương con mà.",
-    "cau_hoi": "Su không thích thì Su có thể làm gì?",
+    "tinh_huong": "Hôm đi ăn giỗ, bà định thơm má {ten} một cái, {ten} không thích nên né sang bên. Có bác ngồi gần cười bảo: bà thương con mà, có gì đâu.",
+    "cau_hoi": "{ten} không thích thì có làm gì được không?",
     "y_can_co": [
       "Su được nói không, nói lịch sự",
       "Chào bà bằng cách khác: vẫy tay, đập tay, ôm nhẹ nếu Su muốn",
@@ -350,44 +323,31 @@
       "R02"
     ],
     "ghi_chu_giong_dieu": "Không nói bà là người xấu. Đây là bài về quyền từ chối, không phải về xâm hại.",
-    "choices": [
-      {
-        "id": "A",
-        "text": "Cố chịu cho bà hôn dù không thích",
-        "correct": false,
-        "feedback": "Con thương bà, nhưng con vẫn được nói không. Con chào bà bằng cách khác, như vẫy tay hay đập tay nhé."
-      },
-      {
-        "id": "B",
-        "text": "Nói lịch sự: con chào bà bằng vẫy tay nhé",
-        "correct": true,
-        "feedback": "Hay quá! Con nói lịch sự và chọn cách chào con thích. Bà vẫn biết con thương bà."
-      },
-      {
-        "id": "C",
-        "text": "Im lặng vì nghĩ từ chối là hư",
-        "correct": false,
-        "feedback": "Từ chối lịch sự không phải là hư đâu. Con được chọn cách chào, và nói với bố mẹ nếu bị ép."
-      }
-    ],
-    "rule_card": "Cơ thể của con là của con. Con được chọn cách chào.",
+    "rule_card": "Không thích ôm hay thơm thì cậu cứ nói không, vẫy tay chào thay cũng được mà.",
     "scene": {
       "bg": "bg_living_room",
       "npc": "npc_grandma_warm",
       "card": "body"
-    }
+    },
+    "location": "grandma",
+    "tier": 2,
+    "hints": [
+      "hint_family",
+      "hint_A"
+    ],
+    "duyet": true,
+    "voice": "scene_S6-04"
   },
   {
     "id": "S6-05",
     "age_group": "6-10",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "vung_rieng_tu",
-    "situation": "Ở bể bơi, mấy bạn thay đồ luôn ở ngoài. Bố bảo Tôm vào buồng thay. Tôm hỏi: sao con phải vào buồng? Con giải thích giúp Tôm nhé: vì sao nên vào buồng thay đồ?",
+    "situation": "Ở bể bơi, mấy bạn cứ thay đồ luôn ngoài thành bể cho nhanh. Bố bảo {ten} vào buồng thay. {ten} hỏi lại: sao con phải vào buồng vậy bố? Cậu giải thích giúp {ten} xem, vì sao nên vào buồng thay đồ?",
     "key_actions": [
       {
         "action": "Vùng kín là của riêng mình, không để người khác nhìn",
@@ -399,13 +359,14 @@
           "không để",
           "chỗ đồ bơi",
           "đồ bơi che"
-        ]
+        ],
+        "code": "private"
       }
     ],
     "source": "nguoi_dung: phiếu khảo sát 10",
     "tieu_de": "Thay đồ ở bể bơi",
-    "tinh_huong": "Ở bể bơi, mấy bạn thay đồ luôn ở ngoài. Bố bảo Tôm vào buồng thay. Tôm hỏi: sao con phải vào buồng?",
-    "cau_hoi": "Con giải thích giúp Tôm nhé: vì sao nên vào buồng thay đồ?",
+    "tinh_huong": "Ở bể bơi, mấy bạn cứ thay đồ luôn ngoài thành bể cho nhanh. Bố bảo {ten} vào buồng thay. {ten} hỏi lại: sao con phải vào buồng vậy bố?",
+    "cau_hoi": "Cậu giải thích giúp {ten} xem, vì sao nên vào buồng thay đồ?",
     "y_can_co": [
       "Vùng kín là của riêng mình, không để người khác nhìn",
       "Dùng tên đúng: vùng kín, chỗ đồ bơi che",
@@ -419,44 +380,31 @@
       "R01",
       "R06"
     ],
-    "choices": [
-      {
-        "id": "A",
-        "text": "Vì vùng kín là của riêng mình, không để người khác nhìn",
-        "correct": true,
-        "feedback": "Đúng rồi! Vùng kín là của riêng mình, nên mình thay đồ ở chỗ kín đáo."
-      },
-      {
-        "id": "B",
-        "text": "Vì bạn nào thay ở ngoài là hư",
-        "correct": false,
-        "feedback": "Mình không chê các bạn khác nhé. Mình vào buồng vì vùng kín là của riêng mình."
-      },
-      {
-        "id": "C",
-        "text": "Thay ở ngoài cũng được vì ai cũng thế",
-        "correct": false,
-        "feedback": "Bạn khác làm thế, mình vẫn nên vào buồng. Vùng kín là của riêng mình, không để ai nhìn."
-      }
-    ],
-    "rule_card": "Vùng kín là của riêng con. Con thay đồ ở chỗ kín đáo.",
+    "rule_card": "Vùng đồ bơi che là của riêng cậu thôi, không ai được nhìn hay chạm vào đó cả.",
     "scene": {
       "bg": "bg_swimming_pool",
-      "npc": "",
+      "npc": "npc_dad",
       "card": "body"
-    }
+    },
+    "location": "pool",
+    "tier": 1,
+    "hints": [
+      "hint_feel",
+      "hint_C"
+    ],
+    "duyet": true,
+    "voice": "scene_S6-05"
   },
   {
     "id": "S6-06",
     "age_group": "6-10",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "nguoi_lon_tin_cay",
-    "situation": "Tan học, cô giáo đã về. Mít thấy một anh lớn cứ đi theo mình và hỏi nhà ở đâu. Mít thấy sợ. Lúc này Mít tìm ai được? Con kể tên hai người nhé.",
+    "situation": "Tan học rồi mà mẹ chưa tới đón, cô Hạnh cũng về mất rồi. {ten} đứng một mình thì có một anh lớn lạ hoắc cứ bám theo, hỏi nhà {ten} ở đâu. {ten} sợ quá. {ten} lúc này tìm ai được? Kể tên hai người xem.",
     "key_actions": [
       {
         "action": "Nêu được người lớn cụ thể để tìm",
@@ -469,7 +417,8 @@
           "y tế",
           "cô hiệu trưởng",
           "người quen"
-        ]
+        ],
+        "code": "who"
       },
       {
         "action": "B: đi tới chỗ đông người",
@@ -479,7 +428,8 @@
           "chạy vào",
           "vào trường",
           "phòng bảo vệ"
-        ]
+        ],
+        "code": "B"
       },
       {
         "action": "Không nói nhà ở đâu",
@@ -489,13 +439,14 @@
           "không trả lời",
           "ko trả lời",
           "không cho biết"
-        ]
+        ],
+        "code": "noaddr"
       }
     ],
     "source": "nguoi_dung: phiếu khảo sát 18",
     "tieu_de": "Tan học, cô về rồi",
-    "tinh_huong": "Tan học, cô giáo đã về. Mít thấy một anh lớn cứ đi theo mình và hỏi nhà ở đâu. Mít thấy sợ.",
-    "cau_hoi": "Lúc này Mít tìm ai được? Con kể tên hai người nhé.",
+    "tinh_huong": "Tan học rồi mà mẹ chưa tới đón, cô Hạnh cũng về mất rồi. {ten} đứng một mình thì có một anh lớn lạ hoắc cứ bám theo, hỏi nhà {ten} ở đâu. {ten} sợ quá.",
+    "cau_hoi": "{ten} lúc này tìm ai được? Kể tên hai người xem.",
     "y_can_co": [
       "Nêu được ít nhất 2 người lớn cụ thể (bác bảo vệ, cô ở phòng y tế, bố mẹ bạn…)",
       "B: đi tới chỗ đông người",
@@ -510,44 +461,31 @@
       "R04",
       "R07"
     ],
-    "choices": [
-      {
-        "id": "A",
-        "text": "Chạy tới bác bảo vệ, rồi gọi bố mẹ",
-        "correct": true,
-        "feedback": "Giỏi lắm! Bác bảo vệ và bố mẹ là người lớn tin cậy. Con không nói nhà mình ở đâu nhé."
-      },
-      {
-        "id": "B",
-        "text": "Nói cho anh ấy biết nhà mình ở đâu",
-        "correct": false,
-        "feedback": "Không nói nhà mình ở đâu với người lạ nhé. Con chạy tới bác bảo vệ, rồi gọi bố mẹ."
-      },
-      {
-        "id": "C",
-        "text": "Đứng một mình chờ ở chỗ vắng",
-        "correct": false,
-        "feedback": "Chỗ vắng không an toàn đâu. Con tới chỗ đông người và tìm bác bảo vệ nhé."
-      }
-    ],
-    "rule_card": "Con nhớ sẵn vài người lớn tin cậy để tìm khi cần.",
+    "rule_card": "Cậu nghĩ sẵn trong đầu hai người lớn mình tìm được nhé. Người này chưa giúp thì mình kể người khác.",
     "scene": {
       "bg": "bg_school_gate",
       "npc": "npc_trusted_guard",
       "card": "stranger"
-    }
+    },
+    "location": "school",
+    "tier": 3,
+    "hints": [
+      "hint_who2",
+      "hint_B"
+    ],
+    "duyet": true,
+    "voice": "scene_S6-06"
   },
   {
     "id": "S11-01",
     "age_group": "11-15",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "an_toan_mang",
-    "situation": "Một tài khoản em quen trong game online nhắn xin ảnh em mặc đồ lót, hứa đổi lại sẽ cho em vật phẩm hiếm. Em sẽ làm gì?",
+    "situation": "Khoa, tài khoản {ten} hay chơi chung đội trong game, nhắn riêng: gửi tao tấm ảnh mày mặc đồ lót đi, tao tặng cái skin hiếm cho. Là {ten} thì làm gì?",
     "key_actions": [
       {
         "action": "A: không gửi",
@@ -555,7 +493,8 @@
           "không gửi",
           "ko gửi",
           "từ chối"
-        ]
+        ],
+        "code": "A"
       },
       {
         "action": "B: chặn tài khoản",
@@ -566,7 +505,8 @@
           "report",
           "hủy kết bạn",
           "xóa kết bạn"
-        ]
+        ],
+        "code": "B"
       },
       {
         "action": "Chụp màn hình giữ bằng chứng",
@@ -575,7 +515,8 @@
           "screenshot",
           "lưu lại",
           "bằng chứng"
-        ]
+        ],
+        "code": "proof"
       },
       {
         "action": "C: kể với người lớn tin cậy",
@@ -592,13 +533,14 @@
           "người lớn",
           "cô giáo",
           "thầy cô"
-        ]
+        ],
+        "code": "C"
       }
     ],
     "source": "tu_viet",
     "tieu_de": "Vật phẩm trong game",
-    "tinh_huong": "Một tài khoản em quen trong game online nhắn xin ảnh em mặc đồ lót, hứa đổi lại sẽ cho em vật phẩm hiếm.",
-    "cau_hoi": "Em sẽ làm gì?",
+    "tinh_huong": "Khoa, tài khoản {ten} hay chơi chung đội trong game, nhắn riêng: gửi tao tấm ảnh mày mặc đồ lót đi, tao tặng cái skin hiếm cho.",
+    "cau_hoi": "Là {ten} thì làm gì?",
     "y_can_co": [
       "A: không gửi",
       "B: chặn tài khoản",
@@ -614,44 +556,34 @@
       "R04",
       "R09"
     ],
-    "choices": [
-      {
-        "id": "A",
-        "text": "Gửi vì chẳng ai biết đâu",
-        "correct": false,
-        "feedback": "Ảnh đã gửi thì không lấy lại được. Em không gửi, chặn tài khoản, chụp màn hình và kể với người lớn tin cậy."
-      },
-      {
-        "id": "B",
-        "text": "Không gửi, chặn, chụp màn hình và kể với người lớn",
-        "correct": true,
-        "feedback": "Chuẩn luôn! Không gửi, chặn, giữ bằng chứng và kể với người lớn. Đủ cả bốn việc."
-      },
-      {
-        "id": "C",
-        "text": "Chặn rồi thôi, không kể với ai",
-        "correct": false,
-        "feedback": "Chặn là đúng rồi. Em chụp màn hình giữ bằng chứng và kể thêm với người lớn tin cậy nhé."
-      }
-    ],
-    "rule_card": "Không gửi ảnh riêng tư. Chặn, giữ bằng chứng, kể với người lớn.",
+    "rule_card": "Đừng gửi ảnh riêng tư cho bất kỳ ai. Chặn, chụp màn hình giữ lại làm bằng chứng, rồi kể cho người lớn bạn tin.",
     "scene": {
       "bg": "bg_teen_desk",
       "npc": "npc_online_avatar",
       "card": "online"
-    }
+    },
+    "location": "game",
+    "tier": 1,
+    "hints": [
+      "hint_A",
+      "hint_proof",
+      "hint_C"
+    ],
+    "duyet": true,
+    "chain": "khoa",
+    "chain_step": 2,
+    "voice": "scene_S11-01"
   },
   {
     "id": "S11-02",
     "age_group": "11-15",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "an_toan_mang",
-    "situation": "Em nói chuyện với một người qua mạng đã 3 tháng. Người đó rủ em ra quán gặp riêng và dặn đừng nói với ai. Điều gì ở lời rủ này đáng lo? Em sẽ làm gì?",
+    "situation": "{ten} nhắn tin qua lại với Khoa được ba tháng rồi. Hôm nay Khoa rủ ra quán trà sữa gần trường gặp trực tiếp, dặn đi một mình thôi, đừng nói cho ai biết. Lời rủ này có chỗ nào đáng lo không? {ten} làm gì?",
     "key_actions": [
       {
         "action": "Nhận ra lời dặn giữ bí mật là dấu hiệu nguy hiểm",
@@ -661,7 +593,8 @@
           "nguy hiểm",
           "đáng lo",
           "đừng nói"
-        ]
+        ],
+        "code": "secret"
       },
       {
         "action": "Không đi gặp một mình",
@@ -671,7 +604,8 @@
           "không gặp",
           "ko gặp",
           "từ chối"
-        ]
+        ],
+        "code": "B"
       },
       {
         "action": "C: kể với bố mẹ",
@@ -688,13 +622,14 @@
           "người lớn",
           "cô giáo",
           "thầy cô"
-        ]
+        ],
+        "code": "C"
       }
     ],
     "source": "tu_viet",
     "tieu_de": "Hẹn gặp người quen qua mạng",
-    "tinh_huong": "Em nói chuyện với một người qua mạng đã 3 tháng. Người đó rủ em ra quán gặp riêng và dặn đừng nói với ai.",
-    "cau_hoi": "Điều gì ở lời rủ này đáng lo? Em sẽ làm gì?",
+    "tinh_huong": "{ten} nhắn tin qua lại với Khoa được ba tháng rồi. Hôm nay Khoa rủ ra quán trà sữa gần trường gặp trực tiếp, dặn đi một mình thôi, đừng nói cho ai biết.",
+    "cau_hoi": "Lời rủ này có chỗ nào đáng lo không? {ten} làm gì?",
     "y_can_co": [
       "Nhận ra lời dặn giữ bí mật là dấu hiệu nguy hiểm",
       "Không đi gặp một mình",
@@ -709,44 +644,33 @@
       "R03",
       "R04"
     ],
-    "choices": [
-      {
-        "id": "A",
-        "text": "Đi gặp vì người đó có vẻ tốt",
-        "correct": false,
-        "feedback": "Người quen qua mạng có thể không như em nghĩ. Lời dặn đừng nói với ai là dấu hiệu đáng lo. Em kể với bố mẹ nhé."
-      },
-      {
-        "id": "B",
-        "text": "Rủ thêm bạn cùng tuổi đi là đủ an toàn",
-        "correct": false,
-        "feedback": "Đi cùng bạn cùng tuổi vẫn chưa đủ an toàn. Em không đi gặp riêng và kể với bố mẹ nhé."
-      },
-      {
-        "id": "C",
-        "text": "Lời dặn giữ bí mật là dấu hiệu đáng lo. Em không đi và kể với bố mẹ",
-        "correct": true,
-        "feedback": "Rất tỉnh táo! Lời dặn giữ bí mật là dấu hiệu nguy hiểm. Không đi và kể với bố mẹ là đúng."
-      }
-    ],
-    "rule_card": "Không gặp riêng người chỉ quen qua mạng.",
+    "rule_card": "Đừng gặp riêng người chỉ quen qua mạng. Càng bị dặn giữ bí mật thì càng phải kể cho bố mẹ.",
     "scene": {
       "bg": "bg_cafe_street",
       "npc": "npc_online_avatar",
       "card": "online"
-    }
+    },
+    "location": "chat",
+    "tier": 2,
+    "hints": [
+      "hint_secret",
+      "hint_C"
+    ],
+    "duyet": true,
+    "chain": "khoa",
+    "chain_step": 3,
+    "voice": "scene_S11-02"
   },
   {
     "id": "S11-03",
     "age_group": "11-15",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "an_toan_mang",
-    "situation": "Bạn em đang thích nhắn đòi em gửi một tấm ảnh nhạy cảm và nói: nếu thương thì phải gửi. Em có thể trả lời thế nào?",
+    "situation": "Một bạn cùng lớp mà {ten} đang thích cứ nhắn đòi {ten} gửi một tấm ảnh nhạy cảm, còn thêm câu: thương thì phải gửi chứ. {ten} trả lời sao đây?",
     "key_actions": [
       {
         "action": "A: từ chối, không gửi",
@@ -755,7 +679,8 @@
           "ko gửi",
           "từ chối",
           "nói không"
-        ]
+        ],
+        "code": "A"
       },
       {
         "action": "Hiểu ảnh gửi đi có thể bị phát tán",
@@ -765,7 +690,8 @@
           "lộ",
           "chia sẻ",
           "không lấy lại"
-        ]
+        ],
+        "code": "other"
       },
       {
         "action": "C: kể với người lớn tin cậy nếu bị ép tiếp",
@@ -782,13 +708,14 @@
           "người lớn",
           "cô giáo",
           "thầy cô"
-        ]
+        ],
+        "code": "C"
       }
     ],
     "source": "tu_viet",
     "tieu_de": "Nếu thương thì gửi đi",
-    "tinh_huong": "Bạn em đang thích nhắn đòi em gửi một tấm ảnh nhạy cảm và nói: nếu thương thì phải gửi.",
-    "cau_hoi": "Em có thể trả lời thế nào?",
+    "tinh_huong": "Một bạn cùng lớp mà {ten} đang thích cứ nhắn đòi {ten} gửi một tấm ảnh nhạy cảm, còn thêm câu: thương thì phải gửi chứ.",
+    "cau_hoi": "{ten} trả lời sao đây?",
     "y_can_co": [
       "A: từ chối, không cần giải thích",
       "Hiểu ảnh gửi đi có thể bị phát tán",
@@ -804,44 +731,31 @@
       "R02"
     ],
     "ghi_chu_giong_dieu": "Không phán xét chuyện em thích ai.",
-    "choices": [
-      {
-        "id": "A",
-        "text": "Gửi một tấm thôi vì sợ mất lòng",
-        "correct": false,
-        "feedback": "Ảnh đã gửi có thể bị phát tán. Em có quyền từ chối, không cần giải thích. Bị ép tiếp thì em kể với người lớn tin cậy."
-      },
-      {
-        "id": "B",
-        "text": "Em không gửi. Thương thật thì không ép",
-        "correct": true,
-        "feedback": "Đúng vậy! Em có quyền nói không. Người thương em sẽ không ép em gửi ảnh."
-      },
-      {
-        "id": "C",
-        "text": "Gửi rồi bảo bạn xoá sau",
-        "correct": false,
-        "feedback": "Ảnh đã gửi thì em không kiểm soát được nữa. Em cứ từ chối, và kể với người lớn nếu bị ép tiếp."
-      }
-    ],
-    "rule_card": "Em có quyền từ chối gửi ảnh, kể cả với người em thích.",
+    "rule_card": "Thích ai cũng không có nghĩa là phải gửi ảnh nhạy cảm. Ảnh gửi đi rồi là không lấy lại được nữa đâu.",
     "scene": {
       "bg": "bg_teen_desk",
       "npc": "npc_online_avatar",
       "card": "online"
-    }
+    },
+    "location": "chat",
+    "tier": 3,
+    "hints": [
+      "hint_A",
+      "hint_feel"
+    ],
+    "duyet": true,
+    "voice": "scene_S11-03"
   },
   {
     "id": "S11-04",
     "age_group": "11-15",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "ranh_gioi_nguoi_than",
-    "situation": "Mỗi lần gặp, một người họ hàng lớn tuổi hay đòi ôm em rất lâu và chạm vào người em, làm em thấy khó chịu. Người lớn trong nhà bảo: người nhà cả mà. Quy tắc về cơ thể có áp dụng với người thân không? Em sẽ làm gì?",
+    "situation": "Lần nào qua chơi, chú Toàn cũng ôm {ten} thật lâu, tay cứ chạm vào người làm {ten} khó chịu. Người lớn trong nhà thấy vậy chỉ cười: người nhà cả mà, có gì đâu. Quy tắc về cơ thể có áp dụng với người thân không? {ten} nên làm gì?",
     "key_actions": [
       {
         "action": "Quy tắc áp dụng cả với người thân",
@@ -852,7 +766,8 @@
           "kể cả",
           "vẫn áp dụng",
           "có áp dụng"
-        ]
+        ],
+        "code": "family"
       },
       {
         "action": "A: nói không hoặc lùi ra",
@@ -862,7 +777,8 @@
           "lùi",
           "tránh",
           "né"
-        ]
+        ],
+        "code": "A"
       },
       {
         "action": "C: kể với một người lớn tin cậy khác",
@@ -879,13 +795,14 @@
           "người lớn",
           "cô giáo",
           "thầy cô"
-        ]
+        ],
+        "code": "C"
       }
     ],
     "source": "tu_viet",
     "tieu_de": "Người họ hàng hay ôm lâu",
-    "tinh_huong": "Mỗi lần gặp, một người họ hàng lớn tuổi hay đòi ôm em rất lâu và chạm vào người em, làm em thấy khó chịu. Người lớn trong nhà bảo: người nhà cả mà.",
-    "cau_hoi": "Quy tắc về cơ thể có áp dụng với người thân không? Em sẽ làm gì?",
+    "tinh_huong": "Lần nào qua chơi, chú Toàn cũng ôm {ten} thật lâu, tay cứ chạm vào người làm {ten} khó chịu. Người lớn trong nhà thấy vậy chỉ cười: người nhà cả mà, có gì đâu.",
+    "cau_hoi": "Quy tắc về cơ thể có áp dụng với người thân không? {ten} nên làm gì?",
     "y_can_co": [
       "Quy tắc áp dụng với cả người thân",
       "A: nói không hoặc lùi ra",
@@ -901,44 +818,31 @@
       "R04",
       "R09"
     ],
-    "choices": [
-      {
-        "id": "A",
-        "text": "Người nhà thì phải chịu thôi",
-        "correct": false,
-        "feedback": "Quy tắc về cơ thể áp dụng với cả người thân. Em được lùi ra, nói không, và kể với một người lớn tin cậy."
-      },
-      {
-        "id": "B",
-        "text": "Lùi ra, nói không và kể với người lớn tin cậy khác",
-        "correct": true,
-        "feedback": "Rất đúng! Em được nói không với cả người thân. Nếu người đầu không tin, em kể tiếp với người khác."
-      },
-      {
-        "id": "C",
-        "text": "Im lặng vì sợ mất lòng cả nhà",
-        "correct": false,
-        "feedback": "Em không có lỗi khi thấy khó chịu. Em kể với một người lớn tin cậy, người đầu không tin thì kể tiếp nhé."
-      }
-    ],
-    "rule_card": "Quy tắc về cơ thể áp dụng với cả người thân.",
+    "rule_card": "Bạn có quyền từ chối cái chạm làm mình khó chịu, kể cả từ người thân. Ai thật lòng tôn trọng bạn sẽ dừng lại ngay.",
     "scene": {
       "bg": "bg_living_room",
       "npc": "npc_man_friendly",
       "card": "body"
-    }
+    },
+    "location": "family",
+    "tier": 4,
+    "hints": [
+      "hint_family",
+      "hint_who2"
+    ],
+    "duyet": true,
+    "voice": "scene_S11-04"
   },
   {
     "id": "S11-05",
     "age_group": "11-15",
     "genders": [
       "nam",
-      "nu",
-      "khong_noi"
+      "nu"
     ],
     "type": "mot_cau",
     "topic": "an_toan_mang",
-    "situation": "Có người gửi vào nhóm chat lớp một ảnh chụp lén một bạn đang thay đồ. Mấy bạn khác thả cười và chia sẻ tiếp. Em sẽ làm gì?",
+    "situation": "Có người gửi vào nhóm chat lớp 8B một tấm ảnh chụp lén một bạn đang thay đồ. Mấy đứa khác thả haha, share tiếp ầm ầm. Là {ten} thì làm gì?",
     "key_actions": [
       {
         "action": "Không chia sẻ tiếp, không thả cười",
@@ -949,7 +853,8 @@
           "không gửi tiếp",
           "xóa",
           "không thả"
-        ]
+        ],
+        "code": "other"
       },
       {
         "action": "C: báo với thầy cô hoặc bố mẹ",
@@ -966,7 +871,8 @@
           "người lớn",
           "cô giáo",
           "thầy cô"
-        ]
+        ],
+        "code": "C"
       },
       {
         "action": "Hỏi thăm, bênh bạn bị chụp",
@@ -976,13 +882,14 @@
           "an ủi",
           "giúp bạn",
           "nhắn riêng"
-        ]
+        ],
+        "code": "friend"
       }
     ],
     "source": "tu_viet",
     "tieu_de": "Ảnh chụp lén trong nhóm chat lớp",
-    "tinh_huong": "Có người gửi vào nhóm chat lớp một ảnh chụp lén một bạn đang thay đồ. Mấy bạn khác thả cười và chia sẻ tiếp.",
-    "cau_hoi": "Em sẽ làm gì?",
+    "tinh_huong": "Có người gửi vào nhóm chat lớp 8B một tấm ảnh chụp lén một bạn đang thay đồ. Mấy đứa khác thả haha, share tiếp ầm ầm.",
+    "cau_hoi": "Là {ten} thì làm gì?",
     "y_can_co": [
       "Không chia sẻ tiếp, không thả cười",
       "Báo với thầy cô hoặc bố mẹ",
@@ -997,31 +904,847 @@
       "R01",
       "R09"
     ],
-    "choices": [
-      {
-        "id": "A",
-        "text": "Thả cười cho giống mọi người",
-        "correct": false,
-        "feedback": "Thả cười làm bạn bị chụp buồn hơn. Em không chia sẻ, báo thầy cô và hỏi thăm bạn nhé."
-      },
-      {
-        "id": "B",
-        "text": "Im lặng vì không phải chuyện của mình",
-        "correct": false,
-        "feedback": "Em không chia sẻ là tốt rồi. Em báo thêm thầy cô hoặc bố mẹ, và hỏi thăm bạn bị chụp nhé."
-      },
-      {
-        "id": "C",
-        "text": "Không chia sẻ, báo thầy cô và hỏi thăm bạn bị chụp",
-        "correct": true,
-        "feedback": "Tuyệt vời! Em không chia sẻ, báo thầy cô và bênh bạn. Đó là người bạn tốt."
-      }
-    ],
     "rule_card": "Không chia sẻ ảnh chụp lén. Báo thầy cô và bênh bạn.",
     "scene": {
       "bg": "bg_school_hallway",
       "npc": "npc_teacher_friendly",
       "card": "online"
-    }
+    },
+    "location": "classgroup",
+    "tier": 2,
+    "hints": [
+      "hint_friend",
+      "hint_C"
+    ],
+    "duyet": true,
+    "voice": "scene_S11-05"
+  },
+  {
+    "id": "H6-01",
+    "age_group": "6-10",
+    "genders": [
+      "nam",
+      "nu"
+    ],
+    "type": "hoi_thoai",
+    "topic": "nguoi_la",
+    "tieu_de": "Chú ở cổng trường",
+    "location": "school",
+    "tier": 3,
+    "duyet": false,
+    "tinh_huong": "Tan học, {ten} đứng chờ mẹ ở cổng trường. Một chú lạ cầm mũ bảo hiểm đi tới, gọi đúng tên {ten}.",
+    "cau_hoi": "Cậu nói gì với chú ấy giúp {ten} nhé.",
+    "persona": "người đàn ông trung niên tự nhận quen mẹ, mặc áo khoác như shipper, đứng ở cổng trường",
+    "speaker": {
+      "label": "Người lạ trong trò chơi",
+      "role": "nguoi_la",
+      "npc": "npc_man_insistent"
+    },
+    "allowed_tactics": [
+      "gia_quen_bo_me",
+      "noi_me_gap_chuyen",
+      "giuc_gap"
+    ],
+    "max_turns": 3,
+    "dialogue": [
+      {
+        "turn": 1,
+        "tactics": [
+          "gia_quen_bo_me",
+          "noi_me_gap_chuyen"
+        ],
+        "lines": [
+          "Cháu là con mẹ Hương đúng không? Mẹ cháu đang ở viện với bà, nhờ chú qua đón. Lên xe nhanh đi, chú chở về.",
+          "Mẹ cháu nhờ chú đón đấy. Mẹ đang ở bệnh viện, đi với chú nào."
+        ]
+      },
+      {
+        "turn": 2,
+        "next": {
+          "luong_lu": {
+            "tactics": [
+              "giuc_gap"
+            ],
+            "lines": [
+              "Nhanh lên cháu, mẹ đang chờ ở bệnh viện đấy.",
+              "Không kịp đâu, đi luôn đi cháu, mẹ đang đợi."
+            ]
+          },
+          "tu_choi": "KET_THANG",
+          "dong_y": "KET_GIANG_LAI"
+        }
+      },
+      {
+        "turn": 3,
+        "next": {
+          "luong_lu": {
+            "tactics": [
+              "gia_quen_bo_me"
+            ],
+            "lines": [
+              "Chú quen mẹ cháu lâu rồi mà, đi thôi.",
+              "Chú với mẹ cháu làm cùng chỗ đấy, cháu không nhớ chú à?"
+            ]
+          },
+          "tu_choi": "KET_THANG",
+          "dong_y": "KET_GIANG_LAI"
+        }
+      }
+    ],
+    "key_actions": [
+      {
+        "action": "A: nói không đi theo",
+        "code": "A",
+        "keywords": [
+          "nói không",
+          "nói ko",
+          "từ chối",
+          "không cho",
+          "ko cho",
+          "không chịu",
+          "không đồng ý",
+          "không nhận",
+          "ko nhận",
+          "không đi",
+          "ko đi",
+          "không gửi",
+          "ko gửi",
+          "đừng làm",
+          "dừng lại",
+          "không thích"
+        ]
+      },
+      {
+        "action": "B: ở lại trong trường, chỗ đông người",
+        "code": "B",
+        "keywords": [
+          "chạy",
+          "về nhà",
+          "bỏ đi",
+          "rời",
+          "tránh xa",
+          "đi chỗ khác",
+          "tránh ra",
+          "chỗ đông",
+          "chặn",
+          "block",
+          "thoát",
+          "ở lại",
+          "trong trường"
+        ]
+      },
+      {
+        "action": "C: tìm cô Hạnh, bác Tâm hoặc gọi mẹ hỏi lại",
+        "code": "C",
+        "keywords": [
+          "kể",
+          "nói với mẹ",
+          "nói với bố",
+          "nói với ba",
+          "nói với cô",
+          "nói với thầy",
+          "báo",
+          "mách",
+          "bố mẹ",
+          "ba mẹ",
+          "người lớn",
+          "cô giáo",
+          "thầy cô",
+          "gọi mẹ",
+          "gọi bố",
+          "111",
+          "bác bảo vệ",
+          "bác tâm",
+          "cô hạnh"
+        ]
+      }
+    ],
+    "rule_ids": [
+      "R07",
+      "R04",
+      "R05"
+    ],
+    "rule_card": "Người lạ nói mẹ nhờ đón cũng không đi. Ở lại, gọi mẹ hỏi lại.",
+    "hints": [
+      "hint_A",
+      "hint_who2",
+      "hint_C"
+    ],
+    "scene": {
+      "bg": "bg_school_gate",
+      "npc": "npc_man_insistent",
+      "card": "stranger"
+    },
+    "source": "tu_viet",
+    "voice": "",
+    "ghi_chu": "Bản nháp do Claude soạn theo docs/game-flow.md (màn hội thoại) và câu mẫu đã nghe thử ở kich-ban-giong-doc.md mục 8. Chờ Diệp duyệt.",
+    "situation": "Tan học, {ten} đứng chờ mẹ ở cổng trường. Một chú lạ cầm mũ bảo hiểm đi tới, gọi đúng tên {ten}. Cậu nói gì với chú ấy giúp {ten} nhé.",
+    "y_can_co": [
+      "A: nói không đi theo",
+      "B: ở lại trong trường, chỗ đông người",
+      "C: tìm cô Hạnh, bác Tâm hoặc gọi mẹ hỏi lại"
+    ]
+  },
+  {
+    "id": "H6-02",
+    "age_group": "6-10",
+    "genders": [
+      "nam",
+      "nu"
+    ],
+    "type": "hoi_thoai",
+    "topic": "bi_mat",
+    "tieu_de": "Kẹo của cô Lan",
+    "location": "home",
+    "tier": 2,
+    "duyet": false,
+    "tinh_huong": "{ten} đi ngang nhà cô Lan. Cô Lan gọi {ten} vào, dúi cho một bịch kẹo to.",
+    "cau_hoi": "Cậu trả lời cô Lan giúp {ten} nhé.",
+    "persona": "cô Lan, hàng xóm quen mặt, hay cho quà, nói ngọt",
+    "speaker": {
+      "label": "Cô Lan trong trò chơi",
+      "role": "co_lan",
+      "npc": "npc_neighbor_secret"
+    },
+    "allowed_tactics": [
+      "cho_qua",
+      "dan_bi_mat"
+    ],
+    "max_turns": 3,
+    "dialogue": [
+      {
+        "turn": 1,
+        "tactics": [
+          "cho_qua",
+          "dan_bi_mat"
+        ],
+        "lines": [
+          "Kẹo cô cho đó, cầm lấy đi. Chuyện cô ôm con lúc nãy, mình giữ riêng hai cô cháu thôi nhé, đừng kể mẹ.",
+          "Cô cho con cả bịch này. Nhưng mình có bí mật riêng nhé, đừng kể với mẹ."
+        ]
+      },
+      {
+        "turn": 2,
+        "next": {
+          "luong_lu": {
+            "tactics": [
+              "dan_bi_mat"
+            ],
+            "lines": [
+              "Bí mật của hai cô cháu thôi mà, kể ra mẹ lại không cho sang chơi đâu.",
+              "Ngoan nào, đừng kể ai nhé, lần sau cô cho nhiều hơn."
+            ]
+          },
+          "tu_choi": "KET_THANG",
+          "dong_y": "KET_GIANG_LAI"
+        }
+      },
+      {
+        "turn": 3,
+        "next": {
+          "luong_lu": {
+            "tactics": [
+              "cho_qua"
+            ],
+            "lines": [
+              "Thôi cầm kẹo đi, cô thương con nhất xóm đấy.",
+              "Cô còn có quà khác nữa, chỉ cần con giữ bí mật thôi."
+            ]
+          },
+          "tu_choi": "KET_THANG",
+          "dong_y": "KET_GIANG_LAI"
+        }
+      }
+    ],
+    "key_actions": [
+      {
+        "action": "Nhận ra đây là bí mật xấu, không phải giữ",
+        "code": "secret",
+        "keywords": [
+          "bí mật xấu",
+          "không giữ",
+          "ko giữ",
+          "không giấu",
+          "không được giấu"
+        ]
+      },
+      {
+        "action": "A: không nhận quà kèm lời dặn giấu",
+        "code": "A",
+        "keywords": [
+          "nói không",
+          "nói ko",
+          "từ chối",
+          "không cho",
+          "ko cho",
+          "không chịu",
+          "không đồng ý",
+          "không nhận",
+          "ko nhận",
+          "không đi",
+          "ko đi",
+          "không gửi",
+          "ko gửi",
+          "đừng làm",
+          "dừng lại",
+          "không thích"
+        ]
+      },
+      {
+        "action": "C: kể với mẹ hoặc bố",
+        "code": "C",
+        "keywords": [
+          "kể",
+          "nói với mẹ",
+          "nói với bố",
+          "nói với ba",
+          "nói với cô",
+          "nói với thầy",
+          "báo",
+          "mách",
+          "bố mẹ",
+          "ba mẹ",
+          "người lớn",
+          "cô giáo",
+          "thầy cô",
+          "gọi mẹ",
+          "gọi bố",
+          "111"
+        ]
+      }
+    ],
+    "rule_ids": [
+      "R03",
+      "R09",
+      "R04"
+    ],
+    "rule_card": "Bí mật làm cậu sợ hay khó chịu là bí mật xấu. Kể với bố mẹ.",
+    "hints": [
+      "hint_secret",
+      "hint_C"
+    ],
+    "scene": {
+      "bg": "bg_cafe_street",
+      "npc": "npc_neighbor_secret",
+      "card": "secret"
+    },
+    "source": "tu_viet",
+    "voice": "",
+    "ghi_chu": "Bản nháp do Claude soạn, dựa trên S6-02 và câu mẫu co_lan đã nghe thử. Chờ Diệp duyệt.",
+    "situation": "{ten} đi ngang nhà cô Lan. Cô Lan gọi {ten} vào, dúi cho một bịch kẹo to. Cậu trả lời cô Lan giúp {ten} nhé.",
+    "y_can_co": [
+      "Nhận ra đây là bí mật xấu, không phải giữ",
+      "A: không nhận quà kèm lời dặn giấu",
+      "C: kể với mẹ hoặc bố"
+    ]
+  },
+  {
+    "id": "H11-01",
+    "age_group": "11-15",
+    "genders": [
+      "nam",
+      "nu"
+    ],
+    "type": "hoi_thoai",
+    "topic": "an_toan_mang",
+    "tieu_de": "Khoa trong đội game",
+    "location": "game",
+    "tier": 1,
+    "duyet": false,
+    "chain": "khoa",
+    "chain_step": 1,
+    "tinh_huong": "Tối nay {ten} vừa thắng một trận với đội. Khoa, tài khoản khoa_lv99 hay chơi cùng đội, nhắn riêng cho {ten}.",
+    "cau_hoi": "Bạn nhắn lại Khoa giúp {ten} nhé.",
+    "persona": "Khoa, tài khoản quen trong game, nói kiểu game thủ tuổi teen, xưng tao mày",
+    "speaker": {
+      "label": "Khoa trong trò chơi",
+      "role": "khoa",
+      "npc": "npc_online_avatar"
+    },
+    "allowed_tactics": [
+      "hua_vat_pham",
+      "dan_bi_mat"
+    ],
+    "max_turns": 3,
+    "dialogue": [
+      {
+        "turn": 1,
+        "tactics": [
+          "hua_vat_pham",
+          "dan_bi_mat"
+        ],
+        "lines": [
+          "Ê, hôm qua leo rank đỉnh ghê! Tặng mày cái skin xịn nè. Nhắn riêng qua đây đi, đừng kể bố mẹ, người lớn không hiểu mấy chuyện này đâu.",
+          "Đánh hay ghê. Tao có skin hiếm tặng mày, mà chuyện này giữ riêng hai đứa thôi nhé, đừng kể ai."
+        ]
+      },
+      {
+        "turn": 2,
+        "next": {
+          "luong_lu": {
+            "tactics": [
+              "dan_bi_mat"
+            ],
+            "lines": [
+              "Có gì đâu, tao chỉ muốn nói chuyện riêng thôi. Đừng nói ai nha.",
+              "Bố mẹ mày biết lại cấm chơi game đấy, cứ giữ riêng đi."
+            ]
+          },
+          "tu_choi": "KET_THANG",
+          "dong_y": "KET_GIANG_LAI"
+        }
+      },
+      {
+        "turn": 3,
+        "next": {
+          "luong_lu": {
+            "tactics": [
+              "hua_vat_pham"
+            ],
+            "lines": [
+              "Thôi mà, tao tặng thêm cả gói kim cương nữa.",
+              "Nhận skin đi rồi tính, tao còn nhiều đồ xịn lắm."
+            ]
+          },
+          "tu_choi": "KET_THANG",
+          "dong_y": "KET_GIANG_LAI"
+        }
+      }
+    ],
+    "key_actions": [
+      {
+        "action": "Nhận ra lời dặn giữ bí mật là dấu hiệu nguy hiểm",
+        "code": "secret",
+        "keywords": [
+          "bí mật",
+          "đáng ngờ",
+          "lạ",
+          "nguy hiểm",
+          "không giữ"
+        ]
+      },
+      {
+        "action": "A: không nhận quà, không nhắn riêng",
+        "code": "A",
+        "keywords": [
+          "nói không",
+          "nói ko",
+          "từ chối",
+          "không cho",
+          "ko cho",
+          "không chịu",
+          "không đồng ý",
+          "không nhận",
+          "ko nhận",
+          "không đi",
+          "ko đi",
+          "không gửi",
+          "ko gửi",
+          "đừng làm",
+          "dừng lại",
+          "không thích"
+        ]
+      },
+      {
+        "action": "C: kể với bố mẹ hoặc người lớn bạn tin",
+        "code": "C",
+        "keywords": [
+          "kể",
+          "nói với mẹ",
+          "nói với bố",
+          "nói với ba",
+          "nói với cô",
+          "nói với thầy",
+          "báo",
+          "mách",
+          "bố mẹ",
+          "ba mẹ",
+          "người lớn",
+          "cô giáo",
+          "thầy cô",
+          "gọi mẹ",
+          "gọi bố",
+          "111"
+        ]
+      }
+    ],
+    "rule_ids": [
+      "R08",
+      "R03",
+      "R04"
+    ],
+    "rule_card": "Ai dặn giấu bố mẹ, nhất là kèm quà, là dấu hiệu nguy hiểm. Kể ngay.",
+    "hints": [
+      "hint_secret",
+      "hint_C"
+    ],
+    "scene": {
+      "bg": "bg_teen_desk",
+      "npc": "npc_online_avatar",
+      "card": "online"
+    },
+    "source": "tu_viet",
+    "voice": "",
+    "ghi_chu": "Bản nháp do Claude soạn: bước 1–2 của chuỗi Khoa (de-xuat-sprint-3.md mục 3), câu mẫu khoa đã nghe thử. Chờ Diệp duyệt.",
+    "situation": "Tối nay {ten} vừa thắng một trận với đội. Khoa, tài khoản khoa_lv99 hay chơi cùng đội, nhắn riêng cho {ten}. Bạn nhắn lại Khoa giúp {ten} nhé.",
+    "y_can_co": [
+      "Nhận ra lời dặn giữ bí mật là dấu hiệu nguy hiểm",
+      "A: không nhận quà, không nhắn riêng",
+      "C: kể với bố mẹ hoặc người lớn bạn tin"
+    ]
+  },
+  {
+    "id": "T6-01",
+    "age_group": "6-10",
+    "genders": [
+      "nam",
+      "nu"
+    ],
+    "type": "mot_cau",
+    "topic": "vung_rieng_tu",
+    "tieu_de": "Đi khám bác sĩ",
+    "location": "home",
+    "tier": 4,
+    "duyet": false,
+    "tinh_huong": "{ten} bị đau bụng, mẹ đưa {ten} ra phòng khám đầu ngõ. Bác sĩ nói: bác cần ấn nhẹ vào bụng để xem chỗ nào đau nhé. Mẹ ngồi ngay cạnh {ten}.",
+    "cau_hoi": "Lần này bác sĩ khám có được không? Vì sao?",
+    "key_actions": [
+      {
+        "action": "Nhận ra lần khám này là bình thường: có mẹ ở cạnh, bác sĩ giải thích trước",
+        "code": "other",
+        "keywords": [
+          "được",
+          "bình thường",
+          "có mẹ",
+          "mẹ ở cạnh",
+          "mẹ ngồi",
+          "bác sĩ",
+          "khám bệnh"
+        ]
+      },
+      {
+        "action": "C: thấy khó chịu thì vẫn nói ngay với mẹ",
+        "code": "C",
+        "keywords": [
+          "nói với mẹ",
+          "bảo mẹ",
+          "kể",
+          "khó chịu",
+          "đau thì nói"
+        ]
+      }
+    ],
+    "rule_ids": [
+      "R01",
+      "R04"
+    ],
+    "rule_card": "Bác sĩ khám khi có bố mẹ ở cạnh là được. Khó chịu thì nói ngay với mẹ.",
+    "hints": [
+      "hint_feel",
+      "hint_C"
+    ],
+    "scene": {
+      "bg": "bg_classroom_health",
+      "npc": "npc_mom",
+      "card": "body"
+    },
+    "source": "tu_viet",
+    "voice": "",
+    "ghi_chu": "Bậc 4 (phân biệt). Bản nháp do Claude soạn, căn cứ ngoại lệ trong R01. Đáp án là 'được'. Chờ Diệp duyệt và đối chiếu nguồn.",
+    "situation": "{ten} bị đau bụng, mẹ đưa {ten} ra phòng khám đầu ngõ. Bác sĩ nói: bác cần ấn nhẹ vào bụng để xem chỗ nào đau nhé. Mẹ ngồi ngay cạnh {ten}. Lần này bác sĩ khám có được không? Vì sao?",
+    "y_can_co": [
+      "Nhận ra lần khám này là bình thường: có mẹ ở cạnh, bác sĩ giải thích trước",
+      "C: thấy khó chịu thì vẫn nói ngay với mẹ"
+    ]
+  },
+  {
+    "id": "T6-02",
+    "age_group": "6-10",
+    "genders": [
+      "nam",
+      "nu"
+    ],
+    "type": "mot_cau",
+    "topic": "ranh_gioi_nguoi_than",
+    "tieu_de": "Anh họ cù lét",
+    "location": "grandma",
+    "tier": 4,
+    "duyet": false,
+    "tinh_huong": "Hôm giỗ ở nhà bà, anh họ cù lét {ten}. Lúc đầu vui, rồi {ten} thấy khó chịu, bảo dừng lại mà anh vẫn cứ cù tiếp.",
+    "cau_hoi": "Thế này có được không? {ten} làm gì bây giờ?",
+    "key_actions": [
+      {
+        "action": "Nhận ra bảo dừng mà không dừng là không được",
+        "code": "other",
+        "keywords": [
+          "không được",
+          "ko được",
+          "phải dừng",
+          "không dừng",
+          "không đúng"
+        ]
+      },
+      {
+        "action": "A: nói to KHÔNG, dừng lại",
+        "code": "A",
+        "keywords": [
+          "nói không",
+          "nói ko",
+          "từ chối",
+          "không cho",
+          "ko cho",
+          "không chịu",
+          "không đồng ý",
+          "không nhận",
+          "ko nhận",
+          "không đi",
+          "ko đi",
+          "không gửi",
+          "ko gửi",
+          "đừng làm",
+          "dừng lại",
+          "không thích",
+          "dừng"
+        ]
+      },
+      {
+        "action": "C: kể với bố mẹ hoặc bà",
+        "code": "C",
+        "keywords": [
+          "kể",
+          "nói với mẹ",
+          "nói với bố",
+          "nói với ba",
+          "nói với cô",
+          "nói với thầy",
+          "báo",
+          "mách",
+          "bố mẹ",
+          "ba mẹ",
+          "người lớn",
+          "cô giáo",
+          "thầy cô",
+          "gọi mẹ",
+          "gọi bố",
+          "111",
+          "bà",
+          "nói với bà"
+        ]
+      }
+    ],
+    "rule_ids": [
+      "R02",
+      "R04"
+    ],
+    "rule_card": "Cậu bảo dừng thì người khác phải dừng, kể cả người thân.",
+    "hints": [
+      "hint_family",
+      "hint_A",
+      "hint_C"
+    ],
+    "scene": {
+      "bg": "bg_living_room",
+      "npc": "",
+      "card": "body"
+    },
+    "source": "tu_viet",
+    "voice": "",
+    "ghi_chu": "Bậc 4 (phân biệt). Bản nháp do Claude soạn theo ví dụ ở de-xuat-sprint-3.md mục 3. Chờ Diệp duyệt.",
+    "situation": "Hôm giỗ ở nhà bà, anh họ cù lét {ten}. Lúc đầu vui, rồi {ten} thấy khó chịu, bảo dừng lại mà anh vẫn cứ cù tiếp. Thế này có được không? {ten} làm gì bây giờ?",
+    "y_can_co": [
+      "Nhận ra bảo dừng mà không dừng là không được",
+      "A: nói to KHÔNG, dừng lại",
+      "C: kể với bố mẹ hoặc bà"
+    ]
+  },
+  {
+    "id": "F6-01",
+    "age_group": "6-10",
+    "genders": [
+      "nam",
+      "nu"
+    ],
+    "type": "mot_cau",
+    "topic": "bi_mat",
+    "tieu_de": "Mít thì thầm",
+    "location": "school",
+    "tier": 5,
+    "duyet": false,
+    "tinh_huong": "Giờ ra chơi, Mít kéo {ten} ra góc sân, thì thầm: có một chú hay làm Mít sợ, chú ấy bảo đừng kể ai. Mít bắt {ten} hứa không nói với ai hết.",
+    "cau_hoi": "Cậu là {ten}, cậu nói gì với Mít?",
+    "key_actions": [
+      {
+        "action": "Tin bạn, nói Mít không có lỗi",
+        "code": "friend",
+        "keywords": [
+          "tin",
+          "không có lỗi",
+          "ko có lỗi",
+          "không phải lỗi",
+          "đừng sợ",
+          "an ủi",
+          "ôm"
+        ]
+      },
+      {
+        "action": "Không hứa giữ bí mật xấu",
+        "code": "secret",
+        "keywords": [
+          "không hứa",
+          "ko hứa",
+          "bí mật xấu",
+          "không giữ",
+          "không được giấu"
+        ]
+      },
+      {
+        "action": "C: cùng Mít đi kể cô Hạnh hoặc bố mẹ",
+        "code": "C",
+        "keywords": [
+          "kể",
+          "nói với mẹ",
+          "nói với bố",
+          "nói với ba",
+          "nói với cô",
+          "nói với thầy",
+          "báo",
+          "mách",
+          "bố mẹ",
+          "ba mẹ",
+          "người lớn",
+          "cô giáo",
+          "thầy cô",
+          "gọi mẹ",
+          "gọi bố",
+          "111",
+          "cô hạnh",
+          "cùng đi"
+        ]
+      }
+    ],
+    "rule_ids": [
+      "R03",
+      "R09",
+      "R05"
+    ],
+    "rule_card": "Bạn kể chuyện làm bạn sợ thì đừng giữ bí mật. Cùng bạn đi kể người lớn.",
+    "hints": [
+      "hint_secret",
+      "hint_C"
+    ],
+    "scene": {
+      "bg": "bg_school_hallway",
+      "npc": "npc_mit",
+      "card": "secret"
+    },
+    "source": "tu_viet",
+    "voice": "",
+    "ghi_chu": "Bậc 5 (giúp bạn). Bản nháp do Claude soạn, không tả chi tiết. Chờ Diệp duyệt.",
+    "situation": "Giờ ra chơi, Mít kéo {ten} ra góc sân, thì thầm: có một chú hay làm Mít sợ, chú ấy bảo đừng kể ai. Mít bắt {ten} hứa không nói với ai hết. Cậu là {ten}, cậu nói gì với Mít?",
+    "y_can_co": [
+      "Tin bạn, nói Mít không có lỗi",
+      "Không hứa giữ bí mật xấu",
+      "C: cùng Mít đi kể cô Hạnh hoặc bố mẹ"
+    ]
+  },
+  {
+    "id": "F11-01",
+    "age_group": "11-15",
+    "genders": [
+      "nam",
+      "nu"
+    ],
+    "type": "mot_cau",
+    "topic": "an_toan_mang",
+    "tieu_de": "Vy bị dọa",
+    "location": "classgroup",
+    "tier": 5,
+    "duyet": false,
+    "tinh_huong": "Vy nhắn cho {ten} lúc nửa đêm: Vy lỡ gửi ảnh cho một người quen qua mạng, giờ người đó dọa tung ảnh lên nhóm lớp nếu Vy không gửi thêm hoặc chuyển tiền. Vy sợ lắm, xin {ten} đừng nói với ai.",
+    "cau_hoi": "{ten} trả lời Vy thế nào?",
+    "key_actions": [
+      {
+        "action": "Nói Vy không có lỗi",
+        "code": "friend",
+        "keywords": [
+          "không có lỗi",
+          "ko có lỗi",
+          "không phải lỗi",
+          "không sao",
+          "bình tĩnh"
+        ]
+      },
+      {
+        "action": "Không gửi thêm, không chuyển tiền, chặn",
+        "code": "B",
+        "keywords": [
+          "không gửi",
+          "ko gửi",
+          "không chuyển",
+          "đừng gửi",
+          "đừng chuyển",
+          "chặn",
+          "block"
+        ]
+      },
+      {
+        "action": "Giữ bằng chứng",
+        "code": "proof",
+        "keywords": [
+          "chụp màn hình",
+          "giữ lại",
+          "bằng chứng",
+          "lưu"
+        ]
+      },
+      {
+        "action": "C: cùng Vy kể người lớn ngay hoặc gọi 111",
+        "code": "C",
+        "keywords": [
+          "kể",
+          "nói với mẹ",
+          "nói với bố",
+          "nói với ba",
+          "nói với cô",
+          "nói với thầy",
+          "báo",
+          "mách",
+          "bố mẹ",
+          "ba mẹ",
+          "người lớn",
+          "cô giáo",
+          "thầy cô",
+          "gọi mẹ",
+          "gọi bố",
+          "111"
+        ]
+      }
+    ],
+    "rule_ids": [
+      "R08",
+      "R09",
+      "R05"
+    ],
+    "rule_card": "Bị dọa tung ảnh: không gửi thêm, giữ bằng chứng, kể ngay. Không phải lỗi của bạn.",
+    "hints": [
+      "hint_friend",
+      "hint_proof",
+      "hint_C"
+    ],
+    "scene": {
+      "bg": "bg_teen_desk",
+      "npc": "npc_vy",
+      "card": "online"
+    },
+    "source": "tu_viet",
+    "voice": "",
+    "ghi_chu": "Bậc 5, chủ đề nặng. Lời kể chỉ nói 'ảnh Vy lỡ gửi', không tả ảnh. Theo de-xuat-sprint-3.md mục 3, Diệp phải đối chiếu tài liệu UNICEF trước khi bật.",
+    "situation": "Vy nhắn cho {ten} lúc nửa đêm: Vy lỡ gửi ảnh cho một người quen qua mạng, giờ người đó dọa tung ảnh lên nhóm lớp nếu Vy không gửi thêm hoặc chuyển tiền. Vy sợ lắm, xin {ten} đừng nói với ai. {ten} trả lời Vy thế nào?",
+    "y_can_co": [
+      "Nói Vy không có lỗi",
+      "Không gửi thêm, không chuyển tiền, chặn",
+      "Giữ bằng chứng",
+      "C: cùng Vy kể người lớn ngay hoặc gọi 111"
+    ]
   }
 ]
