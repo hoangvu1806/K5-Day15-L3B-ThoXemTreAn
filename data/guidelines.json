@@ -1,0 +1,151 @@
+{
+  "_mo_ta": "Quy tắc chuẩn cho công cụ search_safety_guideline(age_group, query). Nhóm VIẾT LẠI ngắn theo tài liệu công khai, không chép nguyên văn. Mỗi quy tắc có lời nói cho từng nhóm tuổi (6-10: câu ≤25 từ). Xem data/DATA_CARD.md.",
+  "phien_ban": "v0.1 · 2026-11-27 · bản đầu CP2",
+  "hanh_dong_chuan": {
+    "A": "Nói KHÔNG",
+    "B": "Rời đi hoặc chặn",
+    "C": "Kể với người lớn tin cậy"
+  },
+  "sources": {
+    "SRC-UNESCO-ITGSE": {
+      "ten": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người.",
+      "url": "",
+      "trang_thai": "Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3"
+    },
+    "SRC-COE-UNDERWEAR": {
+      "ten": "Hội đồng châu Âu (Council of Europe), chiến dịch ONE in FIVE: \"The Underwear Rule\" (quy tắc đồ lót / vùng đồ bơi).",
+      "url": "",
+      "trang_thai": "Chưa kiểm link"
+    },
+    "SRC-NSPCC-PANTS": {
+      "ten": "NSPCC (Anh), \"Talk PANTS\": vùng riêng tư, cơ thể là của con, nói không, bí mật làm con lo phải kể, có người giúp.",
+      "url": "",
+      "trang_thai": "Chưa kiểm link"
+    },
+    "SRC-UNICEF-ONLINE": {
+      "ten": "UNICEF, tài liệu an toàn trực tuyến cho trẻ em (nhóm cần tìm đúng trang của UNICEF Việt Nam).",
+      "url": "",
+      "trang_thai": "CHƯA TÌM ĐƯỢC tài liệu cụ thể, phải thay bằng trang thật hoặc bỏ"
+    },
+    "SRC-111": {
+      "ten": "Tổng đài quốc gia bảo vệ trẻ em 111 (miễn phí, 24/7).",
+      "url": "",
+      "trang_thai": "Số 111 đã biết công khai"
+    },
+    "SRC-KHAO-SAT": {
+      "ten": "Khảo sát phụ huynh, giáo viên của nhóm, 27/11/2026 (evidence/survey/). Dùng để chọn tình huống đời thường, KHÔNG phải nguồn của quy tắc.",
+      "url": "evidence/survey/results.csv",
+      "trang_thai": "Dữ liệu thật của nhóm"
+    }
+  },
+  "rules": [
+    {
+      "id": "R01",
+      "ten": "Vùng đồ bơi là vùng riêng tư",
+      "chu_de": ["vung_rieng_tu"],
+      "noi_dung": "Phần cơ thể đồ bơi hay đồ lót che là vùng riêng tư. Không ai được nhìn, chạm hoặc bắt trẻ chạm vào vùng riêng tư của người khác. Ngoại lệ: bố mẹ giúp tắm rửa khi trẻ còn nhỏ, hoặc bác sĩ khám khi có bố mẹ ở cạnh và trẻ được giải thích.",
+      "loi_6_10": "Chỗ đồ bơi che là của riêng con. Không ai được nhìn hay chạm vào đó.",
+      "loi_11_15": "Vùng kín là của riêng em. Không ai được nhìn, chạm hay chụp ảnh nếu em không đồng ý, dù là ai.",
+      "nguon": ["SRC-COE-UNDERWEAR", "SRC-NSPCC-PANTS", "SRC-UNESCO-ITGSE"]
+    },
+    {
+      "id": "R02",
+      "ten": "Cơ thể của con là của con, kể cả với người thân",
+      "chu_de": ["ranh_gioi_nguoi_than", "vung_rieng_tu"],
+      "noi_dung": "Trẻ có quyền từ chối ôm, hôn, chạm khi không muốn, kể cả với người thân hay người quen. Có thể chào bằng cách khác như vẫy tay, đập tay. Từ chối lịch sự không phải là hư.",
+      "loi_6_10": "Con không thích ôm hay hôn thì con được nói không. Con có thể vẫy tay chào thay.",
+      "loi_11_15": "Em có quyền nói không với cái chạm làm em khó chịu, kể cả từ người thân. Người tôn trọng em sẽ dừng lại.",
+      "nguon": ["SRC-UNESCO-ITGSE", "SRC-NSPCC-PANTS"]
+    },
+    {
+      "id": "R03",
+      "ten": "Bí mật tốt và bí mật xấu",
+      "chu_de": ["bi_mat"],
+      "noi_dung": "Bí mật tốt là bất ngờ vui, rồi sẽ được kể ra (quà sinh nhật). Bí mật xấu làm trẻ lo, sợ, khó chịu, hoặc người khác dặn không được kể với bố mẹ, nhất là kèm quà hay lời dọa. Bí mật xấu phải kể với người lớn tin cậy.",
+      "loi_6_10": "Bí mật làm con thấy sợ hay khó chịu là bí mật xấu. Con kể với bố mẹ nhé.",
+      "loi_11_15": "Ai dặn em giấu bố mẹ, nhất là kèm quà hay lời dọa, thì đó là dấu hiệu nguy hiểm. Em nên kể ngay.",
+      "nguon": ["SRC-NSPCC-PANTS", "SRC-COE-UNDERWEAR"]
+    },
+    {
+      "id": "R04",
+      "ten": "Ba bước: nói KHÔNG, rời đi, kể lại",
+      "chu_de": ["vung_rieng_tu", "bi_mat", "nguoi_la", "an_toan_mang", "ranh_gioi_nguoi_than"],
+      "noi_dung": "Khi thấy không an toàn: (A) nói KHÔNG thật to, rõ; (B) rời đi, chạy tới chỗ đông người, hoặc chặn trên mạng; (C) kể với người lớn tin cậy càng sớm càng tốt.",
+      "loi_6_10": "Con nói KHÔNG, chạy đi, rồi kể với người lớn con tin.",
+      "loi_11_15": "Nói KHÔNG, rời đi hoặc chặn, rồi kể với người lớn em tin. Làm được bước nào cũng tốt.",
+      "nguon": ["SRC-UNESCO-ITGSE"]
+    },
+    {
+      "id": "R05",
+      "ten": "Người lớn tin cậy: chuẩn bị trước vài người cụ thể",
+      "chu_de": ["nguoi_lon_tin_cay"],
+      "noi_dung": "Trẻ nên nghĩ trước ít nhất 2 người lớn cụ thể có thể tìm ở mỗi nơi (nhà, trường, ngoài đường). Nếu người đầu tiên không tin hoặc không giúp, kể tiếp với người khác cho đến khi được giúp.",
+      "loi_6_10": "Con nghĩ trước hai người lớn con tìm được. Người này không nghe thì con kể người khác.",
+      "loi_11_15": "Chọn trước vài người lớn em tin ở nhà và ở trường. Một người chưa giúp thì kể tiếp người khác.",
+      "nguon": ["SRC-NSPCC-PANTS", "SRC-KHAO-SAT"]
+    },
+    {
+      "id": "R06",
+      "ten": "Gọi đúng tên bộ phận cơ thể",
+      "chu_de": ["vung_rieng_tu"],
+      "noi_dung": "Dùng tên đúng (vùng kín, bộ phận sinh dục, ngực, mông) thay vì từ lóng hay \"chỗ đó\". Biết tên đúng giúp trẻ kể lại rõ ràng và không thấy xấu hổ.",
+      "loi_6_10": "Chỗ đồ bơi che gọi là vùng kín. Nói tên đúng không có gì xấu hổ cả.",
+      "loi_11_15": "Gọi đúng tên bộ phận cơ thể giúp em kể lại rõ ràng khi cần giúp đỡ.",
+      "nguon": ["SRC-UNESCO-ITGSE"]
+    },
+    {
+      "id": "R07",
+      "ten": "Không đi theo người lạ, kể cả khi họ nói bố mẹ nhờ",
+      "chu_de": ["nguoi_la"],
+      "noi_dung": "Không đi theo, không lên xe, không nhận quà của người lạ, kể cả khi họ nói được bố mẹ nhờ đón. Gia đình có thể đặt một mật khẩu riêng. Ở lại chỗ đông người và tìm người lớn tin cậy (cô giáo, bảo vệ).",
+      "loi_6_10": "Người lạ nói mẹ nhờ đón, con cũng không đi. Con ở lại và tìm cô hoặc bác bảo vệ.",
+      "loi_11_15": "Không lên xe hay đi theo người em không quen, dù họ nói gì. Gọi bố mẹ để kiểm tra trước.",
+      "nguon": ["SRC-UNESCO-ITGSE"]
+    },
+    {
+      "id": "R08",
+      "ten": "An toàn trên mạng: không gửi ảnh riêng tư, chặn, giữ bằng chứng, kể",
+      "chu_de": ["an_toan_mang"],
+      "noi_dung": "Không gửi ảnh riêng tư hay thông tin cá nhân (địa chỉ, trường) cho người quen qua mạng, kể cả khi được hứa quà. Chặn tài khoản, chụp màn hình giữ bằng chứng, kể với người lớn tin cậy. Không chia sẻ tiếp ảnh riêng tư của người khác.",
+      "loi_6_10": "Ai trên mạng xin ảnh hay hỏi nhà con ở đâu thì con không trả lời và gọi bố mẹ.",
+      "loi_11_15": "Không gửi ảnh riêng tư cho ai. Chặn, chụp màn hình làm bằng chứng, rồi kể với người lớn em tin.",
+      "nguon": ["SRC-UNESCO-ITGSE", "SRC-UNICEF-ONLINE"]
+    },
+    {
+      "id": "R09",
+      "ten": "Không bao giờ là lỗi của trẻ",
+      "chu_de": ["vung_rieng_tu", "bi_mat", "an_toan_mang", "ranh_gioi_nguoi_than"],
+      "noi_dung": "Nếu có người làm trẻ khó chịu hay bị tổn thương, đó không phải lỗi của trẻ, kể cả khi trẻ đã nhận quà, đã giữ bí mật hay đã gửi ảnh. Kể ra luôn là việc đúng, kể muộn vẫn tốt.",
+      "loi_6_10": "Đó không phải lỗi của con. Con kể ra là con rất dũng cảm.",
+      "loi_11_15": "Không phải lỗi của em, kể cả khi em đã lỡ làm theo. Kể ra lúc nào cũng chưa muộn.",
+      "nguon": ["SRC-NSPCC-PANTS", "SRC-UNESCO-ITGSE"]
+    },
+    {
+      "id": "R10",
+      "ten": "Không gặp riêng người chỉ quen qua mạng",
+      "chu_de": ["an_toan_mang", "bi_mat"],
+      "noi_dung": "Người chỉ quen qua mạng có thể không phải người như họ nói. Không đi gặp một mình. Nếu muốn gặp thì nói với bố mẹ trước, có người lớn đi cùng, gặp ở nơi công cộng. Lời dặn \"đừng nói với ai\" là dấu hiệu nguy hiểm.",
+      "loi_6_10": "Người con chỉ quen trên mạng rủ đi gặp thì con không đi và kể với bố mẹ.",
+      "loi_11_15": "Không gặp riêng người chỉ quen qua mạng. Bị dặn giữ bí mật thì càng phải kể với bố mẹ.",
+      "nguon": ["SRC-UNESCO-ITGSE"]
+    },
+    {
+      "id": "R11",
+      "ten": "Có quyền từ chối gửi ảnh nhạy cảm, kể cả với người mình thích",
+      "chu_de": ["an_toan_mang", "ranh_gioi_nguoi_than"],
+      "noi_dung": "Người thương em sẽ không ép em gửi ảnh nhạy cảm. Ảnh đã gửi có thể bị lưu và phát tán, không lấy lại được. Em có quyền từ chối mà không cần giải thích. Không phán xét tình cảm của trẻ.",
+      "loi_6_10": "",
+      "loi_11_15": "Thích ai cũng không có nghĩa phải gửi ảnh nhạy cảm. Ảnh gửi đi rồi không lấy lại được.",
+      "nguon": ["SRC-UNESCO-ITGSE"]
+    },
+    {
+      "id": "R12",
+      "ten": "Trẻ kể chuyện thật: dừng game, người lớn gọi 111",
+      "chu_de": ["xam_hai_that"],
+      "noi_dung": "Nếu trẻ kể một chuyện đang hoặc đã xảy ra với chính mình, dừng trò chơi, không chấm điểm. Trấn an trẻ không có lỗi, khuyên kể với người lớn tin cậy và hiện số 111.",
+      "loi_6_10": "Cảm ơn con đã kể. Con không có lỗi. Mình tạm dừng chơi nhé. Con kể với người lớn con tin, hoặc gọi 111.",
+      "loi_11_15": "Cảm ơn em đã kể, em không có lỗi. Trò chơi tạm dừng. Hãy kể với người lớn em tin hoặc gọi 111, miễn phí cả ngày đêm.",
+      "nguon": ["SRC-111"]
+    }
+  ]
+}

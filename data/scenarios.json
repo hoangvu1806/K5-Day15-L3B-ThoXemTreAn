@@ -1,0 +1,140 @@
+{
+  "_mo_ta": "Kho tình huống cho công cụ get_scenario(age_group, topic). Mỗi tình huống: lời kể cho trẻ, câu hỏi, những ý một câu trả lời tốt cần có (A/B/C theo data/guidelines.json), lỗi hay gặp, quy tắc liên quan. Tình huống là giả định trong game, không phải chuyện thật của trẻ nào. Xem data/DATA_CARD.md.",
+  "phien_ban": "v0.1 · 2026-11-27 · bản đầu CP2",
+  "scenarios": [
+    {
+      "id": "S6-01",
+      "age_group": "6-10",
+      "topic": "vung_rieng_tu",
+      "tieu_de": "Chú hàng xóm",
+      "tinh_huong": "Bạn Na sang nhà chú hàng xóm chơi. Chú bảo Na ngồi lên đùi rồi muốn sờ vào chỗ đồ bơi che.",
+      "cau_hoi": "Nếu con là Na, con sẽ làm gì?",
+      "y_can_co": ["A: nói KHÔNG", "B: rời đi, chạy về nhà", "C: kể với bố mẹ hoặc người lớn tin cậy"],
+      "loi_hay_gap": ["Ngồi im vì sợ chú giận", "Không kể vì nghĩ mình có lỗi"],
+      "rule_ids": ["R01", "R04", "R09"],
+      "nguon_tinh_huong": "tu_viet"
+    },
+    {
+      "id": "S6-02",
+      "age_group": "6-10",
+      "topic": "bi_mat",
+      "tieu_de": "Kẹo và bí mật",
+      "tinh_huong": "Một người quen cho Bin kẹo, rồi ôm Bin rất lâu. Người đó dặn: chuyện này là bí mật, không được kể với bố mẹ.",
+      "cau_hoi": "Đây là bí mật tốt hay bí mật xấu? Bin nên làm gì?",
+      "y_can_co": ["Nhận ra đây là bí mật xấu", "C: kể với bố mẹ", "Không cần giữ lời hứa với bí mật xấu"],
+      "loi_hay_gap": ["Giữ bí mật vì đã nhận kẹo", "Sợ bị mắng nên không kể"],
+      "rule_ids": ["R03", "R04", "R09"],
+      "nguon_tinh_huong": "tu_viet"
+    },
+    {
+      "id": "S6-03",
+      "age_group": "6-10",
+      "topic": "nguoi_la",
+      "tieu_de": "Người lạ ở cổng công viên",
+      "tinh_huong": "Một người con chưa gặp bao giờ đến gần và nói: Mẹ con bận, nhờ chú đón con về. Đi với chú nhé.",
+      "cau_hoi": "Con sẽ làm gì?",
+      "y_can_co": ["A: nói không đi", "B: ở lại chỗ đông người, không lên xe", "C: tìm người lớn tin cậy hoặc gọi bố mẹ để hỏi"],
+      "loi_hay_gap": ["Đi theo vì người đó biết tên mẹ", "Nhận quà rồi đi theo"],
+      "rule_ids": ["R07", "R04"],
+      "nguon_tinh_huong": "tu_viet"
+    },
+    {
+      "id": "S6-04",
+      "age_group": "6-10",
+      "topic": "ranh_gioi_nguoi_than",
+      "tieu_de": "Bà muốn hôn má",
+      "tinh_huong": "Hôm đi ăn giỗ, bà muốn hôn má Su. Su không thích nên né đi. Có người nói: bà thương con mà.",
+      "cau_hoi": "Su không thích thì Su có thể làm gì?",
+      "y_can_co": ["Su được nói không, nói lịch sự", "Chào bà bằng cách khác: vẫy tay, đập tay, ôm nhẹ nếu Su muốn", "Nói với bố mẹ nếu bị ép"],
+      "loi_hay_gap": ["Nghĩ từ chối là hư", "Cố chịu dù khó chịu"],
+      "rule_ids": ["R02"],
+      "ghi_chu_giong_dieu": "Không nói bà là người xấu. Đây là bài về quyền từ chối, không phải về xâm hại.",
+      "nguon_tinh_huong": "nguoi_dung: phiếu khảo sát 17"
+    },
+    {
+      "id": "S6-05",
+      "age_group": "6-10",
+      "topic": "vung_rieng_tu",
+      "tieu_de": "Thay đồ ở bể bơi",
+      "tinh_huong": "Ở bể bơi, mấy bạn thay đồ luôn ở ngoài. Bố bảo Tôm vào buồng thay. Tôm hỏi: sao con phải vào buồng?",
+      "cau_hoi": "Con giải thích giúp Tôm nhé: vì sao nên vào buồng thay đồ?",
+      "y_can_co": ["Vùng kín là của riêng mình, không để người khác nhìn", "Dùng tên đúng: vùng kín, chỗ đồ bơi che", "Không chê các bạn khác, chỉ nói điều mình nên làm"],
+      "loi_hay_gap": ["Nghĩ thay ngoài cũng được vì bạn nào cũng thế", "Nói vì xấu hổ, chứ không phải vì đó là vùng riêng tư"],
+      "rule_ids": ["R01", "R06"],
+      "nguon_tinh_huong": "nguoi_dung: phiếu khảo sát 10"
+    },
+    {
+      "id": "S6-06",
+      "age_group": "6-10",
+      "topic": "nguoi_lon_tin_cay",
+      "tieu_de": "Tan học, cô về rồi",
+      "tinh_huong": "Tan học, cô giáo đã về. Mít thấy một anh lớn cứ đi theo mình và hỏi nhà ở đâu. Mít thấy sợ.",
+      "cau_hoi": "Lúc này Mít tìm ai được? Con kể tên hai người nhé.",
+      "y_can_co": ["Nêu được ít nhất 2 người lớn cụ thể (bác bảo vệ, cô ở phòng y tế, bố mẹ bạn…)", "B: đi tới chỗ đông người", "Không nói nhà ở đâu"],
+      "loi_hay_gap": ["Chỉ nói chung chung là người lớn", "Không biết tìm ai khi cô về rồi"],
+      "rule_ids": ["R05", "R04", "R07"],
+      "nguon_tinh_huong": "nguoi_dung: phiếu khảo sát 18"
+    },
+    {
+      "id": "S11-01",
+      "age_group": "11-15",
+      "topic": "an_toan_mang",
+      "tieu_de": "Vật phẩm trong game",
+      "tinh_huong": "Một tài khoản em quen trong game online nhắn xin ảnh em mặc đồ lót, hứa đổi lại sẽ cho em vật phẩm hiếm.",
+      "cau_hoi": "Em sẽ làm gì?",
+      "y_can_co": ["A: không gửi", "B: chặn tài khoản", "Chụp màn hình giữ bằng chứng", "C: kể với người lớn tin cậy"],
+      "loi_hay_gap": ["Gửi vì nghĩ không ai biết", "Chặn nhưng không kể với ai"],
+      "rule_ids": ["R08", "R04", "R09"],
+      "nguon_tinh_huong": "tu_viet"
+    },
+    {
+      "id": "S11-02",
+      "age_group": "11-15",
+      "topic": "an_toan_mang",
+      "tieu_de": "Hẹn gặp người quen qua mạng",
+      "tinh_huong": "Em nói chuyện với một người qua mạng đã 3 tháng. Người đó rủ em ra quán gặp riêng và dặn đừng nói với ai.",
+      "cau_hoi": "Điều gì ở lời rủ này đáng lo? Em sẽ làm gì?",
+      "y_can_co": ["Nhận ra lời dặn giữ bí mật là dấu hiệu nguy hiểm", "Không đi gặp một mình", "C: kể với bố mẹ"],
+      "loi_hay_gap": ["Đi gặp vì thấy người đó tốt", "Rủ thêm bạn cùng tuổi đi là đủ an toàn"],
+      "rule_ids": ["R10", "R03", "R04"],
+      "nguon_tinh_huong": "tu_viet"
+    },
+    {
+      "id": "S11-03",
+      "age_group": "11-15",
+      "topic": "an_toan_mang",
+      "tieu_de": "Nếu thương thì gửi đi",
+      "tinh_huong": "Bạn em đang thích nhắn đòi em gửi một tấm ảnh nhạy cảm và nói: nếu thương thì phải gửi.",
+      "cau_hoi": "Em có thể trả lời thế nào?",
+      "y_can_co": ["A: từ chối, không cần giải thích", "Hiểu ảnh gửi đi có thể bị phát tán", "C: kể với người lớn tin cậy nếu bị ép tiếp"],
+      "loi_hay_gap": ["Gửi một tấm vì sợ mất lòng", "Nghĩ từ chối là không thương"],
+      "rule_ids": ["R11", "R08", "R02"],
+      "ghi_chu_giong_dieu": "Không phán xét chuyện em thích ai.",
+      "nguon_tinh_huong": "tu_viet"
+    },
+    {
+      "id": "S11-04",
+      "age_group": "11-15",
+      "topic": "ranh_gioi_nguoi_than",
+      "tieu_de": "Người họ hàng hay ôm lâu",
+      "tinh_huong": "Mỗi lần gặp, một người họ hàng lớn tuổi hay đòi ôm em rất lâu và chạm vào người em, làm em thấy khó chịu. Người lớn trong nhà bảo: người nhà cả mà.",
+      "cau_hoi": "Quy tắc về cơ thể có áp dụng với người thân không? Em sẽ làm gì?",
+      "y_can_co": ["Quy tắc áp dụng với cả người thân", "A: nói không hoặc lùi ra", "C: kể với một người lớn tin cậy khác, nếu người đầu không tin thì kể tiếp"],
+      "loi_hay_gap": ["Nghĩ người nhà thì phải chịu", "Thôi không kể vì sợ mất lòng cả nhà"],
+      "rule_ids": ["R02", "R05", "R04", "R09"],
+      "nguon_tinh_huong": "tu_viet"
+    },
+    {
+      "id": "S11-05",
+      "age_group": "11-15",
+      "topic": "an_toan_mang",
+      "tieu_de": "Ảnh chụp lén trong nhóm chat lớp",
+      "tinh_huong": "Có người gửi vào nhóm chat lớp một ảnh chụp lén một bạn đang thay đồ. Mấy bạn khác thả cười và chia sẻ tiếp.",
+      "cau_hoi": "Em sẽ làm gì?",
+      "y_can_co": ["Không chia sẻ tiếp, không thả cười", "Báo với thầy cô hoặc bố mẹ", "Có thể hỏi thăm, bênh bạn bị chụp"],
+      "loi_hay_gap": ["Im lặng vì không phải chuyện của mình", "Chia sẻ vì ai cũng làm"],
+      "rule_ids": ["R08", "R01", "R09"],
+      "nguon_tinh_huong": "tu_viet"
+    }
+  ]
+}
