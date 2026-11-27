@@ -8,10 +8,11 @@ Trace dùng biến toàn cục nên server xử lý tuần tự từng lượt (
 """
 import asyncio
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+import game
 import tracing
 from agent import answer_async
 from ai import MODEL_NAME, is_fake
@@ -51,6 +52,62 @@ async def chat(body: ChatIn):
             summary, _ = tracing.end()
     return ChatOut(output=res["output"], session_id=res["session_id"], stopped=res.get("stopped", ""),
                    usage={k: summary[k] for k in ("model_calls", "tool_calls", "tokens_in", "tokens_out")})
+
+
+class SessionIn(BaseModel):
+    age_group: str
+    gender: str = ""                 # nam / nu / khong_noi, không bắt buộc
+    dialogue_mode: str = "kich_ban"  # kich_ban (mặc định) hoặc ai_dong_vai (người lớn bật)
+
+
+class AnswerIn(BaseModel):
+    session_id: str
+    scenario_id: str
+    choice_id: str = ""
+    text: str = ""
+
+
+class SessionRef(BaseModel):
+    session_id: str = ""
+
+
+async def _traced(name, fn, *args):
+    """Chạy một lượt game trong trace, đổi GameError thành lỗi HTTP."""
+    async with _lock:
+        tracing.begin(name)
+        try:
+            res = fn(*args)
+            if asyncio.iscoroutine(res):
+                res = await res
+        except game.GameError as e:
+            raise HTTPException(status_code=e.status, detail=str(e))
+        finally:
+            summary, _ = tracing.end()
+    if isinstance(res, dict):
+        res = {**res, "usage": {k: summary[k] for k in ("model_calls", "tool_calls", "tokens_in", "tokens_out")}}
+    return res
+
+
+@app.post("/api/session")
+async def session_start(body: SessionIn):
+    return await _traced("api-session", game.start, body.age_group, body.gender, body.dialogue_mode)
+
+
+@app.post("/api/answer")
+async def session_answer(body: AnswerIn):
+    return await _traced("api-answer", game.answer, body.session_id, body.scenario_id, body.choice_id, body.text)
+
+
+@app.post("/api/help")
+async def session_help(body: SessionRef):
+    """Nút "Con cần giúp": dừng phiên, trả nội dung hướng dẫn và số 111. Không gọi model."""
+    return game.help_session(body.session_id)
+
+
+@app.post("/api/session/end")
+async def session_end(body: SessionRef):
+    """Kết phiên: bản nháp cho phụ huynh / giáo viên, trạng thái cho_duyet. Không gửi đi đâu."""
+    return await _traced("api-end", game.end, body.session_id)
 
 
 @app.get("/api/drafts")

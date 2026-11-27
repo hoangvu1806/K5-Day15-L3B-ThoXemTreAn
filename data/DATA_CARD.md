@@ -28,7 +28,8 @@
 | Từ đâu | Nhóm tự viết. 3 tình huống (S6-04, S6-05, S6-06) phỏng theo chuyện người lớn kể trong khảo sát (phiếu 17, 10, 18, `evidence/survey/results.csv`). Tên nhân vật và chi tiết là nhóm đặt |
 | Xử lý những bước gì | Mỗi tình huống gắn nhóm tuổi, chủ đề (`vung_rieng_tu`, `bi_mat`, `nguoi_la`, `ranh_gioi_nguoi_than`, `nguoi_lon_tin_cay`, `an_toan_mang`) và mã quy tắc ở Dataset 1 · Lời kể không tả chi tiết hành vi xâm hại, dùng tên đúng bộ phận cơ thể |
 | Số dòng / số đoạn | 11 tình huống: 6-10 tuổi có 6 · 11-15 tuổi có 5 |
-| Phiên bản / ngày lấy | v0.1 · 27/11/2026 |
+| Trường cho giao diện game (v0.2) | `type` (`mot_cau`), `genders`, `choices` (2–3 nút đáp án, mỗi nút có `correct` và `feedback` là lời phản hồi dự phòng khi model lỗi hoặc chạy chế độ giả), `rule_card` (câu in trên thẻ quy tắc), `scene` (`bg`, `npc`: tên ảnh trong `frontend/public/assets/`; `card`: khung thẻ `body` / `secret` / `stranger` / `online`) |
+| Phiên bản / ngày lấy | v0.1 · 27/11/2026 · v0.2 (thêm trường game) 27/11/2026: **`choices`, `feedback`, `rule_card` do Claude soạn, chờ Diệp duyệt** |
 | Nhãn | Nhóm tự viết (giả định trong game). **Không phải bằng chứng pain** |
 | Giới hạn | Bản nháp do Claude (trợ lý code) soạn, **Diệp duyệt: đã kiểm tay 11/11** · Chưa cho trẻ hay giáo viên đọc thử giọng văn · Lệch về tình huống cá nhân, ít tình huống ở trường · Benchmark B01–B04, B06–B08 dùng tình huống gần giống S6-01…S11-04, nên câu thử không độc lập hoàn toàn với kho |
 
