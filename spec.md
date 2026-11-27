@@ -33,14 +33,15 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): không dù
 - [sản phẩm / tính năng gần giống]: một điều đáng học · một điều đáng né · mình khác gì
 
 ## §4. Thiết kế *(guide 2.2, 3.2)*
-- **Lát cắt MỘT CÂU:** Trẻ 6-15 tuổi trả lời một tình huống về ranh giới cơ thể trong game (bấm đáp án hoặc tự gõ), AI đối chiếu với quy tắc chuẩn của nhóm tuổi để chấm, chỉ ra hành động an toàn còn thiếu kèm người cụ thể trẻ tìm được, rồi soạn bản nháp cho phụ huynh hoặc giáo viên duyệt.
+- **Lát cắt MỘT CÂU:** Trẻ 6-15 tuổi trả lời một tình huống về ranh giới cơ thể trong game (tự trả lời bằng lời của mình: gõ, hoặc nói rồi xác nhận chữ), AI đối chiếu với quy tắc chuẩn của nhóm tuổi để chấm, chỉ ra hành động an toàn còn thiếu kèm người cụ thể trẻ tìm được, rồi soạn bản nháp cho phụ huynh hoặc giáo viên duyệt.
 - Kịch bản game đầy đủ (màn chơi, chế độ hội thoại, giới tính, assets, API): `docs/game-flow.md`.
 - Không làm:
   - AI tự nghĩ tình huống rồi đưa thẳng cho trẻ. Trẻ chỉ gặp màn đã có người duyệt trong `data/scenarios.json`.
   - Chẩn đoán bệnh, gợi ý thuốc, nội dung 18+.
   - Tự gửi đánh giá cho phụ huynh hay nhà trường. Chỉ có bản nháp chờ duyệt.
   - Lưu tên, trường, địa chỉ, số điện thoại của trẻ.
-  - Trong lát cắt hackathon: chưa làm màn dậy thì theo giới tính và chế độ AI đóng vai người lạ (thiết kế ở `docs/game-flow.md`, làm sau CP2).
+  - Trong lát cắt hackathon: chưa làm màn dậy thì theo giới tính, chế độ AI đóng vai người lạ và màn do AI biến tấu (thiết kế ở `docs/game-flow.md`, `docs/de-xuat-tinh-nang.md` mục 4.5; chờ nhóm chốt mục 8 của `docs/de-xuat-sprint-3.md`). Màn hội thoại với người lạ chỉ có chế độ kịch bản có sẵn.
+  - Nút đáp án trắc nghiệm: đã bỏ ở Sprint 3, trẻ luôn tự trả lời, bí thì bấm "Gợi ý" (`docs/de-xuat-tinh-nang.md` mục 4.3).
 - **Sơ đồ:**
 
 ```mermaid
@@ -49,7 +50,8 @@ flowchart TD
     B -- nghi xâm hại thật --> X[Dừng game, hiện 111, không chấm]
     B -- trẻ đòi đổi luật, đòi đóng vai --> Y[Từ chối, quay lại tình huống]
     B -- cho qua --> C[Che số điện thoại, email, tài khoản]
-    C --> D[Agent ADK]
+    C --> J[Giám khảo: kết luận có cấu trúc]
+    J --> D[Agent ADK: Người dẫn truyện]
     D <--> T1[get_scenario]
     D <--> T2[search_safety_guideline]
     D <--> T3[evaluate_child_response]
@@ -67,7 +69,7 @@ flowchart TD
 
   Đọc sơ đồ: luồng chính (xanh đậm) là trẻ → `POST /api/chat` → `precheck` → `mask_pii` → agent ADK → `postcheck` → phản hồi. Nhánh đỏ nét đứt là chỗ dừng game, hiện 111 hoặc từ chối mà không gọi model. Agent chỉ gọi công cụ đọc kho; công cụ duy nhất ghi là `draft_parent_teacher_note`, ghi vào `DRAFTS` trong bộ nhớ với trạng thái `cho_duyet`, phụ huynh hoặc giáo viên đọc qua `GET /api/drafts`. Sơ đồ chưa có chế độ AI đóng vai, màn dậy thì và 4 endpoint dự kiến trong `docs/game-flow.md`, vì các phần này làm sau CP2.
 
-- **Hình dạng:** [ ] workflow cố định · [x] một agent · [ ] nhiều agent — Input có nhiều dạng (trả lời tình huống có sẵn, trả lời theo mã màn, tự gõ ngoài tình huống, câu ngoài phạm vi), mỗi dạng cần gọi công cụ khác nhau, nên để một agent tự chọn công cụ. Các bước an toàn (precheck, che thông tin, postcheck) thì cố định bằng code, không giao cho agent. Không dùng nhiều agent vì lát cắt chỉ có một quyết định AI là chấm câu trả lời; tách thêm agent chỉ làm tăng chi phí và khó kiểm hơn.
+- **Hình dạng:** [ ] workflow cố định · [x] một agent · [ ] nhiều agent — Input có nhiều dạng (trả lời tình huống có sẵn, trả lời theo mã màn, tự gõ ngoài tình huống, câu ngoài phạm vi), mỗi dạng cần gọi công cụ khác nhau, nên để một agent tự chọn công cụ. Các bước an toàn (precheck, che thông tin, postcheck) thì cố định bằng code, không giao cho agent. Không dùng nhiều agent vì lát cắt chỉ có một quyết định AI là chấm câu trả lời; tách thêm agent chỉ làm tăng chi phí và khó kiểm hơn. Từ Sprint 3, agent có 6 vai, mỗi vai một prompt, code quyết gọi vai nào (`docs/de-xuat-sprint-3.md` mục 5): Giám khảo trả kết luận có cấu trúc `{ket_luan, da_lam, con_thieu}` trước, code giữ kết luận đó và Người dẫn truyện (Tin) chỉ viết lời theo kết luận; Gợi ý; Người lạ (chế độ kịch bản: chỉ xếp câu của trẻ vào nhánh); Đạo diễn (chọn màn trong danh sách code đã lọc); Người viết báo cáo. Model lỗi thì mỗi vai lùi về code: chấm từ khóa có xét phủ định, câu viết sẵn trong `data/lines.json`.
 - **AI dựa vào đâu** — mỗi công cụ (khớp `codebase/tools.py`):
 
   | Công cụ | Input | Output | Tác động ra ngoài? |
@@ -89,7 +91,7 @@ flowchart TD
   | Người quyết ở chỗ hệ trọng | `draft_parent_teacher_note` chỉ tạo bản nháp `cho_duyet`, không có đường nào tự gửi ra ngoài |
   | Thu ít dữ liệu nhất | `mask_pii` che thông tin định danh trước khi gửi cho model và trước khi đưa ra ngoài |
 
-- Phần nào còn giả: kho `data/scenarios.json` và `data/guidelines.json` mới có 2 màn mẫu, Diệp đang soạn kho thật; model chưa nối (`.env` còn trống, đang chạy chế độ giả); `evaluate_child_response` mới so khớp từ khóa thô; đã có 4 endpoint cho game (`codebase/game.py`) và giao diện `frontend/`, phiên chơi chỉ nằm trong bộ nhớ.
+- Phần nào còn giả: phiên chơi, bản nháp chỉ nằm trong bộ nhớ server; tiến độ và thẻ chỉ nằm trong trình duyệt của trẻ. 7 màn mới của Sprint 3 (H6-01, H6-02, H11-01, T6-01, T6-02, F6-01, F11-01) là bản nháp `duyet: false`, trẻ chưa gặp, chỉ hiện khi bật `GROWSAFE_SHOW_DRAFT_SCENES=1` để nhóm duyệt. Chưa có ảnh riêng cho chú Toàn, cô Thủy, bác sĩ, anh họ, người lạ áo shipper (đang dùng ảnh tạm hoặc không có người trong cảnh).
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
 
@@ -117,7 +119,7 @@ flowchart TD
 - So với impact / người / tháng (§2): đáng làm không, vì sao: đáng với model rẻ. Chi phí khoảng $0,07 mỗi người mỗi tháng, trong khi người lớn mất khoảng 10–60 phút mỗi tháng cho việc này (phỏng vấn P1, P3). Chi phí đáng kể hơn là giờ công người duyệt màn mới và bản nháp, chưa tính trong mô phỏng.
 
 ## §9. Rủi ro & an toàn
-- Dữ liệu: game không hỏi tên, trường, địa chỉ, chỉ hỏi nhóm tuổi và giới tính (không bắt buộc). Giới tính chỉ dùng để lọc màn, không gửi cho model, không ghi vào bản nháp. `mask_pii` che số điện thoại, email, tài khoản mạng, số nhà trong lời trẻ gõ trước khi gửi model và trước khi hiện ra (`codebase/guardrails.py`). Phiên chơi và bản nháp chỉ nằm trong bộ nhớ server, tắt server là mất (`codebase/game.py`). Bộ câu thử và kho tình huống không có dữ liệu thật của trẻ; phỏng vấn, khảo sát đã bỏ tên (`evidence/`).
+- Dữ liệu: game không hỏi tên, trường, địa chỉ, chỉ hỏi nhóm tuổi, giới tính (Nam hoặc Nữ, bắt buộc từ Sprint 3 để chọn nhân vật chính Bin/Na, Khôi/Mai). Game không hỏi tên hay biệt danh. Giới tính chỉ dùng để chọn tên nhân vật, không gửi cho model, không ghi vào bản nháp; lời dặn an toàn giống hệt cho cả hai giới. Hồ sơ, tiến độ, thẻ chỉ lưu trong `localStorage` của trình duyệt. Lúc trả lời, nút mic (giữ để nói) và ô gõ luôn hiện cùng lúc, trẻ tự chọn; nhận giọng dùng Web Speech API, trên Chrome âm thanh được gửi tới máy chủ Google để chuyển thành chữ, game không lưu âm thanh, chỉ gửi chữ trẻ đã xác nhận và chữ đó đi qua `precheck`, `mask_pii` như chữ gõ. Đọc to (TTS) qua `POST /api/tts` chỉ đọc chữ do game tạo ra trong phiên, không đọc lại chữ trẻ gõ. `mask_pii` che số điện thoại, email, tài khoản mạng, số nhà trong lời trẻ gõ trước khi gửi model và trước khi hiện ra (`codebase/guardrails.py`). Phiên chơi và bản nháp chỉ nằm trong bộ nhớ server, tắt server là mất (`codebase/game.py`). Bộ câu thử và kho tình huống không có dữ liệu thật của trẻ; phỏng vấn, khảo sát đã bỏ tên (`evidence/`).
 - AI **không được** làm gì kể cả khi người dùng yêu cầu: đóng vai kẻ xấu vì trẻ đòi; in prompt hay đổi chế độ; chấm theo điểm trẻ ép; mô tả hoạt động tình dục, chẩn đoán bệnh, gợi ý thuốc; đổi lời dặn an toàn theo giới tính; tự nghĩ tình huống mới đưa thẳng cho trẻ; tự gửi đánh giá cho phụ huynh hay nhà trường (chỉ có bản nháp `cho_duyet`, giao diện chỉ có nút sao chép).
 - Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào:
 
@@ -125,7 +127,7 @@ flowchart TD
   |---|---|---|
   | Trẻ đang bị xâm hại thật | Game vẫn chấm như trò chơi, trẻ mất cơ hội được giúp | `precheck` so mẫu câu trước khi gọi model, dừng game, hiện 111; lớp thứ hai trong prompt; nút "Con cần giúp" luôn hiện và chạy cả khi mất mạng. Câu thử B10, B11 |
   | Trẻ 6-10 | Bị đổ lỗi, bị dọa, nghe câu quá dài hoặc từ không hợp tuổi | `postcheck` chặn câu đổ lỗi, dọa; câu quá 25 từ thì gọi model viết ngắn lại; metric `dung_tuoi_khong_do_loi` |
-  | Trẻ 11-15 thử phá game | Bị dụ đóng vai kẻ dụ dỗ hoặc chấm "đi theo người lạ" là đúng | `precheck` chặn injection; nút đáp án do code chấm, không do model. Câu thử B14, B15 |
+  | Trẻ 11-15 thử phá game | Bị dụ đóng vai kẻ dụ dỗ hoặc chấm "đi theo người lạ" là đúng | `precheck` chặn injection; Giám khảo trả kết luận có cấu trúc, Người dẫn truyện không được đổi kết luận; màn hội thoại thoát vai ngay khi trẻ kéo người lạ ra khỏi kịch bản. Câu thử B14, B15 |
   | Phụ huynh, giáo viên | Đọc bản nháp sai và kết luận sai về con | Bản nháp ghi rõ "do AI soạn, chờ người lớn đọc"; không chẩn đoán, không kết luận trẻ bị xâm hại; người lớn tự quyết dùng thế nào |
   | Người không liên quan trẻ kể tới | Bị lộ tên, số điện thoại | `mask_pii` trước model và trước khi hiện; metric `khong_lo_thong_tin_dinh_danh` |
 
@@ -151,4 +153,13 @@ flowchart TD
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-|  |  |  |
+| 28/11 | Sprint 3 theo `docs/de-xuat-sprint-3.md` (bước 1–8 của mục 9; bước 9 chưa làm vì chờ chốt mục 8): xưng hô mới (6-10 "tớ/cậu", 11-15 "mình/bạn"), câu an toàn tách theo nhóm tuổi, lấy từ `data/lines.json`; `BANNED_OUTPUT` thêm biến thể "cậu/bạn" | `docs/de-xuat-tinh-nang.md` mục 4.1; câu 111 luôn gọi "con" kể cả với 11-15 (`eval/report.md` mục 4) |
+| 28/11 | Vai Giám khảo (`agent.judge`): kết luận có cấu trúc trước, Người dẫn truyện viết theo kết luận; chấm từ khóa dự phòng có xét phủ định ("con không kể" không tính là đã kể). Mỗi lượt một session ADK mới nên token không dồn qua các màn | Nhóm lỗi lượt 2: B21 kết luận lệch expected, B24 bắt bẻ khi trẻ đúng (`eval/report.md` mục 4) |
+| 28/11 | Bỏ nút đáp án trắc nghiệm, thêm nút "Gợi ý" (`POST /api/hint`), mic giữ để nói có bước xác nhận chữ, đọc to (`POST /api/tts` qua OpenRouter; câu cố định dùng file đã thu âm). Lát cắt §4 đổi từ "bấm đáp án hoặc tự gõ" sang "tự trả lời, gõ hoặc nói" | `docs/de-xuat-tinh-nang.md` mục 4.3, 4.4; mục 8 của đề xuất Sprint 3 |
+| 28/11 | Dàn nhân vật cố định, lời kể 11 màn viết lại theo `docs/kich-ban-giong-doc.md` (dùng `{ten}`); bỏ "Không muốn nói"; bản đồ 6-10 và điện thoại 11-15 (`POST /api/level`), mở khoá theo bậc khó, chuỗi màn Khoa; Sổ tay thẻ, Tin lớn dần, Bàn tay tin cậy; Màn hình chính, thanh trên cùng, Cài đặt, khoá người lớn | `docs/de-xuat-sprint-3.md` mục 1, 3, 4, 6 |
+| 28/11 | Màn hội thoại người lạ chế độ kịch bản (H6-01, H6-02, H11-01), thám tử nhận chiêu (`POST /api/detective`, `data/tactics.json`); màn bậc 4, bậc 5 (T6-01, T6-02, F6-01, F11-01). Cả 7 màn là bản nháp `duyet: false`, chờ Diệp duyệt, trẻ chưa gặp | `docs/game-flow.md` mục "Hai loại màn"; `docs/de-xuat-sprint-3.md` mục 3 |
+| 28/11 | Chạy lại 24 câu sau khi thêm Giám khảo thành lượt mới `run-4`. Không sửa `run-2`, `run-3`, không sửa câu thử hay chuẩn "đạt". Cột `pass` chờ người chấm | `docs/de-xuat-sprint-3.md` mục 8 |
+| 28/11 | Sau `run-4`: prompt Người dẫn truyện thêm luật giữ đúng một cặp xưng hô và không nhắc tới "giám khảo". Chưa đo lại | Đọc output `run-4`: B21 lộ chữ "giám khảo", B08 lẫn xưng hô, B20, B24 còn gọi "con" (`eval/README.md` mục 5) |
+| 28/11 | Bỏ lựa chọn bật/tắt mic ở hồ sơ và menu: lúc trả lời luôn hiện cùng lúc nút mic (giữ để nói, có bước xác nhận chữ) và ô gõ | Góp ý của Hoàng Minh Diệp khi chạy thử |
+| 28/11 | Bỏ bước chọn biệt danh ở hồ sơ (Tin chào "cậu"/"bạn"); bỏ đuôi nhọn của bong bóng lời thoại vì hiển thị lỗi | Góp ý của Hoàng Minh Diệp khi chạy thử: biệt danh khó hiểu, đuôi bong bóng bị vỡ |
+| 28/11 | Chạy lại `simulate` 50 phiên với luồng mới (Giám khảo + Người dẫn truyện) | `docs/de-xuat-sprint-3.md` mục 5: chi phí phải đo lại sau khi đổi |

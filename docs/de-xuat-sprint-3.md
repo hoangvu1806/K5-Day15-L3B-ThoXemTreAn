@@ -197,13 +197,13 @@ Một phép tính hai chữ số hiện bằng chữ ("mười bảy cộng tám
 
 ### Giọng nói: nhận giọng và đọc to
 
-**Nhận giọng (STT)** dùng Web Speech API có sẵn của trình duyệt, cách dự án `E:\Projects\L-N` đang làm trong `js/speech.js`: `SpeechRecognition` với `lang = "vi-VN"`, không cần key, không tốn tiền. Khác L-N ở mấy chỗ:
+**Nhận giọng (STT)** dùng Web Speech API có sẵn của trình duyệt, `SpeechRecognition` với `lang = "vi-VN"`, không cần key, không tốn tiền. Cách dùng:
 
-- Giữ để nói (`continuous: false`). Nhấn nút mic thì `start()`, thả ra thì `stop()`. L-N nghe liên tục suốt lúc chơi, GrowSafe không được làm vậy vì trẻ vô tình nói gì cũng bị gửi đi.
+- Giữ để nói (`continuous: false`). Nhấn nút mic thì `start()`, thả ra thì `stop()`. Không nghe liên tục suốt lúc chơi, vì trẻ vô tình nói gì cũng bị gửi đi.
 - Bật `interimResults` để chữ hiện dần trong lúc trẻ nói. Thả nút xong, chữ chốt hiện trong ô với hai nút "Đúng rồi" và "Nói lại", sửa tay cũng được. Trẻ bấm "Đúng rồi" thì chữ mới đi vào `POST /api/answer` như chữ gõ, qua `precheck` và `mask_pii` y như cũ.
 - Lỗi `not-allowed` (bị từ chối quyền mic) thì ẩn nút mic, chuyển sang ô gõ, không dừng game. Lỗi `network` thì báo "chưa nghe được, cậu gõ giúp tớ nhé". `no-speech` thì Tin nhắc "cậu nói to hơn chút nhé".
 - Trình duyệt không hỗ trợ (Firefox) thì không hiện nút mic, ô gõ vẫn chạy.
-- Chép phần bọc API của L-N sang `frontend/lib/speech.ts` thành hook React `useSpeechInput`.
+- Bọc API trong `frontend/lib/speech.ts` thành hook React `useSpeechInput`.
 
 Trên Chrome, âm thanh được gửi lên máy chủ Google để chuyển thành chữ. Phải ghi điều này vào `spec.md` §9 và `data/DATA_CARD.md`, và màn bật mic (sau khoá người lớn) có một dòng nói rõ "giọng nói được gửi tới Google để chuyển thành chữ, game không lưu âm thanh". Mic mặc định tắt. Nếu có thêm thời gian thì chuyển sang PhoWhisper của VinAI chạy trên server của nhóm để âm thanh không qua bên thứ ba.
 
@@ -213,7 +213,7 @@ Trên Chrome, âm thanh được gửi lên máy chủ Google để chuyển th�
 - Chỉ đọc chữ của game: lời kể, lời Tin, lời người lạ, thẻ quy tắc, câu 111. Không đọc lại chữ trẻ gõ hay nói. Lời phản hồi đã qua `postcheck` và `mask_pii` trước khi đem đi đọc.
 - Câu cố định (lời kể 11 màn, thẻ quy tắc, câu trong `data/lines.json`, câu 111) đọc sẵn một lần bằng script rồi lưu thành file trong `frontend/public/assets/voice/`. Lúc chơi chỉ gọi API cho lời phản hồi AI vừa viết. Server lưu tạm theo mã băm của câu để câu nào lặp lại thì không gọi lại.
 - Mỗi nhân vật một giọng: Tin vui, nhanh vừa; người lạ giọng người lớn bình thường, không làm giọng đáng sợ; câu 111 đọc chậm, bình tĩnh. Model và giọng chọn từ danh sách `GET /api/v1/audio/speech/models`, phải nghe thử tiếng Việt trước, vì không phải model nào cũng đọc dấu tiếng Việt chuẩn.
-- Gọi TTS lỗi hoặc chậm quá 4 giây thì dùng `speechSynthesis` của trình duyệt (giọng `vi`, như hàm `say()` của L-N), máy không có giọng Việt thì chỉ hiện chữ. Chữ luôn hiện trên màn hình dù có đọc hay không.
+- Gọi TTS lỗi hoặc chậm quá 4 giây thì dùng `speechSynthesis` của trình duyệt (giọng `vi`), máy không có giọng Việt thì chỉ hiện chữ. Chữ luôn hiện trên màn hình dù có đọc hay không.
 - Chi phí đọc tính theo số ký tự hoặc thời lượng tùy model, phải ghi vào `cost/cost-estimate.md` sau khi chọn model.
 
 ## 7. Assets cần gen thêm

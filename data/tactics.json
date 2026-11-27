@@ -1,0 +1,162 @@
+{
+  "note": "Thẻ chiêu theo docs/kich-ban-giong-doc.md mục 4 (đã thu âm). Mặt sau chỉ ghi cách nhận ra và một câu đáp lại, không tả cách dụ. keywords dùng cho bước so khớp đầu của thám tử nhận chiêu (de-xuat-tinh-nang.md mục 2).",
+  "tactics": [
+    {
+      "code": "gia_quen_bo_me",
+      "name": "Tự nhận là người quen của bố mẹ",
+      "nhan_ra": "Người mình chưa gặp bao giờ mà nói quen bố mẹ mình.",
+      "dap_lai": "Để cháu gọi hỏi mẹ đã.",
+      "age_groups": [
+        "6-10",
+        "11-15"
+      ],
+      "keywords": [
+        "quen mẹ",
+        "quen bố",
+        "bạn của mẹ",
+        "bạn mẹ",
+        "quen bố mẹ",
+        "nhận là quen",
+        "biết mẹ",
+        "biết tên mẹ",
+        "mẹ nhờ"
+      ],
+      "voice": "tactic_gia_quen_bo_me",
+      "icon": "icon_tactic_gia_quen_bo_me"
+    },
+    {
+      "code": "giuc_gap",
+      "name": "Giục đi thật nhanh",
+      "nhan_ra": "Cứ giục mình đi thật nhanh, không cho kịp hỏi ai cả.",
+      "dap_lai": "Cháu không vội đâu, để cháu hỏi bố mẹ đã.",
+      "age_groups": [
+        "6-10",
+        "11-15"
+      ],
+      "keywords": [
+        "giục",
+        "nhanh lên",
+        "vội",
+        "gấp",
+        "đi luôn",
+        "không kịp"
+      ],
+      "voice": "tactic_giuc_gap",
+      "icon": "icon_tactic_giuc_gap"
+    },
+    {
+      "code": "noi_me_gap_chuyen",
+      "name": "Nói bố mẹ đang gặp chuyện",
+      "nhan_ra": "Bảo mẹ đang ở viện, bố bị sao đó, để mình hoảng mà đi theo.",
+      "dap_lai": "Để cháu gọi bố mẹ ngay bây giờ.",
+      "age_groups": [
+        "6-10",
+        "11-15"
+      ],
+      "keywords": [
+        "bệnh viện",
+        "ở viện",
+        "mẹ ốm",
+        "gặp chuyện",
+        "bị sao",
+        "mẹ đau"
+      ],
+      "voice": "tactic_noi_me_gap_chuyen",
+      "icon": "icon_tactic_noi_me_gap_chuyen"
+    },
+    {
+      "code": "cho_qua",
+      "name": "Cho quà, cho kẹo",
+      "nhan_ra": "Cho quà rồi đòi mình làm gì đó, hoặc dặn đừng kể ai.",
+      "dap_lai": "Cháu không nhận đâu ạ.",
+      "age_groups": [
+        "6-10",
+        "11-15"
+      ],
+      "keywords": [
+        "quà",
+        "kẹo",
+        "cho đồ",
+        "dúi",
+        "bánh"
+      ],
+      "voice": "tactic_cho_qua",
+      "icon": "icon_tactic_cho_qua"
+    },
+    {
+      "code": "dan_bi_mat",
+      "name": "Dặn giữ bí mật",
+      "nhan_ra": "Dặn đừng kể với bố mẹ. Bí mật kiểu này là bí mật xấu đấy.",
+      "dap_lai": "Cháu sẽ kể cho mẹ nghe.",
+      "age_groups": [
+        "6-10",
+        "11-15"
+      ],
+      "keywords": [
+        "bí mật",
+        "đừng kể",
+        "không được kể",
+        "giữ riêng",
+        "đừng nói",
+        "giấu"
+      ],
+      "voice": "tactic_dan_bi_mat",
+      "icon": "icon_tactic_dan_bi_mat"
+    },
+    {
+      "code": "hua_vat_pham",
+      "name": "Hứa tặng đồ trong game",
+      "nhan_ra": "Tặng vật phẩm, tặng skin để đổi lấy ảnh hay thông tin của mình.",
+      "dap_lai": "Thôi khỏi, cảm ơn. rồi chặn luôn",
+      "age_groups": [
+        "11-15"
+      ],
+      "keywords": [
+        "skin",
+        "vật phẩm",
+        "kim cương",
+        "đồ trong game",
+        "tặng đồ",
+        "item"
+      ],
+      "voice": "tactic_hua_vat_pham",
+      "icon": "icon_tactic_hua_vat_pham"
+    },
+    {
+      "code": "ep_bang_tinh_cam",
+      "name": "\"Nếu thương thì phải làm\"",
+      "nhan_ra": "Lôi tình cảm ra ép mình làm điều mình không muốn.",
+      "dap_lai": "Thương thật thì không ép nhau đâu.",
+      "age_groups": [
+        "11-15"
+      ],
+      "keywords": [
+        "thương thì",
+        "nếu thương",
+        "yêu thì",
+        "tình cảm",
+        "chia tay"
+      ],
+      "voice": "tactic_ep_bang_tinh_cam",
+      "icon": "icon_tactic_ep_bang_tinh_cam"
+    },
+    {
+      "code": "ru_gap_rieng",
+      "name": "Rủ gặp riêng",
+      "nhan_ra": "Người chỉ quen qua mạng rủ gặp một mình, dặn đừng nói ai.",
+      "dap_lai": "Mình không đi đâu. Mình sẽ kể cho bố mẹ.",
+      "age_groups": [
+        "11-15"
+      ],
+      "keywords": [
+        "gặp riêng",
+        "rủ gặp",
+        "đi một mình",
+        "hẹn gặp",
+        "ra quán"
+      ],
+      "voice": "tactic_ru_gap_rieng",
+      "icon": "icon_tactic_ru_gap_rieng"
+    }
+  ]
+}

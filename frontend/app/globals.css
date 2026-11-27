@@ -117,28 +117,6 @@ img {
   backdrop-filter: blur(6px);
 }
 
-/* Bong bóng lời thoại có đuôi */
-.bubble::after {
-  content: "";
-  position: absolute;
-  width: 34px;
-  height: 34px;
-  background: inherit;
-  border-left: 4px solid var(--ink);
-  border-bottom: 4px solid var(--ink);
-  border-bottom-left-radius: 8px;
-  transform: rotate(45deg);
-}
-.bubble-left::after {
-  left: -21px;
-  bottom: 46px;
-}
-.bubble-down::after {
-  left: 120px;
-  bottom: -21px;
-  transform: rotate(-45deg);
-}
-
 .text-outline {
   -webkit-text-stroke: 7px var(--ink);
   paint-order: stroke fill;

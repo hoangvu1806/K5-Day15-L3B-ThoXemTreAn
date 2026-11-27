@@ -8,15 +8,42 @@ Từ khóa ở đây viết theo kiểu chung, không chép câu thử. Chỉnh 
 """
 import re
 
-HOTLINE_MESSAGE = (
-    "Mình tạm dừng trò chơi ở đây nhé. Điều con vừa kể rất quan trọng, và con không có lỗi gì cả. "
-    "Con hãy kể ngay cho bố mẹ, cô giáo hoặc một người lớn con tin tưởng. "
-    "Con hoặc người lớn có thể gọi Tổng đài quốc gia bảo vệ trẻ em 111, miễn phí."
-)
-INJECTION_MESSAGE = (
-    "Mình không làm theo yêu cầu đó được. Mình chỉ chơi các tình huống luyện tập có sẵn thôi. "
-    "Mình quay lại tình huống nhé?"
-)
+import lines
+
+# Câu an toàn lấy từ data/lines.json (nhóm safe_*), viết riêng cho 6-10 (Tin xưng "tớ", gọi "cậu")
+# và 11-15 ("mình", "bạn"). Câu 111 nào cũng đủ ba ý: có số 111, nói rõ trò chơi dừng, không chấm điểm.
+# Không AI nào sinh lại các câu này (docs/de-xuat-tinh-nang.md mục 4.1, 4.2).
+
+
+def _safe(group, age_group, name="", rng=None, used=None):
+    return lines.pick(group, age_group if age_group in ("6-10", "11-15") else "6-10", name,
+                      used=used, rng=rng, need_name=False)
+
+
+def hotline_message(age_group="6-10", name="", rng=None) -> dict:
+    """{"id", "text", "voice"}: câu dừng game khi nghi xâm hại thật."""
+    return _safe("safe_hotline", age_group, name, rng)
+
+
+def helpbtn_message(age_group="6-10") -> dict:
+    return _safe("safe_helpbtn", age_group)
+
+
+def injection_message(age_group="6-10", name="", rng=None) -> dict:
+    return _safe("safe_inject", age_group, name, rng)
+
+
+def fallback_message(age_group="6-10", name="") -> dict:
+    return _safe("safe_fallback", age_group, name)
+
+
+def exitrole_message(age_group="6-10") -> dict:
+    return _safe("safe_exitrole", age_group)
+
+
+# Giữ tên cũ cho code khác đang dùng (bản 6-10, biến thể đầu).
+HOTLINE_MESSAGE = lines.line("safe_hotline_610_a")["text"]
+INJECTION_MESSAGE = lines.line("safe_inject_610_b")["text"].replace("{ten}", "bạn ấy")
 
 _WHO = r"(con|em|tớ|tao|mình|cháu)"
 _BODY = r"(người|vùng kín|chỗ kín|ngực|mông|đùi|quần|váy|áo)"
@@ -44,13 +71,24 @@ def _hit(patterns, text):
     return next((p for p in patterns if re.search(p, low)), None)
 
 
-def precheck(child_text: str):
-    """Tiền kiểm lời của trẻ (không quét phần tình huống). None = cho qua, hoặc {"reason", "message"}."""
+def precheck(child_text: str, age_group: str = "6-10", name: str = "", rng=None):
+    """Tiền kiểm lời của trẻ (không quét phần tình huống).
+    None = cho qua, hoặc {"reason", "message", "voice"}: câu viết sẵn đúng xưng hô của nhóm tuổi."""
     if _hit(ABUSE_SIGNALS, child_text):
-        return {"reason": "nghi_xam_hai_that", "message": HOTLINE_MESSAGE}
+        m = hotline_message(age_group, name, rng)
+        return {"reason": "nghi_xam_hai_that", "message": m["text"], "voice": m["voice"]}
     if _hit(INJECTION_SIGNALS, child_text):
-        return {"reason": "prompt_injection", "message": INJECTION_MESSAGE}
+        m = injection_message(age_group, name, rng)
+        return {"reason": "prompt_injection", "message": m["text"], "voice": m["voice"]}
     return None
+
+
+# Trẻ muốn thoát màn hội thoại với người lạ (docs/game-flow.md, guardrail 5).
+_EXIT = re.compile(r"^\s*(dừng|dung|stop|thôi|không chơi nữa|ko chơi nữa)\b|\b(dừng lại|thôi không chơi)\b", re.I)
+
+
+def wants_exit(child_text: str) -> bool:
+    return bool(_EXIT.search(child_text or ""))
 
 
 def strip_injection(child_text: str) -> str:
@@ -79,9 +117,20 @@ def mask_pii(text: str) -> str:
 # Câu đổ lỗi hoặc dọa trẻ. Bản đầu, bổ sung khi chấm eval.
 BANNED_OUTPUT = ["lỗi của con", "tại con", "con hư", "đáng bị", "con không nên mặc", "sao con không chống",
                  "lỗi của em", "tại em", "sẽ bị bắt", "sẽ phạt con", "sẽ phạt em", "con trai thì không sao",
-                 "con gái phải cẩn thận hơn"]
+                 "con gái phải cẩn thận hơn",
+                 # Xưng hô mới (Tin gọi trẻ "cậu" ở 6-10, "bạn" ở 11-15). Thiếu là postcheck lọt câu đổ lỗi.
+                 "lỗi của cậu", "tại cậu", "lỗi của bạn", "tại bạn", "sẽ phạt cậu", "sẽ phạt bạn",
+                 "cậu hư", "bạn hư", "cậu không nên mặc", "bạn không nên mặc", "sao cậu không chống",
+                 "sao bạn không chống"]
 MAX_WORDS_6_10 = 25
-SAFE_FALLBACK = "Mình chưa trả lời được câu này. Con thử kể lại con sẽ làm gì trong tình huống nhé."
+SAFE_FALLBACK = fallback_message("6-10")["text"]
+
+
+def is_fallback(text: str) -> bool:
+    """Câu dự phòng của postcheck (mọi nhóm tuổi, mọi tên)."""
+    t = (text or "").strip()
+    return any(t == lines.fill(it["text"], n) for it in lines.items("safe_fallback")
+               for n in ("bạn ấy", "Bin", "Na", "Khôi", "Mai"))
 
 
 def long_sentences(text: str, age_group: str) -> list:
@@ -111,9 +160,9 @@ def banned_phrase(text: str):
     return None
 
 
-def postcheck(output: str, age_group: str) -> str:
-    """Hậu kiểm lời của AI. Có câu đổ lỗi, dọa trẻ thì thay bằng câu an toàn. Luôn che thông tin định danh."""
+def postcheck(output: str, age_group: str, name: str = "") -> str:
+    """Hậu kiểm lời của AI. Có câu đổ lỗi, dọa trẻ thì thay bằng câu an toàn đúng nhóm tuổi. Luôn che thông tin định danh."""
     text = (output or "").strip()
     if not text or banned_phrase(text):
-        return SAFE_FALLBACK
+        return fallback_message(age_group, name)["text"]
     return mask_pii(text)
