@@ -5,7 +5,7 @@
 
 ## 1. Dataset → xử lý
 
-Kho tình huống và quy tắc chuẩn theo 2 nhóm tuổi (6-10, 11-15). Nhóm tự soạn trong `data/` dựa trên tài liệu công khai của UNESCO và UNICEF Việt Nam (quy tắc đồ bơi, bí mật tốt và bí mật xấu, an toàn trên mạng). Nhãn `synthetic`, không có dữ liệu thật của trẻ. Chi tiết nguồn và số dòng: `data/DATA_CARD.md` *(Hoàng Minh Diệp điền, đang soạn)*.
+Kho tình huống và quy tắc chuẩn theo 2 nhóm tuổi (6-10, 11-15), nhóm tự soạn trong `data/`: 12 quy tắc viết lại ngắn theo Council of Europe (The Underwear Rule), NSPCC (PANTS), UNESCO (International technical guidance on sexuality education, 2018) và Tổng đài 111; 11 tình huống nhóm tự viết, 3 tình huống phỏng theo chuyện trong khảo sát. Không có dữ liệu thật của trẻ. Chi tiết nguồn và số dòng: `data/DATA_CARD.md`.
 
 ## 2. Bộ câu thử dựng ra sao
 
