@@ -6,14 +6,15 @@
 
 - Tên nhóm: ThoXemTreAn
 - Lớp: L3B
-- Track: ____
+- Track: A
 - Link repo: https://github.com/hoangvu1806/K5-Day15-L3B-ThoXemTreAn
 
 | STT | Họ và tên | Mã học viên | Vai trò | Phần việc chính |
 |---|---|---|---|---|
-| 1 | ____ | ____ | Đội trưởng | ____ |
-| 2 | ____ | ____ | Thành viên | ____ |
-| 3 | ____ | ____ | Thành viên | ____ |
+| 1 | Đỗ Hoàng Vũ | 2A202603920 | Đội trưởng | ____ |
+| 2 | Hoàng Minh Diệp | 2A202603764 | Thành viên | ____ |
+| 3 | Vũ Quang Minh | 2A202603727 | Thành viên | ____ |
+| 4 | Trần Thị Hà Anh | 2A202603887 | Thành viên | ____ |
 
 **Quy tắc điền**
 - **Lớp:** `L3A` hoặc `L3B`. **Track:** một chữ `A` (EdTech), `B` (Y tế), `C` (Du lịch), `D` (Thương mại điện tử), `E` (Tài chính) hoặc `F` (Làn khác). **Link repo:** link GitHub công khai của nhóm.
