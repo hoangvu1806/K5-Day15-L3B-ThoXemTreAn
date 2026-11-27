@@ -61,6 +61,12 @@ flowchart TD
     T4 --> P[Phụ huynh / giáo viên đọc và duyệt]
 ```
 
+- **Kiến trúc thành phần (CP2)** — vẽ từ code tại commit `a094f07` (`codebase/server.py`, `agent.py`, `guardrails.py`, `tools.py`, `ai.py`) và `docs/game-flow.md`. Bản tương tác, bấm vào từng ô để xem dòng code gốc: [`docs/architecture/growsafe-architecture.html`](docs/architecture/growsafe-architecture.html).
+
+  ![Kiến trúc GrowSafe AI — lát cắt CP2](docs/architecture/growsafe-architecture.png)
+
+  Đọc sơ đồ: luồng chính (xanh đậm) là trẻ → `POST /api/chat` → `precheck` → `mask_pii` → agent ADK → `postcheck` → phản hồi. Nhánh đỏ nét đứt là chỗ dừng game, hiện 111 hoặc từ chối mà không gọi model. Agent chỉ gọi công cụ đọc kho; công cụ duy nhất ghi là `draft_parent_teacher_note`, ghi vào `DRAFTS` trong bộ nhớ với trạng thái `cho_duyet`, phụ huynh hoặc giáo viên đọc qua `GET /api/drafts`. Sơ đồ chưa có chế độ AI đóng vai, màn dậy thì và 4 endpoint dự kiến trong `docs/game-flow.md`, vì các phần này làm sau CP2.
+
 - **Hình dạng:** [ ] workflow cố định · [x] một agent · [ ] nhiều agent — Input có nhiều dạng (trả lời tình huống có sẵn, trả lời theo mã màn, tự gõ ngoài tình huống, câu ngoài phạm vi), mỗi dạng cần gọi công cụ khác nhau, nên để một agent tự chọn công cụ. Các bước an toàn (precheck, che thông tin, postcheck) thì cố định bằng code, không giao cho agent. Không dùng nhiều agent vì lát cắt chỉ có một quyết định AI là chấm câu trả lời; tách thêm agent chỉ làm tăng chi phí và khó kiểm hơn.
 - **AI dựa vào đâu** — mỗi công cụ (khớp `codebase/tools.py`):
 
