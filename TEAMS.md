@@ -6,7 +6,7 @@
 
 - Tên nhóm: ThoXemTreAn
 - Lớp: L3B
-- Track: A
+- Track: F
 - Link repo: https://github.com/hoangvu1806/K5-Day15-L3B-ThoXemTreAn
 
 | STT | Họ và tên | Mã học viên | Vai trò | Phần việc chính |
