@@ -12,8 +12,8 @@
 | STT | Họ và tên | Mã học viên | Vai trò | Phần việc chính |
 |---|---|---|---|---|
 | 1 | Đỗ Hoàng Vũ | 2A202603920 | Đội trưởng | Thiết kế luồng agent, guardrail và code lõi |
-| 2 | Hoàng Minh Diệp | 2A202603764 | Thành viên | Phỏng vấn người dùng, bằng chứng và bộ câu thử |
-| 3 | Vũ Quang Minh | 2A202603727 | Thành viên | Kho tình huống theo độ tuổi và nối model |
+| 2 | Hoàng Minh Diệp | 2A202603764 | Thành viên | Phỏng vấn người dùng, kho tình huống và bộ câu thử |
+| 3 | Vũ Quang Minh | 2A202603727 | Thành viên | Làm assets và code game, nối model |
 | 4 | Trần Thị Hà Anh | 2A202603887 | Thành viên | Khảo sát bằng chứng, chấm câu thử và tính chi phí |
 
 **Quy tắc điền**
