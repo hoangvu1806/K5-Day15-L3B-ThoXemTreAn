@@ -16,7 +16,7 @@ users:              # số người dùng thật nếu đưa vào dùng — 3 k�
   source: "(ví dụ) track A — thay bằng số của nhóm. Cơ sở: lớp L3 hơn 700 học viên (README hackathon); thấp, cao: (tự ước tính)"
 
 personas:           # ≥3 kiểu người dùng; share cộng lại = 1
-  # share chia trên 18 phiếu có chọn mức ở câu 7 (6 + 10 + 2), 2 phiếu còn lại không chọn mức nào.
+  # share chia trên 18 phiếu sẽ cho trẻ chơi ở câu 7 (6 + 10 + 2). 2/20 phiếu chọn không cho chơi nên không tính là người dùng.
   - name: dung_it
     share: 0.33             # tỉ lệ người dùng kiểu này
     uses_per_month: 3       # số phiên / người / tháng
