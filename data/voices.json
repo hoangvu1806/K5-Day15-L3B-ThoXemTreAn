@@ -1,0 +1,46 @@
+{
+  "model": "google/gemini-3.8-flash-lite-tts",
+  "note": "Giọng chốt từ nghe thử ngày 28/11 (15 mẫu). Chú Hải chưa nghe thử riêng, tạm dùng Orus như đề xuất; Chú Toàn và Bà nội lấy phương án đầu trong mỗi cặp đã nghe (Algieba, Gacrux). Đổi giọng thì chỉ sửa file này rồi chạy lại script, không cần sửa kịch bản.",
+  "roles": {
+    "tin610": {
+      "voice": "Puck",
+      "instructions": "Giọng vui vẻ, thân thiện như một người bạn, nói tiếng Việt rõ dấu với trẻ tám tuổi, tốc độ vừa phải."
+    },
+    "tin1115": {
+      "voice": "Puck",
+      "instructions": "Giọng vui vẻ, thân thiện như một người bạn, nói tiếng Việt rõ dấu với bạn mười ba tuổi, tốc độ vừa phải."
+    },
+    "tin_calm610": {
+      "voice": "Puck",
+      "instructions": "Nói chậm, nhỏ nhẹ, bình tĩnh và ấm áp, nghỉ lâu giữa các câu. Không vội, không gây sợ. Nói với trẻ tám tuổi."
+    },
+    "tin_calm1115": {
+      "voice": "Puck",
+      "instructions": "Nói chậm, nhỏ nhẹ, bình tĩnh và ấm áp, nghỉ lâu giữa các câu. Không vội, không gây sợ. Nói với bạn mười ba tuổi."
+    },
+    "nguoi_la": {
+      "voice": "Charon",
+      "instructions": "Giọng một người đàn ông trung niên bình thường, thân thiện, hơi vội. Không đáng sợ."
+    },
+    "chu_hai": {
+      "voice": "Orus",
+      "instructions": "Giọng người đàn ông khoảng bốn mươi tuổi, xuề xòa, thân thiện như hàng xóm quen mặt."
+    },
+    "co_lan": {
+      "voice": "Aoede",
+      "instructions": "Giọng người phụ nữ khoảng ba mươi lăm tuổi, ngọt ngào, thân mật, nói nhỏ nhẹ."
+    },
+    "chu_toan": {
+      "voice": "Algieba",
+      "instructions": "Giọng người đàn ông khoảng năm mươi tuổi, xởi lởi, ấm."
+    },
+    "ba": {
+      "voice": "Gacrux",
+      "instructions": "Giọng bà cụ hiền hậu, chậm rãi, trìu mến."
+    },
+    "khoa": {
+      "voice": "Fenrir",
+      "instructions": "Giọng một cậu thiếu niên mười bốn tuổi sôi nổi, nói nhanh như đang nhắn tin với bạn."
+    }
+  }
+}

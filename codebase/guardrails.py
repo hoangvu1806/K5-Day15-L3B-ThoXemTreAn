@@ -91,9 +91,29 @@ def long_sentences(text: str, age_group: str) -> list:
     return [s for s in re.split(r"(?<=[.!?…])\s+|\n+", text) if len(s.split()) > MAX_WORDS_6_10]
 
 
+# Phủ định đứng ngay trước cụm cấm thì là câu trấn an ("không phải lỗi của con"), không phải câu đổ lỗi.
+_NEGATION = re.compile(r"(không phải|chẳng phải|đâu phải|không hề|không bao giờ là|chưa bao giờ là|không có)\s*(là\s*)?$")
+# "hiện tại em", "tồn tại con": chữ "tại" thuộc từ ghép, không phải "tại em" đổ lỗi.
+_COMPOUND_TAI = re.compile(r"(hiện|thực|tồn)\s*$")
+
+
+def banned_phrase(text: str):
+    """Cụm đổ lỗi hoặc dọa trẻ đầu tiên có trong text, bỏ qua khi có phủ định hoặc từ ghép đứng trước. None nếu không có."""
+    low = (text or "").lower()
+    for phrase in BANNED_OUTPUT:
+        for m in re.finditer(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", low):
+            before = low[max(0, m.start() - 24):m.start()]
+            if _NEGATION.search(before):
+                continue
+            if phrase.startswith("tại ") and _COMPOUND_TAI.search(before):
+                continue
+            return phrase
+    return None
+
+
 def postcheck(output: str, age_group: str) -> str:
     """Hậu kiểm lời của AI. Có câu đổ lỗi, dọa trẻ thì thay bằng câu an toàn. Luôn che thông tin định danh."""
     text = (output or "").strip()
-    if not text or any(w in text.lower() for w in BANNED_OUTPUT):
+    if not text or banned_phrase(text):
         return SAFE_FALLBACK
     return mask_pii(text)
