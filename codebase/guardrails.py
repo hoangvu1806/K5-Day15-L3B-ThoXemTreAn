@@ -206,3 +206,67 @@ def postcheck(output: str, age_group: str, name: str = "") -> str:
     if not text or banned_phrase(text):
         return fallback_message(age_group, name)["text"]
     return mask_pii(deslop(text))
+
+
+# ---------- Guardrail riêng cho chế độ Hỏi Tin (giáo dục giới tính) ----------
+
+# Chặn đầu vào đòi nội dung 18+/khiêu dâm, cách quan hệ tình dục, hoặc kê đơn thuốc trước khi gọi model.
+ASK_PORN_SIGNALS = [
+    r"(web|trang|link|kênh|app|phim|clip|video).{0,25}(18\+|người lớn|sex|khiêu dâm|porn|hentai|jav|nóng|cởi truồng|khỏa thân)",
+    r"(xem|tìm|chỉ|cho xin).{0,20}(phim người lớn|phim sex|phim 18\+|ảnh nóng|ảnh khỏa thân|ảnh nude|porn|hentai)",
+    r"(cách|hướng dẫn|làm sao để).{0,25}(làm tình|quan hệ tình dục|thủ dâm|đút vào|làm chuyện ấy|làm chuyện người lớn)",
+    r"(tả|kể chi tiết|mô tả).{0,25}(làm tình|quan hệ tình dục|phim 18\+|chuyện ấy)",
+]
+
+ASK_MEDICAL_SIGNALS = [
+    r"(uống|mua|dùng|bôi)\s+thuốc\s+(gì|nào)",
+    r"(kê đơn|chẩn đoán|bị bệnh gì|uống paracetamol|uống kháng sinh)",
+]
+
+# Chặn đầu ra mở thêm cửa (URL, tên web/app, xúi tự tìm trên mạng), kê thuốc, hoặc dùng từ lóng/thô tục.
+ASK_FORBIDDEN_OUTPUT = [
+    re.compile(r"https?://|www\.|\.(com|vn|net|org|tv|xxx)\b", re.I),
+    re.compile(r"(lên|vào|tìm trên|tra trên|xem trên)\s+(google|youtube|tiktok|facebook|mạng|internet|web)", re.I),
+    re.compile(r"(uống|mua|dùng)\s+(thuốc\s+giảm\s+đau|paracetamol|ibuprofen|panadol|kháng\s+sinh|thuốc\s+tránh\s+thai)", re.I),
+    re.compile(r"(tư thế|màn dạo đầu|lên đỉnh|cực khoái|xuất tinh vào|đút dương vật|đưa dương vật)", re.I),
+]
+
+# Riêng nhóm 6-10 trong Hỏi Tin: không dùng từ giải phẫu trực diện, dùng cách nói dịu nhẹ ("vùng riêng tư", "chỗ đồ bơi che", "trong bụng mẹ").
+ASK_FORBIDDEN_6_10 = re.compile(
+    r"\b(dương vật|âm hộ|âm đạo|tinh hoàn|tinh trùng|tử cung|bộ phận sinh dục|xuất tinh|mộng tinh|kinh nguyệt|quan hệ tình dục)\b",
+    re.I,
+)
+
+_ADULT_REF = re.compile(
+    r"\b(mẹ|bố|ba|bố mẹ|ba mẹ|thầy|cô giáo|cô y tế|nhân viên y tế|bác sĩ|người lớn|anh chị|111)\b", re.I
+)
+
+
+def ask_input_block(text: str):
+    """Kiểm nhanh đầu vào chế độ Hỏi Tin: '18_plus' | 'medical' | None."""
+    if _hit(ASK_PORN_SIGNALS, text or ""):
+        return "18_plus"
+    if _hit(ASK_MEDICAL_SIGNALS, text or ""):
+        return "medical"
+    return None
+
+
+def has_adult_ref(text: str) -> bool:
+    return bool(_ADULT_REF.search(text or ""))
+
+
+def ask_postcheck(output: str, age_group: str, fallback: str, require_adult: bool = False) -> str:
+    """Hậu kiểm riêng cho Hỏi Tin: chặn đổ lỗi, dọa, link/xúi tìm mạng, kê thuốc, từ thô tục, từ giải phẫu quá thẳng với 6-10."""
+    text = (output or "").strip()
+    if not text or banned_phrase(text) or inappropriate(text):
+        return fallback
+    cleaned = mask_pii(deslop(text))
+    if any(p.search(cleaned) for p in ASK_FORBIDDEN_OUTPUT):
+        return fallback
+    if age_group == "6-10" and ASK_FORBIDDEN_6_10.search(cleaned):
+        return fallback
+    if require_adult and not has_adult_ref(cleaned):
+        return fallback
+    if age_group == "6-10" and long_sentences(cleaned, age_group):
+        return fallback
+    return cleaned

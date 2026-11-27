@@ -1,6 +1,7 @@
-import type { AgeProgress } from "./local";
+import { loadAccount, type AgeProgress } from "./local";
 import type {
-  AgeGroup, AnswerResponse, DetectiveResponse, Draft, Gender, HelpContent, HintResponse, LevelResponse, SessionResponse,
+  AgeGroup, AnswerResponse, AskMessageResponse, AskStartResponse, DetectiveResponse, Draft, Gender, HelpContent,
+  HintResponse, LevelResponse, SessionResponse,
 } from "./types";
 
 export interface AccountResponse {
@@ -21,11 +22,12 @@ async function post<T>(path: string, body: unknown, timeoutMs = 60000): Promise<
   return send<T>("POST", path, body, timeoutMs);
 }
 
-async function send<T>(method: string, path: string, body: unknown, timeoutMs = 60000, token = ""): Promise<T> {
+async function send<T>(method: string, path: string, body: unknown, timeoutMs = 60000, token?: string): Promise<T> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   const headers: Record<string, string> = { "Content-Type": "application/json" };
-  if (token) headers.Authorization = "Bearer " + token;
+  const authToken = token !== undefined ? token : (loadAccount()?.token ?? "");
+  if (authToken) headers.Authorization = "Bearer " + authToken;
   try {
     const res = await fetch(BASE + path, {
       method,
@@ -60,6 +62,12 @@ export const api = {
     post<DetectiveResponse>("/api/detective", { session_id, scenario_id, text }),
   help: (session_id: string) => post<HelpContent>("/api/help", { session_id }, 8000),
   end: (session_id: string) => post<Draft>("/api/session/end", { session_id }),
+  /* Chế độ Hỏi Tin (codebase/ask.py): trẻ hỏi đáp giáo dục giới tính đúng trần tuổi. */
+  askStart: (age_group: AgeGroup, gender: Gender, session_id = "") =>
+    post<AskStartResponse>("/api/ask/start", { age_group, gender, session_id }, 15000),
+  askMessage: (ask_session_id: string, text: string) =>
+    post<AskMessageResponse>("/api/ask/message", { ask_session_id, text }, 45000),
+  askEnd: (ask_session_id: string) => post<Draft>("/api/ask/end", { ask_session_id }, 10000),
   /* Tài khoản (codebase/auth.py). progress là bản gọn từ compactProgress(). */
   register: (username: string, password: string, consent: boolean, progress: unknown) =>
     post<AccountResponse>("/api/auth/register", { username, password, consent, progress }, 15000),
@@ -72,9 +80,12 @@ export const api = {
   async tts(session_id: string, text: string, role: string, timeoutMs = 4000): Promise<Blob> {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    const authToken = loadAccount()?.token ?? "";
+    if (authToken) headers.Authorization = "Bearer " + authToken;
     try {
       const res = await fetch(BASE + "/api/tts", {
-        method: "POST", headers: { "Content-Type": "application/json" },
+        method: "POST", headers,
         body: JSON.stringify({ session_id, text, role }), signal: ctrl.signal,
       });
       if (!res.ok) throw new ApiError("tts", res.status);

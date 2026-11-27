@@ -15,8 +15,8 @@ import { Chunky, IconButton, Pic } from "./ui";
  * Nói xong, chữ nghe được hiện ra để trẻ bấm "Đúng rồi" (gửi) hoặc "Nói lại", sửa tay cũng được.
  * Bước xác nhận là bắt buộc: máy nghe nhầm "con không đi" thành "con đi" là đảo ngược nghĩa câu trả lời.
  */
-export default function Dock({ age, onSend, allowHint = true, onListen }: {
-  age: AgeGroup; onSend: (text: string) => void; allowHint?: boolean; onListen?: (on: boolean) => void;
+export default function Dock({ age, onSend, allowHint = true, onListen, placeholder }: {
+  age: AgeGroup; onSend: (text: string) => void; allowHint?: boolean; onListen?: (on: boolean) => void; placeholder?: string;
 }) {
   const { busy, askHint, hint, say } = useGame();
   const [text, setText] = useState("");
@@ -122,7 +122,7 @@ export default function Dock({ age, onSend, allowHint = true, onListen }: {
               <svg viewBox="0 0 24 24" className="h-[26px] w-[26px] shrink-0" fill="none" stroke="var(--ink-soft)" strokeWidth="2.6" strokeLinecap="round"><path d="M4 20l4-1 11-11-3-3L5 16z" /><path d="M14 6l3 3" /></svg>
               <input ref={input} value={text} onChange={(e) => setText(e.target.value)} maxLength={300} disabled={busy}
                 onKeyDown={(e) => { if (e.key === "Enter" && !e.nativeEvent.isComposing) { e.preventDefault(); send(text); } }}
-                placeholder={micOn ? `Hoặc ${youSay} gõ ở đây…` : `${youSay === "cậu" ? "Cậu" : "Bạn"} gõ cách ${youSay} sẽ làm…`}
+                placeholder={placeholder ?? (micOn ? `Hoặc ${youSay} gõ ở đây…` : `${youSay === "cậu" ? "Cậu" : "Bạn"} gõ cách ${youSay} sẽ làm…`)}
                 className="h-full min-w-0 flex-1 bg-transparent text-[22px] font-bold text-[var(--ink)] outline-none placeholder:text-[var(--ink-soft)]/70" />
               <button type="submit" disabled={busy || !text.trim()} aria-label="Gửi"
                 className="btn-chunky h-[52px] w-[66px] p-0" style={{ ["--c" as string]: text.trim() ? "var(--mint)" : "#eee6da" }}>

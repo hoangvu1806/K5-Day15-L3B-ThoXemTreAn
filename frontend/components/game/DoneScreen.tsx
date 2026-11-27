@@ -11,7 +11,7 @@ import { RuleCardView } from "./RewardScreen";
 import { Chunky, Pic, useFitText } from "./ui";
 
 export default function DoneScreen() {
-  const { progress, draft, saved, goHome, requestLock, setOverlay } = useGame();
+  const { progress, draft, saved, goHome, setOverlay } = useGame();
   const age = saved.profile?.age ?? "6-10";
   const p = saved.progress[age];
   const owned = Object.values(p.rules).slice(-6);
@@ -88,7 +88,7 @@ export default function DoneScreen() {
         </AnimatePresence>
         <div className="mt-6 flex w-full gap-4">
           <Chunky size="md" color="var(--lilac)" className="flex-1 gap-2 whitespace-nowrap pl-3 text-[23px]!" silent
-            onClick={() => requestLock("parent", () => setOverlay("parent"))}>
+            onClick={() => setOverlay("parent")}>
             <Pic src={ui.parent} w={512} h={512} className="h-[44px] w-[44px]" />Góc phụ huynh
           </Chunky>
           <Chunky size="md" color="var(--mint)" className="flex-1" onClick={leave}>Về nhà</Chunky>

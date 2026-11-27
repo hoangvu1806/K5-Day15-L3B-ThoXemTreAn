@@ -930,7 +930,11 @@ def end(session_id):
     lines_ = ["Nhóm tuổi: %s (gọi trẻ là \"%s\")" % (session["age_group"], _child_term(session["age_group"]))]
     for r in session["results"]:
         lines_.append("%s (chủ đề %s, %d sao)" % (_level_line(r), r["topic"], r["stars"]))
-    lines_.extend(_flags_summary(session))
+    import ask
+    ask_lines, ask_flags = ask.report_summary(session_id, session["age_group"])
+    lines_.extend(ask_lines)
+    report_ctx = {**session, "flags": list(session.get("flags") or []) + ask_flags} if ask_flags else session
+    lines_.extend(_flags_summary(report_ctx))
     if session["stopped"]:
         lines_.append("Phiên dừng sớm vì trẻ bấm nút cần giúp hoặc kể điều cần người lớn chú ý.")
     summary = mask_pii("\n".join(lines_).replace(session["name"], "nhân vật"))
@@ -941,9 +945,9 @@ def end(session_id):
         except Exception as e:
             note("model lỗi khi soạn bản nháp: %s" % e)
     if not text or is_fallback(text):
-        text = _note_fallback(session)
-    elif _missing_flags(text, session):
-        text = text.rstrip() + "\n\n" + _flags_section(session)
+        text = _note_fallback(report_ctx)
+    elif _missing_flags(text, report_ctx):
+        text = text.rstrip() + "\n\n" + _flags_section(report_ctx)
     draft = draft_parent_teacher_note(mask_pii(text.replace(session["name"], "nhân vật")))
     stars = sum(r["stars"] for r in session["results"])
     passed = sum(1 for r in session["results"] if r["result"] == "dat")

@@ -3,6 +3,7 @@
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useEffect } from "react";
 import AccountPanel from "./AccountPanel";
+import AskScreen from "./AskScreen";
 import { bg, owl, preload, ui } from "@/lib/assets";
 import { sound } from "@/lib/sound";
 import { useGame, type Phase } from "@/lib/store";
@@ -15,7 +16,7 @@ import HomeScreen from "./HomeScreen";
 import IntroScreen from "./IntroScreen";
 import MapScreen from "./MapScreen";
 import NotebookScreen from "./NotebookScreen";
-import { AdultLock, ConfirmHome, PauseMenu, SettingsPanel } from "./Overlays";
+import { ConfirmHome, ConfirmWipe, PauseMenu, SettingsPanel } from "./Overlays";
 import ParentCorner from "./ParentCorner";
 import PlayScreen from "./PlayScreen";
 import RewardScreen from "./RewardScreen";
@@ -32,7 +33,7 @@ function backdropFor(phase: Phase, sceneBg?: string) {
   if (phase === "help") return ui.illusHelp;
   if (phase === "done") return ui.illusDone;
   if (phase === "notebook") return ui.notebookPage;
-  if (phase === "hand") return bg("bg_living_room");
+  if (phase === "hand" || phase === "ask") return bg("bg_living_room");
   return bg(sceneBg || "bg_home_main");
 }
 
@@ -48,11 +49,12 @@ function Screen({ view, scenario }: { view: Phase; scenario: Scenario | null }) 
   if (view === "done") return <DoneScreen />;
   if (view === "notebook") return <NotebookScreen />;
   if (view === "hand") return <HandScreen />;
+  if (view === "ask") return <AskScreen />;
   return null;
 }
 
 export default function Game() {
-  const { hydrated, phase, scenario, overlay, lock, saved, hydrate, setOverlay, setOnline } = useGame();
+  const { hydrated, phase, scenario, overlay, saved, hydrate, setOverlay, setOnline } = useGame();
   const reduced = saved.settings.reducedMotion;
 
   useEffect(() => {
@@ -79,7 +81,7 @@ export default function Game() {
   useEffect(() => {
     const pause = () => {
       const s = useGame.getState();
-      if (PAUSABLE.includes(s.phase) && !s.lock) s.setOverlay(s.overlay === "pause" ? "" : "pause");
+      if (PAUSABLE.includes(s.phase)) s.setOverlay(s.overlay === "pause" ? "" : "pause");
     };
     const key = (e: KeyboardEvent) => {
       if (e.key === "Escape") pause();
@@ -121,8 +123,8 @@ export default function Game() {
               {overlay === "confirmHome" && <ConfirmHome key="confirm" />}
               {overlay === "parent" && <ParentCorner key="parent" onClose={() => setOverlay("")} />}
               {overlay === "account" && <AccountPanel key="account" />}
+              {overlay === "confirmWipe" && <ConfirmWipe key="confirmWipe" />}
             </AnimatePresence>
-            <AnimatePresence>{lock && <AdultLock key={"lock-" + lock} />}</AnimatePresence>
             <OfflineBanner />
           </>
         )}

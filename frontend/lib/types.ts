@@ -200,3 +200,34 @@ export interface ChatMsg {
   who: "stranger" | "kid" | "tin";
   text: string;
 }
+
+export interface AskChatMsg {
+  who: "kid" | "tin";
+  text: string;
+  topic?: string;
+}
+
+export interface AskStartResponse {
+  ask_session_id: string;
+  age_group: AgeGroup;
+  greeting: string;
+  privacy_notice: string;
+  chips: string[];
+  max_questions: number;
+  remaining: number;
+}
+
+export interface AskMessageResponse {
+  ask_session_id: string;
+  reply: string;
+  mood: "calm" | "curious" | "explain" | "happy";
+  topic_id: string;
+  topic_title: string;
+  level: string;
+  chips: string[];
+  remaining: number;
+  ended: boolean;
+  stopped: string;
+  help?: HelpContent;
+  answer_text?: string;
+}

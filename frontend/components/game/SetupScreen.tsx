@@ -39,8 +39,7 @@ function StepLabel({ n, children, hint }: { n: number; children: string; hint?: 
 
 /** Tạo hồ sơ (người lớn làm). Không hỏi tên thật. Giới tính bắt buộc, chỉ để chọn nhân vật chính. */
 export default function SetupScreen() {
-  const { saved, setProfile, goHome, account, setOverlay } = useGame();
-  // Màn này người lớn đang làm nên mở thẳng, không cần khoá phép tính như ở màn hình chính.
+  const { saved, setProfile, account, setOverlay } = useGame();
   const openAccount = () => setOverlay("account");
   const prev = saved.profile;
   const [age, setAge] = useState<AgeGroup>(prev?.age ?? "6-10");
@@ -134,8 +133,7 @@ export default function SetupScreen() {
 
 
         <motion.div variants={pop} className="mt-3 flex items-center gap-4">
-          {prev && <Chunky size="md" color="var(--cream)" onClick={goHome}>Huỷ</Chunky>}
-          <Chunky size="lg" color="var(--sun)" disabled={!gender} silent onClick={done} className="flex-1">
+          <Chunky size="lg" color="var(--sun)" disabled={!gender} silent onClick={done} className="w-full">
             {gender ? "Xong, vào game" : "Chọn Nam hoặc Nữ nhé"}
           </Chunky>
         </motion.div>

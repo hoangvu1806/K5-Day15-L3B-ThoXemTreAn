@@ -22,7 +22,7 @@ import threading
 import time
 from contextlib import contextmanager
 
-from fastapi import APIRouter, Header, HTTPException, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel
 
 import game
@@ -44,6 +44,13 @@ SCRYPT = {"n": 2 ** 14, "r": 8, "p": 1, "dklen": 32}
 FAIL_LIMIT, FAIL_WINDOW = 5, 600
 _fails: dict = {}
 _fails_lock = threading.Lock()
+
+# Chống spam các endpoint AI / TTS tốn chi phí: mặc định tối đa 30 lượt/phút mỗi tài khoản.
+AI_RATE_LIMIT = int(os.environ.get("GROWSAFE_AI_RATE_LIMIT") or 30)
+AI_RATE_WINDOW = 60
+REGISTER_LIMIT, REGISTER_WINDOW = 10, 600
+_rates: dict = {}
+_rates_lock = threading.Lock()
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS users (
@@ -143,6 +150,34 @@ def _clear_fails(keys):
             _fails.pop(k, None)
 
 
+def _check_rate(key: str, limit: int, window: int, msg: str):
+    """Giới hạn số lượt gọi theo cửa sổ trượt trong RAM. Vượt ngưỡng thì trả 429."""
+    if limit <= 0:
+        return
+    now = time.time()
+    with _rates_lock:
+        recent = [t for t in _rates.get(key, []) if now - t < window]
+        if len(recent) >= limit:
+            _rates[key] = recent
+            raise HTTPException(429, msg)
+        recent.append(now)
+        _rates[key] = recent
+
+
+def require_user(authorization: str = Header(default="")) -> tuple[int, str]:
+    """Dependency FastAPI: bắt buộc có Bearer token hợp lệ cho các endpoint quan trọng."""
+    with _db() as con:
+        return _user_from_token(con, authorization)
+
+
+def require_ai_user(user: tuple[int, str] = Depends(require_user)) -> tuple[int, str]:
+    """Dependency FastAPI: bắt buộc đăng nhập + giới hạn tốc độ gọi AI/TTS để chống spam chi phí."""
+    user_id, _ = user
+    _check_rate("ai:%d" % user_id, AI_RATE_LIMIT, AI_RATE_WINDOW,
+                "Bạn gửi hơi nhanh rồi, đợi một lát rồi thử lại nhé")
+    return user
+
+
 # ---------- Tiến độ ----------
 
 def _empty_progress():
@@ -235,7 +270,10 @@ def _clean_username(u: str) -> str:
 
 
 @router.post("/auth/register")
-def register(body: RegisterIn):
+def register(body: RegisterIn, request: Request):
+    ip = request.client.host if request.client else ""
+    if ip:
+        _check_rate("reg:" + ip, REGISTER_LIMIT, REGISTER_WINDOW, "Tạo quá nhiều tài khoản từ máy này, thử lại sau ít phút")
     username = _clean_username(body.username)
     if not USERNAME_RE.match(username):
         raise HTTPException(400, "Tên đăng nhập dài 3-20 ký tự, chỉ gồm chữ không dấu, số, dấu chấm, gạch dưới")
