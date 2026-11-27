@@ -1,0 +1,5 @@
+Audio assets curated from Kenney (https://kenney.nl) packs:
+- Interface Sounds
+- UI Audio
+- Music Jingles (Pizzicato & Steel)
+License: Creative Commons Zero (CC0 1.0 Public Domain).

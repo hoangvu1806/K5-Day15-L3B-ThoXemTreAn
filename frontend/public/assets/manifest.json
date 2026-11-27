@@ -1,0 +1,524 @@
+{
+  "color_grade": {
+    "saturation": "+35",
+    "sharpness": "+40"
+  },
+  "format": "webp",
+  "count": 69,
+  "assets": {
+    "backgrounds/bg_cafe_street.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 157426
+    },
+    "backgrounds/bg_classroom_health.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 125592
+    },
+    "backgrounds/bg_home_main.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 107580
+    },
+    "backgrounds/bg_living_room.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 108420
+    },
+    "backgrounds/bg_map_journey.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 144374
+    },
+    "backgrounds/bg_park_bench.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 178420
+    },
+    "backgrounds/bg_school_gate.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 142414
+    },
+    "backgrounds/bg_school_hallway.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 95536
+    },
+    "backgrounds/bg_swimming_pool.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 116838
+    },
+    "backgrounds/bg_teen_desk.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 162188
+    },
+    "characters/narrator/narrator_calm.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 42046
+    },
+    "characters/narrator/narrator_curious.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 33962
+    },
+    "characters/narrator/narrator_encourage.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 41546
+    },
+    "characters/narrator/narrator_explain.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 42708
+    },
+    "characters/narrator/narrator_happy.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 45858
+    },
+    "characters/narrator/narrator_welcome.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 41742
+    },
+    "characters/npcs/npc_grandma_warm.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 61342
+    },
+    "characters/npcs/npc_man_friendly.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 52382
+    },
+    "characters/npcs/npc_man_insistent.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 51528
+    },
+    "characters/npcs/npc_neighbor_friendly.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 60766
+    },
+    "characters/npcs/npc_neighbor_secret.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 61280
+    },
+    "characters/npcs/npc_online_avatar.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 37936
+    },
+    "characters/npcs/npc_teacher_friendly.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 49784
+    },
+    "characters/npcs/npc_trusted_guard.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 50122
+    },
+    "characters/players/kid_1115_neutral_confident.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 42190
+    },
+    "characters/players/kid_1115_neutral_idle.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 40514
+    },
+    "characters/players/kid_1115_neutral_unsure.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 38022
+    },
+    "characters/players/kid_610_neutral_confident.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 39716
+    },
+    "characters/players/kid_610_neutral_idle.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 39514
+    },
+    "characters/players/kid_610_neutral_unsure.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 38176
+    },
+    "illustrations/illus_help_111.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 141116
+    },
+    "illustrations/illus_session_complete.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 88852
+    },
+    "ui/actions/icon_action_leave.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 29678
+    },
+    "ui/actions/icon_action_say_no.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 23020
+    },
+    "ui/actions/icon_action_tell_adult.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 26262
+    },
+    "ui/cards/card_frame_body.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 23534
+    },
+    "ui/cards/card_frame_online.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 24906
+    },
+    "ui/cards/card_frame_secret.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 23086
+    },
+    "ui/cards/card_frame_stranger.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 24244
+    },
+    "ui/cards/icon_rule_online_shield.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 21976
+    },
+    "ui/cards/icon_rule_secret.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 22418
+    },
+    "ui/cards/icon_rule_swimsuit.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 16802
+    },
+    "ui/cards/icon_rule_trusted_adults.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 28334
+    },
+    "ui/controls/btn_help_icon.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 19670
+    },
+    "ui/controls/icon_conversation_tip.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 14290
+    },
+    "ui/controls/icon_parent_corner.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 24890
+    },
+    "ui/controls/icon_phone_111.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 19858
+    },
+    "ui/controls/logo_growsafe.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 22116
+    },
+    "ui/controls/tag_stranger_game.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 24974
+    },
+    "ui/controls/ui_progress_node.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 21496
+    },
+    "ui/controls/ui_progress_node_empty.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 19404
+    },
+    "ui/rewards/badge_brave_no.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 20328
+    },
+    "ui/rewards/badge_safe_hero.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 26010
+    },
+    "ui/rewards/star_empty.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 11426
+    },
+    "ui/rewards/star_filled.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 14796
+    },
+    "ui/setup/badge_privacy_safe.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 19436
+    },
+    "ui/setup/icon_age_1115.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 38008
+    },
+    "ui/setup/icon_age_610.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 30770
+    },
+    "ui/setup/icon_gender_boy.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 37216
+    },
+    "ui/setup/icon_gender_girl.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 24982
+    },
+    "ui/setup/icon_gender_neutral.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 24722
+    },
+    "ui/setup/icon_mode_ai.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 25438
+    },
+    "ui/setup/icon_mode_script.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 34120
+    },
+    "characters/players/kid_1115_girl_confident.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 43830
+    },
+    "characters/players/kid_1115_girl_idle.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 41304
+    },
+    "characters/players/kid_1115_girl_unsure.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 39588
+    },
+    "characters/players/kid_610_girl_confident.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 41806
+    },
+    "characters/players/kid_610_girl_idle.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 42256
+    },
+    "characters/players/kid_610_girl_unsure.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 40722
+    }
+  },
+  "audio_format": "mp3",
+  "audio_count": 16,
+  "audio": {
+    "audio/ui/ui_click.mp3": {
+      "duration_s": 0.08,
+      "bytes": 2551,
+      "usage": "Button press",
+      "source": "kenney_ui-audio/Audio/click3.ogg"
+    },
+    "audio/ui/ui_select.mp3": {
+      "duration_s": 0.04,
+      "bytes": 1715,
+      "usage": "Select age/gender/choice option",
+      "source": "kenney_interface-sounds/Audio/select_002.ogg"
+    },
+    "audio/ui/ui_toggle.mp3": {
+      "duration_s": 0.14,
+      "bytes": 3387,
+      "usage": "Toggle dialogue mode switch",
+      "source": "kenney_interface-sounds/Audio/toggle_001.ogg"
+    },
+    "audio/ui/ui_hover.mp3": {
+      "duration_s": 0.22,
+      "bytes": 4641,
+      "usage": "Soft hover over buttons",
+      "source": "kenney_ui-audio/Audio/rollover1.ogg"
+    },
+    "audio/ui/ui_open.mp3": {
+      "duration_s": 0.15,
+      "bytes": 3387,
+      "usage": "Open modal/rule card/parent draft",
+      "source": "kenney_interface-sounds/Audio/open_001.ogg"
+    },
+    "audio/ui/ui_close.mp3": {
+      "duration_s": 0.15,
+      "bytes": 3387,
+      "usage": "Close modal/go back",
+      "source": "kenney_interface-sounds/Audio/close_001.ogg"
+    },
+    "audio/ui/ui_chat_send.mp3": {
+      "duration_s": 0.1,
+      "bytes": 2551,
+      "usage": "Child sends chat reply",
+      "source": "kenney_interface-sounds/Audio/pluck_001.ogg"
+    },
+    "audio/ui/ui_chat_receive.mp3": {
+      "duration_s": 0.28,
+      "bytes": 5477,
+      "usage": "Narrator or NPC sends message",
+      "source": "kenney_interface-sounds/Audio/glass_001.ogg"
+    },
+    "audio/feedback/sfx_correct.mp3": {
+      "duration_s": 0.54,
+      "bytes": 9657,
+      "usage": "Child answer is safe/correct (dat)",
+      "source": "kenney_interface-sounds/Audio/confirmation_002.ogg"
+    },
+    "audio/feedback/sfx_encourage.mp3": {
+      "duration_s": 0.69,
+      "bytes": 12164,
+      "usage": "Gentle encouraging retry (chua_dat)",
+      "source": "kenney_music-jingles/Audio/Pizzicato jingles/jingles_PIZZI06.ogg"
+    },
+    "audio/feedback/sfx_curious.mp3": {
+      "duration_s": 0.33,
+      "bytes": 6313,
+      "usage": "Narrator asks clarifying question (hoi_lai)",
+      "source": "kenney_interface-sounds/Audio/question_002.ogg"
+    },
+    "audio/feedback/sfx_help_calm.mp3": {
+      "duration_s": 0.12,
+      "bytes": 2969,
+      "usage": "Calm reassuring chime for Help / 111 screen",
+      "source": "kenney_interface-sounds/Audio/bong_001.ogg"
+    },
+    "audio/jingles/jingle_start.mp3": {
+      "duration_s": 0.46,
+      "bytes": 8403,
+      "usage": "Start new game session",
+      "source": "kenney_music-jingles/Audio/Pizzicato jingles/jingles_PIZZI16.ogg"
+    },
+    "audio/jingles/jingle_card_unlock.mp3": {
+      "duration_s": 0.8,
+      "bytes": 13836,
+      "usage": "Unlock rule card & star at end of stage",
+      "source": "kenney_music-jingles/Audio/Pizzicato jingles/jingles_PIZZI10.ogg"
+    },
+    "audio/jingles/jingle_badge_win.mp3": {
+      "duration_s": 0.91,
+      "bytes": 15508,
+      "usage": "Earn Brave NO badge in dialogue stage",
+      "source": "kenney_music-jingles/Audio/Steel jingles/jingles_STEEL10.ogg"
+    },
+    "audio/jingles/jingle_session_complete.mp3": {
+      "duration_s": 1.39,
+      "bytes": 23449,
+      "usage": "Complete full 5-stage session",
+      "source": "kenney_music-jingles/Audio/Steel jingles/jingles_STEEL02.ogg"
+    }
+  }
+}
