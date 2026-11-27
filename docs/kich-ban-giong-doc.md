@@ -40,7 +40,7 @@ Lời kể viết lại theo dàn nhân vật, giữ nguyên tình huống gốc
 | Mã | Địa điểm | Lời kể (`tin610`) | Câu hỏi (`tin610`) |
 |---|---|---|---|
 | `S6-01` | Xóm nhà | Chiều nay {ten} sang nhà chú Hải đá bóng với mấy bạn trong xóm. Đá xong các bạn về hết, chỉ còn mỗi {ten} ở lại. Chú Hải gọi {ten} lại, bảo ngồi lên đùi chú để xem vết muỗi đốt, rồi tay chú cứ đưa dần xuống dưới, chạm vào chỗ không ai được chạm vào. | Cậu là {ten}, giờ làm gì đây? |
-| `S6-02` | Xóm nhà | Cô Lan hàng xóm cho {ten} một bịch kẹo to, rồi ôm {ten} hồi lâu. Lúc {ten} sắp về, cô ghé tai dặn nhỏ: chuyện cô ôm con lúc nãy, mình giữ riêng hai cô cháu thôi nhé, đừng kể mẹ. | Đây là bí mật tốt hay bí mật xấu? {ten} làm gì bây giờ? |
+| `S6-02` | Xóm nhà | Cô Lan hàng xóm cho {ten} một bịch kẹo to. Lúc ôm tạm biệt, tay cô cứ đưa dần lên gần đùi {ten}, càng lúc càng gần giữa hai chân, {ten} né ra mà cô vẫn kéo lại ôm tiếp. Cô cười, ghé tai dặn nhỏ: chuyện này của riêng hai cô cháu thôi, đừng kể với mẹ nhé. | Đây là bí mật tốt hay bí mật xấu? {ten} làm gì bây giờ? |
 | `S6-03` | Công viên | {ten} đang trèo cầu trượt ở công viên thì có một chú đội mũ lưỡi trai lại gần. Chú bảo: mẹ con bận quá, nhờ chú qua đón con, đi với chú nhé. {ten} thì chưa gặp chú này bao giờ. | Nếu là {ten} thì làm sao đây? |
 | `S6-04` | Nhà bà | Hôm đi ăn giỗ, bà định thơm má {ten} một cái, {ten} không thích nên né sang bên. Có bác ngồi gần cười bảo: bà thương con mà, có gì đâu. | {ten} không thích thì có làm gì được không? |
 | `S6-05` | Bể bơi | Ở bể bơi, mấy bạn cứ thay đồ luôn ngoài thành bể cho nhanh. Bố bảo {ten} vào buồng thay. {ten} hỏi lại: sao con phải vào buồng vậy bố? | Cậu giải thích giúp {ten} xem, vì sao nên vào buồng thay đồ? |

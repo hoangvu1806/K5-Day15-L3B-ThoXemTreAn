@@ -5,18 +5,17 @@ import { useState } from "react";
 import { owl, ui } from "@/lib/assets";
 import { sound } from "@/lib/sound";
 import { useGame } from "@/lib/store";
-import { Chunky, Modal, Pic, useFitText } from "./ui";
+import { Chunky, Modal, Pic } from "./ui";
 
 /** Góc phụ huynh (sau khoá người lớn): bản nháp do AI soạn, chỉ có nút sao chép, không có nút gửi. */
 export default function ParentCorner({ onClose }: { onClose: () => void }) {
   const { draft, saved, wipeProgress, requestLock } = useGame();
   const [copied, setCopied] = useState(false);
-  const ref = useFitText<HTMLDivElement>(draft?.note ?? "", 20, 13);
   const profile = saved.profile;
 
   return (
     <Modal onClose={onClose} z={60}>
-      <div className="panel paper-grain relative flex h-[660px] w-[1000px] flex-col px-10 py-7">
+      <div className="panel paper-grain relative flex h-[680px] w-[1060px] flex-col px-9 py-6">
         <div className="flex shrink-0 items-center gap-4">
           <Pic src={ui.parent} w={512} h={512} className="h-[62px] w-[62px]" />
           <div className="flex-1">
@@ -29,12 +28,23 @@ export default function ParentCorner({ onClose }: { onClose: () => void }) {
         <div className="mt-4 flex min-h-0 flex-1 gap-6">
           <div className="flex min-h-0 flex-1 flex-col rounded-[24px] border-[3px] border-[var(--ink)] bg-white px-6 py-5">
             {draft ? (
-              <div ref={ref} className="min-h-0 flex-1 overflow-hidden whitespace-pre-line font-semibold leading-[1.5]">
-                {draft.note.split("\n").filter(Boolean).map((line, i) => {
-                  const m = line.match(/^(\*\*)?([^:*]{3,30}):(\*\*)?\s*(.*)$/);
+              <div className="parent-scroll min-h-0 flex-1 space-y-3.5 overflow-y-auto pr-2 text-[17.5px] font-semibold leading-[1.65] text-[var(--ink)]">
+                {draft.note.split("\n").map((s) => s.trim()).filter(Boolean).map((line, i) => {
+                  const clean = line.replace(/\*\*/g, "");
+                  const isAlert = /thô tục|không phù hợp|cần người lớn lưu ý|tổng đài 111/i.test(clean);
+                  const m = clean.match(/^([^:]{3,30}):\s*(.*)$/);
+                  if (isAlert) {
+                    return (
+                      <p key={i} className="rounded-[16px] border-2 border-[var(--coral)]/45 bg-[#fff2ee] px-4 py-3 text-[var(--ink)]">
+                        {m ? <><b className="font-display text-[1.03em] font-extrabold text-[var(--coral)]">{m[1]}:</b> {m[2]}</> : clean}
+                      </p>
+                    );
+                  }
                   return m ? (
-                    <p key={i} className="mb-[0.5em]"><b className="font-display text-[1.05em] font-extrabold text-[var(--mint-deep)]">{m[2]}:</b> {m[4]}</p>
-                  ) : <p key={i} className="mb-[0.5em]">{line.replace(/\*\*/g, "")}</p>;
+                    <p key={i}><b className="font-display text-[1.03em] font-extrabold text-[var(--mint-deep)]">{m[1]}:</b> {m[2]}</p>
+                  ) : (
+                    <p key={i}>{clean}</p>
+                  );
                 })}
               </div>
             ) : (
@@ -44,7 +54,7 @@ export default function ParentCorner({ onClose }: { onClose: () => void }) {
               </div>
             )}
           </div>
-          <div className="flex w-[300px] shrink-0 flex-col gap-2">
+          <div className="flex w-[285px] shrink-0 flex-col gap-2">
             <p className="font-display text-[19px] font-bold">Kết quả từng màn</p>
             {(draft?.levels ?? []).map((l, i) => (
               <div key={i} className="flex items-center justify-between gap-2 rounded-[16px] border-[3px] border-[var(--ink)]/80 bg-white/80 px-3 py-[6px]">

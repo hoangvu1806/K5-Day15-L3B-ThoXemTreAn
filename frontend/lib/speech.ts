@@ -2,7 +2,7 @@
 
 /**
  * Nhận giọng (STT) bằng Web Speech API của trình duyệt, lang = "vi-VN", không cần key.
- * - Giữ để nói (continuous: false): nhấn nút thì start(), thả ra thì stop(). Không nghe liên tục.
+ * - Bấm để nói (continuous: false): bấm nút thì start(), bấm lần nữa thì stop(); ngừng nói thì trình duyệt tự dừng.
  * - interimResults: chữ hiện dần trong lúc nói. Thả nút xong, chữ chốt hiện ra để trẻ bấm "Đúng rồi" hoặc "Nói lại".
  *   Chỉ chữ đã xác nhận mới gửi lên server, đi qua precheck và mask_pii như chữ gõ. Server không nhận âm thanh.
  * - Trên Chrome, âm thanh được gửi tới máy chủ Google để chuyển thành chữ (ghi ở spec.md §9). Nút mic hiện cùng ô gõ

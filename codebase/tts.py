@@ -11,6 +11,7 @@ Chỉ dùng thư viện chuẩn.
 import hashlib
 import json
 import os
+import subprocess
 import tempfile
 import urllib.error
 import urllib.request
@@ -42,6 +43,13 @@ def for_speech(text: str) -> str:
     return text.replace("111", "một một một")
 
 
+def _wav_to_mp3(wav: bytes) -> bytes:
+    p = subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-f", "wav", "-i", "pipe:0",
+                       "-f", "mp3", "-codec:a", "libmp3lame", "-qscale:a", "4", "pipe:1"],
+                       input=wav, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+    return p.stdout
+
+
 def synthesize(text: str, role: str) -> bytes:
     if is_fake() or not API_KEY:
         raise TTSError("Chưa nối model, dùng giọng của trình duyệt")
@@ -58,17 +66,22 @@ def synthesize(text: str, role: str) -> bytes:
         with open(path, "rb") as f:
             _mem[key] = f.read()
         return _mem[key]
+    # Provider hiện chỉ trả pcm/wav, không còn mp3: xin wav rồi tự chuyển sang mp3 bằng ffmpeg.
     body = json.dumps({"model": cfg["model"], "input": for_speech(text), "voice": r["voice"],
-                       "instructions": r.get("instructions", ""), "response_format": "mp3"}).encode()
+                       "instructions": r.get("instructions", ""), "response_format": "wav"}).encode()
     req = urllib.request.Request(URL, data=body, method="POST", headers={
         "Authorization": "Bearer " + API_KEY, "Content-Type": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=20) as resp:
-            audio = resp.read()
+            wav = resp.read()
     except (urllib.error.URLError, TimeoutError) as e:
         raise TTSError("Gọi TTS lỗi: %s" % e)
-    if not audio:
+    if not wav:
         raise TTSError("TTS trả về rỗng")
+    try:
+        audio = _wav_to_mp3(wav)
+    except (OSError, subprocess.SubprocessError) as e:
+        raise TTSError("Chuyển wav sang mp3 lỗi (cần cài ffmpeg): %s" % e)
     os.makedirs(CACHE_DIR, exist_ok=True)
     with open(path, "wb") as f:
         f.write(audio)

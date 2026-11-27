@@ -160,9 +160,49 @@ def banned_phrase(text: str):
     return None
 
 
+# Từ ngữ không phù hợp trong lời trẻ: không chặn game, chỉ ghi lại để báo cáo cuối phiên cảnh báo người lớn.
+# Bản đầu, nhóm bổ sung khi duyệt báo cáo. Chữ viết tắt so khớp nguyên từ để tránh bắt nhầm.
+INAPPROPRIATE = {
+    "chửi thề": ["địt", "đéo", "đ*o", "đụ", "đù má", "đm", "dm", "đmm", "dmm", "đcm", "dcm", "đkm", "dkm", "vcl", "vkl",
+                 "vl", "vãi lồn", "clgt", "cmm", "con mẹ mày", "mẹ mày", "bố mày", "má mày", "chó má", "khốn nạn",
+                 "fuck", "shit", "bitch"],
+    "từ ngữ tình dục, thô tục": ["lồn", "cặc", "buồi", "dái", "chịch", "nện nhau", "làm tình", "sex", "porn", "nứng",
+                                 "thủ dâm", "bú cu", "cu to"],
+    "xúc phạm, miệt thị": ["thằng ngu", "con ngu", "óc chó", "đồ chó", "con điếm", "đĩ", "pê đê", "bê đê", "thằng đần",
+                           "mày chết đi", "đi chết đi"],
+}
+_INAPPROPRIATE_RE = {k: re.compile(r"(?<!\w)(%s)(?!\w)" % "|".join(re.escape(w) for w in v), re.I)
+                     for k, v in INAPPROPRIATE.items()}
+
+
+def inappropriate(text: str) -> dict:
+    """{nhóm: [từ đã gặp]} cho lời của trẻ. Rỗng nếu không có."""
+    found = {}
+    for kind, pattern in _INAPPROPRIATE_RE.items():
+        words = sorted({m.group(1).lower() for m in pattern.finditer(text or "")})
+        if words:
+            found[kind] = words
+    return found
+
+
+_BULLET = re.compile(r"^\s*(?:[-*•–—]|\d+[.)])\s+", re.M)
+_SPACED_DASH = re.compile(r"\s+[-–—]+\s+|\s*[–—]\s*")
+
+
+def deslop(text: str) -> str:
+    """Bỏ dấu hiệu văn máy: gạch đầu dòng, gạch ngang chen giữa câu, dấu chấm phẩy, in đậm markdown.
+    Giữ gạch nối trong chữ như 6-10, khoa_lv99."""
+    text = text.replace("**", "").replace("__", "")
+    text = _BULLET.sub("", text)
+    text = _SPACED_DASH.sub(", ", text)
+    text = re.sub(r"\s*;\s*", ", ", text)
+    text = re.sub(r",\s*([.!?])", r"\1", text)
+    return re.sub(r"[ \t]{2,}", " ", text).strip()
+
+
 def postcheck(output: str, age_group: str, name: str = "") -> str:
     """Hậu kiểm lời của AI. Có câu đổ lỗi, dọa trẻ thì thay bằng câu an toàn đúng nhóm tuổi. Luôn che thông tin định danh."""
     text = (output or "").strip()
     if not text or banned_phrase(text):
         return fallback_message(age_group, name)["text"]
-    return mask_pii(text)
+    return mask_pii(deslop(text))

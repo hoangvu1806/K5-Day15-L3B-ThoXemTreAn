@@ -11,7 +11,7 @@ import type { AgeGroup } from "@/lib/types";
 import { Chunky, IconButton, Pic } from "./ui";
 
 /**
- * Khu trả lời: nút mic lớn (giữ để nói), ô gõ, nút "Gợi ý". Không có nút đáp án (de-xuat-tinh-nang.md mục 4.3).
+ * Khu trả lời: nút mic lớn (bấm để bật, bấm lần nữa để tắt), ô gõ, nút "Gợi ý". Không có nút đáp án (de-xuat-tinh-nang.md mục 4.3).
  * Nói xong, chữ nghe được hiện ra để trẻ bấm "Đúng rồi" (gửi) hoặc "Nói lại", sửa tay cũng được.
  * Bước xác nhận là bắt buộc: máy nghe nhầm "con không đi" thành "con đi" là đảo ngược nghĩa câu trả lời.
  */
@@ -69,6 +69,7 @@ export default function Dock({ age, onSend, allowHint = true, onListen }: {
     sound.play("micOff");
     sp.stop();
   };
+  const toggle = () => (sp.listening ? release() : press());
 
   return (
     <motion.div key="dock" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}
@@ -108,13 +109,12 @@ export default function Dock({ age, onSend, allowHint = true, onListen }: {
                   )}
                 </AnimatePresence>
                 <motion.button aria-label={MIC.howto[age].text} title={MIC.howto[age].text} disabled={busy}
-                  onPointerDown={(e) => { e.preventDefault(); press(); }} onPointerUp={release} onPointerLeave={release} onPointerCancel={release}
-                  onContextMenu={(e) => e.preventDefault()}
+                  aria-pressed={sp.listening} onClick={toggle} onContextMenu={(e) => e.preventDefault()}
                   animate={sp.listening ? { scale: [1, 1.08, 1] } : { scale: 1 }} transition={sp.listening ? { repeat: Infinity, duration: 0.9 } : {}}
                   className="h-[124px] w-[124px] touch-none rounded-full disabled:opacity-50">
                   <Pic src={sp.listening ? ui.micRec : ui.micIdle} w={512} h={512} className="h-full w-full drop-shadow-[0_6px_0_rgba(74,47,34,0.35)]" />
                 </motion.button>
-                <span className="mt-1 whitespace-nowrap font-display text-[15px] font-bold text-[var(--ink-soft)]">Giữ để nói</span>
+                <span className="mt-1 whitespace-nowrap font-display text-[15px] font-bold text-[var(--ink-soft)]">{sp.listening ? "Bấm để dừng" : "Bấm để nói"}</span>
               </div>
             )}
             <form onSubmit={(e) => { e.preventDefault(); send(text); }}

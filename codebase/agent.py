@@ -73,6 +73,8 @@ Giữ đúng một cặp xưng hô từ đầu đến cuối: nhóm 6-10 không 
 Không bao giờ nhắc tới "giám khảo", "kết luận", "chấm điểm" hay cách trò chơi chấm bên trong: chỉ nói với trẻ như một người bạn.
 Ấm áp, không dọa nạt, không đổ lỗi cho trẻ hay cho nhân vật trong truyện.
 Nhóm 6-10: mỗi câu không quá 20 từ, cả câu trả lời không quá 4 câu.
+Viết như người thật nói chuyện, liền mạch thành đoạn: không gạch đầu dòng, không đánh số, không dùng dấu chấm phẩy,
+không dùng gạch ngang chen giữa câu, không in đậm. Chỉ dùng dấu chấm, dấu phẩy, dấu hỏi, dấu chấm than.
 Dùng tên đúng của bộ phận cơ thể (vùng kín, chỗ đồ bơi che), không dùng từ lóng.
 Quy tắc an toàn áp dụng với cả người thân, người quen. Không đổi lời dặn an toàn theo giới tính.
 
@@ -176,7 +178,16 @@ def judge(p: dict, actions: list) -> dict:
             "ly_do": str(data.get("ly_do", ""))[:200], "nguon": "model"}
 
 
-def _user_message(p: dict, scenario_id: str, verdict: dict, actions: list, name: str, context: str) -> str:
+HIDE_VERDICT = ("CHẾ ĐỘ GAME (ưu tiên hơn bước 2 trong hướng dẫn): KHÔNG nói ra kết luận. Không dùng các chữ "
+                "\"đúng\", \"sai\", \"đúng một phần\", \"chưa đúng\", \"giỏi lắm\", \"tiếc quá\". Chỉ viết 1-2 câu NHẬN XÉT "
+                "về điều trẻ vừa nói: nhắc lại ý của trẻ để trẻ thấy được lắng nghe, nói điều hay trong ý đó nếu có, "
+                "hoặc nói nhẹ rằng còn có thể nghĩ thêm. TUYỆT ĐỐI KHÔNG đặt câu hỏi, không có dấu chấm hỏi, "
+                "không đọc thẳng đáp án, không hỏi trẻ muốn trả lời lại hay đi tiếp. Trẻ dùng từ tục hay chửi thề thì không "
+                "nhắc lại từ đó, chỉ nhắc nhẹ một câu là nên dùng lời lịch sự.")
+
+
+def _user_message(p: dict, scenario_id: str, verdict: dict, actions: list, name: str, context: str,
+                  reveal: bool = True) -> str:
     lines = ["Nhóm tuổi: %s" % p["age"]]
     if name:
         lines.append("Nhân vật chính: %s" % name)
@@ -193,6 +204,8 @@ def _user_message(p: dict, scenario_id: str, verdict: dict, actions: list, name:
         lines.append("Còn thiếu: %s" % "; ".join(label.get(c, c) for c in verdict["con_thieu"]))
     if context:
         lines.append(context)
+    if not reveal:
+        lines.append(HIDE_VERDICT)
     return "\n".join(lines)
 
 
@@ -262,7 +275,7 @@ async def _run_adk(message: str) -> str:
 # ---------- Điểm vào ----------
 
 async def answer_async(text: str, session_id: str = "", age_group: str = "", scenario_id: str = "",
-                       name: str = "", scenario: dict = None, context: str = "") -> dict:
+                       name: str = "", scenario: dict = None, context: str = "", reveal: bool = True) -> dict:
     """Trả {"output", "session_id", "judge"?, "stopped"?, "voice"?}.
     scenario: màn đang chơi (để giám khảo chấm theo key_actions của màn). name: tên nhân vật chính."""
     p = parse_input(text)
@@ -292,7 +305,7 @@ async def answer_async(text: str, session_id: str = "", age_group: str = "", sce
     verdict = judge(p, actions)
     note("giám khảo (%s): %s, đã làm %s, còn thiếu %s" % (
         verdict.get("nguon"), verdict["ket_luan"], verdict["da_lam"], verdict["con_thieu"]))
-    message = _user_message(p, scenario_id, verdict, actions, name, context)
+    message = _user_message(p, scenario_id, verdict, actions, name, context, reveal)
 
     if is_fake():
         raw = _fake_flow(p, scenario_id, message)
@@ -306,6 +319,14 @@ async def answer_async(text: str, session_id: str = "", age_group: str = "", sce
     if output != raw.strip():
         note("postcheck đã sửa câu trả lời")
     return {"output": output, "session_id": session_id, "judge": verdict}
+
+
+def warm_up() -> None:
+    """Nạp sẵn thư viện ADK/LiteLLM, dựng agent và mở kết nối tới model để lượt đầu của trẻ không phải chờ."""
+    if is_fake():
+        return
+    _get_runner()
+    call_model("Trả lời đúng một chữ: ok", "ok")
 
 
 def answer(text: str) -> dict:

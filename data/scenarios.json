@@ -101,7 +101,7 @@
     ],
     "type": "mot_cau",
     "topic": "bi_mat",
-    "situation": "Cô Lan hàng xóm cho {ten} một bịch kẹo to, rồi ôm {ten} hồi lâu. Lúc {ten} sắp về, cô ghé tai dặn nhỏ: chuyện cô ôm con lúc nãy, mình giữ riêng hai cô cháu thôi nhé, đừng kể mẹ. Đây là bí mật tốt hay bí mật xấu? {ten} làm gì bây giờ?",
+    "situation": "Cô Lan hàng xóm cho {ten} một bịch kẹo to. Lúc ôm tạm biệt, tay cô cứ đưa dần lên gần đùi {ten}, càng lúc càng gần giữa hai chân, {ten} né ra mà cô vẫn kéo lại ôm tiếp. Cô cười, ghé tai dặn nhỏ: chuyện này của riêng hai cô cháu thôi, đừng kể với mẹ nhé. Đây là bí mật tốt hay bí mật xấu? {ten} làm gì bây giờ?",
     "key_actions": [
       {
         "action": "Nhận ra đây là bí mật xấu, không phải giữ",
@@ -135,7 +135,7 @@
     ],
     "source": "tu_viet",
     "tieu_de": "Kẹo và bí mật",
-    "tinh_huong": "Cô Lan hàng xóm cho {ten} một bịch kẹo to, rồi ôm {ten} hồi lâu. Lúc {ten} sắp về, cô ghé tai dặn nhỏ: chuyện cô ôm con lúc nãy, mình giữ riêng hai cô cháu thôi nhé, đừng kể mẹ.",
+    "tinh_huong": "Cô Lan hàng xóm cho {ten} một bịch kẹo to. Lúc ôm tạm biệt, tay cô cứ đưa dần lên gần đùi {ten}, càng lúc càng gần giữa hai chân, {ten} né ra mà cô vẫn kéo lại ôm tiếp. Cô cười, ghé tai dặn nhỏ: chuyện này của riêng hai cô cháu thôi, đừng kể với mẹ nhé.",
     "cau_hoi": "Đây là bí mật tốt hay bí mật xấu? {ten} làm gì bây giờ?",
     "y_can_co": [
       "Nhận ra đây là bí mật xấu",

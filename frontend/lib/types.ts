@@ -2,7 +2,7 @@ export type AgeGroup = "6-10" | "11-15";
 export type Gender = "nam" | "nu";
 export type CardKind = "body" | "secret" | "stranger" | "online";
 export type ActionIcon = "say_no" | "leave" | "tell_adult" | "";
-export type Result = "dat" | "chua_dat" | "hoi_lai" | "dung" | "tiep" | "thoat_vai";
+export type Result = "dat" | "chua_dat" | "hoi_lai" | "dung" | "tiep" | "thoat_vai" | "ghi_nhan";
 
 export interface Line {
   id: string;
@@ -51,6 +51,14 @@ export interface Scenario {
   chain_step: number;
   speaker?: { label: string; role: string; npc: string };
   max_turns?: number;
+  cast?: CastMember[];
+}
+
+export interface CastMember {
+  name: string;
+  role: string;
+  kind: "hero" | "npc" | "tin";
+  npc?: string;
 }
 
 export interface MapScene {
@@ -92,7 +100,6 @@ export interface DialogueTurn {
   speaker?: string;
   role?: string;
   branch?: string;
-  restart?: DialogueTurn;
 }
 
 export interface VoicePlan {
@@ -111,6 +118,7 @@ export interface AnswerResponse {
   stopped: string;
   voice?: VoicePlan;
   attempts_left?: number;
+  can_retry?: boolean;
   matched_actions?: Action[];
   missing_actions?: Action[];
   tired?: boolean;
