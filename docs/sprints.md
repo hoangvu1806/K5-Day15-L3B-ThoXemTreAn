@@ -107,20 +107,20 @@ Tài liệu gốc: `spec.md` §4, `docs/game-flow.md`, `data/DATA_CARD.md`, `eva
 **Mục tiêu:** có loại màn thứ hai (hội thoại với người lạ, kịch bản có sẵn), game chạy mượt, tài liệu đóng lại.
 
 ### Màn hội thoại, chế độ kịch bản có sẵn
-- [ ] Soạn ≥1 màn `hoi_thoai` cho mỗi nhóm tuổi theo định dạng trong `docs/game-flow.md`: `persona`, `allowed_tactics`, `max_turns: 3`, `dialogue` chia nhánh. Nhóm 6-10 chỉ dùng màn quà, bí mật, rủ đi theo; màn trên mạng chỉ dành cho 11-15.
-- [ ] Backend: AI xếp câu của trẻ vào nhánh `tu_choi` / `luong_lu` / `dong_y`, lấy câu tiếp theo của nhánh đó. `tu_choi` thì thắng màn; `dong_y` thì người lạ dừng ngay, người dẫn truyện giảng lại.
-- [ ] Thoát vai ngay khi trẻ kể chuyện thật, gõ "dừng", bấm "Con cần giúp" hoặc cố kéo người lạ ra khỏi kịch bản.
-- [ ] Frontend: khung chat có nhãn "Người lạ trong trò chơi", người dẫn truyện luôn đứng cạnh, cuối màn giảng lại chiêu người lạ vừa dùng.
+- [x] *(bản nháp H6-01, H6-02, H11-01, chờ Diệp duyệt)* Soạn ≥1 màn `hoi_thoai` cho mỗi nhóm tuổi theo định dạng trong `docs/game-flow.md`: `persona`, `allowed_tactics`, `max_turns: 3`, `dialogue` chia nhánh. Nhóm 6-10 chỉ dùng màn quà, bí mật, rủ đi theo; màn trên mạng chỉ dành cho 11-15.
+- [x] Backend: AI xếp câu của trẻ vào nhánh `tu_choi` / `luong_lu` / `dong_y`, lấy câu tiếp theo của nhánh đó. `tu_choi` thì thắng màn; `dong_y` thì người lạ dừng ngay, người dẫn truyện giảng lại.
+- [x] Thoát vai ngay khi trẻ kể chuyện thật, gõ "dừng", bấm "Con cần giúp" hoặc cố kéo người lạ ra khỏi kịch bản.
+- [x] Frontend: khung chat có nhãn "Người lạ trong trò chơi", người dẫn truyện luôn đứng cạnh, cuối màn giảng lại chiêu người lạ vừa dùng.
 - **Xong khi:** chơi được cả ba nhánh của mỗi màn hội thoại, và câu nghi xâm hại thật giữa hội thoại vẫn dừng game.
 
 ### Hoàn thiện game
-- [ ] Ảnh nhân vật bé trai (`kid_610_boy_*`, `kid_1115_boy_*`), thay cho nhân vật trung tính khi chọn Nam.
+- [x] Ảnh nhân vật bé trai (`kid_610_boy_*`, `kid_1115_boy_*`), thay cho nhân vật trung tính khi chọn Nam.
 - [ ] Giao diện dùng được trên máy tính bảng và điện thoại; nút đủ to cho trẻ 6 tuổi; chữ dễ đọc.
-- [ ] Tải trước ảnh của màn tiếp theo; xử lý mất mạng giữa phiên.
+- [x] Tải trước ảnh của màn tiếp theo; xử lý mất mạng giữa phiên.
 - [ ] Rà lời trên giao diện: đúng tuổi, không dọa, không đổi lời dặn theo giới tính.
 
 ### Đóng dự án
-- [ ] Ghi changelog §10 cho mọi thay đổi của sprint.
+- [x] Ghi changelog §10 cho mọi thay đổi của sprint.
 - [ ] Mỗi thành viên viết `reflection/<ten>.md`.
 - [ ] Hoàn thiện `docs/ai-usage.md`, README (link video), cập nhật slide và video nếu game đổi nhiều.
 - [ ] Ghi vào `eval/report.md` mục 4 những việc làm tiếp, trong đó có chế độ AI đóng vai người lạ: chưa làm vì cần đủ 9 lớp guardrail trong `docs/game-flow.md` và một bộ câu tấn công riêng cho vai này.

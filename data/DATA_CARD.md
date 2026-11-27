@@ -44,3 +44,15 @@
 | Phiên bản / ngày lấy | 27/11/2026 18:30 |
 | Nhãn | Thật |
 | Giới hạn | 6/20 phiếu có trẻ dưới 6 tuổi · chỉ hỏi người lớn, chưa hỏi trẻ |
+
+## Sprint 3 (28/11/2026) · thay đổi dữ liệu
+
+| | |
+|---|---|
+| `data/scenarios.json` v0.3 | Lời kể 11 màn viết lại theo `docs/kich-ban-giong-doc.md` mục 2 (bản đã thu âm), tên nhân vật chính là ô `{ten}` (Bin/Na, Khôi/Mai) · bỏ `choices` và `feedback` (không còn nút đáp án) · `genders` chỉ còn `nam`, `nu` · thêm `location` (địa điểm trên bản đồ / app trên điện thoại), `tier` (bậc khó 1–5), `hints` (mã câu gợi ý), `key_actions[].code` (A/B/C hoặc mã riêng), `chain`/`chain_step` (chuỗi Khoa), `duyet` · `rule_card` đổi xưng hô sang "cậu/bạn" theo thẻ quy tắc mới. `key_actions`, `rule_ids` của 11 màn cũ giữ nguyên |
+| Màn mới, **chưa duyệt** | 7 màn `duyet: false` do Claude soạn nháp: H6-01, H6-02, H11-01 (hội thoại với người lạ, chế độ kịch bản có sẵn, câu đầu lấy từ câu mẫu đã nghe thử ở `kich-ban-giong-doc.md` mục 8), T6-01, T6-02 (bậc 4: phân biệt lần chạm bình thường, T6-01 căn cứ ngoại lệ trong R01), F6-01, F11-01 (bậc 5: giúp bạn). Trẻ không gặp các màn này cho tới khi Diệp duyệt và đổi `duyet` thành `true`. F11-01 (Vy bị dọa tung ảnh) phải đối chiếu tài liệu UNICEF trước |
+| `data/guidelines.json` | Thêm `ten_the` (tên thẻ) và `the` (khung thẻ: body / secret / stranger / online); `loi_6_10`, `loi_11_15` đổi sang lời thẻ ở `kich-ban-giong-doc.md` mục 3 (xưng "cậu", "bạn"). `rule`, `source` không đổi |
+| `data/lines.json` (mới) | Kho câu viết sẵn: câu an toàn (111, từ chối, dự phòng, thoát vai), chào, khen, động viên, nhận thẻ, kết phiên, câu theo buổi và tiến độ, mảnh "đã làm / còn thiếu", câu gợi ý. Dựng tự động từ `data/voice_lines.json` (đã duyệt, đã thu âm), nên chữ và giọng luôn khớp. Nhóm `safe_*` không AI nào sinh lại |
+| `data/tactics.json` (mới) | 8 thẻ chiêu theo `kich-ban-giong-doc.md` mục 4: tên, cách nhận ra, một câu đáp lại, nhóm tuổi; `keywords` cho bước so khớp đầu của thám tử nhận chiêu. Mặt sau thẻ không tả cách dụ. Nội dung thẻ chiêu đánh dấu *(mới)* trong kịch bản, Diệp đối chiếu tài liệu gốc |
+| Dữ liệu trên máy của trẻ | Hồ sơ (nhóm tuổi, giới tính), mã màn đã xong, thẻ đã nhận, vai người lớn trong "Bàn tay tin cậy" lưu trong `localStorage` của trình duyệt. Không gửi lên server trừ danh sách mã màn đã xong (để mở khoá bậc khó). Không có tên thật |
+| Giọng nói | Lúc trả lời, nút mic và ô gõ hiện cùng lúc; mic chỉ thu khi trẻ giữ nút. Nhận giọng dùng Web Speech API của trình duyệt: trên Chrome âm thanh được gửi tới máy chủ Google để chuyển thành chữ. Game không lưu âm thanh; server chỉ nhận chữ trẻ đã xác nhận. Đọc to: câu cố định là file đã thu âm, lời AI viết đọc qua OpenRouter (`google/gemini-3.8-flash-lite-tts`, `data/voices.json`), chỉ đọc chữ do game tạo ra |

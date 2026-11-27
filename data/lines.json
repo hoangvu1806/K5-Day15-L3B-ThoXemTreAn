@@ -1,0 +1,1331 @@
+{
+  "version": "1.0 · 28/11/2026",
+  "note": "Dựng từ data/voice_lines.json (kịch bản docs/kich-ban-giong-doc.md đã duyệt và thu âm). {ten} là tên nhân vật chính. per_name = true thì file giọng có hậu tố _bin/_na/_khoi/_mai. Chữ hiện ra viết 111, chữ đọc (tts) viết 'một một một'. Không AI nào sinh lại nhóm safe_*.",
+  "names": {
+    "6-10": {
+      "nam": "Bin",
+      "nu": "Na"
+    },
+    "11-15": {
+      "nam": "Khôi",
+      "nu": "Mai"
+    }
+  },
+  "slugs": {
+    "Bin": "bin",
+    "Na": "na",
+    "Khôi": "khoi",
+    "Mai": "mai"
+  },
+  "groups": {
+    "act": [
+      {
+        "id": "act_A_done_1115",
+        "text": "Bạn từ chối rõ ràng rồi.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_A_done_610",
+        "text": "Cậu nói không rồi đấy.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "act_A_miss_1115",
+        "text": "Còn thiếu một câu từ chối thật rõ.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_A_miss_610",
+        "text": "Còn thiếu câu nói không thật rõ nữa.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "act_B_done_1115",
+        "text": "Bạn rời đi, hoặc chặn rồi.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_B_done_610",
+        "text": "Cậu chạy ra chỗ đông người rồi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "act_B_miss_1115",
+        "text": "Còn thiếu bước rời đi, hoặc chặn tài khoản.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_B_miss_610",
+        "text": "Nhớ chạy ra chỗ đông người nữa nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "act_C_done_1115",
+        "text": "Bạn đã kể với người lớn rồi.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_C_done_610",
+        "text": "Cậu kể cho người lớn rồi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "act_C_miss_1115",
+        "text": "Còn thiếu việc kể cho người lớn bạn tin.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_C_miss_610",
+        "text": "Nhớ kể cho người lớn nghe nữa nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "act_noaddr_done_610",
+        "text": "Cậu không nói nhà ở đâu, đúng rồi đấy.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "act_noaddr_miss_610",
+        "text": "Đừng nói nhà mình ở đâu nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "act_proof_done_1115",
+        "text": "Nhớ chụp màn hình nữa, giỏi đấy.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_proof_miss_1115",
+        "text": "Nhớ chụp màn hình giữ lại làm bằng chứng.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_secret_done_1115",
+        "text": "Bạn nhận ra lời dặn giữ bí mật là dấu hiệu xấu rồi.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_secret_done_610",
+        "text": "Cậu nhận ra đây là bí mật xấu rồi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "act_secret_miss_1115",
+        "text": "Bị dặn đừng kể ai là dấu hiệu đáng lo đấy.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "act_secret_miss_610",
+        "text": "Bí mật mà làm mình sợ là bí mật xấu đấy.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "back": [
+      {
+        "id": "back_1115_1",
+        "text": "Bạn quay lại rồi đấy. Sổ tay vẫn còn nguyên nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "back_1115_2",
+        "text": "Chào, chơi tiếp chỗ hôm trước nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "back_1115_3",
+        "text": "Lần trước bạn làm tốt đấy. Hôm nay khó hơn một chút.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "back_610_1",
+        "text": "A, cậu về rồi! Thẻ của cậu tớ vẫn giữ nguyên đây.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "back_610_2",
+        "text": "Lâu ghê mới gặp lại. Mình chơi tiếp chỗ hôm trước nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "back_610_3",
+        "text": "Nhớ thẻ hôm bữa không? Hôm nay tìm thêm thẻ mới nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "bye": [
+      {
+        "id": "bye_1115_1",
+        "text": "Xong rồi. Hôm nay bạn giúp {ten} nhiều đấy.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "bye_1115_2",
+        "text": "Hết chuyện hôm nay rồi. Hẹn lần sau.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "bye_1115_3",
+        "text": "Nghỉ thôi. Sổ tay vẫn ở đây khi nào cần.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "bye_610_1",
+        "text": "Hôm nay cậu giúp {ten} được nhiều lắm đấy. Mai chơi tiếp nhé!",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "bye_610_2",
+        "text": "{ten} về nhà an toàn rồi. Cảm ơn cậu nhiều.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "bye_610_3",
+        "text": "Mệt chưa? Nghỉ thôi, sổ tay tớ giữ cho.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "card": [
+      {
+        "id": "card_1115_1",
+        "text": "Thêm một thẻ vào sổ tay.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "card_1115_2",
+        "text": "Thẻ mới đây, lúc nào mở lại cũng được.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "card_1115_3",
+        "text": "Bạn vừa nhận thêm một thẻ.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "card_1115_4",
+        "text": "Đủ hai thẻ rồi, có đồ mới cho mình nữa đây.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "card_610_1",
+        "text": "Thẻ mới cho cậu đây.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "card_610_2",
+        "text": "Ôi, thẻ này đẹp ghê. Giữ lấy nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "card_610_3",
+        "text": "Thêm thẻ nữa rồi. Sổ tay dày lên đấy.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "card_610_4",
+        "text": "Đủ hai thẻ rồi, tớ lớn thêm một chút đấy!",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "cheer": [
+      {
+        "id": "cheer_1115_1",
+        "text": "Gần đủ rồi.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "cheer_1115_2",
+        "text": "Đúng một phần đấy.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "cheer_1115_3",
+        "text": "Còn thiếu chút xíu thôi.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "cheer_1115_4",
+        "text": "Không sao, mình nghĩ tiếp.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "cheer_1115_5",
+        "text": "Thử lại lần nữa xem.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "cheer_610_1",
+        "text": "Gần được rồi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "cheer_610_2",
+        "text": "Đúng một phần rồi đấy.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "cheer_610_3",
+        "text": "Ừ, thêm chút nữa thôi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "cheer_610_4",
+        "text": "Không sao, mình nghĩ tiếp nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "cheer_610_5",
+        "text": "Cậu thử lại đi, tớ đợi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "hello": [
+      {
+        "id": "hello_1115_1",
+        "text": "Điện thoại của {ten} vừa sáng màn hình. Xem thử có gì không?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "hello_1115_2",
+        "text": "Chào bạn. Hôm nay {ten} có vài chuyện cần bạn cho ý kiến đấy.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "hello_1115_3",
+        "text": "Đến đúng lúc ghê, {ten} vừa nhận được mấy tin nhắn lạ.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "hello_1115_4",
+        "text": "Sẵn sàng chưa? Mở điện thoại của {ten} xem nào.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "hello_610_1",
+        "text": "{ten} dậy rồi kìa. Hôm nay đi cùng {ten} cả ngày luôn nhé?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "hello_610_2",
+        "text": "Ơ, cậu đến rồi à! {ten} hôm nay có mấy chỗ hay lắm đấy.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "hello_610_3",
+        "text": "Đợi cậu nãy giờ đấy. {ten} sắp ra khỏi nhà rồi kìa.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "hello_610_4",
+        "text": "Lại đây, mình đi cùng {ten} nào.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      }
+    ],
+    "hint": [
+      {
+        "id": "hint_A_1115",
+        "text": "Nếu là {ten}, bạn sẽ nói gì để từ chối?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "hint_A_610",
+        "text": "Lúc đó {ten} nói gì với người ta được nhỉ?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "hint_B_1115",
+        "text": "Bạn có cách nào thoát khỏi chuyện này không?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "hint_B_610",
+        "text": "Ở đó có chỗ nào đông người không nhỉ?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "hint_C_1115",
+        "text": "Ai là người lớn mà {ten} kể được?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "hint_C_610",
+        "text": "Về nhà rồi, {ten} kể cho ai nghe được?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "hint_family_1115",
+        "text": "Người nhà thì có được làm mình khó chịu không?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "hint_family_610",
+        "text": "Bà thương {ten} thật, nhưng {ten} có bắt buộc phải chiều không nhỉ?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "hint_feel_1115",
+        "text": "Nếu là {ten}, bạn thấy thoải mái hay khó chịu?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "hint_feel_610",
+        "text": "Lúc đó {ten} thấy sao?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "hint_friend_1115",
+        "text": "Nếu bạn bị chụp lén, bạn muốn mọi người làm gì?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "hint_offer_1115",
+        "text": "Cần gợi ý thì bấm bóng đèn.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "hint_offer_610",
+        "text": "Bí à? Bấm bóng đèn, tớ gợi ý cho.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "hint_proof_1115",
+        "text": "Trước khi chặn, có nên lưu lại gì không nhỉ?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "hint_secret_1115",
+        "text": "Sao người ta lại dặn đừng nói với ai vậy nhỉ?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "hint_secret_610",
+        "text": "Lời dặn đó làm {ten} thấy vui hay thấy lo?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "hint_who2_1115",
+        "text": "Ngoài bố mẹ ra, bạn còn tin ai nữa?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "hint_who2_610",
+        "text": "Cô Hạnh về rồi thì còn ai ở trường nữa nhỉ?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "mic_confirm": [
+      {
+        "id": "mic_confirm_1115",
+        "text": "Nghe được thế này, đúng chưa?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "mic_confirm_610",
+        "text": "Nghe được thế này, đúng chưa cậu?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "mic_howto": [
+      {
+        "id": "mic_howto_1115",
+        "text": "Giữ nút mic để nói, nói xong thì thả ra.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "mic_howto_610",
+        "text": "Giữ nút này rồi nói nhé, nói xong thì thả tay ra.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "mic_louder": [
+      {
+        "id": "mic_louder_1115",
+        "text": "Nói to hơn một chút nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "mic_louder_610",
+        "text": "Nói to hơn chút nhé, tớ nghe không ra.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "mic_type": [
+      {
+        "id": "mic_type_1115",
+        "text": "Mạng chậm quá, gõ giúp mình nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "mic_type_610",
+        "text": "Mạng hơi chậm, gõ giúp tớ nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "mic_unclear": [
+      {
+        "id": "mic_unclear_1115",
+        "text": "Chưa nghe rõ, nói lại giúp mình nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "mic_unclear_610",
+        "text": "Chưa nghe rõ lắm. Nói lại giúp tớ nhé?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "place": [
+      {
+        "id": "place_chat",
+        "text": "Có tin nhắn mới, xem cùng {ten} nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "place_classgroup",
+        "text": "Nhóm chat lớp 8B đang ồn ào lắm.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "place_family",
+        "text": "Cuối tuần này {ten} về quê ăn giỗ.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "place_game",
+        "text": "Mở game lên nào, đội của {ten} đang đợi kìa.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "place_grandma",
+        "text": "Đến nhà bà rồi. Hôm nay nhà bà có giỗ, đông vui lắm.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "place_home",
+        "text": "Ra ngõ nhà {ten} nào, xóm này ai cũng quen mặt {ten} hết.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "place_park",
+        "text": "Công viên đây rồi. Cầu trượt đông nghịt luôn.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "place_pool",
+        "text": "Bể bơi mát ghê. Nhớ mang đủ đồ bơi nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "place_school",
+        "text": "Đến trường rồi. Lớp 3A của {ten} ở tầng hai.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      }
+    ],
+    "praise": [
+      {
+        "id": "praise_1115_1",
+        "text": "Chuẩn.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "praise_1115_2",
+        "text": "Hợp lý đấy.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "praise_1115_3",
+        "text": "Bạn xử lý ổn đấy.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "praise_1115_4",
+        "text": "Đúng hướng rồi.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "praise_1115_5",
+        "text": "{ten} an toàn rồi.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "praise_1115_6",
+        "text": "Bình tĩnh mà chắc, được đấy.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "praise_610_1",
+        "text": "Đúng rồi đấy!",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "praise_610_2",
+        "text": "Chuẩn!",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "praise_610_3",
+        "text": "Giỏi ghê!",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "praise_610_4",
+        "text": "Ừ, đúng vậy đấy.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "praise_610_5",
+        "text": "{ten} an toàn rồi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "praise_610_6",
+        "text": "Cậu nhanh trí thật đấy.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "progress": [
+      {
+        "id": "progress_all_1115",
+        "text": "Mở hết các app rồi đấy. Xong cả hành trình.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "progress_all_610",
+        "text": "Xong hết bản đồ rồi. Giỏi ghê!",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "progress_left_1",
+        "text": "Còn một chỗ nữa là xong hết bản đồ.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "progress_left_2",
+        "text": "Còn hai chỗ nữa thôi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "progress_left_3",
+        "text": "Còn ba chỗ nữa, đi tiếp nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "progress_left_4",
+        "text": "Còn bốn chỗ nữa, cậu muốn đi đâu trước?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "rule": [
+      {
+        "id": "rule_R01_1115",
+        "text": "Vùng đồ bơi là riêng tư. Vùng kín là của riêng bạn. Dù là ai, cũng không được nhìn, chạm hay chụp ảnh nếu bạn chưa đồng ý.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R01_610",
+        "text": "Vùng đồ bơi là riêng tư. Vùng đồ bơi che là của riêng cậu thôi, không ai được nhìn hay chạm vào đó cả.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R02_1115",
+        "text": "Cơ thể của mình là của mình. Bạn có quyền từ chối cái chạm làm mình khó chịu, kể cả từ người thân. Ai thật lòng tôn trọng bạn sẽ dừng lại ngay.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R02_610",
+        "text": "Cơ thể của mình là của mình. Không thích ôm hay thơm thì cậu cứ nói không, vẫy tay chào thay cũng được mà.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R03_1115",
+        "text": "Bí mật tốt, bí mật xấu. Ai dặn bạn giấu bố mẹ, nhất là kèm quà hay lời dọa, đó là dấu hiệu nguy hiểm đấy. Kể ngay đi.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R03_610",
+        "text": "Bí mật tốt, bí mật xấu. Bí mật nào làm cậu thấy sợ hay khó chịu thì đó là bí mật xấu, cứ kể cho bố mẹ nghe.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R04_1115",
+        "text": "Ba bước: không, đi, kể. Nói không, rời đi hoặc chặn, rồi kể với người lớn bạn tin. Làm được bước nào cũng đáng khen cả.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R04_610",
+        "text": "Ba bước: không, đi, kể. Ba bước nhớ nhé: nói không, chạy đi, rồi kể lại cho người lớn mình tin.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R05_1115",
+        "text": "Người lớn tin cậy. Chọn sẵn vài người lớn bạn tin, ở nhà lẫn ở trường. Người đầu chưa giúp được thì kể tiếp người khác, đừng bỏ cuộc.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R05_610",
+        "text": "Người lớn tin cậy. Cậu nghĩ sẵn trong đầu hai người lớn mình tìm được nhé. Người này chưa giúp thì mình kể người khác.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R06_1115",
+        "text": "Gọi đúng tên. Gọi đúng tên bộ phận cơ thể giúp bạn kể lại rõ ràng hơn, lúc cần người khác giúp.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R06_610",
+        "text": "Gọi đúng tên. Chỗ đồ bơi che gọi là vùng kín đó. Nói đúng tên vậy không có gì xấu hổ cả.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R07_1115",
+        "text": "Không đi theo người lạ. Đừng lên xe hay đi theo người bạn không quen, dù họ nói lý do gì. Gọi bố mẹ hỏi lại cho chắc trước đã.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R07_610",
+        "text": "Không đi theo người lạ. Người lạ nói mẹ nhờ đón cũng mặc kệ, cậu không đi đâu. Ở lại tìm cô giáo hay bác bảo vệ.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R08_1115",
+        "text": "An toàn trên mạng. Đừng gửi ảnh riêng tư cho bất kỳ ai. Chặn, chụp màn hình giữ lại làm bằng chứng, rồi kể cho người lớn bạn tin.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R08_610",
+        "text": "An toàn trên mạng. Trên mạng có ai xin ảnh hay hỏi nhà cậu ở đâu thì đừng trả lời, gọi bố mẹ ngay.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R09_1115",
+        "text": "Không phải lỗi của mình. Không phải lỗi của bạn, kể cả khi bạn đã lỡ làm theo. Kể ra lúc nào cũng chưa muộn cả.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R09_610",
+        "text": "Không phải lỗi của mình. Chuyện đó không phải lỗi của cậu đâu. Kể ra được là cậu can đảm lắm rồi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R10_1115",
+        "text": "Không gặp riêng bạn qua mạng. Đừng gặp riêng người chỉ quen qua mạng. Càng bị dặn giữ bí mật thì càng phải kể cho bố mẹ.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "rule_R10_610",
+        "text": "Không gặp riêng bạn qua mạng. Người chỉ quen qua mạng mà rủ đi gặp thì đừng đi, kể cho bố mẹ nghe liền.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "rule_R11_1115",
+        "text": "Có quyền từ chối gửi ảnh. Thích ai cũng không có nghĩa là phải gửi ảnh nhạy cảm. Ảnh gửi đi rồi là không lấy lại được nữa đâu.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      }
+    ],
+    "safe_exitrole": [
+      {
+        "id": "safe_exitrole_1115",
+        "text": "Dừng đoạn này lại đã. Mình xem lại chuyện vừa xảy ra một chút nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "safe_exitrole_610",
+        "text": "Thôi dừng ở đây, người lạ không nói nữa đâu. Giờ tớ với cậu ngồi lại xem chuyện vừa rồi một chút.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "safe_fallback": [
+      {
+        "id": "safe_fallback_1115",
+        "text": "Câu này mình chưa trả lời được. Bạn kể lại xem {ten} định làm gì nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "safe_fallback_610",
+        "text": "Ơ, cái này tớ chưa nghĩ ra câu trả lời. Cậu kể lại giúp tớ xem {ten} sẽ làm gì nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      }
+    ],
+    "safe_helpbtn": [
+      {
+        "id": "safe_helpbtn_1115",
+        "text": "Mình ở đây. Game dừng lại xíu nhé. Có chuyện gì đang làm bạn lo thì kể cho người lớn bạn tin, hoặc gọi số 111, miễn phí, lúc nào cũng gọi được. Không cần tự ôm một mình đâu.",
+        "role": "tin_calm1115",
+        "age": "11-15",
+        "per_name": false,
+        "tts": "Mình ở đây. Game dừng lại xíu nhé. Có chuyện gì đang làm bạn lo thì kể cho người lớn bạn tin, hoặc gọi số một một một, miễn phí, lúc nào cũng gọi được. Không cần tự ôm một mình đâu."
+      },
+      {
+        "id": "safe_helpbtn_610",
+        "text": "Tớ đây, có tớ rồi. Mình dừng chơi một chút nhé. Cái gì làm cậu sợ hay khó chịu thì kể ngay cho mẹ, bố, hay cô giáo nghe. Số 111 cũng gọi được, miễn phí.",
+        "role": "tin_calm610",
+        "age": "6-10",
+        "per_name": false,
+        "tts": "Tớ đây, có tớ rồi. Mình dừng chơi một chút nhé. Cái gì làm cậu sợ hay khó chịu thì kể ngay cho mẹ, bố, hay cô giáo nghe. Số một một một cũng gọi được, miễn phí."
+      }
+    ],
+    "safe_hotline": [
+      {
+        "id": "safe_hotline_1115_a",
+        "text": "Mình dừng chơi ở đây xíu nhé. Chuyện bạn vừa kể, mình nghe thấy quan trọng hơn cái game này nhiều. Bạn không làm gì sai hết. Giờ bạn tìm một người lớn mình tin, kể lại y vậy cho họ nghe, bố mẹ cũng được, thầy cô cũng được. Số 111 gọi được bất cứ lúc nào, miễn phí luôn.",
+        "role": "tin_calm1115",
+        "age": "11-15",
+        "per_name": false,
+        "tts": "Mình dừng chơi ở đây xíu nhé. Chuyện bạn vừa kể, mình nghe thấy quan trọng hơn cái game này nhiều. Bạn không làm gì sai hết. Giờ bạn tìm một người lớn mình tin, kể lại y vậy cho họ nghe, bố mẹ cũng được, thầy cô cũng được. Số một một một gọi được bất cứ lúc nào, miễn phí luôn."
+      },
+      {
+        "id": "safe_hotline_1115_b",
+        "text": "Game nghỉ chút đã. Dám kể ra như vậy là bạn can đảm lắm rồi, với lại đây không phải lỗi của bạn đâu. Tìm một người lớn bạn tin để kể, còn chưa biết kể ai thì gọi số 111, miễn phí, cả ngày lẫn đêm.",
+        "role": "tin_calm1115",
+        "age": "11-15",
+        "per_name": false,
+        "tts": "Game nghỉ chút đã. Dám kể ra như vậy là bạn can đảm lắm rồi, với lại đây không phải lỗi của bạn đâu. Tìm một người lớn bạn tin để kể, còn chưa biết kể ai thì gọi số một một một, miễn phí, cả ngày lẫn đêm."
+      },
+      {
+        "id": "safe_hotline_610_a",
+        "text": "Thôi, mình dừng chơi ở đây một chút nhé. Chuyện cậu vừa kể, tớ nghe thấy quan trọng lắm đấy. Cậu không làm sai gì cả đâu. Giờ cậu chạy đi tìm mẹ, bố, hay cô giáo, kể y như vừa kể cho tớ nghe vậy. Có số này nữa, 111, gọi miễn phí, lúc nào cũng gọi được.",
+        "role": "tin_calm610",
+        "age": "6-10",
+        "per_name": false,
+        "tts": "Thôi, mình dừng chơi ở đây một chút nhé. Chuyện cậu vừa kể, tớ nghe thấy quan trọng lắm đấy. Cậu không làm sai gì cả đâu. Giờ cậu chạy đi tìm mẹ, bố, hay cô giáo, kể y như vừa kể cho tớ nghe vậy. Có số này nữa, một một một, gọi miễn phí, lúc nào cũng gọi được."
+      },
+      {
+        "id": "safe_hotline_610_b",
+        "text": "Chuyện này, tớ với cậu nghỉ chơi một xíu đã. Cậu không có lỗi gì hết, nghe chưa. Kể được cho tớ là cậu can đảm lắm rồi. Giờ việc quan trọng là cậu đi kể lại với mẹ, với bố, hoặc cô giáo. Số 111 gọi được bất cứ lúc nào, không mất tiền đâu.",
+        "role": "tin_calm610",
+        "age": "6-10",
+        "per_name": false,
+        "tts": "Chuyện này, tớ với cậu nghỉ chơi một xíu đã. Cậu không có lỗi gì hết, nghe chưa. Kể được cho tớ là cậu can đảm lắm rồi. Giờ việc quan trọng là cậu đi kể lại với mẹ, với bố, hoặc cô giáo. Số một một một gọi được bất cứ lúc nào, không mất tiền đâu."
+      }
+    ],
+    "safe_inject": [
+      {
+        "id": "safe_inject_1115_a",
+        "text": "Cái đó mình không chơi được. Quay lại chuyện của {ten} nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": true
+      },
+      {
+        "id": "safe_inject_1115_b",
+        "text": "Mình chỉ chạy mấy tình huống có sẵn thôi, không đổi luật được đâu. Tiếp tục nhé?",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "safe_inject_610_a",
+        "text": "Ấy, cái đó tớ chịu thôi, không chơi được đâu. Quay lại chuyện của {ten} nhé?",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      },
+      {
+        "id": "safe_inject_610_b",
+        "text": "Tớ chỉ biết chơi mấy tình huống có sẵn thôi à. Về với {ten} tiếp nào!",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      }
+    ],
+    "tactic": [
+      {
+        "id": "tactic_cho_qua",
+        "text": "Cho quà, cho kẹo. Cho quà rồi đòi mình làm gì đó, hoặc dặn đừng kể ai. Cháu không nhận đâu ạ.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "tactic_dan_bi_mat",
+        "text": "Dặn giữ bí mật. Dặn đừng kể với bố mẹ. Bí mật kiểu này là bí mật xấu đấy. Cháu sẽ kể cho mẹ nghe.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "tactic_ep_bang_tinh_cam",
+        "text": "Nếu thương thì phải làm. Lôi tình cảm ra ép mình làm điều mình không muốn. Thương thật thì không ép nhau đâu.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "tactic_gia_quen_bo_me",
+        "text": "Tự nhận là người quen của bố mẹ. Người mình chưa gặp bao giờ mà nói quen bố mẹ mình. Để cháu gọi hỏi mẹ đã.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "tactic_giuc_gap",
+        "text": "Giục đi thật nhanh. Cứ giục mình đi thật nhanh, không cho kịp hỏi ai cả. Cháu không vội đâu, để cháu hỏi bố mẹ đã.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "tactic_hua_vat_pham",
+        "text": "Hứa tặng đồ trong game. Tặng vật phẩm, tặng skin để đổi lấy ảnh hay thông tin của mình. Thôi khỏi, cảm ơn.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "tactic_noi_me_gap_chuyen",
+        "text": "Nói bố mẹ đang gặp chuyện. Bảo mẹ đang ở viện, bố bị sao đó, để mình hoảng mà đi theo. Để cháu gọi bố mẹ ngay bây giờ.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "tactic_ru_gap_rieng",
+        "text": "Rủ gặp riêng. Người chỉ quen qua mạng rủ gặp một mình, dặn đừng nói ai. Mình không đi đâu. Mình sẽ kể cho bố mẹ.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      }
+    ],
+    "time": [
+      {
+        "id": "time_afternoon",
+        "text": "Chiều rồi, đi chơi một lát nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "time_evening",
+        "text": "Tối rồi đấy, chơi thêm một màn nữa thôi nhé.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "time_morning",
+        "text": "Sáng rồi, {ten} chuẩn bị đi học thôi.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": true
+      }
+    ],
+    "wait": [
+      {
+        "id": "wait_1115_1",
+        "text": "Đợi chút…",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "wait_1115_2",
+        "text": "Để xem nào…",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "wait_1115_3",
+        "text": "Một chút nhé.",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "wait_610_1",
+        "text": "Để tớ nghĩ chút…",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "wait_610_2",
+        "text": "Ừm… đang nghĩ đây.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "wait_610_3",
+        "text": "Chờ tớ một chút.",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ],
+    "who": [
+      {
+        "id": "who_ba_1115",
+        "text": "bà",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "who_ba_610",
+        "text": "bà",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "who_bac_tam_1115",
+        "text": "bác Tâm",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "who_bac_tam_610",
+        "text": "bác Tâm",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "who_bo_1115",
+        "text": "bố",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "who_bo_610",
+        "text": "bố",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "who_co_hanh_1115",
+        "text": "cô Hạnh",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "who_co_hanh_610",
+        "text": "cô Hạnh",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "who_co_thuy_1115",
+        "text": "cô Thủy",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "who_co_thuy_610",
+        "text": "cô Thủy",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "who_me_1115",
+        "text": "mẹ",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "who_me_610",
+        "text": "mẹ",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      },
+      {
+        "id": "who_thay_co_1115",
+        "text": "thầy cô",
+        "role": "tin1115",
+        "age": "11-15",
+        "per_name": false
+      },
+      {
+        "id": "who_thay_co_610",
+        "text": "thầy cô",
+        "role": "tin610",
+        "age": "6-10",
+        "per_name": false
+      }
+    ]
+  }
+}

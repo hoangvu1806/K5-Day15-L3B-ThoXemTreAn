@@ -19,8 +19,8 @@
       "11-15"
     ],
     "source": "Hội đồng châu Âu (Council of Europe), chiến dịch ONE in FIVE: \"The Underwear Rule\" (quy tắc đồ lót / vùng đồ bơi). [Chưa kiểm link] | NSPCC (Anh), \"Talk PANTS\": vùng riêng tư, cơ thể là của con, nói không, bí mật làm con lo phải kể, có người giúp. [Chưa kiểm link] | UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3]",
-    "loi_6_10": "Chỗ đồ bơi che là của riêng con. Không ai được nhìn hay chạm vào đó.",
-    "loi_11_15": "Vùng kín là của riêng em. Không ai được nhìn, chạm hay chụp ảnh nếu em không đồng ý, dù là ai.",
+    "loi_6_10": "Vùng đồ bơi che là của riêng cậu thôi, không ai được nhìn hay chạm vào đó cả.",
+    "loi_11_15": "Vùng kín là của riêng bạn. Dù là ai, cũng không được nhìn, chạm hay chụp ảnh nếu bạn chưa đồng ý.",
     "chu_de": [
       "vung_rieng_tu"
     ],
@@ -28,7 +28,9 @@
       "SRC-COE-UNDERWEAR",
       "SRC-NSPCC-PANTS",
       "SRC-UNESCO-ITGSE"
-    ]
+    ],
+    "ten_the": "Vùng đồ bơi là riêng tư",
+    "the": "body"
   },
   {
     "code": "R02",
@@ -51,8 +53,8 @@
       "11-15"
     ],
     "source": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3] | NSPCC (Anh), \"Talk PANTS\": vùng riêng tư, cơ thể là của con, nói không, bí mật làm con lo phải kể, có người giúp. [Chưa kiểm link]",
-    "loi_6_10": "Con không thích ôm hay hôn thì con được nói không. Con có thể vẫy tay chào thay.",
-    "loi_11_15": "Em có quyền nói không với cái chạm làm em khó chịu, kể cả từ người thân. Người tôn trọng em sẽ dừng lại.",
+    "loi_6_10": "Không thích ôm hay thơm thì cậu cứ nói không, vẫy tay chào thay cũng được mà.",
+    "loi_11_15": "Bạn có quyền từ chối cái chạm làm mình khó chịu, kể cả từ người thân. Ai thật lòng tôn trọng bạn sẽ dừng lại ngay.",
     "chu_de": [
       "ranh_gioi_nguoi_than",
       "vung_rieng_tu"
@@ -60,7 +62,9 @@
     "nguon_ids": [
       "SRC-UNESCO-ITGSE",
       "SRC-NSPCC-PANTS"
-    ]
+    ],
+    "ten_the": "Cơ thể của mình là của mình",
+    "the": "body"
   },
   {
     "code": "R03",
@@ -80,15 +84,17 @@
       "11-15"
     ],
     "source": "NSPCC (Anh), \"Talk PANTS\": vùng riêng tư, cơ thể là của con, nói không, bí mật làm con lo phải kể, có người giúp. [Chưa kiểm link] | Hội đồng châu Âu (Council of Europe), chiến dịch ONE in FIVE: \"The Underwear Rule\" (quy tắc đồ lót / vùng đồ bơi). [Chưa kiểm link]",
-    "loi_6_10": "Bí mật làm con thấy sợ hay khó chịu là bí mật xấu. Con kể với bố mẹ nhé.",
-    "loi_11_15": "Ai dặn em giấu bố mẹ, nhất là kèm quà hay lời dọa, thì đó là dấu hiệu nguy hiểm. Em nên kể ngay.",
+    "loi_6_10": "Bí mật nào làm cậu thấy sợ hay khó chịu thì đó là bí mật xấu, cứ kể cho bố mẹ nghe.",
+    "loi_11_15": "Ai dặn bạn giấu bố mẹ, nhất là kèm quà hay lời dọa, đó là dấu hiệu nguy hiểm đấy. Kể ngay đi.",
     "chu_de": [
       "bi_mat"
     ],
     "nguon_ids": [
       "SRC-NSPCC-PANTS",
       "SRC-COE-UNDERWEAR"
-    ]
+    ],
+    "ten_the": "Bí mật tốt, bí mật xấu",
+    "the": "secret"
   },
   {
     "code": "R04",
@@ -108,8 +114,8 @@
       "11-15"
     ],
     "source": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3]",
-    "loi_6_10": "Con nói KHÔNG, chạy đi, rồi kể với người lớn con tin.",
-    "loi_11_15": "Nói KHÔNG, rời đi hoặc chặn, rồi kể với người lớn em tin. Làm được bước nào cũng tốt.",
+    "loi_6_10": "Ba bước nhớ nhé: nói không, chạy đi, rồi kể lại cho người lớn mình tin.",
+    "loi_11_15": "Nói không, rời đi hoặc chặn, rồi kể với người lớn bạn tin. Làm được bước nào cũng đáng khen cả.",
     "chu_de": [
       "vung_rieng_tu",
       "bi_mat",
@@ -119,7 +125,9 @@
     ],
     "nguon_ids": [
       "SRC-UNESCO-ITGSE"
-    ]
+    ],
+    "ten_the": "Ba bước: không, đi, kể",
+    "the": "body"
   },
   {
     "code": "R05",
@@ -139,15 +147,17 @@
       "11-15"
     ],
     "source": "NSPCC (Anh), \"Talk PANTS\": vùng riêng tư, cơ thể là của con, nói không, bí mật làm con lo phải kể, có người giúp. [Chưa kiểm link] | Khảo sát phụ huynh, giáo viên của nhóm, 27/11/2026 (evidence/survey/). Dùng để chọn tình huống đời thường, KHÔNG phải nguồn của quy tắc. [Dữ liệu thật của nhóm]",
-    "loi_6_10": "Con nghĩ trước hai người lớn con tìm được. Người này không nghe thì con kể người khác.",
-    "loi_11_15": "Chọn trước vài người lớn em tin ở nhà và ở trường. Một người chưa giúp thì kể tiếp người khác.",
+    "loi_6_10": "Cậu nghĩ sẵn trong đầu hai người lớn mình tìm được nhé. Người này chưa giúp thì mình kể người khác.",
+    "loi_11_15": "Chọn sẵn vài người lớn bạn tin, ở nhà lẫn ở trường. Người đầu chưa giúp được thì kể tiếp người khác, đừng bỏ cuộc.",
     "chu_de": [
       "nguoi_lon_tin_cay"
     ],
     "nguon_ids": [
       "SRC-NSPCC-PANTS",
       "SRC-KHAO-SAT"
-    ]
+    ],
+    "ten_the": "Người lớn tin cậy",
+    "the": "stranger"
   },
   {
     "code": "R06",
@@ -167,14 +177,16 @@
       "11-15"
     ],
     "source": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3]",
-    "loi_6_10": "Chỗ đồ bơi che gọi là vùng kín. Nói tên đúng không có gì xấu hổ cả.",
-    "loi_11_15": "Gọi đúng tên bộ phận cơ thể giúp em kể lại rõ ràng khi cần giúp đỡ.",
+    "loi_6_10": "Chỗ đồ bơi che gọi là vùng kín đó. Nói đúng tên vậy không có gì xấu hổ cả.",
+    "loi_11_15": "Gọi đúng tên bộ phận cơ thể giúp bạn kể lại rõ ràng hơn, lúc cần người khác giúp.",
     "chu_de": [
       "vung_rieng_tu"
     ],
     "nguon_ids": [
       "SRC-UNESCO-ITGSE"
-    ]
+    ],
+    "ten_the": "Gọi đúng tên",
+    "the": "body"
   },
   {
     "code": "R07",
@@ -194,14 +206,16 @@
       "11-15"
     ],
     "source": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3]",
-    "loi_6_10": "Người lạ nói mẹ nhờ đón, con cũng không đi. Con ở lại và tìm cô hoặc bác bảo vệ.",
-    "loi_11_15": "Không lên xe hay đi theo người em không quen, dù họ nói gì. Gọi bố mẹ để kiểm tra trước.",
+    "loi_6_10": "Người lạ nói mẹ nhờ đón cũng mặc kệ, cậu không đi đâu. Ở lại tìm cô giáo hay bác bảo vệ.",
+    "loi_11_15": "Đừng lên xe hay đi theo người bạn không quen, dù họ nói lý do gì. Gọi bố mẹ hỏi lại cho chắc trước đã.",
     "chu_de": [
       "nguoi_la"
     ],
     "nguon_ids": [
       "SRC-UNESCO-ITGSE"
-    ]
+    ],
+    "ten_the": "Không đi theo người lạ",
+    "the": "stranger"
   },
   {
     "code": "R08",
@@ -222,15 +236,17 @@
       "11-15"
     ],
     "source": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3] | UNICEF, tài liệu an toàn trực tuyến cho trẻ em (nhóm cần tìm đúng trang của UNICEF Việt Nam). [CHƯA TÌM ĐƯỢC tài liệu cụ thể, phải thay bằng trang thật hoặc bỏ]",
-    "loi_6_10": "Ai trên mạng xin ảnh hay hỏi nhà con ở đâu thì con không trả lời và gọi bố mẹ.",
-    "loi_11_15": "Không gửi ảnh riêng tư cho ai. Chặn, chụp màn hình làm bằng chứng, rồi kể với người lớn em tin.",
+    "loi_6_10": "Trên mạng có ai xin ảnh hay hỏi nhà cậu ở đâu thì đừng trả lời, gọi bố mẹ ngay.",
+    "loi_11_15": "Đừng gửi ảnh riêng tư cho bất kỳ ai. Chặn, chụp màn hình giữ lại làm bằng chứng, rồi kể cho người lớn bạn tin.",
     "chu_de": [
       "an_toan_mang"
     ],
     "nguon_ids": [
       "SRC-UNESCO-ITGSE",
       "SRC-UNICEF-ONLINE"
-    ]
+    ],
+    "ten_the": "An toàn trên mạng",
+    "the": "online"
   },
   {
     "code": "R09",
@@ -250,8 +266,8 @@
       "11-15"
     ],
     "source": "NSPCC (Anh), \"Talk PANTS\": vùng riêng tư, cơ thể là của con, nói không, bí mật làm con lo phải kể, có người giúp. [Chưa kiểm link] | UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3]",
-    "loi_6_10": "Đó không phải lỗi của con. Con kể ra là con rất dũng cảm.",
-    "loi_11_15": "Không phải lỗi của em, kể cả khi em đã lỡ làm theo. Kể ra lúc nào cũng chưa muộn.",
+    "loi_6_10": "Chuyện đó không phải lỗi của cậu đâu. Kể ra được là cậu can đảm lắm rồi.",
+    "loi_11_15": "Không phải lỗi của bạn, kể cả khi bạn đã lỡ làm theo. Kể ra lúc nào cũng chưa muộn cả.",
     "chu_de": [
       "vung_rieng_tu",
       "bi_mat",
@@ -261,7 +277,9 @@
     "nguon_ids": [
       "SRC-NSPCC-PANTS",
       "SRC-UNESCO-ITGSE"
-    ]
+    ],
+    "ten_the": "Không phải lỗi của mình",
+    "the": "secret"
   },
   {
     "code": "R10",
@@ -279,15 +297,17 @@
       "11-15"
     ],
     "source": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3]",
-    "loi_6_10": "Người con chỉ quen trên mạng rủ đi gặp thì con không đi và kể với bố mẹ.",
-    "loi_11_15": "Không gặp riêng người chỉ quen qua mạng. Bị dặn giữ bí mật thì càng phải kể với bố mẹ.",
+    "loi_6_10": "Người chỉ quen qua mạng mà rủ đi gặp thì đừng đi, kể cho bố mẹ nghe liền.",
+    "loi_11_15": "Đừng gặp riêng người chỉ quen qua mạng. Càng bị dặn giữ bí mật thì càng phải kể cho bố mẹ.",
     "chu_de": [
       "an_toan_mang",
       "bi_mat"
     ],
     "nguon_ids": [
       "SRC-UNESCO-ITGSE"
-    ]
+    ],
+    "ten_the": "Không gặp riêng bạn qua mạng",
+    "the": "online"
   },
   {
     "code": "R11",
@@ -306,14 +326,16 @@
     ],
     "source": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3]",
     "loi_6_10": "",
-    "loi_11_15": "Thích ai cũng không có nghĩa phải gửi ảnh nhạy cảm. Ảnh gửi đi rồi không lấy lại được.",
+    "loi_11_15": "Thích ai cũng không có nghĩa là phải gửi ảnh nhạy cảm. Ảnh gửi đi rồi là không lấy lại được nữa đâu.",
     "chu_de": [
       "an_toan_mang",
       "ranh_gioi_nguoi_than"
     ],
     "nguon_ids": [
       "SRC-UNESCO-ITGSE"
-    ]
+    ],
+    "ten_the": "Có quyền từ chối gửi ảnh",
+    "the": "online"
   },
   {
     "code": "R12",
@@ -339,6 +361,7 @@
     ],
     "nguon_ids": [
       "SRC-111"
-    ]
+    ],
+    "the": ""
   }
 ]
