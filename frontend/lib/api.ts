@@ -1,6 +1,13 @@
+import type { AgeProgress } from "./local";
 import type {
   AgeGroup, AnswerResponse, DetectiveResponse, Draft, Gender, HelpContent, HintResponse, LevelResponse, SessionResponse,
 } from "./types";
+
+export interface AccountResponse {
+  username: string;
+  token?: string;
+  progress: Record<AgeGroup, AgeProgress>;
+}
 
 export const BASE = (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:6161").replace(/\/$/, "");
 
@@ -11,13 +18,19 @@ export class ApiError extends Error {
 }
 
 async function post<T>(path: string, body: unknown, timeoutMs = 60000): Promise<T> {
+  return send<T>("POST", path, body, timeoutMs);
+}
+
+async function send<T>(method: string, path: string, body: unknown, timeoutMs = 60000, token = ""): Promise<T> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (token) headers.Authorization = "Bearer " + token;
   try {
     const res = await fetch(BASE + path, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      method,
+      headers,
+      body: body === undefined ? undefined : JSON.stringify(body),
       signal: ctrl.signal,
     });
     if (!res.ok) {
@@ -47,6 +60,14 @@ export const api = {
     post<DetectiveResponse>("/api/detective", { session_id, scenario_id, text }),
   help: (session_id: string) => post<HelpContent>("/api/help", { session_id }, 8000),
   end: (session_id: string) => post<Draft>("/api/session/end", { session_id }),
+  /* Tài khoản (codebase/auth.py). progress là bản gọn từ compactProgress(). */
+  register: (username: string, password: string, consent: boolean, progress: unknown) =>
+    post<AccountResponse>("/api/auth/register", { username, password, consent, progress }, 15000),
+  login: (username: string, password: string, progress: unknown) =>
+    post<AccountResponse>("/api/auth/login", { username, password, progress }, 15000),
+  logout: (token: string) => send<{ ok: boolean }>("POST", "/api/auth/logout", {}, 8000, token),
+  me: (token: string) => send<AccountResponse>("GET", "/api/auth/me", undefined, 8000, token),
+  sync: (token: string, progress: unknown) => send<AccountResponse>("PUT", "/api/progress", { progress }, 15000, token),
   /** Đọc to lời game vừa tạo ra. Server chỉ đọc chữ của game trong phiên, trả mp3. */
   async tts(session_id: string, text: string, role: string, timeoutMs = 4000): Promise<Blob> {
     const ctrl = new AbortController();

@@ -21,7 +21,8 @@ function Tile({ icon, label, onClick, color, delay }: { icon: ReactNode; label: 
 
 /** Màn hình chính: Tin đứng giữa, nút lớn "Chơi tiếp", các ô Bản đồ / Điện thoại, Sổ tay, Góc phụ huynh, Cài đặt. */
 export default function HomeScreen() {
-  const { saved, playOn, openNotebook, openHand, requestLock, setOverlay, busy, sessionId, draft } = useGame();
+  const { saved, playOn, openNotebook, openHand, requestLock, setOverlay, busy, sessionId, draft, account } = useGame();
+  const openAccount = () => requestLock("account", () => setOverlay("account"));
   const profile = saved.profile!;
   const age = profile.age;
   const p = saved.progress[age];
@@ -40,6 +41,10 @@ export default function HomeScreen() {
           <span className="text-outline font-display text-[44px] font-extrabold text-white">Grow<span className="text-[var(--sun)]">Safe</span></span>
         </div>
         <div className="flex items-center gap-3">
+          <Chunky size="sm" color={account ? "var(--mint)" : "var(--cream)"} onClick={openAccount} className="max-w-[260px]">
+            <Pic src={ui.parent} w={512} h={512} className="h-[32px] w-[32px]" />
+            <span className="truncate">{account ? account.username : "Tài khoản"}</span>
+          </Chunky>
           <IconButton src={ui.settings} label="Cài đặt" onClick={() => setOverlay("settings")} />
           <HelpButton />
         </div>
@@ -84,7 +89,12 @@ export default function HomeScreen() {
           )}
         </div>
         <p className="flex items-center gap-2 text-[16px] font-bold text-[var(--ink-soft)]">
-          <Pic src={ui.privacy} w={512} h={512} className="h-[30px] w-[30px]" /> Tiến độ và thẻ chỉ lưu trên máy này.
+          <Pic src={ui.privacy} w={512} h={512} className="h-[30px] w-[30px]" />
+          {account ? (
+            <>Thẻ được lưu vào tài khoản {account.username}.</>
+          ) : (
+            <>Tiến độ và thẻ chỉ lưu trên máy này. <button onClick={openAccount} className="underline">Lưu vào tài khoản</button></>
+          )}
         </p>
       </div>
     </div>

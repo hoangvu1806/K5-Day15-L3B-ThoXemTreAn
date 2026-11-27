@@ -39,7 +39,9 @@ function StepLabel({ n, children, hint }: { n: number; children: string; hint?: 
 
 /** Tạo hồ sơ (người lớn làm). Không hỏi tên thật. Giới tính bắt buộc, chỉ để chọn nhân vật chính. */
 export default function SetupScreen() {
-  const { saved, setProfile, goHome } = useGame();
+  const { saved, setProfile, goHome, account, setOverlay } = useGame();
+  // Màn này người lớn đang làm nên mở thẳng, không cần khoá phép tính như ở màn hình chính.
+  const openAccount = () => setOverlay("account");
   const prev = saved.profile;
   const [age, setAge] = useState<AgeGroup>(prev?.age ?? "6-10");
   const [gender, setGender] = useState<Gender | "">(prev?.gender ?? "");
@@ -89,6 +91,9 @@ export default function SetupScreen() {
         <motion.div variants={pop} className="mb-1 flex items-center gap-3">
           <Pic src={ui.parent} w={512} h={512} className="h-[42px] w-[42px]" />
           <p className="flex-1 font-display text-[21px] font-bold text-[var(--ink-soft)]">Bố mẹ, thầy cô tạo hồ sơ giúp con</p>
+          <Chunky size="sm" color={account ? "var(--mint)" : "var(--cream)"} onClick={openAccount} className="h-[46px]! max-w-[240px] px-4! text-[17px]!">
+            <span className="truncate">{account ? account.username : "Đăng nhập / Đăng ký"}</span>
+          </Chunky>
         </motion.div>
 
         <motion.div variants={pop}>
@@ -136,7 +141,7 @@ export default function SetupScreen() {
         </motion.div>
         <motion.div variants={pop} className="mt-2 flex items-center gap-3 rounded-[18px] bg-[var(--mint)]/35 px-3 py-2">
           <Pic src={ui.privacy} w={512} h={512} className="h-[36px] w-[36px] shrink-0" />
-          <p className="text-[14px] font-bold leading-snug text-[var(--ink-soft)]">Game không hỏi tên thật. Tiến độ và thẻ chỉ lưu trên máy này. Giới tính không gửi cho AI, không ghi vào bản nháp cho người lớn.</p>
+          <p className="text-[14px] font-bold leading-snug text-[var(--ink-soft)]">Game không hỏi tên thật. {account ? `Thẻ được lưu vào tài khoản ${account.username}.` : "Tiến độ và thẻ chỉ lưu trên máy này, trừ khi người lớn đăng nhập."} Giới tính không gửi cho AI, không ghi vào bản nháp cho người lớn.</p>
         </motion.div>
       </motion.div>
     </div>
