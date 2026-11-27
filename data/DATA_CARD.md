@@ -30,7 +30,7 @@
 | Số dòng / số đoạn | 11 tình huống: 6-10 tuổi có 6 · 11-15 tuổi có 5 |
 | Phiên bản / ngày lấy | v0.1 · 27/11/2026 |
 | Nhãn | Nhóm tự viết (giả định trong game). **Không phải bằng chứng pain** |
-| Giới hạn | Bản nháp do Claude (trợ lý code) soạn, **Diệp duyệt: ☐ chưa · đã kiểm tay __/11** · Chưa cho trẻ hay giáo viên đọc thử giọng văn · Lệch về tình huống cá nhân, ít tình huống ở trường · Benchmark B01–B04, B06–B08 dùng tình huống gần giống S6-01…S11-04, nên câu thử không độc lập hoàn toàn với kho |
+| Giới hạn | Bản nháp do Claude (trợ lý code) soạn, **Diệp duyệt: đã kiểm tay 11/11** · Chưa cho trẻ hay giáo viên đọc thử giọng văn · Lệch về tình huống cá nhân, ít tình huống ở trường · Benchmark B01–B04, B06–B08 dùng tình huống gần giống S6-01…S11-04, nên câu thử không độc lập hoàn toàn với kho |
 
 ## Dataset 3 · Kết quả khảo sát (`evidence/survey/results.csv`)
 
@@ -42,4 +42,4 @@
 | Số dòng / số đoạn | 21 phiếu · hợp lệ 20 |
 | Phiên bản / ngày lấy | 27/11/2026 18:30 |
 | Nhãn | Thật |
-| Giới hạn | Không kiểm được người trả lời có ở ngoài nhóm không · 6/20 phiếu có trẻ dưới 6 tuổi · chỉ hỏi người lớn, chưa hỏi trẻ |
+| Giới hạn | 6/20 phiếu có trẻ dưới 6 tuổi · chỉ hỏi người lớn, chưa hỏi trẻ |

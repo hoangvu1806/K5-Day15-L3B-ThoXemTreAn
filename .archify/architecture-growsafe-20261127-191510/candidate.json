@@ -1,0 +1,523 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Kiến trúc GrowSafe AI — lát cắt CP2",
+    "output": "docs/architecture/growsafe-architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/hoangvu1806/K5-Day15-L3B-ThoXemTreAn.git",
+      "provider": "github",
+      "revision": "a094f0777435456fea7c7736f90fc960f64efa8f"
+    }
+  },
+  "components": [
+    {
+      "id": "child",
+      "type": "external",
+      "label": "Trẻ 6-15 tuổi",
+      "sublabel": "bấm đáp án / tự gõ",
+      "icon": "person",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        130,
+        64
+      ],
+      "sources": [
+        {
+          "path": "docs/game-flow.md",
+          "line": 5,
+          "end_line": 17,
+          "label": "một phiên chơi"
+        }
+      ]
+    },
+    {
+      "id": "server",
+      "type": "backend",
+      "label": "FastAPI server",
+      "sublabel": "POST /api/chat :6161",
+      "pos": [
+        290,
+        40
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "codebase/server.py",
+          "line": 25,
+          "end_line": 36,
+          "label": "ChatIn / ChatOut"
+        },
+        {
+          "path": "codebase/server.py",
+          "line": 44,
+          "end_line": 53,
+          "label": "/api/chat"
+        }
+      ]
+    },
+    {
+      "id": "precheck",
+      "type": "security",
+      "label": "precheck",
+      "sublabel": "xâm hại thật · injection",
+      "pos": [
+        540,
+        40
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "codebase/guardrails.py",
+          "line": 24,
+          "end_line": 53,
+          "label": "từ khóa + precheck"
+        },
+        {
+          "path": "codebase/agent.py",
+          "line": 178,
+          "end_line": 188,
+          "label": "gọi precheck"
+        }
+      ]
+    },
+    {
+      "id": "hotline",
+      "type": "security",
+      "label": "Dừng game · 111",
+      "sublabel": "từ chối · không gọi model",
+      "pos": [
+        540,
+        170
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "icon": "stop",
+      "sources": [
+        {
+          "path": "codebase/guardrails.py",
+          "line": 11,
+          "end_line": 19,
+          "label": "câu 111 / từ chối"
+        }
+      ]
+    },
+    {
+      "id": "mask",
+      "type": "security",
+      "label": "mask_pii",
+      "sublabel": "che SĐT, email, tài khoản",
+      "pos": [
+        770,
+        40
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "codebase/guardrails.py",
+          "line": 64,
+          "end_line": 77,
+          "label": "mẫu PII"
+        },
+        {
+          "path": "codebase/agent.py",
+          "line": 190,
+          "end_line": 193,
+          "label": "che trước model"
+        }
+      ]
+    },
+    {
+      "id": "agent",
+      "type": "backend",
+      "label": "Agent Google ADK",
+      "sublabel": "LlmAgent · ≤ 6 lượt model",
+      "tag": "một agent",
+      "pos": [
+        770,
+        170
+      ],
+      "size": [
+        150,
+        300
+      ],
+      "sources": [
+        {
+          "path": "codebase/agent.py",
+          "line": 137,
+          "end_line": 167,
+          "label": "LlmAgent + runner"
+        },
+        {
+          "path": "codebase/agent.py",
+          "line": 33,
+          "end_line": 59,
+          "label": "prompt hệ thống"
+        }
+      ]
+    },
+    {
+      "id": "t-scenario",
+      "type": "backend",
+      "label": "get_scenario",
+      "sublabel": "đọc data/scenarios.json",
+      "pos": [
+        990,
+        175
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "codebase/tools.py",
+          "line": 31,
+          "end_line": 43
+        }
+      ]
+    },
+    {
+      "id": "t-guideline",
+      "type": "backend",
+      "label": "search_safety_guideline",
+      "sublabel": "≤ 3 quy tắc · guidelines.json",
+      "pos": [
+        990,
+        255
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "codebase/tools.py",
+          "line": 46,
+          "end_line": 61
+        }
+      ]
+    },
+    {
+      "id": "t-evaluate",
+      "type": "backend",
+      "label": "evaluate_child_response",
+      "sublabel": "so khớp key_actions (thô)",
+      "pos": [
+        990,
+        335
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "codebase/tools.py",
+          "line": 64,
+          "end_line": 78
+        }
+      ]
+    },
+    {
+      "id": "t-draft",
+      "type": "backend",
+      "label": "draft_parent_teacher_note",
+      "sublabel": "chỉ tạo nháp, không gửi",
+      "pos": [
+        990,
+        415
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "codebase/tools.py",
+          "line": 81,
+          "end_line": 90
+        }
+      ]
+    },
+    {
+      "id": "postcheck",
+      "type": "security",
+      "label": "postcheck",
+      "sublabel": "chặn câu đổ lỗi, dọa trẻ",
+      "pos": [
+        540,
+        300
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "codebase/guardrails.py",
+          "line": 80,
+          "end_line": 99,
+          "label": "câu cấm + postcheck"
+        },
+        {
+          "path": "codebase/agent.py",
+          "line": 199,
+          "end_line": 206,
+          "label": "viết ngắn + hậu kiểm"
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "cloud",
+      "label": "OpenRouter",
+      "sublabel": "qua LiteLLM · .env",
+      "pos": [
+        770,
+        600
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "codebase/ai.py",
+          "line": 59,
+          "end_line": 64,
+          "label": "adk_model"
+        },
+        {
+          "path": "codebase/ai.py",
+          "line": 73,
+          "end_line": 92,
+          "label": "call_model"
+        }
+      ]
+    },
+    {
+      "id": "drafts",
+      "type": "database",
+      "label": "DRAFTS",
+      "sublabel": "bộ nhớ · cho_duyet",
+      "pos": [
+        990,
+        600
+      ],
+      "size": [
+        170,
+        64
+      ],
+      "sources": [
+        {
+          "path": "codebase/tools.py",
+          "line": 16,
+          "end_line": 16,
+          "label": "danh sách nháp"
+        },
+        {
+          "path": "codebase/server.py",
+          "line": 56,
+          "end_line": 59,
+          "label": "GET /api/drafts"
+        }
+      ]
+    },
+    {
+      "id": "parent",
+      "type": "external",
+      "label": "Phụ huynh / giáo viên",
+      "sublabel": "đọc nháp, tự quyết",
+      "icon": "person",
+      "pos": [
+        990,
+        730
+      ],
+      "size": [
+        170,
+        64
+      ],
+      "sources": [
+        {
+          "path": "docs/game-flow.md",
+          "line": 15,
+          "end_line": 15,
+          "label": "bản nháp kết phiên"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Bản chạy thử · codebase/ (một tiến trình Python)",
+      "wraps": [
+        "server",
+        "precheck",
+        "hotline",
+        "mask",
+        "agent",
+        "t-scenario",
+        "t-guideline",
+        "t-evaluate",
+        "t-draft",
+        "postcheck"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "child-to-server",
+      "from": "child",
+      "to": "server",
+      "label": "lời của trẻ",
+      "variant": "emphasis"
+    },
+    {
+      "id": "server-to-precheck",
+      "from": "server",
+      "to": "precheck",
+      "label": "answer_async",
+      "variant": "emphasis"
+    },
+    {
+      "id": "precheck-pass",
+      "from": "precheck",
+      "to": "mask",
+      "label": "cho qua",
+      "variant": "emphasis"
+    },
+    {
+      "id": "precheck-stop",
+      "from": "precheck",
+      "to": "hotline",
+      "label": "chặn",
+      "variant": "security"
+    },
+    {
+      "id": "mask-to-agent",
+      "from": "mask",
+      "to": "agent",
+      "label": "lời đã che",
+      "variant": "emphasis"
+    },
+    {
+      "id": "agent-scenario",
+      "from": "agent",
+      "to": "t-scenario"
+    },
+    {
+      "id": "agent-guideline",
+      "from": "agent",
+      "to": "t-guideline"
+    },
+    {
+      "id": "agent-evaluate",
+      "from": "agent",
+      "to": "t-evaluate"
+    },
+    {
+      "id": "agent-draft",
+      "from": "agent",
+      "to": "t-draft"
+    },
+    {
+      "id": "agent-llm",
+      "from": "agent",
+      "to": "llm",
+      "label": "gọi model"
+    },
+    {
+      "id": "agent-postcheck",
+      "from": "agent",
+      "to": "postcheck",
+      "label": "trả lời thô",
+      "variant": "emphasis"
+    },
+    {
+      "id": "postcheck-shorten",
+      "from": "postcheck",
+      "to": "llm",
+      "label": "viết ngắn (6-10)",
+      "variant": "dashed"
+    },
+    {
+      "id": "postcheck-reply",
+      "from": "postcheck",
+      "to": "server",
+      "label": "phản hồi đã soát",
+      "variant": "emphasis"
+    },
+    {
+      "id": "hotline-reply",
+      "from": "hotline",
+      "to": "server",
+      "label": "stopped",
+      "variant": "security"
+    },
+    {
+      "id": "server-to-child",
+      "from": "server",
+      "to": "child",
+      "label": "output"
+    },
+    {
+      "id": "draft-store",
+      "from": "t-draft",
+      "to": "drafts",
+      "label": "cho_duyet"
+    },
+    {
+      "id": "drafts-parent",
+      "from": "drafts",
+      "to": "parent",
+      "label": "GET /api/drafts"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Guardrail bằng code (không giao cho agent)",
+      "items": [
+        "precheck: nghi xâm hại thật → dừng game, hiện Tổng đài 111, không chấm, không gọi model",
+        "Injection lẫn trong câu trả lời: bỏ phần lệnh, vẫn chấm phần còn lại",
+        "mask_pii che SĐT, email, tài khoản, số nhà trước model và trước khi trả ra",
+        "postcheck: câu đổ lỗi, dọa trẻ, đổi lời dặn theo giới → câu an toàn dự phòng"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Agent và công cụ",
+      "items": [
+        "Một LlmAgent tự chọn công cụ theo dạng input; tối đa 6 lần gọi model mỗi lượt",
+        "Ba công cụ chỉ đọc kho đã duyệt; draft_parent_teacher_note chỉ tạo bản nháp",
+        "Không có endpoint nào tự gửi đánh giá cho phụ huynh hay nhà trường"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Còn giả ở CP2",
+      "items": [
+        "Chưa điền .env → chế độ giả: workflow cố định gọi thẳng công cụ, call_model trả câu giả",
+        "Mọi lần gọi model và công cụ ghi vào trace (traces/run-N.jsonl) để đo token, chi phí",
+        "Server mới có POST /api/chat; 4 endpoint trong docs/game-flow.md và chế độ AI đóng vai làm sau CP2"
+      ]
+    }
+  ]
+}

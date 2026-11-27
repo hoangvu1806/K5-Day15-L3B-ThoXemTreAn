@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "900f9d71-23ad-4c68-9b9c-11648e4c72bb",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\admin\\Desktop\\K5-Day15-L3B-ThoXemTreAn\\.archify\\architecture-growsafe-20261127-191510\\candidate.json",
+  "output": "C:\\Users\\admin\\Desktop\\K5-Day15-L3B-ThoXemTreAn\\docs\\architecture\\growsafe-architecture.html",
+  "specification": {
+    "sha256": "dbb8f941fe315dba9bfd89f3909fbfa3f15a8708de5584e45a30c26cec881a3f",
+    "bytes": 11267
+  },
+  "artifact": {
+    "sha256": "7e608ad2de83c1e9fc14fc42dd30814824c33b323d1c78f61a2f150bc64892d4",
+    "bytes": 866725
+  }
+}
