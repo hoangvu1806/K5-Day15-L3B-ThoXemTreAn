@@ -4,7 +4,7 @@
     "sharpness": "+40"
   },
   "format": "webp",
-  "count": 69,
+  "count": 133,
   "assets": {
     "backgrounds/bg_cafe_street.webp": {
       "width": 1376,
@@ -419,6 +419,390 @@
       "height": 900,
       "transparent": true,
       "bytes": 40722
+    },
+    "characters/players/kid_610_boy_idle.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 40520
+    },
+    "characters/players/kid_610_boy_confident.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 40674
+    },
+    "characters/players/kid_610_boy_unsure.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 39132
+    },
+    "characters/players/kid_1115_boy_idle.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 37116
+    },
+    "characters/players/kid_1115_boy_confident.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 38504
+    },
+    "characters/players/kid_1115_boy_unsure.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 34936
+    },
+    "characters/npcs/npc_mit.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 40928
+    },
+    "characters/npcs/npc_vy.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 35500
+    },
+    "characters/npcs/npc_mom.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 42274
+    },
+    "characters/npcs/npc_dad.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 43364
+    },
+    "characters/npcs/npc_uncle_hai.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 40746
+    },
+    "characters/narrator/owl_stage_1.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 43888
+    },
+    "characters/narrator/owl_stage_2.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 47870
+    },
+    "characters/narrator/owl_stage_3.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 47750
+    },
+    "characters/narrator/owl_stage_4.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 46582
+    },
+    "characters/narrator/narrator_listen.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 35844
+    },
+    "characters/narrator/narrator_think.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 38432
+    },
+    "characters/narrator/narrator_phone.webp": {
+      "width": 640,
+      "height": 640,
+      "transparent": true,
+      "bytes": 40522
+    },
+    "backgrounds/map_610_day.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 202414
+    },
+    "ui/notebook/notebook_page.webp": {
+      "width": 1376,
+      "height": 768,
+      "transparent": false,
+      "bytes": 41134
+    },
+    "ui/map/phone_frame_1115.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 12110
+    },
+    "ui/cards/card_back_tactic.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 28354
+    },
+    "ui/notebook/notebook_cover.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 46044
+    },
+    "ui/notebook/card_slot_empty.webp": {
+      "width": 672,
+      "height": 900,
+      "transparent": true,
+      "bytes": 30660
+    },
+    "ui/cards/icon_tactic_giuc_gap.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 40276
+    },
+    "ui/cards/icon_tactic_cho_qua.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 29298
+    },
+    "ui/cards/icon_tactic_dan_bi_mat.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 22436
+    },
+    "ui/cards/icon_tactic_noi_me_gap_chuyen.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 25422
+    },
+    "ui/cards/icon_tactic_gia_quen_bo_me.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 25866
+    },
+    "ui/cards/icon_tactic_hua_vat_pham.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 29692
+    },
+    "ui/cards/icon_tactic_ep_bang_tinh_cam.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 19972
+    },
+    "ui/cards/icon_tactic_ru_gap_rieng.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 22554
+    },
+    "ui/cards/icon_rule_R02.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 24066
+    },
+    "ui/cards/icon_rule_R04.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 25698
+    },
+    "ui/cards/icon_rule_R06.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 26878
+    },
+    "ui/cards/icon_rule_R07.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 19372
+    },
+    "ui/cards/icon_rule_R09.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 33634
+    },
+    "ui/cards/icon_rule_R10.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 18880
+    },
+    "ui/cards/icon_rule_R11.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 21560
+    },
+    "ui/controls/btn_hint.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 28730
+    },
+    "ui/controls/btn_home.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 28560
+    },
+    "ui/controls/btn_settings.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 29650
+    },
+    "ui/controls/btn_pause.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 25360
+    },
+    "ui/controls/btn_replay_voice.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 26418
+    },
+    "ui/controls/btn_back.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 24328
+    },
+    "ui/controls/btn_mic_idle.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 30246
+    },
+    "ui/controls/btn_mic_recording.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 31144
+    },
+    "ui/controls/icon_lock_adult.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 27404
+    },
+    "ui/map/app_game.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 20876
+    },
+    "ui/map/app_chat.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 20336
+    },
+    "ui/map/app_classgroup.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 22616
+    },
+    "ui/map/app_family.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 21432
+    },
+    "ui/map/map_pin_home_off.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 16894
+    },
+    "ui/map/map_pin_grandma_off.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 23512
+    },
+    "ui/map/map_pin_park_off.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 20936
+    },
+    "ui/map/map_pin_pool_off.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 20896
+    },
+    "ui/map/map_pin_home_on.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 29184
+    },
+    "ui/map/map_pin_grandma_on.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 30606
+    },
+    "ui/map/map_pin_park_on.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 28760
+    },
+    "ui/map/map_pin_pool_on.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 31340
+    },
+    "ui/map/map_pin_school_off.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 19464
+    },
+    "ui/map/map_pin_school_on.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 28522
+    },
+    "ui/rewards/badge_detective.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 30010
+    },
+    "ui/rewards/badge_map_complete.webp": {
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 29396
     }
   },
   "audio_format": "mp3",
