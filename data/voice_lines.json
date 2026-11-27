@@ -1,0 +1,1787 @@
+{
+ "safe_helpbtn_610": {
+  "role": "tin_calm610",
+  "voice": "Puck",
+  "text": "Tớ đây, có tớ rồi. Mình dừng chơi một chút nhé. Cái gì làm cậu sợ hay khó chịu thì kể ngay cho mẹ, bố, hay cô giáo nghe. Số một một một cũng gọi được, miễn phí.",
+  "seconds": 16.05,
+  "file": "voice/safe_helpbtn_610.mp3"
+ },
+ "safe_hotline_1115_b": {
+  "role": "tin_calm1115",
+  "voice": "Puck",
+  "text": "Game nghỉ chút đã. Dám kể ra như vậy là bạn can đảm lắm rồi, với lại đây không phải lỗi của bạn đâu. Tìm một người lớn bạn tin để kể, còn chưa biết kể ai thì gọi số một một một, miễn phí, cả ngày lẫn đêm.",
+  "seconds": 19.72,
+  "file": "voice/safe_hotline_1115_b.mp3"
+ },
+ "safe_hotline_1115_a": {
+  "role": "tin_calm1115",
+  "voice": "Puck",
+  "text": "Mình dừng chơi ở đây xíu nhé. Chuyện bạn vừa kể, mình nghe thấy quan trọng hơn cái game này nhiều. Bạn không làm gì sai hết. Giờ bạn tìm một người lớn mình tin, kể lại y vậy cho họ nghe, bố mẹ cũng được, thầy cô cũng được. Số một một một gọi được bất cứ lúc nào, miễn phí luôn.",
+  "seconds": 22.58,
+  "file": "voice/safe_hotline_1115_a.mp3"
+ },
+ "safe_hotline_610_a": {
+  "role": "tin_calm610",
+  "voice": "Puck",
+  "text": "Thôi, mình dừng chơi ở đây một chút nhé. Chuyện cậu vừa kể, tớ nghe thấy quan trọng lắm đấy. Cậu không làm sai gì cả đâu. Giờ cậu chạy đi tìm mẹ, bố, hay cô giáo, kể y như vừa kể cho tớ nghe vậy. Có số này nữa, một một một, gọi miễn phí, lúc nào cũng gọi được.",
+  "seconds": 24.2,
+  "file": "voice/safe_hotline_610_a.mp3"
+ },
+ "safe_hotline_610_b": {
+  "role": "tin_calm610",
+  "voice": "Puck",
+  "text": "Chuyện này, tớ với cậu nghỉ chơi một xíu đã. Cậu không có lỗi gì hết, nghe chưa. Kể được cho tớ là cậu can đảm lắm rồi. Giờ việc quan trọng là cậu đi kể lại với mẹ, với bố, hoặc cô giáo. Số một một một gọi được bất cứ lúc nào, không mất tiền đâu.",
+  "seconds": 22.76,
+  "file": "voice/safe_hotline_610_b.mp3"
+ },
+ "safe_inject_610_a_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ấy, cái đó tớ chịu thôi, không chơi được đâu. Quay lại chuyện của Bin nhé?",
+  "seconds": 5.28,
+  "file": "voice/safe_inject_610_a_bin.mp3"
+ },
+ "safe_inject_1115_a_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Cái đó mình không chơi được. Quay lại chuyện của Khôi nhé.",
+  "seconds": 3.36,
+  "file": "voice/safe_inject_1115_a_khoi.mp3"
+ },
+ "safe_inject_610_b_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Tớ chỉ biết chơi mấy tình huống có sẵn thôi à. Về với Bin tiếp nào!",
+  "seconds": 4.52,
+  "file": "voice/safe_inject_610_b_bin.mp3"
+ },
+ "safe_inject_610_a_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ấy, cái đó tớ chịu thôi, không chơi được đâu. Quay lại chuyện của Na nhé?",
+  "seconds": 4.51,
+  "file": "voice/safe_inject_610_a_na.mp3"
+ },
+ "safe_inject_610_b_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Tớ chỉ biết chơi mấy tình huống có sẵn thôi à. Về với Na tiếp nào!",
+  "seconds": 4.43,
+  "file": "voice/safe_inject_610_b_na.mp3"
+ },
+ "safe_inject_1115_a_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Cái đó mình không chơi được. Quay lại chuyện của Mai nhé.",
+  "seconds": 3.59,
+  "file": "voice/safe_inject_1115_a_mai.mp3"
+ },
+ "safe_fallback_610_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ơ, cái này tớ chưa nghĩ ra câu trả lời. Cậu kể lại giúp tớ xem Bin sẽ làm gì nhé.",
+  "seconds": 5.72,
+  "file": "voice/safe_fallback_610_bin.mp3"
+ },
+ "safe_inject_1115_b": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Mình chỉ chạy mấy tình huống có sẵn thôi, không đổi luật được đâu. Tiếp tục nhé?",
+  "seconds": 4.69,
+  "file": "voice/safe_inject_1115_b.mp3"
+ },
+ "safe_fallback_610_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ơ, cái này tớ chưa nghĩ ra câu trả lời. Cậu kể lại giúp tớ xem Na sẽ làm gì nhé.",
+  "seconds": 6.29,
+  "file": "voice/safe_fallback_610_na.mp3"
+ },
+ "safe_helpbtn_1115": {
+  "role": "tin_calm1115",
+  "voice": "Puck",
+  "text": "Mình ở đây. Game dừng lại xíu nhé. Có chuyện gì đang làm bạn lo thì kể cho người lớn bạn tin, hoặc gọi số một một một, miễn phí, lúc nào cũng gọi được. Không cần tự ôm một mình đâu.",
+  "seconds": 16.48,
+  "file": "voice/safe_helpbtn_1115.mp3"
+ },
+ "safe_fallback_1115_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Câu này mình chưa trả lời được. Bạn kể lại xem Mai định làm gì nhé.",
+  "seconds": 4.4,
+  "file": "voice/safe_fallback_1115_mai.mp3"
+ },
+ "safe_exitrole_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Thôi dừng ở đây, người lạ không nói nữa đâu. Giờ tớ với cậu ngồi lại xem chuyện vừa rồi một chút.",
+  "seconds": 6.63,
+  "file": "voice/safe_exitrole_610.mp3"
+ },
+ "safe_exitrole_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Dừng đoạn này lại đã. Mình xem lại chuyện vừa xảy ra một chút nhé.",
+  "seconds": 3.38,
+  "file": "voice/safe_exitrole_1115.mp3"
+ },
+ "safe_fallback_1115_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Câu này mình chưa trả lời được. Bạn kể lại xem Khôi định làm gì nhé.",
+  "seconds": 4.17,
+  "file": "voice/safe_fallback_1115_khoi.mp3"
+ },
+ "scene_S6-01_ask_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu là Na, giờ làm gì đây?",
+  "seconds": 2.64,
+  "file": "voice/scene_S6-01_ask_na.mp3"
+ },
+ "scene_S6-01_tell_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Chiều nay Na sang nhà chú Hải đá bóng với mấy bạn trong xóm. Đá xong các bạn về hết, chỉ còn mỗi Na ở lại. Chú Hải gọi Na lại, bảo ngồi lên đùi chú để xem vết muỗi đốt, rồi tay chú cứ đưa dần xuống dưới, chạm vào chỗ không ai được chạm vào.",
+  "seconds": 16.92,
+  "file": "voice/scene_S6-01_tell_na.mp3"
+ },
+ "scene_S6-01_tell_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Chiều nay Bin sang nhà chú Hải đá bóng với mấy bạn trong xóm. Đá xong các bạn về hết, chỉ còn mỗi Bin ở lại. Chú Hải gọi Bin lại, bảo ngồi lên đùi chú để xem vết muỗi đốt, rồi tay chú cứ đưa dần xuống dưới, chạm vào chỗ không ai được chạm vào.",
+  "seconds": 16.33,
+  "file": "voice/scene_S6-01_tell_bin.mp3"
+ },
+ "scene_S6-02_tell_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cô Lan hàng xóm cho Bin một bịch kẹo to, rồi ôm Bin hồi lâu. Lúc Bin sắp về, cô ghé tai dặn nhỏ: chuyện cô ôm con lúc nãy, mình giữ riêng hai cô cháu thôi nhé, đừng kể mẹ.",
+  "seconds": 12.41,
+  "file": "voice/scene_S6-02_tell_bin.mp3"
+ },
+ "scene_S6-02_tell_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cô Lan hàng xóm cho Na một bịch kẹo to, rồi ôm Na hồi lâu. Lúc Na sắp về, cô ghé tai dặn nhỏ: chuyện cô ôm con lúc nãy, mình giữ riêng hai cô cháu thôi nhé, đừng kể mẹ.",
+  "seconds": 13.33,
+  "file": "voice/scene_S6-02_tell_na.mp3"
+ },
+ "scene_S6-02_ask_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đây là bí mật tốt hay bí mật xấu? Bin làm gì bây giờ?",
+  "seconds": 4.47,
+  "file": "voice/scene_S6-02_ask_bin.mp3"
+ },
+ "scene_S6-02_ask_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đây là bí mật tốt hay bí mật xấu? Na làm gì bây giờ?",
+  "seconds": 4.01,
+  "file": "voice/scene_S6-02_ask_na.mp3"
+ },
+ "scene_S6-03_ask_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Nếu là Bin thì làm sao đây?",
+  "seconds": 2.4,
+  "file": "voice/scene_S6-03_ask_bin.mp3"
+ },
+ "scene_S6-03_ask_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Nếu là Na thì làm sao đây?",
+  "seconds": 2.84,
+  "file": "voice/scene_S6-03_ask_na.mp3"
+ },
+ "scene_S6-03_tell_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Na đang trèo cầu trượt ở công viên thì có một chú đội mũ lưỡi trai lại gần. Chú bảo: mẹ con bận quá, nhờ chú qua đón con, đi với chú nhé. Na thì chưa gặp chú này bao giờ.",
+  "seconds": 14.52,
+  "file": "voice/scene_S6-03_tell_na.mp3"
+ },
+ "scene_S6-03_tell_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bin đang trèo cầu trượt ở công viên thì có một chú đội mũ lưỡi trai lại gần. Chú bảo: mẹ con bận quá, nhờ chú qua đón con, đi với chú nhé. Bin thì chưa gặp chú này bao giờ.",
+  "seconds": 12.44,
+  "file": "voice/scene_S6-03_tell_bin.mp3"
+ },
+ "scene_S6-04_ask_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bin không thích thì có làm gì được không?",
+  "seconds": 2.54,
+  "file": "voice/scene_S6-04_ask_bin.mp3"
+ },
+ "scene_S6-05_tell_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ở bể bơi, mấy bạn cứ thay đồ luôn ngoài thành bể cho nhanh. Bố bảo Bin vào buồng thay. Bin hỏi lại: sao con phải vào buồng vậy bố?",
+  "seconds": 8.76,
+  "file": "voice/scene_S6-05_tell_bin.mp3"
+ },
+ "scene_S6-04_tell_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Hôm đi ăn giỗ, bà định thơm má Na một cái, Na không thích nên né sang bên. Có bác ngồi gần cười bảo: bà thương con mà, có gì đâu.",
+  "seconds": 10.65,
+  "file": "voice/scene_S6-04_tell_na.mp3"
+ },
+ "scene_S6-04_ask_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Na không thích thì có làm gì được không?",
+  "seconds": 2.4,
+  "file": "voice/scene_S6-04_ask_na.mp3"
+ },
+ "scene_S6-04_tell_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Hôm đi ăn giỗ, bà định thơm má Bin một cái, Bin không thích nên né sang bên. Có bác ngồi gần cười bảo: bà thương con mà, có gì đâu.",
+  "seconds": 10.76,
+  "file": "voice/scene_S6-04_tell_bin.mp3"
+ },
+ "scene_S6-05_ask_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu giải thích giúp Na xem, vì sao nên vào buồng thay đồ?",
+  "seconds": 3.78,
+  "file": "voice/scene_S6-05_ask_na.mp3"
+ },
+ "scene_S6-05_tell_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ở bể bơi, mấy bạn cứ thay đồ luôn ngoài thành bể cho nhanh. Bố bảo Na vào buồng thay. Na hỏi lại: sao con phải vào buồng vậy bố?",
+  "seconds": 9.92,
+  "file": "voice/scene_S6-05_tell_na.mp3"
+ },
+ "scene_S6-06_tell_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Tan học rồi mà mẹ chưa tới đón, cô Hạnh cũng về mất rồi. Bin đứng một mình thì có một anh lớn lạ hoắc cứ bám theo, hỏi nhà Bin ở đâu. Bin sợ quá.",
+  "seconds": 11.12,
+  "file": "voice/scene_S6-06_tell_bin.mp3"
+ },
+ "scene_S6-06_tell_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Tan học rồi mà mẹ chưa tới đón, cô Hạnh cũng về mất rồi. Na đứng một mình thì có một anh lớn lạ hoắc cứ bám theo, hỏi nhà Na ở đâu. Na sợ quá.",
+  "seconds": 12.0,
+  "file": "voice/scene_S6-06_tell_na.mp3"
+ },
+ "scene_S11-01_tell_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Khoa, tài khoản Khôi hay chơi chung đội trong game, nhắn riêng: gửi tao tấm ảnh mày mặc đồ lót đi, tao tặng cái skin hiếm cho.",
+  "seconds": 8.04,
+  "file": "voice/scene_S11-01_tell_khoi.mp3"
+ },
+ "scene_S6-06_ask_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Na lúc này tìm ai được? Kể tên hai người xem.",
+  "seconds": 3.7,
+  "file": "voice/scene_S6-06_ask_na.mp3"
+ },
+ "scene_S11-01_tell_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Khoa, tài khoản Mai hay chơi chung đội trong game, nhắn riêng: gửi tao tấm ảnh mày mặc đồ lót đi, tao tặng cái skin hiếm cho.",
+  "seconds": 8.2,
+  "file": "voice/scene_S11-01_tell_mai.mp3"
+ },
+ "scene_S6-06_ask_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bin lúc này tìm ai được? Kể tên hai người xem.",
+  "seconds": 3.51,
+  "file": "voice/scene_S6-06_ask_bin.mp3"
+ },
+ "scene_S11-01_ask_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Là Mai thì làm gì?",
+  "seconds": 1.59,
+  "file": "voice/scene_S11-01_ask_mai.mp3"
+ },
+ "scene_S6-05_ask_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu giải thích giúp Bin xem, vì sao nên vào buồng thay đồ?",
+  "seconds": 3.91,
+  "file": "voice/scene_S6-05_ask_bin.mp3"
+ },
+ "scene_S11-02_tell_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Khôi nhắn tin qua lại với Khoa được ba tháng rồi. Hôm nay Khoa rủ ra quán trà sữa gần trường gặp trực tiếp, dặn đi một mình thôi, đừng nói cho ai biết.",
+  "seconds": 8.35,
+  "file": "voice/scene_S11-02_tell_khoi.mp3"
+ },
+ "scene_S11-02_ask_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Lời rủ này có chỗ nào đáng lo không? Khôi làm gì?",
+  "seconds": 3.42,
+  "file": "voice/scene_S11-02_ask_khoi.mp3"
+ },
+ "scene_S11-02_ask_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Lời rủ này có chỗ nào đáng lo không? Mai làm gì?",
+  "seconds": 3.4,
+  "file": "voice/scene_S11-02_ask_mai.mp3"
+ },
+ "scene_S11-03_tell_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Một bạn cùng lớp mà Mai đang thích cứ nhắn đòi Mai gửi một tấm ảnh nhạy cảm, còn thêm câu: thương thì phải gửi chứ.",
+  "seconds": 7.56,
+  "file": "voice/scene_S11-03_tell_mai.mp3"
+ },
+ "scene_S11-03_ask_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Mai trả lời sao đây?",
+  "seconds": 1.64,
+  "file": "voice/scene_S11-03_ask_mai.mp3"
+ },
+ "scene_S11-02_tell_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Mai nhắn tin qua lại với Khoa được ba tháng rồi. Hôm nay Khoa rủ ra quán trà sữa gần trường gặp trực tiếp, dặn đi một mình thôi, đừng nói cho ai biết.",
+  "seconds": 8.3,
+  "file": "voice/scene_S11-02_tell_mai.mp3"
+ },
+ "scene_S11-03_tell_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Một bạn cùng lớp mà Khôi đang thích cứ nhắn đòi Khôi gửi một tấm ảnh nhạy cảm, còn thêm câu: thương thì phải gửi chứ.",
+  "seconds": 7.87,
+  "file": "voice/scene_S11-03_tell_khoi.mp3"
+ },
+ "scene_S11-03_ask_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Khôi trả lời sao đây?",
+  "seconds": 1.4,
+  "file": "voice/scene_S11-03_ask_khoi.mp3"
+ },
+ "scene_S11-04_ask_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Quy tắc về cơ thể có áp dụng với người thân không? Khôi nên làm gì?",
+  "seconds": 4.68,
+  "file": "voice/scene_S11-04_ask_khoi.mp3"
+ },
+ "scene_S11-04_tell_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Lần nào qua chơi, chú Toàn cũng ôm Khôi thật lâu, tay cứ chạm vào người làm Khôi khó chịu. Người lớn trong nhà thấy vậy chỉ cười: người nhà cả mà, có gì đâu.",
+  "seconds": 11.48,
+  "file": "voice/scene_S11-04_tell_khoi.mp3"
+ },
+ "scene_S11-04_ask_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Quy tắc về cơ thể có áp dụng với người thân không? Mai nên làm gì?",
+  "seconds": 4.32,
+  "file": "voice/scene_S11-04_ask_mai.mp3"
+ },
+ "scene_S11-05_tell_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Có người gửi vào nhóm chat lớp 8B một tấm ảnh chụp lén một bạn đang thay đồ. Mấy đứa khác thả haha, share tiếp ầm ầm.",
+  "seconds": 8.0,
+  "file": "voice/scene_S11-05_tell_mai.mp3"
+ },
+ "scene_S11-05_ask_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Là Khôi thì làm gì?",
+  "seconds": 1.6,
+  "file": "voice/scene_S11-05_ask_khoi.mp3"
+ },
+ "scene_S11-04_tell_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Lần nào qua chơi, chú Toàn cũng ôm Mai thật lâu, tay cứ chạm vào người làm Mai khó chịu. Người lớn trong nhà thấy vậy chỉ cười: người nhà cả mà, có gì đâu.",
+  "seconds": 11.68,
+  "file": "voice/scene_S11-04_tell_mai.mp3"
+ },
+ "rule_R01_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Vùng đồ bơi là riêng tư. Vùng đồ bơi che là của riêng cậu thôi, không ai được nhìn hay chạm vào đó cả.",
+  "seconds": 8.2,
+  "file": "voice/rule_R01_610.mp3"
+ },
+ "rule_R02_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cơ thể của mình là của mình. Không thích ôm hay thơm thì cậu cứ nói không, vẫy tay chào thay cũng được mà.",
+  "seconds": 7.6,
+  "file": "voice/rule_R02_610.mp3"
+ },
+ "scene_S11-05_ask_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Là Mai thì làm gì?",
+  "seconds": 1.33,
+  "file": "voice/scene_S11-05_ask_mai.mp3"
+ },
+ "rule_R01_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Vùng đồ bơi là riêng tư. Vùng kín là của riêng bạn. Dù là ai, cũng không được nhìn, chạm hay chụp ảnh nếu bạn chưa đồng ý.",
+  "seconds": 10.44,
+  "file": "voice/rule_R01_1115.mp3"
+ },
+ "rule_R03_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bí mật tốt, bí mật xấu. Bí mật nào làm cậu thấy sợ hay khó chịu thì đó là bí mật xấu, cứ kể cho bố mẹ nghe.",
+  "seconds": 7.68,
+  "file": "voice/rule_R03_610.mp3"
+ },
+ "rule_R03_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bí mật tốt, bí mật xấu. Ai dặn bạn giấu bố mẹ, nhất là kèm quà hay lời dọa, đó là dấu hiệu nguy hiểm đấy. Kể ngay đi.",
+  "seconds": 8.44,
+  "file": "voice/rule_R03_1115.mp3"
+ },
+ "scene_S11-05_tell_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Có người gửi vào nhóm chat lớp 8B một tấm ảnh chụp lén một bạn đang thay đồ. Mấy đứa khác thả haha, share tiếp ầm ầm.",
+  "seconds": 8.04,
+  "file": "voice/scene_S11-05_tell_khoi.mp3"
+ },
+ "rule_R04_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ba bước: không, đi, kể. Ba bước nhớ nhé: nói không, chạy đi, rồi kể lại cho người lớn mình tin.",
+  "seconds": 10.18,
+  "file": "voice/rule_R04_610.mp3"
+ },
+ "rule_R05_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Người lớn tin cậy. Cậu nghĩ sẵn trong đầu hai người lớn mình tìm được nhé. Người này chưa giúp thì mình kể người khác.",
+  "seconds": 7.48,
+  "file": "voice/rule_R05_610.mp3"
+ },
+ "rule_R05_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Người lớn tin cậy. Chọn sẵn vài người lớn bạn tin, ở nhà lẫn ở trường. Người đầu chưa giúp được thì kể tiếp người khác, đừng bỏ cuộc.",
+  "seconds": 9.81,
+  "file": "voice/rule_R05_1115.mp3"
+ },
+ "rule_R06_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Gọi đúng tên. Chỗ đồ bơi che gọi là vùng kín đó. Nói đúng tên vậy không có gì xấu hổ cả.",
+  "seconds": 6.82,
+  "file": "voice/rule_R06_610.mp3"
+ },
+ "rule_R07_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Không đi theo người lạ. Người lạ nói mẹ nhờ đón cũng mặc kệ, cậu không đi đâu. Ở lại tìm cô giáo hay bác bảo vệ.",
+  "seconds": 9.68,
+  "file": "voice/rule_R07_610.mp3"
+ },
+ "rule_R06_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Gọi đúng tên. Gọi đúng tên bộ phận cơ thể giúp bạn kể lại rõ ràng hơn, lúc cần người khác giúp.",
+  "seconds": 6.22,
+  "file": "voice/rule_R06_1115.mp3"
+ },
+ "rule_R02_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Cơ thể của mình là của mình. Bạn có quyền từ chối cái chạm làm mình khó chịu, kể cả từ người thân. Ai thật lòng tôn trọng bạn sẽ dừng lại ngay.",
+  "seconds": 9.08,
+  "file": "voice/rule_R02_1115.mp3"
+ },
+ "rule_R07_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Không đi theo người lạ. Đừng lên xe hay đi theo người bạn không quen, dù họ nói lý do gì. Gọi bố mẹ hỏi lại cho chắc trước đã.",
+  "seconds": 9.0,
+  "file": "voice/rule_R07_1115.mp3"
+ },
+ "rule_R08_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "An toàn trên mạng. Đừng gửi ảnh riêng tư cho bất kỳ ai. Chặn, chụp màn hình giữ lại làm bằng chứng, rồi kể cho người lớn bạn tin.",
+  "seconds": 8.13,
+  "file": "voice/rule_R08_1115.mp3"
+ },
+ "rule_R04_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Ba bước: không, đi, kể. Nói không, rời đi hoặc chặn, rồi kể với người lớn bạn tin. Làm được bước nào cũng đáng khen cả.",
+  "seconds": 10.25,
+  "file": "voice/rule_R04_1115.mp3"
+ },
+ "rule_R08_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "An toàn trên mạng. Trên mạng có ai xin ảnh hay hỏi nhà cậu ở đâu thì đừng trả lời, gọi bố mẹ ngay.",
+  "seconds": 7.02,
+  "file": "voice/rule_R08_610.mp3"
+ },
+ "rule_R09_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Không phải lỗi của mình. Không phải lỗi của bạn, kể cả khi bạn đã lỡ làm theo. Kể ra lúc nào cũng chưa muộn cả.",
+  "seconds": 7.82,
+  "file": "voice/rule_R09_1115.mp3"
+ },
+ "rule_R10_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Không gặp riêng bạn qua mạng. Đừng gặp riêng người chỉ quen qua mạng. Càng bị dặn giữ bí mật thì càng phải kể cho bố mẹ.",
+  "seconds": 8.44,
+  "file": "voice/rule_R10_1115.mp3"
+ },
+ "rule_R10_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Không gặp riêng bạn qua mạng. Người chỉ quen qua mạng mà rủ đi gặp thì đừng đi, kể cho bố mẹ nghe liền.",
+  "seconds": 7.47,
+  "file": "voice/rule_R10_610.mp3"
+ },
+ "tactic_giuc_gap": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Giục đi thật nhanh. Cứ giục mình đi thật nhanh, không cho kịp hỏi ai cả. Cháu không vội đâu, để cháu hỏi bố mẹ đã.",
+  "seconds": 7.56,
+  "file": "voice/tactic_giuc_gap.mp3"
+ },
+ "tactic_gia_quen_bo_me": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Tự nhận là người quen của bố mẹ. Người mình chưa gặp bao giờ mà nói quen bố mẹ mình. Để cháu gọi hỏi mẹ đã.",
+  "seconds": 7.98,
+  "file": "voice/tactic_gia_quen_bo_me.mp3"
+ },
+ "tactic_noi_me_gap_chuyen": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Nói bố mẹ đang gặp chuyện. Bảo mẹ đang ở viện, bố bị sao đó, để mình hoảng mà đi theo. Để cháu gọi bố mẹ ngay bây giờ.",
+  "seconds": 8.06,
+  "file": "voice/tactic_noi_me_gap_chuyen.mp3"
+ },
+ "tactic_dan_bi_mat": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Dặn giữ bí mật. Dặn đừng kể với bố mẹ. Bí mật kiểu này là bí mật xấu đấy. Cháu sẽ kể cho mẹ nghe.",
+  "seconds": 8.0,
+  "file": "voice/tactic_dan_bi_mat.mp3"
+ },
+ "rule_R09_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Không phải lỗi của mình. Chuyện đó không phải lỗi của cậu đâu. Kể ra được là cậu can đảm lắm rồi.",
+  "seconds": 7.2,
+  "file": "voice/rule_R09_610.mp3"
+ },
+ "tactic_cho_qua": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cho quà, cho kẹo. Cho quà rồi đòi mình làm gì đó, hoặc dặn đừng kể ai. Cháu không nhận đâu ạ.",
+  "seconds": 7.72,
+  "file": "voice/tactic_cho_qua.mp3"
+ },
+ "tactic_ep_bang_tinh_cam": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nếu thương thì phải làm. Lôi tình cảm ra ép mình làm điều mình không muốn. Thương thật thì không ép nhau đâu.",
+  "seconds": 6.82,
+  "file": "voice/tactic_ep_bang_tinh_cam.mp3"
+ },
+ "hello_610_1_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bin dậy rồi kìa. Hôm nay đi cùng Bin cả ngày luôn nhé?",
+  "seconds": 3.47,
+  "file": "voice/hello_610_1_bin.mp3"
+ },
+ "tactic_hua_vat_pham": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Hứa tặng đồ trong game. Tặng vật phẩm, tặng skin để đổi lấy ảnh hay thông tin của mình. Thôi khỏi, cảm ơn.",
+  "seconds": 7.96,
+  "file": "voice/tactic_hua_vat_pham.mp3"
+ },
+ "hello_610_1_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Na dậy rồi kìa. Hôm nay đi cùng Na cả ngày luôn nhé?",
+  "seconds": 3.43,
+  "file": "voice/hello_610_1_na.mp3"
+ },
+ "hello_610_3_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đợi cậu nãy giờ đấy. Bin sắp ra khỏi nhà rồi kìa.",
+  "seconds": 4.08,
+  "file": "voice/hello_610_3_bin.mp3"
+ },
+ "hello_610_4_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Lại đây, mình đi cùng Bin nào.",
+  "seconds": 2.36,
+  "file": "voice/hello_610_4_bin.mp3"
+ },
+ "hello_610_2_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ơ, cậu đến rồi à! Na hôm nay có mấy chỗ hay lắm đấy.",
+  "seconds": 4.01,
+  "file": "voice/hello_610_2_na.mp3"
+ },
+ "hello_610_3_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đợi cậu nãy giờ đấy. Na sắp ra khỏi nhà rồi kìa.",
+  "seconds": 3.46,
+  "file": "voice/hello_610_3_na.mp3"
+ },
+ "hello_1115_1_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Điện thoại của Khôi vừa sáng màn hình. Xem thử có gì không?",
+  "seconds": 3.64,
+  "file": "voice/hello_1115_1_khoi.mp3"
+ },
+ "hello_610_4_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Lại đây, mình đi cùng Na nào.",
+  "seconds": 2.15,
+  "file": "voice/hello_610_4_na.mp3"
+ },
+ "hello_1115_1_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Điện thoại của Mai vừa sáng màn hình. Xem thử có gì không?",
+  "seconds": 3.13,
+  "file": "voice/hello_1115_1_mai.mp3"
+ },
+ "hello_1115_2_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Chào bạn. Hôm nay Khôi có vài chuyện cần bạn cho ý kiến đấy.",
+  "seconds": 3.96,
+  "file": "voice/hello_1115_2_khoi.mp3"
+ },
+ "hello_1115_3_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Đến đúng lúc ghê, Khôi vừa nhận được mấy tin nhắn lạ.",
+  "seconds": 3.25,
+  "file": "voice/hello_1115_3_khoi.mp3"
+ },
+ "hello_1115_4_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Sẵn sàng chưa? Mở điện thoại của Khôi xem nào.",
+  "seconds": 2.84,
+  "file": "voice/hello_1115_4_khoi.mp3"
+ },
+ "hello_1115_2_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Chào bạn. Hôm nay Mai có vài chuyện cần bạn cho ý kiến đấy.",
+  "seconds": 4.28,
+  "file": "voice/hello_1115_2_mai.mp3"
+ },
+ "tactic_ru_gap_rieng": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Rủ gặp riêng. Người chỉ quen qua mạng rủ gặp một mình, dặn đừng nói ai. Mình không đi đâu. Mình sẽ kể cho bố mẹ.",
+  "seconds": 8.44,
+  "file": "voice/tactic_ru_gap_rieng.mp3"
+ },
+ "back_610_1": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "A, cậu về rồi! Thẻ của cậu tớ vẫn giữ nguyên đây.",
+  "seconds": 4.08,
+  "file": "voice/back_610_1.mp3"
+ },
+ "back_610_3": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Nhớ thẻ hôm bữa không? Hôm nay tìm thêm thẻ mới nhé.",
+  "seconds": 4.24,
+  "file": "voice/back_610_3.mp3"
+ },
+ "hello_1115_3_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Đến đúng lúc ghê, Mai vừa nhận được mấy tin nhắn lạ.",
+  "seconds": 3.19,
+  "file": "voice/hello_1115_3_mai.mp3"
+ },
+ "back_610_2": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Lâu ghê mới gặp lại. Mình chơi tiếp chỗ hôm trước nhé.",
+  "seconds": 3.32,
+  "file": "voice/back_610_2.mp3"
+ },
+ "back_1115_3": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Lần trước bạn làm tốt đấy. Hôm nay khó hơn một chút.",
+  "seconds": 3.36,
+  "file": "voice/back_1115_3.mp3"
+ },
+ "back_1115_1": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bạn quay lại rồi đấy. Sổ tay vẫn còn nguyên nhé.",
+  "seconds": 3.08,
+  "file": "voice/back_1115_1.mp3"
+ },
+ "back_1115_2": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Chào, chơi tiếp chỗ hôm trước nhé.",
+  "seconds": 1.87,
+  "file": "voice/back_1115_2.mp3"
+ },
+ "place_home_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ra ngõ nhà Bin nào, xóm này ai cũng quen mặt Bin hết.",
+  "seconds": 3.99,
+  "file": "voice/place_home_bin.mp3"
+ },
+ "place_grandma": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đến nhà bà rồi. Hôm nay nhà bà có giỗ, đông vui lắm.",
+  "seconds": 4.15,
+  "file": "voice/place_grandma.mp3"
+ },
+ "place_park": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Công viên đây rồi. Cầu trượt đông nghịt luôn.",
+  "seconds": 3.12,
+  "file": "voice/place_park.mp3"
+ },
+ "place_pool": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bể bơi mát ghê. Nhớ mang đủ đồ bơi nhé.",
+  "seconds": 3.61,
+  "file": "voice/place_pool.mp3"
+ },
+ "hello_1115_4_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Sẵn sàng chưa? Mở điện thoại của Mai xem nào.",
+  "seconds": 2.57,
+  "file": "voice/hello_1115_4_mai.mp3"
+ },
+ "place_game_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Mở game lên nào, đội của Khôi đang đợi kìa.",
+  "seconds": 3.12,
+  "file": "voice/place_game_khoi.mp3"
+ },
+ "place_game_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Mở game lên nào, đội của Mai đang đợi kìa.",
+  "seconds": 2.92,
+  "file": "voice/place_game_mai.mp3"
+ },
+ "place_school_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đến trường rồi. Lớp 3A của Na ở tầng hai.",
+  "seconds": 4.02,
+  "file": "voice/place_school_na.mp3"
+ },
+ "place_school_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đến trường rồi. Lớp 3A của Bin ở tầng hai.",
+  "seconds": 3.92,
+  "file": "voice/place_school_bin.mp3"
+ },
+ "place_chat_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Có tin nhắn mới, xem cùng Mai nhé.",
+  "seconds": 2.07,
+  "file": "voice/place_chat_mai.mp3"
+ },
+ "place_home_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ra ngõ nhà Na nào, xóm này ai cũng quen mặt Na hết.",
+  "seconds": 4.24,
+  "file": "voice/place_home_na.mp3"
+ },
+ "place_classgroup": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nhóm chat lớp 8B đang ồn ào lắm.",
+  "seconds": 2.43,
+  "file": "voice/place_classgroup.mp3"
+ },
+ "place_family_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Cuối tuần này Khôi về quê ăn giỗ.",
+  "seconds": 2.31,
+  "file": "voice/place_family_khoi.mp3"
+ },
+ "praise_610_2": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Chuẩn!",
+  "seconds": 1.04,
+  "file": "voice/praise_610_2.mp3"
+ },
+ "praise_610_1": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đúng rồi đấy!",
+  "seconds": 1.12,
+  "file": "voice/praise_610_1.mp3"
+ },
+ "praise_610_3": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Giỏi ghê!",
+  "seconds": 1.37,
+  "file": "voice/praise_610_3.mp3"
+ },
+ "praise_610_5_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bin an toàn rồi.",
+  "seconds": 2.08,
+  "file": "voice/praise_610_5_bin.mp3"
+ },
+ "place_family_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Cuối tuần này Mai về quê ăn giỗ.",
+  "seconds": 2.38,
+  "file": "voice/place_family_mai.mp3"
+ },
+ "praise_610_5_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Na an toàn rồi.",
+  "seconds": 2.32,
+  "file": "voice/praise_610_5_na.mp3"
+ },
+ "praise_610_6": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu nhanh trí thật đấy.",
+  "seconds": 1.96,
+  "file": "voice/praise_610_6.mp3"
+ },
+ "place_chat_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Có tin nhắn mới, xem cùng Khôi nhé.",
+  "seconds": 2.32,
+  "file": "voice/place_chat_khoi.mp3"
+ },
+ "praise_1115_2": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Hợp lý đấy.",
+  "seconds": 0.9,
+  "file": "voice/praise_1115_2.mp3"
+ },
+ "praise_1115_5_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Khôi an toàn rồi.",
+  "seconds": 1.39,
+  "file": "voice/praise_1115_5_khoi.mp3"
+ },
+ "praise_1115_4": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Đúng hướng rồi.",
+  "seconds": 1.33,
+  "file": "voice/praise_1115_4.mp3"
+ },
+ "praise_1115_3": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bạn xử lý ổn đấy.",
+  "seconds": 1.45,
+  "file": "voice/praise_1115_3.mp3"
+ },
+ "praise_1115_1": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Chuẩn.",
+  "seconds": 0.7,
+  "file": "voice/praise_1115_1.mp3"
+ },
+ "praise_610_4": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ừ, đúng vậy đấy.",
+  "seconds": 1.76,
+  "file": "voice/praise_610_4.mp3"
+ },
+ "cheer_610_1": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Gần được rồi.",
+  "seconds": 1.22,
+  "file": "voice/cheer_610_1.mp3"
+ },
+ "praise_1115_6": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bình tĩnh mà chắc, được đấy.",
+  "seconds": 1.97,
+  "file": "voice/praise_1115_6.mp3"
+ },
+ "cheer_610_3": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ừ, thêm chút nữa thôi.",
+  "seconds": 2.02,
+  "file": "voice/cheer_610_3.mp3"
+ },
+ "cheer_610_4": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Không sao, mình nghĩ tiếp nhé.",
+  "seconds": 2.4,
+  "file": "voice/cheer_610_4.mp3"
+ },
+ "cheer_1115_1": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Gần đủ rồi.",
+  "seconds": 1.48,
+  "file": "voice/cheer_1115_1.mp3"
+ },
+ "cheer_610_5": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu thử lại đi, tớ đợi.",
+  "seconds": 2.01,
+  "file": "voice/cheer_610_5.mp3"
+ },
+ "cheer_1115_2": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Đúng một phần đấy.",
+  "seconds": 1.52,
+  "file": "voice/cheer_1115_2.mp3"
+ },
+ "cheer_1115_4": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Không sao, mình nghĩ tiếp.",
+  "seconds": 1.96,
+  "file": "voice/cheer_1115_4.mp3"
+ },
+ "cheer_1115_5": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Thử lại lần nữa xem.",
+  "seconds": 1.64,
+  "file": "voice/cheer_1115_5.mp3"
+ },
+ "cheer_1115_3": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Còn thiếu chút xíu thôi.",
+  "seconds": 1.69,
+  "file": "voice/cheer_1115_3.mp3"
+ },
+ "praise_1115_5_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Mai an toàn rồi.",
+  "seconds": 1.64,
+  "file": "voice/praise_1115_5_mai.mp3"
+ },
+ "card_610_1": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Thẻ mới cho cậu đây.",
+  "seconds": 1.56,
+  "file": "voice/card_610_1.mp3"
+ },
+ "card_610_2": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ôi, thẻ này đẹp ghê. Giữ lấy nhé.",
+  "seconds": 3.41,
+  "file": "voice/card_610_2.mp3"
+ },
+ "card_610_3": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Thêm thẻ nữa rồi. Sổ tay dày lên đấy.",
+  "seconds": 2.98,
+  "file": "voice/card_610_3.mp3"
+ },
+ "card_1115_4": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Đủ hai thẻ rồi, có đồ mới cho mình nữa đây.",
+  "seconds": 2.92,
+  "file": "voice/card_1115_4.mp3"
+ },
+ "card_1115_3": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bạn vừa nhận thêm một thẻ.",
+  "seconds": 1.72,
+  "file": "voice/card_1115_3.mp3"
+ },
+ "card_1115_2": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Thẻ mới đây, lúc nào mở lại cũng được.",
+  "seconds": 2.8,
+  "file": "voice/card_1115_2.mp3"
+ },
+ "card_610_4": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đủ hai thẻ rồi, tớ lớn thêm một chút đấy!",
+  "seconds": 3.31,
+  "file": "voice/card_610_4.mp3"
+ },
+ "bye_610_2_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bin về nhà an toàn rồi. Cảm ơn cậu nhiều.",
+  "seconds": 3.6,
+  "file": "voice/bye_610_2_bin.mp3"
+ },
+ "bye_610_1_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Hôm nay cậu giúp Bin được nhiều lắm đấy. Mai chơi tiếp nhé!",
+  "seconds": 3.4,
+  "file": "voice/bye_610_1_bin.mp3"
+ },
+ "bye_610_1_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Hôm nay cậu giúp Na được nhiều lắm đấy. Mai chơi tiếp nhé!",
+  "seconds": 3.47,
+  "file": "voice/bye_610_1_na.mp3"
+ },
+ "bye_610_2_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Na về nhà an toàn rồi. Cảm ơn cậu nhiều.",
+  "seconds": 3.21,
+  "file": "voice/bye_610_2_na.mp3"
+ },
+ "bye_1115_1_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Xong rồi. Hôm nay bạn giúp Khôi nhiều đấy.",
+  "seconds": 3.12,
+  "file": "voice/bye_1115_1_khoi.mp3"
+ },
+ "bye_610_3": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Mệt chưa? Nghỉ thôi, sổ tay tớ giữ cho.",
+  "seconds": 3.96,
+  "file": "voice/bye_610_3.mp3"
+ },
+ "bye_1115_3": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nghỉ thôi. Sổ tay vẫn ở đây khi nào cần.",
+  "seconds": 2.68,
+  "file": "voice/bye_1115_3.mp3"
+ },
+ "bye_1115_1_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Xong rồi. Hôm nay bạn giúp Mai nhiều đấy.",
+  "seconds": 2.57,
+  "file": "voice/bye_1115_1_mai.mp3"
+ },
+ "time_morning_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Sáng rồi, Na chuẩn bị đi học thôi.",
+  "seconds": 2.36,
+  "file": "voice/time_morning_na.mp3"
+ },
+ "time_afternoon": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Chiều rồi, đi chơi một lát nhé.",
+  "seconds": 2.52,
+  "file": "voice/time_afternoon.mp3"
+ },
+ "time_evening": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Tối rồi đấy, chơi thêm một màn nữa thôi nhé.",
+  "seconds": 3.12,
+  "file": "voice/time_evening.mp3"
+ },
+ "progress_left_1": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Còn một chỗ nữa là xong hết bản đồ.",
+  "seconds": 3.36,
+  "file": "voice/progress_left_1.mp3"
+ },
+ "progress_left_3": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Còn ba chỗ nữa, đi tiếp nhé.",
+  "seconds": 2.48,
+  "file": "voice/progress_left_3.mp3"
+ },
+ "progress_left_4": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Còn bốn chỗ nữa, cậu muốn đi đâu trước?",
+  "seconds": 2.55,
+  "file": "voice/progress_left_4.mp3"
+ },
+ "progress_all_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Xong hết bản đồ rồi. Giỏi ghê!",
+  "seconds": 2.89,
+  "file": "voice/progress_all_610.mp3"
+ },
+ "progress_left_2": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Còn hai chỗ nữa thôi.",
+  "seconds": 1.89,
+  "file": "voice/progress_left_2.mp3"
+ },
+ "progress_all_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Mở hết các app rồi đấy. Xong cả hành trình.",
+  "seconds": 3.24,
+  "file": "voice/progress_all_1115.mp3"
+ },
+ "bye_1115_2": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Hết chuyện hôm nay rồi. Hẹn lần sau.",
+  "seconds": 2.64,
+  "file": "voice/bye_1115_2.mp3"
+ },
+ "mic_howto_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Giữ nút này rồi nói nhé, nói xong thì thả tay ra.",
+  "seconds": 3.96,
+  "file": "voice/mic_howto_610.mp3"
+ },
+ "mic_howto_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Giữ nút mic để nói, nói xong thì thả ra.",
+  "seconds": 2.97,
+  "file": "voice/mic_howto_1115.mp3"
+ },
+ "time_morning_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Sáng rồi, Bin chuẩn bị đi học thôi.",
+  "seconds": 2.69,
+  "file": "voice/time_morning_bin.mp3"
+ },
+ "mic_confirm_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Nghe được thế này, đúng chưa cậu?",
+  "seconds": 2.28,
+  "file": "voice/mic_confirm_610.mp3"
+ },
+ "mic_unclear_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Chưa nghe rõ, nói lại giúp mình nhé.",
+  "seconds": 2.4,
+  "file": "voice/mic_unclear_1115.mp3"
+ },
+ "mic_unclear_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Chưa nghe rõ lắm. Nói lại giúp tớ nhé?",
+  "seconds": 2.53,
+  "file": "voice/mic_unclear_610.mp3"
+ },
+ "mic_confirm_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nghe được thế này, đúng chưa?",
+  "seconds": 1.88,
+  "file": "voice/mic_confirm_1115.mp3"
+ },
+ "mic_type_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Mạng hơi chậm, gõ giúp tớ nhé.",
+  "seconds": 2.48,
+  "file": "voice/mic_type_610.mp3"
+ },
+ "mic_louder_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Nói to hơn chút nhé, tớ nghe không ra.",
+  "seconds": 2.76,
+  "file": "voice/mic_louder_610.mp3"
+ },
+ "mic_type_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Mạng chậm quá, gõ giúp mình nhé.",
+  "seconds": 2.22,
+  "file": "voice/mic_type_1115.mp3"
+ },
+ "wait_610_2": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ừm… đang nghĩ đây.",
+  "seconds": 2.08,
+  "file": "voice/wait_610_2.mp3"
+ },
+ "mic_louder_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nói to hơn một chút nhé.",
+  "seconds": 1.8,
+  "file": "voice/mic_louder_1115.mp3"
+ },
+ "wait_1115_1": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Đợi chút…",
+  "seconds": 0.9,
+  "file": "voice/wait_1115_1.mp3"
+ },
+ "wait_1115_2": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Để xem nào…",
+  "seconds": 1.01,
+  "file": "voice/wait_1115_2.mp3"
+ },
+ "wait_1115_3": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Một chút nhé.",
+  "seconds": 1.0,
+  "file": "voice/wait_1115_3.mp3"
+ },
+ "wait_610_1": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Để tớ nghĩ chút…",
+  "seconds": 1.69,
+  "file": "voice/wait_610_1.mp3"
+ },
+ "hint_offer_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Cần gợi ý thì bấm bóng đèn.",
+  "seconds": 2.0,
+  "file": "voice/hint_offer_1115.mp3"
+ },
+ "act_A_done_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu nói không rồi đấy.",
+  "seconds": 1.52,
+  "file": "voice/act_A_done_610.mp3"
+ },
+ "act_A_miss_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Còn thiếu câu nói không thật rõ nữa.",
+  "seconds": 2.84,
+  "file": "voice/act_A_miss_610.mp3"
+ },
+ "hint_offer_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bí à? Bấm bóng đèn, tớ gợi ý cho.",
+  "seconds": 3.16,
+  "file": "voice/hint_offer_610.mp3"
+ },
+ "act_A_miss_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Còn thiếu một câu từ chối thật rõ.",
+  "seconds": 2.62,
+  "file": "voice/act_A_miss_1115.mp3"
+ },
+ "act_B_done_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu chạy ra chỗ đông người rồi.",
+  "seconds": 2.11,
+  "file": "voice/act_B_done_610.mp3"
+ },
+ "act_B_miss_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Nhớ chạy ra chỗ đông người nữa nhé.",
+  "seconds": 2.06,
+  "file": "voice/act_B_miss_610.mp3"
+ },
+ "act_A_done_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bạn từ chối rõ ràng rồi.",
+  "seconds": 2.2,
+  "file": "voice/act_A_done_1115.mp3"
+ },
+ "wait_610_3": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Chờ tớ một chút.",
+  "seconds": 1.41,
+  "file": "voice/wait_610_3.mp3"
+ },
+ "act_B_miss_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Còn thiếu bước rời đi, hoặc chặn tài khoản.",
+  "seconds": 3.44,
+  "file": "voice/act_B_miss_1115.mp3"
+ },
+ "act_C_miss_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Nhớ kể cho người lớn nghe nữa nhé.",
+  "seconds": 2.32,
+  "file": "voice/act_C_miss_610.mp3"
+ },
+ "act_C_done_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bạn đã kể với người lớn rồi.",
+  "seconds": 2.08,
+  "file": "voice/act_C_done_1115.mp3"
+ },
+ "act_C_miss_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Còn thiếu việc kể cho người lớn bạn tin.",
+  "seconds": 2.24,
+  "file": "voice/act_C_miss_1115.mp3"
+ },
+ "act_B_done_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bạn rời đi, hoặc chặn rồi.",
+  "seconds": 2.18,
+  "file": "voice/act_B_done_1115.mp3"
+ },
+ "act_C_done_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu kể cho người lớn rồi.",
+  "seconds": 1.8,
+  "file": "voice/act_C_done_610.mp3"
+ },
+ "act_secret_done_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu nhận ra đây là bí mật xấu rồi.",
+  "seconds": 2.66,
+  "file": "voice/act_secret_done_610.mp3"
+ },
+ "act_secret_miss_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bị dặn đừng kể ai là dấu hiệu đáng lo đấy.",
+  "seconds": 3.36,
+  "file": "voice/act_secret_miss_1115.mp3"
+ },
+ "act_secret_done_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bạn nhận ra lời dặn giữ bí mật là dấu hiệu xấu rồi.",
+  "seconds": 3.42,
+  "file": "voice/act_secret_done_1115.mp3"
+ },
+ "act_secret_miss_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bí mật mà làm mình sợ là bí mật xấu đấy.",
+  "seconds": 3.36,
+  "file": "voice/act_secret_miss_610.mp3"
+ },
+ "act_noaddr_miss_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đừng nói nhà mình ở đâu nhé.",
+  "seconds": 2.08,
+  "file": "voice/act_noaddr_miss_610.mp3"
+ },
+ "who_me_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "mẹ",
+  "seconds": 0.92,
+  "file": "voice/who_me_610.mp3"
+ },
+ "act_noaddr_done_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu không nói nhà ở đâu, đúng rồi đấy.",
+  "seconds": 2.49,
+  "file": "voice/act_noaddr_done_610.mp3"
+ },
+ "who_bo_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "bố",
+  "seconds": 0.84,
+  "file": "voice/who_bo_610.mp3"
+ },
+ "who_me_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "mẹ",
+  "seconds": 0.67,
+  "file": "voice/who_me_1115.mp3"
+ },
+ "who_bo_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "bố",
+  "seconds": 0.92,
+  "file": "voice/who_bo_1115.mp3"
+ },
+ "act_proof_done_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nhớ chụp màn hình nữa, giỏi đấy.",
+  "seconds": 2.8,
+  "file": "voice/act_proof_done_1115.mp3"
+ },
+ "act_proof_miss_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nhớ chụp màn hình giữ lại làm bằng chứng.",
+  "seconds": 2.52,
+  "file": "voice/act_proof_miss_1115.mp3"
+ },
+ "who_ba_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "bà",
+  "seconds": 1.44,
+  "file": "voice/who_ba_1115.mp3"
+ },
+ "who_co_hanh_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "cô Hạnh",
+  "seconds": 0.77,
+  "file": "voice/who_co_hanh_1115.mp3"
+ },
+ "who_co_thuy_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "cô Thủy",
+  "seconds": 1.24,
+  "file": "voice/who_co_thuy_610.mp3"
+ },
+ "who_bac_tam_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "bác Tâm",
+  "seconds": 0.93,
+  "file": "voice/who_bac_tam_610.mp3"
+ },
+ "who_bac_tam_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "bác Tâm",
+  "seconds": 0.68,
+  "file": "voice/who_bac_tam_1115.mp3"
+ },
+ "who_thay_co_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "thầy cô",
+  "seconds": 1.32,
+  "file": "voice/who_thay_co_1115.mp3"
+ },
+ "who_co_thuy_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "cô Thủy",
+  "seconds": 0.95,
+  "file": "voice/who_co_thuy_1115.mp3"
+ },
+ "who_thay_co_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "thầy cô",
+  "seconds": 1.13,
+  "file": "voice/who_thay_co_610.mp3"
+ },
+ "hint_A_610_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Lúc đó Bin nói gì với người ta được nhỉ?",
+  "seconds": 2.76,
+  "file": "voice/hint_A_610_bin.mp3"
+ },
+ "hint_A_610_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Lúc đó Na nói gì với người ta được nhỉ?",
+  "seconds": 2.76,
+  "file": "voice/hint_A_610_na.mp3"
+ },
+ "hint_A_1115_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nếu là Khôi, bạn sẽ nói gì để từ chối?",
+  "seconds": 3.16,
+  "file": "voice/hint_A_1115_khoi.mp3"
+ },
+ "hint_A_1115_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nếu là Mai, bạn sẽ nói gì để từ chối?",
+  "seconds": 3.12,
+  "file": "voice/hint_A_1115_mai.mp3"
+ },
+ "hint_B_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ở đó có chỗ nào đông người không nhỉ?",
+  "seconds": 2.79,
+  "file": "voice/hint_B_610.mp3"
+ },
+ "hint_B_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Bạn có cách nào thoát khỏi chuyện này không?",
+  "seconds": 2.19,
+  "file": "voice/hint_B_1115.mp3"
+ },
+ "hint_C_610_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Về nhà rồi, Na kể cho ai nghe được?",
+  "seconds": 2.73,
+  "file": "voice/hint_C_610_na.mp3"
+ },
+ "hint_C_1115_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Ai là người lớn mà Khôi kể được?",
+  "seconds": 3.0,
+  "file": "voice/hint_C_1115_khoi.mp3"
+ },
+ "hint_C_1115_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Ai là người lớn mà Mai kể được?",
+  "seconds": 1.92,
+  "file": "voice/hint_C_1115_mai.mp3"
+ },
+ "hint_C_610_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Về nhà rồi, Bin kể cho ai nghe được?",
+  "seconds": 2.88,
+  "file": "voice/hint_C_610_bin.mp3"
+ },
+ "hint_secret_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Sao người ta lại dặn đừng nói với ai vậy nhỉ?",
+  "seconds": 3.04,
+  "file": "voice/hint_secret_1115.mp3"
+ },
+ "hint_secret_610_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Lời dặn đó làm Na thấy vui hay thấy lo?",
+  "seconds": 3.57,
+  "file": "voice/hint_secret_610_na.mp3"
+ },
+ "hint_secret_610_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Lời dặn đó làm Bin thấy vui hay thấy lo?",
+  "seconds": 3.07,
+  "file": "voice/hint_secret_610_bin.mp3"
+ },
+ "hint_feel_610_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Lúc đó Na thấy sao?",
+  "seconds": 1.51,
+  "file": "voice/hint_feel_610_na.mp3"
+ },
+ "hint_feel_1115_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nếu là Khôi, bạn thấy thoải mái hay khó chịu?",
+  "seconds": 2.85,
+  "file": "voice/hint_feel_1115_khoi.mp3"
+ },
+ "hint_feel_1115_mai": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nếu là Mai, bạn thấy thoải mái hay khó chịu?",
+  "seconds": 3.63,
+  "file": "voice/hint_feel_1115_mai.mp3"
+ },
+ "hint_who2_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cô Hạnh về rồi thì còn ai ở trường nữa nhỉ?",
+  "seconds": 3.12,
+  "file": "voice/hint_who2_610.mp3"
+ },
+ "hint_who2_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Ngoài bố mẹ ra, bạn còn tin ai nữa?",
+  "seconds": 2.84,
+  "file": "voice/hint_who2_1115.mp3"
+ },
+ "hint_family_610_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bà thương Bin thật, nhưng Bin có bắt buộc phải chiều không nhỉ?",
+  "seconds": 4.16,
+  "file": "voice/hint_family_610_bin.mp3"
+ },
+ "hint_family_610_na": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Bà thương Na thật, nhưng Na có bắt buộc phải chiều không nhỉ?",
+  "seconds": 4.32,
+  "file": "voice/hint_family_610_na.mp3"
+ },
+ "hint_proof_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Trước khi chặn, có nên lưu lại gì không nhỉ?",
+  "seconds": 2.53,
+  "file": "voice/hint_proof_1115.mp3"
+ },
+ "hint_friend_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Nếu bạn bị chụp lén, bạn muốn mọi người làm gì?",
+  "seconds": 2.96,
+  "file": "voice/hint_friend_1115.mp3"
+ },
+ "hint_feel_610_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Lúc đó Bin thấy sao?",
+  "seconds": 1.8,
+  "file": "voice/hint_feel_610_bin.mp3"
+ },
+ "hint_family_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Người nhà thì có được làm mình khó chịu không?",
+  "seconds": 2.82,
+  "file": "voice/hint_family_1115.mp3"
+ },
+ "scene_S11-01_ask_khoi": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Là Khôi thì làm gì?",
+  "seconds": 1.96,
+  "file": "voice/scene_S11-01_ask_khoi.mp3"
+ },
+ "scene_S6-01_ask_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Cậu là Bin, giờ làm gì đây?",
+  "seconds": 2.32,
+  "file": "voice/scene_S6-01_ask_bin.mp3"
+ },
+ "hello_610_2_bin": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Ơ, cậu đến rồi à! Bin hôm nay có mấy chỗ hay lắm đấy.",
+  "seconds": 3.91,
+  "file": "voice/hello_610_2_bin.mp3"
+ },
+ "rule_R11_1115": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Có quyền từ chối gửi ảnh. Thích ai cũng không có nghĩa là phải gửi ảnh nhạy cảm. Ảnh gửi đi rồi là không lấy lại được nữa đâu.",
+  "seconds": 7.76,
+  "file": "voice/rule_R11_1115.mp3"
+ },
+ "card_1115_1": {
+  "role": "tin1115",
+  "voice": "Puck",
+  "text": "Thêm một thẻ vào sổ tay.",
+  "seconds": 2.03,
+  "file": "voice/card_1115_1.mp3"
+ },
+ "cheer_610_2": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "Đúng một phần rồi đấy.",
+  "seconds": 1.91,
+  "file": "voice/cheer_610_2.mp3"
+ },
+ "who_ba_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "bà",
+  "seconds": 1.24,
+  "file": "voice/who_ba_610.mp3"
+ },
+ "who_co_hanh_610": {
+  "role": "tin610",
+  "voice": "Puck",
+  "text": "cô Hạnh",
+  "seconds": 1.32,
+  "file": "voice/who_co_hanh_610.mp3"
+ }
+}

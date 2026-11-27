@@ -68,6 +68,16 @@ Gói miễn phí báo hết lượt: thêm `--wait 4` sau `eval` hoặc `simulat
 
 Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` trong `run.py` để `python run.py` vẫn chạy được bản chạy thử, và giữ `answer()` trong `codebase/agent.py` để `eval`, `simulate` chạy được.
 
+## Chơi game trên trình duyệt
+
+```
+python -m pip install -r requirements.txt
+python codebase/server.py        # API ở http://127.0.0.1:6161
+cd frontend && npm install && npm run dev    # mở http://localhost:3000
+```
+
+Chi tiết giao diện: [frontend/README.md](frontend/README.md). Không có `.env` thì API chạy chế độ giả, lời phản hồi nút đáp án dùng câu viết sẵn trong kho.
+
 ## Bản chạy thử — viết ở đâu
 
 | File | Viết gì | Bước guide |
@@ -84,14 +94,16 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | **Thật** (bắt buộc từ CP3) | Model: ____ |
-|  |  |  |
+| Lời gọi AI ở quyết định trung tâm | **Thật** | Model: `openai/gpt-6-luna` qua OpenRouter, agent Google ADK + LiteLLM |
+| Guardrail (precheck 111, chặn injection, che thông tin, postcheck) | Thật | Viết bằng code, `codebase/guardrails.py` |
+| Kho tình huống, quy tắc chuẩn | Thật, nhóm tự soạn | 11 màn, 12 quy tắc có nguồn, `data/DATA_CARD.md`. Đáp án nút bấm và thẻ quy tắc chờ duyệt |
+| Giao diện game | Thật | `frontend/` (Next.js), gọi API `codebase/server.py` |
+| Lưu phiên, bản nháp cho phụ huynh | Tạm | Chỉ nằm trong bộ nhớ server, tắt là mất; chưa có đăng nhập cho người lớn |
+| Màn hội thoại, chế độ AI đóng vai | Chưa làm | Thiết kế ở `docs/game-flow.md` |
 
 ## Dùng AI vào việc gì
 
-2–3 dòng (bắt buộc): nhóm dùng công cụ AI nào để làm gì, người kiểm lại phần nào. Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
-
-____
+Nhóm dùng Claude Code để viết code game (backend phiên chơi, giao diện), soạn nháp câu thử từ lời phỏng vấn thật, chấm nháp cột `pass` và soạn nháp tài liệu. Người trong nhóm chạy thử, kiểm tay điểm chấm và duyệt nội dung đáp án trước khi dùng. Không dùng AI để tạo người được phỏng vấn, trích dẫn hay câu trả lời khảo sát. Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
 
 ## File mẫu — điền ở bước nào
 

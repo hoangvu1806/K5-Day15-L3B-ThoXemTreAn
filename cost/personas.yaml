@@ -3,17 +3,17 @@
 # Mọi số phải có nguồn (data / phỏng vấn / khảo sát / quy mô khoá có nguồn) hoặc ghi rõ "(tự ước tính)".
 # Chạy: python run.py simulate --try   (10 phiên, kiểm khung — làm trước CP3)
 #       python run.py simulate         (đủ số phiên dưới đây — bản nộp CP4)
-# Thay mọi dòng "(ví dụ)" bằng số và nguồn của nhóm; simulate nhắc nếu còn sót.
+# Đã thay hết số mẫu bằng số và nguồn của nhóm (28/11).
 
 sessions: 50        # số phiên mô phỏng — bản nộp ≥50
 seed: 42            # giữ cố định để chạy lại ra cùng chuỗi phiên
 
 users:              # số người dùng thật nếu đưa vào dùng — 3 kịch bản, ở quy mô thật của sản phẩm
                     # track A: khoá học · track B–F: người dùng của sản phẩm / nhóm nhắm tới, nguồn công khai có link
-  low: 300
-  base: 700
-  high: 1000
-  source: "(ví dụ) track A — thay bằng số của nhóm. Cơ sở: lớp L3 hơn 700 học viên (README hackathon); thấp, cao: (tự ước tính)"
+  low: 500
+  base: 2000
+  high: 10000
+  source: "(tự ước tính) Một người dùng là một phụ huynh hoặc một giáo viên. Mốc so sánh: năm học 2025-2026 cả nước có khoảng 19,08 triệu học sinh phổ thông (Bộ GD&ĐT, https://giaoduc.net.vn/ban-in/post262421.gd, xem 28/11/2026). Thấp 500 = thử qua nhóm Zalo phụ huynh và vài lớp quen; cơ sở 2.000 = vài trường tiểu học, THCS dùng; cao 10.000 = một quận, huyện. Cả ba số là tự ước tính, chưa có số người dùng thật."
 
 personas:           # ≥3 kiểu người dùng; share cộng lại = 1
   # share chia trên 18 phiếu sẽ cho trẻ chơi ở câu 7 (6 + 10 + 2). 2/20 phiếu chọn không cho chơi nên không tính là người dùng.
@@ -39,14 +39,14 @@ personas:           # ≥3 kiểu người dùng; share cộng lại = 1
 #     inputs: ["câu hỏi kiểu 1", "câu hỏi kiểu 2"]
 
 prices:             # USD / 1 triệu token — chép từ further-reading/model-prices.md của repo đề. ≥2 mức model
-  - model: gemini-3.1-flash-lite
-    input: 0.25
-    output: 1.50
-    source: "(ví dụ) https://ai.google.dev/gemini-api/docs/pricing · xem 25/11/2026"
-  - model: gemini-4-hydrogen
-    input: 1.50
-    output: 7.50
-    source: "(ví dụ) https://ai.google.dev/gemini-api/docs/pricing · xem 25/11/2026"
+  - model: openai/gpt-6-luna
+    input: 0.10
+    output: 0.50
+    source: "Model đang dùng để đo token. https://openrouter.ai/openai/gpt-6-luna (giá chuẩn, khớp https://pricepertoken.com/pricing-page/model/openai-gpt-6-luna) · xem 28/11/2026. Trang OpenRouter có hiện mức 0,05 / 0,25 nhưng có vẻ là giá batch, nên lấy mức chuẩn."
+  - model: anthropic/claude-sonnet-5.5
+    input: 2.00
+    output: 10.00
+    source: "Mức model mạnh để so sánh. https://openrouter.ai/anthropic/claude-sonnet-5.5 · xem 28/11/2026"
 
 usd_to_vnd:         # tuỳ chọn: điền thì bản tóm tắt in thêm tiền Việt
   rate:
