@@ -3,17 +3,11 @@
 import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { actionIcon, bg, card, kid, npc, owl, ui, type KidMood, type OwlMood } from "@/lib/assets";
+import { bg, card, kid, npc, owl, ui, type KidMood, type OwlMood } from "@/lib/assets";
 import { useGame } from "@/lib/store";
-import type { ActionIcon, AnswerResponse, Scenario } from "@/lib/types";
+import type { AnswerResponse, Scenario } from "@/lib/types";
 import Dock from "./Dock";
 import { Chunky, GroundShadow, IconButton, Pic, Toast, TopBar, WordReveal, useFitText } from "./ui";
-
-const CORE: { icon: Exclude<ActionIcon, "">; label: string }[] = [
-  { icon: "say_no", label: "Nói KHÔNG" },
-  { icon: "leave", label: "Rời đi" },
-  { icon: "tell_adult", label: "Kể người lớn" },
-];
 
 /* ---------- Nhân vật trong cảnh ---------- */
 function Scene({ scenario, mood, said }: { scenario: Scenario; mood: KidMood; said: string }) {
@@ -150,20 +144,17 @@ function Thinking() {
 const VERDICT: Record<string, { label: string; color: string; mood: OwlMood }> = {
   dat: { label: "Đúng rồi!", color: "var(--mint)", mood: "happy" },
   chua_dat: { label: "Gần được rồi", color: "var(--sun)", mood: "encourage" },
-  hoi_lai: { label: "Kể rõ hơn nhé", color: "var(--sky)", mood: "curious" },
+  hoi_lai: { label: "Cùng xem lại nhé", color: "var(--sky)", mood: "curious" },
   thoat_vai: { label: "Dừng ở đây nhé", color: "var(--lilac)", mood: "calm" },
 };
 
-function Feedback({ scenario, r }: { scenario: Scenario; r: AnswerResponse }) {
-  const { retry, toDetectiveOrReward, replay, endSession, detective } = useGame();
-  const age = scenario.age_group;
-  const v = VERDICT[r.result] ?? VERDICT.chua_dat;
-  const label = r.verdict === "dat_mot_phan" ? "Đúng một phần" : r.verdict === "cau_hoi" ? "Hỏi hay đấy" : v.label;
+function Feedback({ r }: { r: AnswerResponse }) {
+  const { goNext, retry, replay, endSession, detective } = useGame();
+  // Màn một câu không báo đúng sai lúc chơi: kết quả chỉ có trong báo cáo cuối phiên.
+  const quiet = r.mode === "mot_cau";
+  const v = quiet ? { label: "", color: "", mood: "happy" as OwlMood } : VERDICT[r.result] ?? VERDICT.chua_dat;
   const ref = useFitText<HTMLDivElement>(r.feedback, 25, 15);
-  const has = new Set(scenario.key_actions.map((a) => a.icon));
-  const got = new Set((r.matched_actions ?? []).map((a) => a.icon));
-  const core = CORE.filter((c) => has.has(c.icon));
-  const you = age === "6-10" ? "Cậu" : "Bạn";
+  const canRetry = quiet && !!r.can_retry && !r.stopped;
   const [rest, setRest] = useState(!!r.tired);
 
   return (
@@ -176,12 +167,11 @@ function Feedback({ scenario, r }: { scenario: Scenario; r: AnswerResponse }) {
       </motion.div>
       <div className="panel-soft absolute bottom-0 left-[186px] right-0 top-0 flex flex-col py-4 pl-7 pr-5">
         <div className="flex shrink-0 items-center gap-3">
-          <motion.span initial={{ scale: 0 }} animate={{ scale: [0, 1.25, 1] }} transition={{ duration: 0.45 }}
-            className="rounded-full border-[3px] border-[var(--ink)] px-4 py-[2px] font-display text-[22px] font-extrabold" style={{ background: v.color }}>
-            {label}
-          </motion.span>
-          {!r.level_complete && r.result !== "hoi_lai" && (r.attempts_left ?? 0) > 0 && (
-            <span className="text-[17px] font-bold text-[var(--ink-soft)]">{you} còn {r.attempts_left} lần thử</span>
+          {v.label && (
+            <motion.span initial={{ scale: 0 }} animate={{ scale: [0, 1.25, 1] }} transition={{ duration: 0.45 }}
+              className="rounded-full border-[3px] border-[var(--ink)] px-4 py-[2px] font-display text-[22px] font-extrabold" style={{ background: v.color }}>
+              {v.label}
+            </motion.span>
           )}
           <div className="flex-1" />
           <IconButton src={ui.replay} label="Nghe lại" size={44} onClick={() => replay("feedback")} />
@@ -196,30 +186,13 @@ function Feedback({ scenario, r }: { scenario: Scenario; r: AnswerResponse }) {
             <Chunky size="sm" color="var(--mint)" onClick={() => setRest(false)}>Chơi tiếp</Chunky>
           </div>
         ) : (
-          <div className="mt-2 flex shrink-0 items-end justify-between gap-3">
-            <div className="flex gap-1">
-              {r.mode === "mot_cau" && core.map((c, i) => {
-                const ok = got.has(c.icon);
-                return (
-                  <motion.div key={c.icon} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + i * 0.12 }}
-                    className="relative flex w-[80px] flex-col items-center" title={c.label}>
-                    <div className={clsx("rounded-full border-[3px] p-[2px]", ok ? "border-[var(--ink)] bg-[var(--mint)]" : "border-dashed border-[var(--ink-soft)]/70 bg-white/60")}>
-                      <Pic src={actionIcon[c.icon]} w={512} h={512} className={clsx("h-[42px] w-[42px]", !ok && "opacity-45 grayscale")} />
-                    </div>
-                    <span className={clsx("mt-[3px] whitespace-nowrap font-display text-[14px] font-bold leading-none", ok ? "text-[var(--ink)]" : "text-[var(--ink-soft)]/80")}>{c.label}</span>
-                  </motion.div>
-                );
-              })}
-            </div>
-            {r.level_complete ? (
-              <Chunky size="md" color="var(--sun)" silent onClick={toDetectiveOrReward} className="shrink-0">
-                {detective ? "Làm thám tử" : "Nhận thẻ quy tắc"}
-              </Chunky>
-            ) : (
-              <Chunky size="md" color="var(--mint)" onClick={retry} className="shrink-0">
-                {r.result === "hoi_lai" ? "Trả lời lại" : "Thử lại"}
-              </Chunky>
+          <div className="mt-2 flex shrink-0 items-center justify-end gap-3">
+            {canRetry && (
+              <Chunky size="md" color="var(--cream)" onClick={retry} className="shrink-0">Trả lời lại</Chunky>
             )}
+            <Chunky size="md" color="var(--sun)" silent onClick={goNext} className="shrink-0">
+              {detective ? "Làm thám tử" : "Đi tiếp"}
+            </Chunky>
           </div>
         )}
       </div>
@@ -235,7 +208,7 @@ export default function PlayScreen({ scenario }: { scenario: Scenario }) {
   const busy = live && storeBusy;
   const dialogue = scenario.type === "hoi_thoai";
   const said = dialogue ? "" : last?.answer_text ?? "";
-  const mood: KidMood = busy || !last ? "idle" : last.result === "dat" ? "confident" : "unsure";
+  const mood: KidMood = busy || !last || last.result === "ghi_nhan" ? "idle" : last.result === "dat" ? "confident" : "unsure";
   // Hội thoại đang tiếp diễn (người lạ nói câu tiếp) thì vẫn hiện khu trả lời.
   const showFeedback = !!last && last.result !== "dung" && last.result !== "tiep";
   const bottomH = showFeedback ? 320 : 270;
@@ -262,7 +235,7 @@ export default function PlayScreen({ scenario }: { scenario: Scenario }) {
         <motion.div className="relative shrink-0" animate={{ height: bottomH }} transition={{ type: "spring", stiffness: 180, damping: 24 }}>
           <AnimatePresence mode="wait">
             {phase === "play" && busy ? <Thinking key="t" />
-              : showFeedback && last ? <Feedback key="f" scenario={scenario} r={last} />
+              : showFeedback && last ? <Feedback key="f" r={last} />
               : <Dock key={"d" + scenario.id} age={scenario.age_group} onSend={(t) => void submit(t)} onListen={setListening} />}
           </AnimatePresence>
         </motion.div>

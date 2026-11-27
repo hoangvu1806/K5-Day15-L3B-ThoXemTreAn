@@ -10,7 +10,7 @@ Bản chốt ngày 27/11. Minh dựa vào đây để làm assets, Diệp để 
    - tự gõ cách mình sẽ làm, bằng lời của mình
    - hoặc giữ nút mic để nói, rồi bấm "Đúng rồi" để xác nhận chữ (người lớn bật mic)
    Không còn nút đáp án (Sprint 3, `docs/de-xuat-tinh-nang.md` mục 4.3). Trẻ bí thì bấm "Gợi ý": Tin hỏi gợi mở, không đưa đáp án.
-4. AI phản hồi: khen điều trẻ làm đúng, chỉ ra hành động an toàn còn thiếu, rồi cho thử lại, tối đa 2 lần mỗi màn. Câu trả lời mơ hồ ("con chạy") thì AI hỏi lại ("Con chạy tới chỗ ai?").
+4. AI phản hồi: khen điều trẻ làm đúng, chỉ ra hành động an toàn còn thiếu, rồi sang màn mới luôn: mỗi màn trẻ trả lời một lần, không thử lại. Câu trả lời mơ hồ ("con chạy") thì AI không hỏi lại mà nói ngắn cách làm an toàn; chỗ còn thiếu ghi vào mục "Từng màn" của báo cáo cho phụ huynh.
 5. Kết màn, trẻ nhận thẻ quy tắc của màn đó (ví dụ "Bí mật làm con sợ là bí mật xấu, con kể với người lớn") và sao hoặc huy hiệu.
 6. AI chọn màn tiếp theo trong kho, ưu tiên chủ đề trẻ còn yếu. Đủ 5 màn, hoặc hết màn phù hợp, thì kết phiên.
 7. Kết phiên, AI soạn bản nháp cho phụ huynh: con làm tốt gì, còn lúng túng ở đâu, một câu gợi ý để mở lời nói chuyện với con. Người lớn đọc rồi tự quyết dùng thế nào, game không tự gửi đi đâu.

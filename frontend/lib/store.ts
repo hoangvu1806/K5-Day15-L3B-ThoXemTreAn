@@ -81,17 +81,19 @@ interface GameState {
   unlock: () => void;
   cancelLock: () => void;
   goHome: () => void;
+  editProfile: () => void;
   playOn: () => Promise<void>;
   openMap: () => void;
   openLocation: (loc: string) => Promise<void>;
   beginLevel: () => void;
   submit: (text: string) => Promise<void>;
   askHint: () => Promise<void>;
-  retry: () => void;
   toDetectiveOrReward: () => void;
   submitDetective: (text: string) => Promise<void>;
   toReward: () => void;
   nextFromReward: () => void;
+  retry: () => void;
+  goNext: () => void;
   endSession: () => Promise<void>;
   openHelp: () => Promise<void>;
   openNotebook: () => void;
@@ -313,6 +315,11 @@ export const useGame = create<GameState>((set, get) => ({
     set({ lock: null, lockThen: null });
   },
 
+  editProfile() {
+    sound.play("click");
+    set({ phase: "profile", overlay: "", error: "" });
+  },
+
   goHome() {
     voice.stop();
     set({ phase: "home", overlay: "", last: null, hint: "", detective: null, reward: null });
@@ -420,7 +427,7 @@ export const useGame = create<GameState>((set, get) => ({
         get().say(clips);
         return;
       }
-      sound.play(r.result === "dat" ? "correct" : r.result === "hoi_lai" ? "curious" : "encourage");
+      sound.play(r.result === "ghi_nhan" ? "receive" : r.result === "dat" ? "correct" : r.result === "hoi_lai" ? "curious" : "encourage");
       if (r.level_complete) {
         const profile = saved.profile!;
         const owned = saved.progress[profile.age].rules;
@@ -458,18 +465,6 @@ export const useGame = create<GameState>((set, get) => ({
     } catch (e) {
       set({ busy: false, error: (e as Error).message });
     }
-  },
-
-  retry() {
-    sound.play("click");
-    const { last } = get();
-    const restart = last?.dialogue?.restart;
-    if (restart?.line) {
-      set({ last: null, hint: "", dialogue: restart, chat: [{ who: "stranger", text: restart.line }] });
-      get().say([{ tts: restart.line, role: restart.role ?? "nguoi_la" }]);
-      return;
-    }
-    set({ last: null });
   },
 
   toDetectiveOrReward() {
@@ -519,6 +514,22 @@ export const useGame = create<GameState>((set, get) => ({
     if (reward.cardLine?.voice) clips.push({ file: reward.cardLine.voice });
     if (reward.newRule) clips.push({ pause: 300 }, { file: reward.newRule.voice });
     get().say(clips);
+  },
+
+  retry() {
+    sound.play("click");
+    voice.stop();
+    set({ last: null, hint: "", reward: null });
+  },
+
+  // Kết quả từng màn (sao, thẻ) chỉ hiện ở cuối phiên, nên "Đi tiếp" bỏ qua màn nhận thẻ.
+  goNext() {
+    const { detective } = get();
+    voice.stop();
+    if (detective) {
+      set({ phase: "detective" });
+      get().say([{ tts: detective.question, role: tinRole(ageOf(get)) }]);
+    } else get().nextFromReward();
   },
 
   nextFromReward() {

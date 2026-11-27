@@ -14,6 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
 
+import agent
 import auth
 import game
 import tracing
@@ -40,6 +41,22 @@ class ChatOut(BaseModel):
     session_id: str
     stopped: str = ""
     usage: dict = {}
+
+
+async def _warm_up():
+    async with _lock:
+        tracing.begin("warm-up")
+        try:
+            await asyncio.to_thread(agent.warm_up)
+        except Exception as e:  # không chặn server khi model chưa sẵn sàng
+            print("warm-up lỗi: %s" % e)
+        finally:
+            tracing.end()
+
+
+@app.on_event("startup")
+async def _startup():
+    asyncio.create_task(_warm_up())
 
 
 @app.get("/health")

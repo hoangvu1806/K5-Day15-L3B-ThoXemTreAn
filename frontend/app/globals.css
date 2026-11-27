@@ -49,6 +49,16 @@ body {
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 * {
@@ -56,6 +66,27 @@ body {
 }
 *::-webkit-scrollbar {
   display: none;
+}
+
+.parent-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(74 47 34 / 0.28) transparent;
+  -webkit-user-select: text;
+  user-select: text;
+}
+.parent-scroll::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+}
+.parent-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.parent-scroll::-webkit-scrollbar-thumb {
+  background: rgb(74 47 34 / 0.25);
+  border-radius: 999px;
+}
+.parent-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgb(74 47 34 / 0.42);
 }
 
 img {

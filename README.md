@@ -100,7 +100,7 @@ Màn mới của Sprint 3 còn là bản nháp (`duyet: false` trong `data/scena
 | Guardrail (precheck 111, chặn injection, che thông tin, postcheck) | Thật | Viết bằng code, `codebase/guardrails.py` |
 | Kho tình huống, quy tắc chuẩn | Thật, nhóm tự soạn | 11 màn, 12 quy tắc có nguồn, `data/DATA_CARD.md`. Đáp án nút bấm và thẻ quy tắc chờ duyệt |
 | Giao diện game | Thật | `frontend/` (Next.js), gọi API `codebase/server.py`. Màn hình chính, bản đồ 6-10 / điện thoại 11-15, Sổ tay thẻ, Bàn tay tin cậy, Cài đặt, khoá người lớn |
-| Giọng nói | Thật | Câu cố định đọc sẵn thành file (`frontend/public/assets/voice/`); lời AI vừa viết đọc qua `POST /api/tts` (OpenRouter), lỗi thì dùng giọng trình duyệt. Mic: Web Speech API, hiện cùng ô gõ lúc trả lời, chỉ thu khi giữ nút |
+| Giọng nói | Thật | Câu cố định đọc sẵn thành file (`frontend/public/assets/voice/`); lời AI vừa viết đọc qua `POST /api/tts` (OpenRouter), lỗi thì dùng giọng trình duyệt. Mic: Web Speech API, hiện cùng ô gõ lúc trả lời, chỉ thu sau khi trẻ bấm bật, bấm lần nữa hoặc ngừng nói là tắt |
 | Lưu phiên, bản nháp cho phụ huynh | Tạm | Chỉ nằm trong bộ nhớ server, tắt là mất; chưa có đăng nhập cho người lớn. Tiến độ và thẻ lưu trong trình duyệt của trẻ |
 | Màn hội thoại người lạ (kịch bản có sẵn), thám tử nhận chiêu, màn bậc 4–5 | Có code, màn là bản nháp | 7 màn chờ Diệp duyệt (`data/DATA_CARD.md`) |
 | Chế độ AI đóng vai người lạ, màn AI biến tấu | Chưa làm | Chờ nhóm chốt mục 8 của `docs/de-xuat-sprint-3.md` |

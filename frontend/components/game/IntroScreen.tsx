@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { bg, card, owl } from "@/lib/assets";
+import { bg, card, kid, npc, owl } from "@/lib/assets";
 import { useGame } from "@/lib/store";
 import type { Scenario } from "@/lib/types";
 import { Chunky, Pic, TopBar, WordReveal } from "./ui";
@@ -13,8 +13,8 @@ export default function IntroScreen({ scenario }: { scenario: Scenario }) {
   const n = progress.index + 1;
   const dialogue = scenario.type === "hoi_thoai";
   const how = age === "6-10"
-    ? dialogue ? "Có người nói chuyện với nhân vật của cậu. Cậu trả lời giúp nhé, nói hoặc gõ đều được." : "Cậu nghe chuyện, rồi nói hoặc gõ cách cậu sẽ làm. Bí thì bấm bóng đèn."
-    : dialogue ? "Có người nhắn tin tới. Bạn trả lời thay nhân vật nhé, nói hoặc gõ đều được." : "Bạn đọc tình huống, rồi nói hoặc gõ cách bạn sẽ xử lý. Cần gợi ý thì bấm bóng đèn.";
+    ? dialogue ? "Có người nói chuyện với nhân vật của cậu. Cậu trả lời giúp nhé, nói hoặc gõ đều được." : "Cậu nghe chuyện, rồi nói hoặc gõ cách cậu sẽ làm. Mỗi màn cậu trả lời một lần thôi, bí thì bấm bóng đèn trước nhé."
+    : dialogue ? "Có người nhắn tin tới. Bạn trả lời thay nhân vật nhé, nói hoặc gõ đều được." : "Bạn đọc tình huống, rồi nói hoặc gõ cách bạn sẽ xử lý. Mỗi màn trả lời một lần, cần gợi ý thì bấm bóng đèn trước.";
 
   return (
     <div className="absolute inset-0">
@@ -48,6 +48,30 @@ export default function IntroScreen({ scenario }: { scenario: Scenario }) {
           <svg viewBox="0 0 24 24" className="h-[34px] w-[34px]" fill="var(--cream)" stroke="var(--ink)" strokeWidth="3" strokeLinejoin="round"><path d="M7 4.5v15l12-7.5z" /></svg>
         </Chunky>
       </motion.div>
+
+      {!!scenario.cast?.length && (
+        <div className="absolute left-[70px] top-[580px] flex w-[620px] gap-3">
+          {scenario.cast.map((m, i) => {
+            const src = m.kind === "hero" ? kid(age, saved.profile?.gender ?? "nam", "idle")
+              : m.kind === "tin" ? owl("happy") : m.npc ? npc(m.npc) : "";
+            return (
+              <motion.div key={m.kind + m.name} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + i * 0.15, type: "spring", stiffness: 160, damping: 15 }}
+                className="panel-soft flex min-w-0 flex-1 items-center gap-2 px-3 py-2">
+                {src && (
+                  <div className="h-[64px] w-[64px] shrink-0 overflow-hidden rounded-full border-[3px] border-[var(--ink)] bg-[var(--cream)]">
+                    <Pic src={src} w={512} h={640} className="h-[120%] w-full object-cover object-top" />
+                  </div>
+                )}
+                <div className="min-w-0">
+                  <p className="truncate font-display text-[19px] font-extrabold leading-tight">{m.name}</p>
+                  <p className="line-clamp-2 text-[14px] font-semibold leading-snug text-[var(--ink-soft)]">{m.role}</p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
 
       <motion.div initial={{ opacity: 0, y: 120 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, type: "spring", stiffness: 160, damping: 14 }}
         className="absolute bottom-[-18px] right-[600px]">

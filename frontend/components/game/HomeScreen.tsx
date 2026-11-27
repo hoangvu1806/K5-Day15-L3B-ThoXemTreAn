@@ -19,9 +19,9 @@ function Tile({ icon, label, onClick, color, delay }: { icon: ReactNode; label: 
   );
 }
 
-/** Màn hình chính: Tin đứng giữa, nút lớn "Chơi tiếp", các ô Bản đồ / Điện thoại, Sổ tay, Góc phụ huynh, Cài đặt. */
+/** Màn hình chính: Tin đứng giữa, nút lớn "Chơi tiếp", các ô Bản đồ / Điện thoại, Sổ tay, Bàn tay tin cậy (6-10), Góc phụ huynh. */
 export default function HomeScreen() {
-  const { saved, playOn, openNotebook, openHand, requestLock, setOverlay, busy, sessionId, draft, account } = useGame();
+  const { saved, playOn, openNotebook, openHand, requestLock, setOverlay, busy, sessionId, draft, editProfile, account } = useGame();
   const openAccount = () => requestLock("account", () => setOverlay("account"));
   const profile = saved.profile!;
   const age = profile.age;
@@ -37,6 +37,7 @@ export default function HomeScreen() {
       <Toast />
       <div className="absolute inset-x-6 top-4 z-40 flex items-center justify-between">
         <div className="flex items-center gap-3">
+          <IconButton src={ui.back} label="Đổi nhóm tuổi, nhân vật" onClick={editProfile} />
           <Pic src={ui.logo} w={512} h={512} className="h-[64px] w-[64px]" />
           <span className="text-outline font-display text-[44px] font-extrabold text-white">Grow<span className="text-[var(--sun)]">Safe</span></span>
         </div>
@@ -69,24 +70,17 @@ export default function HomeScreen() {
           {busy ? "Đang mở…" : sessionId && !draft ? "Chơi tiếp" : "Bắt đầu chơi"}
           <svg viewBox="0 0 24 24" className="h-[44px] w-[44px]" fill="var(--cream)" stroke="var(--ink)" strokeWidth="3" strokeLinejoin="round"><path d="M7 4.5v15l12-7.5z" /></svg>
         </Chunky>
-        <div className="grid grid-cols-3 gap-5">
+        <div className={`grid gap-5 ${age === "6-10" ? "grid-cols-2" : "grid-cols-3"}`}>
           <Tile delay={0.1} color="var(--mint)" label={age === "6-10" ? "Bản đồ" : "Điện thoại"} onClick={() => void playOn()}
             icon={<Pic src={age === "6-10" ? ui.map610 : ui.phoneFrame} w={age === "6-10" ? 1376 : 672} h={age === "6-10" ? 768 : 900} className="h-[70px] w-[110px] rounded-[10px]" />} />
           <Tile delay={0.17} color="var(--lilac)" label="Sổ tay" onClick={openNotebook}
             icon={<Pic src={ui.notebookCover} w={672} h={900} className="h-[78px] w-[60px]" />} />
-          {age === "6-10" ? (
+          {age === "6-10" && (
             <Tile delay={0.24} color="var(--peach)" label="Bàn tay tin cậy" onClick={openHand}
               icon={<span className="text-[60px] leading-none">✋</span>} />
-          ) : (
-            <Tile delay={0.24} color="var(--sky)" label="Cài đặt" onClick={() => setOverlay("settings")}
-              icon={<Pic src={ui.settings} w={512} h={512} className="h-[70px] w-[70px]" />} />
           )}
           <Tile delay={0.31} color="var(--cream)" label="Góc phụ huynh" onClick={() => requestLock("parent", () => setOverlay("parent"))}
             icon={<Pic src={ui.parent} w={512} h={512} className="h-[70px] w-[70px]" />} />
-          {age === "6-10" && (
-            <Tile delay={0.38} color="var(--sky)" label="Cài đặt" onClick={() => setOverlay("settings")}
-              icon={<Pic src={ui.settings} w={512} h={512} className="h-[70px] w-[70px]" />} />
-          )}
         </div>
         <p className="flex items-center gap-2 text-[16px] font-bold text-[var(--ink-soft)]">
           <Pic src={ui.privacy} w={512} h={512} className="h-[30px] w-[30px]" />

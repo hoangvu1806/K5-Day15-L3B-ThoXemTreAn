@@ -12,7 +12,7 @@ const pair = (key: string, t610: string, t1115: string): Pair => ({
 });
 
 export const MIC = {
-  howto: pair("mic_howto", "Giữ nút này rồi nói nhé, nói xong thì thả tay ra.", "Giữ nút mic để nói, nói xong thì thả ra."),
+  howto: pair("mic_howto", "Bấm nút này rồi nói nhé, nói xong bấm lần nữa.", "Bấm nút mic để nói, nói xong bấm lần nữa."),
   confirm: pair("mic_confirm", "Nghe được thế này, đúng chưa cậu?", "Nghe được thế này, đúng chưa?"),
   unclear: pair("mic_unclear", "Chưa nghe rõ lắm. Nói lại giúp tớ nhé?", "Chưa nghe rõ, nói lại giúp mình nhé."),
   louder: pair("mic_louder", "Nói to hơn chút nhé, tớ nghe không ra.", "Nói to hơn một chút nhé."),
