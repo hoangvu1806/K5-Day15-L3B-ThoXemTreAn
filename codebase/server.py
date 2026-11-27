@@ -5,15 +5,18 @@
 Hoặc: python codebase/server.py   (port lấy từ biến PORT, mặc định 6161)
 Rồi mở http://127.0.0.1:6161/docs để thử.
 Trace dùng biến toàn cục nên server xử lý tuần tự từng lượt (đủ cho demo, chưa dùng cho nhiều người cùng lúc).
+Bật GROWSAFE_SHOW_DRAFT_SCENES=1 để nhóm chơi thử các màn chưa duyệt (duyet = false trong data/scenarios.json).
 """
 import asyncio
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from pydantic import BaseModel
 
 import game
 import tracing
+import tts
 from agent import answer_async
 from ai import MODEL_NAME, is_fake
 from tools import DRAFTS
@@ -39,7 +42,7 @@ class ChatOut(BaseModel):
 
 @app.get("/health")
 def health():
-    return {"ok": True, "model": "fake" if is_fake() else MODEL_NAME}
+    return {"ok": True, "model": "fake" if is_fake() else MODEL_NAME, "show_drafts": game.SHOW_DRAFTS}
 
 
 @app.post("/api/chat", response_model=ChatOut)
@@ -54,21 +57,43 @@ async def chat(body: ChatIn):
                    usage={k: summary[k] for k in ("model_calls", "tool_calls", "tokens_in", "tokens_out")})
 
 
+class Cleared(BaseModel):
+    id: str
+    passed: bool = False
+
+
 class SessionIn(BaseModel):
     age_group: str
-    gender: str = ""                 # nam / nu / khong_noi, không bắt buộc
-    dialogue_mode: str = "kich_ban"  # kich_ban (mặc định) hoặc ai_dong_vai (người lớn bật)
+    gender: str                      # nam / nu (bắt buộc: chọn tên nhân vật chính Bin/Na, Khôi/Mai)
+    cleared: list[Cleared] = []      # màn đã xong, lưu trên máy của trẻ
+    dialogue_mode: str = "kich_ban"  # ai_dong_vai chưa bật
+    hour: int | None = None          # giờ trên máy, để chọn câu theo buổi
+
+
+class LevelIn(BaseModel):
+    session_id: str
+    location: str
 
 
 class AnswerIn(BaseModel):
     session_id: str
     scenario_id: str
-    choice_id: str = ""
-    text: str = ""
+    text: str = ""  # chữ trẻ gõ, hoặc chữ chuyển từ giọng nói đã được trẻ xác nhận. Server không nhận âm thanh
+
+
+class HintIn(BaseModel):
+    session_id: str
+    scenario_id: str
 
 
 class SessionRef(BaseModel):
     session_id: str = ""
+
+
+class TTSIn(BaseModel):
+    session_id: str
+    text: str
+    role: str = "tin610"
 
 
 async def _traced(name, fn, *args):
@@ -90,17 +115,36 @@ async def _traced(name, fn, *args):
 
 @app.post("/api/session")
 async def session_start(body: SessionIn):
-    return await _traced("api-session", game.start, body.age_group, body.gender, body.dialogue_mode)
+    return await _traced("api-session", game.start, body.age_group, body.gender,
+                         [c.model_dump() for c in body.cleared], body.dialogue_mode, body.hour)
+
+
+@app.post("/api/level")
+async def session_level(body: LevelIn):
+    """Trẻ chọn một địa điểm trên bản đồ / một app trên điện thoại: Đạo diễn mở màn tiếp theo ở đó."""
+    return await _traced("api-level", game.open_level, body.session_id, body.location)
 
 
 @app.post("/api/answer")
 async def session_answer(body: AnswerIn):
-    return await _traced("api-answer", game.answer, body.session_id, body.scenario_id, body.choice_id, body.text)
+    return await _traced("api-answer", game.answer, body.session_id, body.scenario_id, body.text)
+
+
+@app.post("/api/hint")
+async def session_hint(body: HintIn):
+    """Nút "Gợi ý" (bóng đèn): một câu hỏi ngược, không đưa đáp án. Tối đa 1 gợi ý mỗi lượt."""
+    return await _traced("api-hint", game.hint, body.session_id, body.scenario_id)
+
+
+@app.post("/api/detective")
+async def session_detective(body: AnswerIn):
+    """Thám tử nhận chiêu sau màn hội thoại: trẻ kể lại người lạ đã dùng chiêu gì."""
+    return await _traced("api-detective", game.detective, body.session_id, body.scenario_id, body.text)
 
 
 @app.post("/api/help")
 async def session_help(body: SessionRef):
-    """Nút "Con cần giúp": dừng phiên, trả nội dung hướng dẫn và số 111. Không gọi model."""
+    """Nút cần giúp: dừng phiên, trả nội dung hướng dẫn và số 111. Không gọi model."""
     return game.help_session(body.session_id)
 
 
@@ -108,6 +152,21 @@ async def session_help(body: SessionRef):
 async def session_end(body: SessionRef):
     """Kết phiên: bản nháp cho phụ huynh / giáo viên, trạng thái cho_duyet. Không gửi đi đâu."""
     return await _traced("api-end", game.end, body.session_id)
+
+
+@app.post("/api/tts")
+async def speak(body: TTSIn):
+    """Đọc to lời game vừa tạo ra (lời Tin, lời người lạ). Không đọc chữ trẻ gõ hay nói."""
+    session = game.SESSIONS.get(body.session_id)
+    if not session or body.text.strip() not in session["spoken"]:
+        raise HTTPException(status_code=403, detail="Chỉ đọc chữ của game trong phiên này")
+    if body.role not in tts.roles():
+        raise HTTPException(status_code=400, detail="Không có vai giọng này")
+    try:
+        audio = await asyncio.to_thread(tts.synthesize, body.text, body.role)
+    except tts.TTSError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    return Response(content=audio, media_type="audio/mpeg")
 
 
 @app.get("/api/drafts")
