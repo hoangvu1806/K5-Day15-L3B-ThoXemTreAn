@@ -6,6 +6,8 @@
 
 **Bản đầu CP2 · 27/11/2026 · người phụ trách: Hoàng Minh Diệp.** Không có data BTC cấp. Không có dữ liệu nào của trẻ thật.
 
+**Định dạng** (theo `codebase/tools.py`): cả hai file là danh sách JSON. Tình huống có `id, age_group, topic, situation, key_actions[{action, keywords}], source`. Quy tắc có `code, title, rule, keywords, age_groups, source`. Các trường tiếng Việt cũ vẫn giữ để người đọc (`tinh_huong`, `y_can_co`, `loi_6_10`…). `keywords` chỉ dùng để so khớp thô trong `evaluate_child_response`, không phải cách chấm chính.
+
 ## Dataset 1 · Quy tắc chuẩn (`data/guidelines.json`)
 
 | | |
