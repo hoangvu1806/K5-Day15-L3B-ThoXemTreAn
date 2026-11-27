@@ -1,13 +1,12 @@
 "use client";
 
 import clsx from "clsx";
-import { AnimatePresence, motion } from "motion/react";
-import { useState, type ReactNode } from "react";
+import { motion } from "motion/react";
+import type { ReactNode } from "react";
 import { owl, ui } from "@/lib/assets";
-import { numberWords } from "@/lib/lines";
 import type { FontSize, Speed } from "@/lib/local";
 import { sound } from "@/lib/sound";
-import { useGame, type LockPurpose } from "@/lib/store";
+import { useGame } from "@/lib/store";
 import { Chunky, Modal, Pic } from "./ui";
 
 /* ---------- Cài đặt (de-xuat-sprint-3.md mục 6) ---------- */
@@ -56,7 +55,7 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
 }
 
 export function SettingsPanel() {
-  const { saved, updateSettings, setOverlay, requestLock, wipeProgress } = useGame();
+  const { saved, updateSettings, setOverlay } = useGame();
   const s = saved.settings;
   const close = () => { sound.play("close"); setOverlay(""); };
 
@@ -90,7 +89,7 @@ export function SettingsPanel() {
             <p className="font-display text-[22px] font-bold">Dành cho người lớn</p>
           </div>
           <div className="flex justify-end">
-            <Chunky size="sm" color="#ffd6cc" onClick={() => requestLock("wipe", wipeProgress)}>Xoá tiến độ trên máy này</Chunky>
+            <Chunky size="sm" color="#ffd6cc" onClick={() => setOverlay("confirmWipe")}>Xoá tiến độ trên máy này</Chunky>
           </div>
         </div>
       </div>
@@ -134,59 +133,24 @@ export function ConfirmHome() {
   );
 }
 
-/* ---------- Khoá người lớn: một phép tính hai chữ số đọc bằng chữ ---------- */
-const PURPOSE: Record<LockPurpose, string> = {
-  parent: "mở Góc phụ huynh",
-  profile: "đổi hồ sơ",
-  wipe: "xoá tiến độ",
-  account: "mở Tài khoản",
-};
-
-export function AdultLock() {
-  const { lock, unlock, cancelLock } = useGame();
-  const [q] = useState(() => {
-    const a = 11 + Math.floor(Math.random() * 19);
-    const b = 3 + Math.floor(Math.random() * 7);
-    return { a, b };
-  });
-  const [val, setVal] = useState("");
-  const [wrong, setWrong] = useState(false);
-  if (!lock) return null;
-  const check = (v: string) => {
-    if (Number(v) === q.a + q.b) {
-      sound.play("correct");
-      unlock();
-    } else {
-      sound.play("encourage");
-      setWrong(true);
-      setVal("");
-    }
-  };
-  const press = (d: string) => {
-    const v = (val + d).slice(0, 2);
-    setVal(v);
-    setWrong(false);
-    if (v.length === 2) check(v);
-  };
-
+/* ---------- Xác nhận xoá tiến độ trên máy ---------- */
+export function ConfirmWipe() {
+  const { setOverlay, wipeProgress, account } = useGame();
+  const close = () => { sound.play("close"); setOverlay(""); };
   return (
-    <Modal onClose={cancelLock} z={85}>
-      <div className="panel paper-grain flex w-[620px] flex-col items-center gap-4 px-10 py-7 text-center">
-        <div className="flex items-center gap-3">
-          <Pic src={ui.lock} w={512} h={512} className="h-[60px] w-[60px]" />
-          <h3 className="font-display text-[30px] font-extrabold">Người lớn giúp nhé</h3>
+    <Modal onClose={close} z={85}>
+      <div className="panel paper-grain flex w-[560px] flex-col items-center gap-4 px-10 py-8 text-center">
+        <Pic src={owl("curious")} w={640} h={640} className="h-[116px] w-[116px]" />
+        <h3 className="font-display text-[32px] font-extrabold leading-tight">Xoá tiến độ trên máy này?</h3>
+        <p className="text-[19px] font-bold leading-snug text-[var(--ink-soft)]">
+          {account
+            ? `Thẻ và màn đã qua trên máy này sẽ bị xoá và đăng xuất khỏi ${account.username}. Thẻ đã lưu trong tài khoản vẫn giữ nguyên.`
+            : "Toàn bộ màn đã qua, bộ thẻ và Bàn tay tin cậy trên máy này sẽ bị xoá."}
+        </p>
+        <div className="flex w-full gap-3">
+          <Chunky size="md" color="var(--cream)" className="flex-1" onClick={close}>Huỷ</Chunky>
+          <Chunky size="md" color="#ffd6cc" className="flex-1" onClick={wipeProgress}>Xoá tiến độ</Chunky>
         </div>
-        <p className="text-[18px] font-bold text-[var(--ink-soft)]">Để {PURPOSE[lock]}, trả lời phép tính:</p>
-        <p className="font-display text-[34px] font-extrabold leading-tight">{numberWords(q.a)} cộng {numberWords(q.b)} bằng mấy?</p>
-        <div className={clsx("flex h-[70px] w-[180px] items-center justify-center rounded-[20px] border-[4px] border-[var(--ink)] bg-white font-display text-[44px] font-extrabold",
-          wrong && "border-[var(--coral)]")}>{val || "–"}</div>
-        <div className="grid grid-cols-5 gap-2">
-          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].map((d) => (
-            <button key={d} onClick={() => press(d)} className="btn-chunky h-[58px] w-[78px] text-[28px]" style={{ ["--c" as string]: "var(--cream)" }}>{d}</button>
-          ))}
-        </div>
-        <AnimatePresence>{wrong && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-bold text-[var(--coral)]">Chưa đúng, thử lại nhé.</motion.p>}</AnimatePresence>
-        <Chunky size="sm" color="var(--cream)" onClick={cancelLock}>Thôi</Chunky>
       </div>
     </Modal>
   );

@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { api, ApiError, OFFLINE_HELP } from "./api";
-import { bg, card, kid, npc, owl, preload, ui } from "./assets";
+import { bg, card, kid, npc, owl, preload, ui, type OwlMood } from "./assets";
 import { progressLine, waitLine } from "./lines";
 import {
   compactProgress, DEFAULT_SETTINGS, EMPTY, load, loadAccount, mergeProgress, owlStage, save, saveAccount, wipe,
@@ -10,14 +10,13 @@ import {
 } from "./local";
 import { sound } from "./sound";
 import type {
-  AgeGroup, AnswerResponse, ChatMsg, DetectiveResponse, DialogueTurn, Draft, HelpContent, Line, MapPlace, Progress,
-  RuleCard, Scenario,
+  AgeGroup, AnswerResponse, AskChatMsg, ChatMsg, DetectiveResponse, DialogueTurn, Draft, HelpContent, Line, MapPlace,
+  Progress, RuleCard, Scenario,
 } from "./types";
 import { voice, tinRole, type Clip } from "./voice";
 
-export type Phase = "profile" | "home" | "map" | "intro" | "play" | "detective" | "reward" | "help" | "done" | "notebook" | "hand";
-export type Overlay = "" | "settings" | "pause" | "parent" | "confirmHome" | "account";
-export type LockPurpose = "parent" | "profile" | "wipe" | "account";
+export type Phase = "profile" | "home" | "map" | "intro" | "play" | "detective" | "reward" | "help" | "done" | "notebook" | "hand" | "ask";
+export type Overlay = "" | "settings" | "pause" | "parent" | "confirmHome" | "confirmWipe" | "account";
 export type SyncState = "idle" | "saving" | "saved" | "error";
 
 interface Reward {
@@ -40,8 +39,6 @@ interface GameState {
   saved: Saved;
   phase: Phase;
   overlay: Overlay;
-  lock: LockPurpose | null;
-  lockThen: (() => void) | null;
   sessionId: string;
   name: string;
   map: MapPlace[];
@@ -67,6 +64,16 @@ interface GameState {
   muted: boolean;
   account: Account | null;
   sync: SyncState;
+  authPrompt: string;
+  afterAuth: (() => void) | null;
+  askSessionId: string;
+  askChat: AskChatMsg[];
+  askChips: string[];
+  askPrivacy: string;
+  askRemaining: number;
+  askMax: number;
+  askMood: OwlMood;
+  askEnded: boolean;
 
   hydrate: () => void;
   /** Trả "" nếu được, hoặc câu báo lỗi để hiện trên form. */
@@ -77,9 +84,6 @@ interface GameState {
   setProfile: (p: Profile) => void;
   updateSettings: (s: Partial<Settings>) => void;
   setOverlay: (o: Overlay) => void;
-  requestLock: (purpose: LockPurpose, then: () => void) => void;
-  unlock: () => void;
-  cancelLock: () => void;
   goHome: () => void;
   editProfile: () => void;
   playOn: () => Promise<void>;
@@ -98,6 +102,10 @@ interface GameState {
   openHelp: () => Promise<void>;
   openNotebook: () => void;
   openHand: () => void;
+  openAsk: (fresh?: boolean) => Promise<void>;
+  sendAsk: (text: string) => Promise<void>;
+  replayAsk: () => void;
+  closeAsk: () => void;
   setHand: (i: number, role: string) => void;
   wipeProgress: () => void;
   replay: (what: "story" | "feedback" | "hint") => void;
@@ -179,8 +187,6 @@ export const useGame = create<GameState>((set, get) => ({
   saved: EMPTY,
   phase: "profile",
   overlay: "",
-  lock: null,
-  lockThen: null,
   sessionId: "",
   name: "",
   map: [],
@@ -206,6 +212,16 @@ export const useGame = create<GameState>((set, get) => ({
   muted: false,
   account: null,
   sync: "idle",
+  authPrompt: "",
+  afterAuth: null,
+  askSessionId: "",
+  askChat: [],
+  askChips: [],
+  askPrivacy: "",
+  askRemaining: 10,
+  askMax: 10,
+  askMood: "welcome",
+  askEnded: false,
 
   hydrate() {
     const saved = load();
@@ -224,10 +240,12 @@ export const useGame = create<GameState>((set, get) => ({
     try {
       const r = await api.register(username, password, consent, compactProgress(get().saved.progress));
       const account = { username: r.username, token: r.token ?? "" };
+      const next = get().afterAuth;
       saveAccount(account);
-      set({ account, sync: "saved" });
+      set({ account, sync: "saved", authPrompt: "", afterAuth: null, ...(next ? { overlay: "" } : {}) });
       applyServer(get, set, r.progress);
       sound.play("correct");
+      next?.();
       return "";
     } catch (e) {
       return (e as Error).message;
@@ -238,10 +256,12 @@ export const useGame = create<GameState>((set, get) => ({
     try {
       const r = await api.login(username, password, compactProgress(get().saved.progress));
       const account = { username: r.username, token: r.token ?? "" };
+      const next = get().afterAuth;
       saveAccount(account);
-      set({ account, sync: "saved" });
+      set({ account, sync: "saved", authPrompt: "", afterAuth: null, ...(next ? { overlay: "" } : {}) });
       applyServer(get, set, r.progress);
       sound.play("correct");
+      next?.();
       return "";
     } catch (e) {
       return (e as Error).message;
@@ -283,7 +303,10 @@ export const useGame = create<GameState>((set, get) => ({
     });
     // Đổi nhóm tuổi hay giới tính thì phiên cũ không dùng tiếp được (tên nhân vật chính đổi).
     if (!before || before.age !== p.age || before.gender !== p.gender) {
-      set({ sessionId: "", map: [], progress: EMPTY_PROGRESS, scenario: null, draft: null });
+      set({
+        sessionId: "", map: [], progress: EMPTY_PROGRESS, scenario: null, draft: null,
+        askSessionId: "", askChat: [], askChips: [], askEnded: false,
+      });
     }
     set({ phase: "home", help: OFFLINE_HELP[p.age] });
   },
@@ -298,21 +321,7 @@ export const useGame = create<GameState>((set, get) => ({
   setOverlay(o) {
     if (o) sound.play("open");
     sound.duck(o === "pause");
-    set({ overlay: o });
-  },
-
-  requestLock(purpose, then) {
-    sound.play("open");
-    set({ lock: purpose, lockThen: then });
-  },
-  unlock() {
-    const then = get().lockThen;
-    set({ lock: null, lockThen: null });
-    then?.();
-  },
-  cancelLock() {
-    sound.play("close");
-    set({ lock: null, lockThen: null });
+    set({ overlay: o, ...(o !== "account" ? { authPrompt: "", afterAuth: null } : {}) });
   },
 
   editProfile() {
@@ -326,9 +335,17 @@ export const useGame = create<GameState>((set, get) => ({
   },
 
   async playOn() {
-    const { saved, sessionId, draft } = get();
+    const { saved, sessionId, draft, account } = get();
     const profile = saved.profile;
     if (!profile) return set({ phase: "profile" });
+    if (!account) {
+      sound.play("open");
+      return set({
+        overlay: "account",
+        authPrompt: "Đăng nhập hoặc tạo tài khoản để bắt đầu chơi cùng AI và lưu bộ thẻ nhé.",
+        afterAuth: () => void get().playOn(),
+      });
+    }
     if (sessionId && !draft) return get().openMap();
     set({ busy: true, error: "" });
     sound.music(saved.settings.music > 0);
@@ -342,7 +359,14 @@ export const useGame = create<GameState>((set, get) => ({
       sound.play("start");
       get().say([{ file: r.greeting.voice }, ...(r.time_line ? [{ pause: 250 }, { file: r.time_line.voice }] as Clip[] : [])]);
     } catch (e) {
-      set({ busy: false, error: (e as Error).message });
+      if ((e as ApiError).status === 401) {
+        saveAccount(null);
+        set({
+          busy: false, account: null, sync: "idle", overlay: "account",
+          authPrompt: "Phiên đăng nhập đã hết hạn, đăng nhập lại để chơi tiếp nhé.",
+          afterAuth: () => void get().playOn(),
+        });
+      } else set({ busy: false, error: (e as Error).message });
     }
   },
 
@@ -585,6 +609,114 @@ export const useGame = create<GameState>((set, get) => ({
     sound.play("page");
     voice.stop();
     set({ phase: "hand", overlay: "" });
+  },
+
+  async openAsk(fresh = false) {
+    const { saved, askSessionId, askEnded, sessionId, account } = get();
+    const profile = saved.profile;
+    if (!profile) return set({ phase: "profile" });
+    if (!account) {
+      sound.play("open");
+      return set({
+        overlay: "account",
+        authPrompt: "Đăng nhập hoặc tạo tài khoản để trò chuyện trong Góc Tò Mò cùng Tin nhé.",
+        afterAuth: () => void get().openAsk(fresh),
+      });
+    }
+    voice.stop();
+    if (!fresh && askSessionId && !askEnded) {
+      voice.setSession(askSessionId);
+      set({ phase: "ask", overlay: "", error: "" });
+      return;
+    }
+    set({ busy: true, error: "" });
+    sound.play("open");
+    try {
+      const r = await api.askStart(profile.age, profile.gender, sessionId);
+      voice.setSession(r.ask_session_id);
+      set({
+        busy: false, phase: "ask", overlay: "",
+        askSessionId: r.ask_session_id,
+        askChat: [{ who: "tin", text: r.greeting }],
+        askChips: r.chips,
+        askPrivacy: r.privacy_notice,
+        askRemaining: r.remaining,
+        askMax: r.max_questions,
+        askMood: "welcome",
+        askEnded: false,
+      });
+      if (saved.settings.autoRead) get().say([{ tts: r.greeting, role: tinRole(profile.age) }]);
+    } catch (e) {
+      if ((e as ApiError).status === 401) {
+        saveAccount(null);
+        set({
+          busy: false, account: null, sync: "idle", overlay: "account",
+          authPrompt: "Phiên đăng nhập đã hết hạn, đăng nhập lại để mở Góc Tò Mò nhé.",
+          afterAuth: () => void get().openAsk(fresh),
+        });
+      } else set({ busy: false, error: (e as Error).message });
+    }
+  },
+
+  async sendAsk(text) {
+    const { askSessionId, busy, askEnded, saved } = get();
+    const t = text.trim();
+    if (!askSessionId || busy || askEnded || !t) return;
+    const age = ageOf(get);
+    set({ busy: true, error: "", askMood: "think", askChat: [...get().askChat, { who: "kid", text: t }] });
+    sound.play("send");
+    try {
+      const r = await api.askMessage(askSessionId, t);
+      if (r.stopped === "nghi_xam_hai_that") {
+        voice.stop();
+        sound.duck(true);
+        sound.play("calm");
+        set({
+          busy: false, phase: "help", help: r.help ?? OFFLINE_HELP[age],
+          askEnded: true, askMood: "calm", askChips: [],
+        });
+        get().say([{ file: (r.help ?? OFFLINE_HELP[age]).voice || "" }]);
+        return;
+      }
+      const chat = get().askChat.slice(0, -1).concat(
+        { who: "kid", text: r.answer_text || t },
+        { who: "tin", text: r.reply, topic: r.topic_title || undefined },
+      );
+      sound.play("receive");
+      set({
+        busy: false,
+        askChat: chat,
+        askChips: r.chips,
+        askRemaining: r.remaining,
+        askMood: r.mood || "explain",
+        askEnded: r.ended,
+      });
+      if (saved.settings.autoRead) get().say([{ tts: r.reply, role: tinRole(age) }]);
+    } catch (e) {
+      set({ busy: false, askMood: "curious", error: (e as Error).message, askChat: get().askChat.slice(0, -1) });
+    }
+  },
+
+  replayAsk() {
+    const { askChat, askSessionId } = get();
+    const lastTin = [...askChat].reverse().find((m) => m.who === "tin");
+    if (!lastTin) return;
+    if (askSessionId) voice.setSession(askSessionId);
+    get().say([{ tts: lastTin.text, role: tinRole(ageOf(get)) }]);
+  },
+
+  closeAsk() {
+    const { askSessionId, sessionId, askChat, draft } = get();
+    voice.stop();
+    if (sessionId) voice.setSession(sessionId);
+    set({ phase: "home", overlay: "", error: "" });
+    // Nếu trẻ chỉ dùng Hỏi Tin (chưa có bản nháp phiên chơi), cập nhật bản nháp ngắn theo chủ đề cho Góc phụ huynh.
+    const asked = askChat.some((m) => m.who === "kid");
+    if (askSessionId && asked && !draft) {
+      api.askEnd(askSessionId).then((d) => {
+        if (d?.note && !get().draft) set({ draft: d });
+      }).catch(() => {});
+    }
   },
 
   setHand(i, role) {

@@ -19,10 +19,10 @@ function Tile({ icon, label, onClick, color, delay }: { icon: ReactNode; label: 
   );
 }
 
-/** Màn hình chính: Tin đứng giữa, nút lớn "Chơi tiếp", các ô Bản đồ / Điện thoại, Sổ tay, Bàn tay tin cậy (6-10), Góc phụ huynh. */
+/** Màn hình chính: Tin đứng giữa, nút lớn "Chơi tiếp", các ô Bản đồ / Điện thoại, Sổ tay, Góc Tò Mò, Bàn tay tin cậy (6-10), Góc phụ huynh. */
 export default function HomeScreen() {
-  const { saved, playOn, openNotebook, openHand, requestLock, setOverlay, busy, sessionId, draft, editProfile, account } = useGame();
-  const openAccount = () => requestLock("account", () => setOverlay("account"));
+  const { saved, playOn, openNotebook, openHand, openAsk, setOverlay, busy, sessionId, draft, editProfile, account } = useGame();
+  const openAccount = () => setOverlay("account");
   const profile = saved.profile!;
   const age = profile.age;
   const p = saved.progress[age];
@@ -60,7 +60,7 @@ export default function HomeScreen() {
             {age === "6-10" ? (back ? "Cậu về rồi!" : "Chào cậu!") : (back ? "Bạn về rồi!" : "Chào bạn!")}
           </p>
           <p className="mt-1 text-[19px] font-bold text-[var(--ink-soft)]">
-            {age === "6-10" ? `Hôm nay tớ với cậu đi cùng ${name} nhé.` : `Hôm nay bạn giúp ${name} một tay nhé.`} · {cards} thẻ · Tin nấc {stage}
+            {age === "6-10" ? `Hôm nay tớ với cậu đi cùng ${name} nhé.` : `Hôm nay bạn giúp ${name} một tay nhé.`}
           </p>
         </motion.div>
       </div>
@@ -70,16 +70,18 @@ export default function HomeScreen() {
           {busy ? "Đang mở…" : sessionId && !draft ? "Chơi tiếp" : "Bắt đầu chơi"}
           <svg viewBox="0 0 24 24" className="h-[44px] w-[44px]" fill="var(--cream)" stroke="var(--ink)" strokeWidth="3" strokeLinejoin="round"><path d="M7 4.5v15l12-7.5z" /></svg>
         </Chunky>
-        <div className={`grid gap-5 ${age === "6-10" ? "grid-cols-2" : "grid-cols-3"}`}>
+        <div className={age === "6-10" ? "flex flex-wrap justify-center gap-5" : "grid grid-cols-2 gap-5"}>
           <Tile delay={0.1} color="var(--mint)" label={age === "6-10" ? "Bản đồ" : "Điện thoại"} onClick={() => void playOn()}
             icon={<Pic src={age === "6-10" ? ui.map610 : ui.phoneFrame} w={age === "6-10" ? 1376 : 672} h={age === "6-10" ? 768 : 900} className="h-[70px] w-[110px] rounded-[10px]" />} />
-          <Tile delay={0.17} color="var(--lilac)" label="Sổ tay" onClick={openNotebook}
+          <Tile delay={0.16} color="var(--lilac)" label="Sổ tay" onClick={openNotebook}
             icon={<Pic src={ui.notebookCover} w={672} h={900} className="h-[78px] w-[60px]" />} />
+          <Tile delay={0.22} color="var(--sky)" label="Góc Tò Mò" onClick={() => void openAsk()}
+            icon={<Pic src={ui.tip} w={512} h={512} className="h-[70px] w-[70px]" />} />
           {age === "6-10" && (
-            <Tile delay={0.24} color="var(--peach)" label="Bàn tay tin cậy" onClick={openHand}
+            <Tile delay={0.28} color="var(--peach)" label="Bàn tay tin cậy" onClick={openHand}
               icon={<span className="text-[60px] leading-none">✋</span>} />
           )}
-          <Tile delay={0.31} color="var(--cream)" label="Góc phụ huynh" onClick={() => requestLock("parent", () => setOverlay("parent"))}
+          <Tile delay={0.34} color="var(--cream)" label="Góc phụ huynh" onClick={() => setOverlay("parent")}
             icon={<Pic src={ui.parent} w={512} h={512} className="h-[70px] w-[70px]" />} />
         </div>
         <p className="flex items-center gap-2 text-[16px] font-bold text-[var(--ink-soft)]">

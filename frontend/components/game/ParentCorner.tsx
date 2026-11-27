@@ -9,7 +9,7 @@ import { Chunky, Modal, Pic } from "./ui";
 
 /** Góc phụ huynh (sau khoá người lớn): bản nháp do AI soạn, chỉ có nút sao chép, không có nút gửi. */
 export default function ParentCorner({ onClose }: { onClose: () => void }) {
-  const { draft, saved, wipeProgress, requestLock } = useGame();
+  const { draft, saved, setOverlay } = useGame();
   const [copied, setCopied] = useState(false);
   const profile = saved.profile;
 
@@ -67,7 +67,7 @@ export default function ParentCorner({ onClose }: { onClose: () => void }) {
             <div className="mt-auto flex flex-col gap-2 rounded-[18px] border-[3px] border-dashed border-[var(--ink)]/30 p-3">
               <p className="text-[15px] font-bold">Hồ sơ: {profile?.age} tuổi · {profile?.gender === "nu" ? "Nữ" : "Nam"}</p>
               <Chunky size="sm" color="var(--sky)" onClick={() => { onClose(); useGame.setState({ phase: "profile" }); }}>Đổi hồ sơ</Chunky>
-              <Chunky size="sm" color="#ffd6cc" onClick={() => requestLock("wipe", wipeProgress)}>Xoá tiến độ</Chunky>
+              <Chunky size="sm" color="#ffd6cc" onClick={() => setOverlay("confirmWipe")}>Xoá tiến độ</Chunky>
             </div>
           </div>
         </div>

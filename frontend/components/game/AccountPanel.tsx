@@ -140,7 +140,7 @@ function Signed() {
 }
 
 export default function AccountPanel() {
-  const { account, setOverlay } = useGame();
+  const { account, authPrompt, setOverlay } = useGame();
   const close = () => {
     sound.play("close");
     setOverlay("");
@@ -152,10 +152,15 @@ export default function AccountPanel() {
           <Pic src={ui.parent} w={512} h={512} className="h-[56px] w-[56px]" />
           <div className="flex-1">
             <h3 className="font-display text-[34px] font-extrabold leading-none">Tài khoản</h3>
-            <p className="mt-1 text-[16px] font-bold text-[var(--ink-soft)]">Lưu bộ thẻ để chơi tiếp trên máy khác</p>
+            <p className="mt-1 text-[16px] font-bold text-[var(--ink-soft)]">Đăng nhập để chơi cùng AI và lưu bộ thẻ qua nhiều máy</p>
           </div>
           <Chunky size="sm" color="var(--cream)" onClick={close}>Đóng</Chunky>
         </div>
+        {!account && authPrompt && (
+          <div className="rounded-[18px] border-2 border-[var(--sky-deep)]/40 bg-[var(--sky)]/30 px-4 py-3 text-center text-[17px] font-bold text-[var(--ink)]">
+            {authPrompt}
+          </div>
+        )}
         {account ? <Signed /> : <AuthForm />}
       </div>
     </Modal>

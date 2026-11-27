@@ -1,0 +1,468 @@
+[
+  {
+    "id": "co_the_ten_dung",
+    "age_groups": ["6-10", "11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Bảo vệ và chăm sóc vùng riêng tư",
+    "keywords": ["tên gọi", "bộ phận", "vùng kín", "đồ bơi", "dương vật", "âm hộ", "ngực", "mông", "gọi là gì", "chỗ kín", "ngại gọi"],
+    "key_points": {
+      "6-10": [
+        "Trên cơ thể cậu có những chỗ được quần áo và đồ bơi che kín, gọi là vùng riêng tư.",
+        "Vùng riêng tư rất quý giá nên cậu cần giữ kín, giữ sạch sẽ và không để ai tự ý chạm vào.",
+        "Nếu có chỗ nào bị đau, ngứa hay làm cậu không thoải mái, cậu cứ nói thẳng với mẹ, bố hoặc bác sĩ để được giúp nhé."
+      ],
+      "11-15": [
+        "Hiểu đúng các bộ phận cơ thể bằng cách gọi lịch sự, khoa học là điều bình thường, không có gì đáng ngại.",
+        "Biết cách nói rõ ràng giúp bạn tự chăm sóc sức khỏe và trao đổi dễ dàng với bố mẹ, cô y tế hoặc bác sĩ khi cần."
+      ]
+    },
+    "ceiling": {
+      "6-10": "Chỉ dùng từ 'vùng riêng tư', 'chỗ đồ bơi che'. KHÔNG dùng từ giải phẫu trực diện (dương vật, âm hộ, tử cung...). Nếu trẻ hỏi tên cụ thể, hẹn trẻ hỏi mẹ hoặc bố.",
+      "11-15": "Giải thích chừng mực ở mức tôn trọng cơ thể và chăm sóc sức khỏe. Không mô tả hành vi tình dục."
+    },
+    "avoid_terms": ["từ lóng thô tục", "từ giải phẫu trực diện với 6-10", "mô tả hành vi tình dục"],
+    "fallback_answer": {
+      "6-10": "Những chỗ được đồ bơi che kín chính là vùng riêng tư của riêng cậu đấy. Giống như một kho báu nhỏ, cậu luôn giữ kín, giữ sạch và không để ai tự ý chạm vào là cách tự bảo vệ mình rất giỏi rồi.",
+      "11-15": "Hiểu đúng và gọi tên lịch sự, khoa học cho các bộ phận cơ thể là chuyện hoàn toàn bình thường. Khi hiểu rõ cơ thể mình, bạn sẽ tự tin hơn trong việc chăm sóc sức khỏe và bảo vệ ranh giới cá nhân mỗi ngày."
+    },
+    "over_ceiling_answer": {
+      "6-10": "Câu hỏi này hay lắm. Phần chi tiết hơn mẹ hoặc bố giải thích cho cậu sẽ dễ hiểu hơn tớ nhiều, tối nay cậu hỏi mẹ nhé.",
+      "11-15": "Phần này sâu hơn kiến thức trong trò chơi. Bạn hãy hỏi thêm bố mẹ, thầy cô sinh học hoặc bác sĩ để được giải thích rõ nhất nhé."
+    },
+    "starter_questions": {
+      "6-10": ["Vùng đồ bơi là chỗ nào?"],
+      "11-15": ["Chăm sóc vùng riêng tư thế nào?"]
+    },
+    "follow_ups": {
+      "6-10": ["Không thích ôm hôn có sao không?", "Giữ người sạch sẽ thế nào?"],
+      "11-15": ["Dậy thì bắt đầu khi nào?", "Thế nào là tôn trọng ranh giới?"]
+    },
+    "rule_ids": ["R01", "R06"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education; NSPCC Talk PANTS."
+  },
+  {
+    "id": "khac_biet_nam_nu",
+    "age_groups": ["6-10", "11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Sự khác nhau giữa bạn nam và bạn nữ",
+    "keywords": ["khác nhau", "bạn nam", "bạn nữ", "con trai", "con gái", "không giống", "giới tính", "tại sao bạn nam", "tại sao bạn nữ"],
+    "key_points": {
+      "6-10": [
+        "Bạn nam và bạn nữ giống nhau ở rất nhiều chỗ như mắt, mũi, tay, chân và trái tim.",
+        "Chỉ có vùng riêng tư được đồ bơi che kín là khác nhau một chút giữa bạn nam và bạn nữ.",
+        "Dù là bạn nam hay bạn nữ thì cơ thể ai cũng quý giá, đáng được tôn trọng và cần giữ riêng tư như nhau."
+      ],
+      "11-15": [
+        "Ngoài khác biệt tự nhiên của cơ thể từ nhỏ, khi bước vào tuổi dậy thì bạn nam và bạn nữ sẽ có những thay đổi riêng theo sinh học.",
+        "Cả hai giới đều có quyền được tôn trọng ranh giới cơ thể như nhau và có thể yêu thích bất kỳ sở thích lành mạnh nào."
+      ]
+    },
+    "ceiling": {
+      "6-10": "Chỉ nói nhẹ nhàng là giống nhau hầu hết, chỉ khác ở vùng riêng tư (chỗ đồ bơi che) và ai cũng đáng tôn trọng. TUYỆT ĐỐI KHÔNG nhắc tên giải phẫu trực diện.",
+      "11-15": "Nêu khác biệt phát triển tự nhiên và bình đẳng tôn trọng giữa hai giới. Không mô tả hoạt động tình dục."
+    },
+    "avoid_terms": ["định kiến giới", "từ giải phẫu trực diện với 6-10", "mô tả hành vi tình dục"],
+    "fallback_answer": {
+      "6-10": "Bạn nam và bạn nữ giống nhau ở hầu hết mọi chỗ như mắt, mũi, tay, chân và đều thích vui chơi như nhau. Chỉ có vùng riêng tư chỗ đồ bơi che là hơi khác nhau một chút thôi, và cơ thể bạn nào cũng quý giá như nhau cả.",
+      "11-15": "Cơ thể bạn nam và bạn nữ có những khác biệt sinh học tự nhiên, nhất là khi bước vào tuổi dậy thì. Dù khác nhau ở một vài đặc điểm phát triển, cả hai giới đều có quyền được tôn trọng ranh giới cơ thể và tự do theo đuổi sở thích lành mạnh như nhau."
+    },
+    "over_ceiling_answer": {
+      "6-10": "Cậu tò mò rất tự nhiên đấy. Phần chi tiết hơn bố mẹ giải thích cho cậu sẽ rõ hơn tớ, cậu hỏi mẹ hoặc bố nhé.",
+      "11-15": "Phần này vượt quá phạm vi trong game. Bạn hãy hỏi thêm bố mẹ, thầy cô sinh học hoặc cô y tế trường để hiểu đúng và đầy đủ nhé."
+    },
+    "starter_questions": {
+      "6-10": ["Sao bạn nam khác bạn nữ?"],
+      "11-15": ["Nam và nữ lớn lên khác nhau sao?"]
+    },
+    "follow_ups": {
+      "6-10": ["Vùng đồ bơi là chỗ nào?", "Em bé lớn lên ở đâu?"],
+      "11-15": ["Dậy thì bắt đầu khi nào?", "Thế nào là tôn trọng ranh giới?"]
+    },
+    "rule_ids": ["R01", "R02", "R06"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education."
+  },
+  {
+    "id": "em_be_tu_dau",
+    "age_groups": ["6-10", "11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Em bé lớn lên từ đâu",
+    "keywords": ["em bé", "từ đâu ra", "sinh ra", "đẻ ra", "bụng mẹ", "có bầu", "mang thai", "thụ tinh", "tế bào", "chui ra"],
+    "key_points": {
+      "6-10": [
+        "Em bé không phải nhặt về đâu, mà lớn lên ngay trong một chỗ rất ấm áp và an toàn ở trong bụng mẹ.",
+        "Em bé bắt đầu từ một hạt mầm tí hon có phần của bố và phần của mẹ.",
+        "Em bé ở trong bụng mẹ khoảng chín tháng để lớn khỏe rồi được bác sĩ giúp chào đời."
+      ],
+      "11-15": [
+        "Em bé hình thành từ quá trình thụ tinh giữa tế bào trứng của mẹ và tinh trùng của bố.",
+        "Sau đó phôi thai lớn dần trong tử cung của mẹ khoảng chín tháng trước khi chào đời với sự chăm sóc của bác sĩ."
+      ]
+    },
+    "ceiling": {
+      "6-10": "Dừng ở 'bắt đầu từ hạt mầm tí hon của bố và mẹ, lớn lên ấm áp trong bụng mẹ khoảng 9 tháng'. TUYỆT ĐỐI KHÔNG dùng từ giải phẫu hay giải thích cách tạo em bé.",
+      "11-15": "Dừng ở khái niệm sinh học cơ bản (trứng, tinh trùng, thụ tinh, 9 tháng trong tử cung). KHÔNG mô tả hành vi quan hệ tình dục hay hướng dẫn tránh thai."
+    },
+    "avoid_terms": ["quan hệ tình dục chi tiết", "nhặt ở bệnh viện", "nhặt ở thùng rác", "chim cò mang tới"],
+    "fallback_answer": {
+      "6-10": "Em bé lớn lên ngay trong một chỗ thật ấm áp và an toàn ở trong bụng mẹ đấy! Bắt đầu từ một hạt mầm tí hon có phần của bố và mẹ, em bé nằm trong bụng mẹ khoảng chín tháng cho thật khỏe rồi mới chào đời.",
+      "11-15": "Em bé hình thành khi tế bào trứng của mẹ kết hợp với tinh trùng của bố qua quá trình thụ tinh. Từ đó phôi thai lớn dần trong tử cung khoảng chín tháng để phát triển đầy đủ trước khi chào đời."
+    },
+    "over_ceiling_answer": {
+      "6-10": "Câu hỏi hay đấy. Phần này bố mẹ kể cho cậu sẽ dễ hiểu hơn tớ nhiều. Tối nay cậu hỏi mẹ hoặc bố thử nhé.",
+      "11-15": "Câu hỏi này sâu hơn phần kiến thức trong trò chơi. Bạn nên hỏi trực tiếp bố mẹ, cô y tế trường hoặc thầy cô sinh học để được giải thích rõ ràng nhé."
+    },
+    "starter_questions": {
+      "6-10": ["Em bé lớn lên ở đâu?"],
+      "11-15": ["Em bé hình thành thế nào?"]
+    },
+    "follow_ups": {
+      "6-10": ["Vùng đồ bơi là chỗ nào?", "Giữ người sạch sẽ thế nào?"],
+      "11-15": ["Dậy thì bắt đầu khi nào?", "Cảm xúc thay đổi có sao không?"]
+    },
+    "rule_ids": ["R06"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education."
+  },
+  {
+    "id": "vung_rieng_tu_dong_thuan",
+    "age_groups": ["6-10", "11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Vùng riêng tư và quyền nói không",
+    "keywords": ["vùng riêng tư", "đồ bơi", "ôm", "hôn", "chạm", "đồng ý", "đồng thuận", "bác sĩ khám", "thay đồ", "buồng thay đồ", "bí mật"],
+    "key_points": {
+      "6-10": [
+        "Chỗ đồ bơi che kín và miệng là vùng riêng tư của riêng cậu.",
+        "Không ai được tự ý nhìn hay chạm vào vùng riêng tư, trừ khi bố mẹ giúp tắm hoặc bác sĩ khám khi có bố mẹ ngồi cạnh.",
+        "Kể cả cái ôm hay hôn má từ người quen, nếu cậu thấy ngại thì cậu cứ nói không và vẫy tay chào là được, cậu không hề hư đâu."
+      ],
+      "11-15": [
+        "Cơ thể của bạn thuộc về bạn, mọi sự gần gũi đều cần sự đồng ý thật sự tự nguyện và bạn có quyền đổi ý bất cứ lúc nào.",
+        "Người thân hay người mình thích cũng phải tôn trọng ranh giới cơ thể và không được ép bạn làm điều bạn không thoải mái.",
+        "Nếu ai đó cố vượt qua ranh giới dù bạn đã từ chối, hãy rời đi và kể với bố mẹ, thầy cô hoặc người lớn bạn tin."
+      ]
+    },
+    "ceiling": {
+      "6-10": "Giữ ở mức vùng đồ bơi, ngoại lệ bố mẹ/bác sĩ và quyền từ chối ôm hôn. Không mô tả hành vi xâm hại.",
+      "11-15": "Nói về sự đồng ý và ranh giới cá nhân trong giao tiếp hằng ngày. Không mô tả chi tiết hành vi tình dục."
+    },
+    "avoid_terms": ["tả chi tiết hành vi xâm hại", "đổ lỗi cho trẻ"],
+    "fallback_answer": {
+      "6-10": "Vùng đồ bơi che là vùng riêng tư của cậu. Không ai được chạm vào đó, trừ bố mẹ giúp tắm hoặc bác sĩ khám khi có bố mẹ ở bên. Nếu cậu không thích bị ôm hay hôn má, cậu cứ lịch sự nói không và vẫy tay chào nhé.",
+      "11-15": "Cơ thể bạn thuộc về bạn nên mọi cử chỉ gần gũi đều cần sự đồng ý tự nguyện từ bạn. Kể cả với người thân hay bạn bè, bạn luôn có quyền nói không khi thấy không thoải mái. Nếu có ai cố ép bạn, hãy rời đi và kể cho bố mẹ hoặc thầy cô nghe nhé."
+    },
+    "over_ceiling_answer": {
+      "6-10": "Chuyện này cậu hỏi thêm mẹ, bố hoặc cô giáo để người lớn giải thích kỹ hơn cho cậu nhé.",
+      "11-15": "Phần này sâu hơn kiến thức trong game. Bạn hãy trao đổi thêm với bố mẹ, thầy cô hoặc cô y tế trường để hiểu rõ hơn nhé."
+    },
+    "starter_questions": {
+      "6-10": ["Không thích ôm hôn có sao không?"],
+      "11-15": ["Thế nào là tôn trọng ranh giới?"]
+    },
+    "follow_ups": {
+      "6-10": ["Bị bạn trêu thì làm sao?", "Vùng đồ bơi là chỗ nào?"],
+      "11-15": ["Bị ép gửi ảnh thì làm sao?", "Cảm nắng bạn cùng lớp có sao không?"]
+    },
+    "rule_ids": ["R01", "R02", "R03", "R04"],
+    "source": "Council of Europe Underwear Rule; NSPCC Talk PANTS; UNESCO (2018)."
+  },
+  {
+    "id": "ve_sinh_co_the",
+    "age_groups": ["6-10", "11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Giữ vệ sinh và chăm sóc cơ thể",
+    "keywords": ["vệ sinh", "tắm", "rửa", "sạch sẽ", "đồ lót", "quần lót", "mùi cơ thể", "mồ hôi", "mụn", "chăm sóc"],
+    "key_points": {
+      "6-10": [
+        "Mỗi ngày cậu tắm rửa sạch sẽ bằng nước sạch và thay đồ lót mới để người luôn thơm tho, khỏe mạnh.",
+        "Khi tắm cậu tự rửa nhẹ nhàng vùng riêng tư, không dùng chung khăn tắm hay đồ lót với người khác.",
+        "Nếu thấy ngứa hay đau ở đâu, cậu báo ngay với mẹ hoặc bố để được kiểm tra sớm nhé."
+      ],
+      "11-15": [
+        "Tuổi dậy thì tuyến mồ hôi và da hoạt động mạnh hơn nên dễ có mùi cơ thể và mụn, đây là chuyện rất bình thường.",
+        "Cần tắm rửa hằng ngày, thay đồ lót sạch mỗi ngày, rửa mặt nhẹ nhàng và không tự nặn mụn hay tự bôi thuốc không rõ nguồn gốc.",
+        "Nếu cơ thể có dấu hiệu bất thường như ngứa hay đau kéo dài, hãy báo bố mẹ hoặc cô y tế để đi khám bác sĩ."
+      ]
+    },
+    "ceiling": {
+      "6-10": "Chỉ hướng dẫn thói quen sạch sẽ cơ bản. Không chẩn đoán bệnh hay gợi ý tên thuốc.",
+      "11-15": "Hướng dẫn vệ sinh cơ bản tuổi dậy thì. KHÔNG chẩn đoán bệnh, KHÔNG gợi ý tên thuốc hay sản phẩm cụ thể."
+    },
+    "avoid_terms": ["tên thuốc", "chẩn đoán bệnh", "kê đơn"],
+    "fallback_answer": {
+      "6-10": "Mỗi ngày cậu tắm rửa sạch sẽ và thay đồ lót mới để cơ thể luôn khỏe mạnh nhé. Khi tắm cậu tự rửa nhẹ nhàng bằng nước sạch, không dùng chung khăn với người khác. Nếu thấy ngứa hay đau thì cậu nói ngay với mẹ hoặc bố nhé.",
+      "11-15": "Khi lớn lên cơ thể tiết nhiều mồ hôi hơn nên tắm rửa hằng ngày, thay đồ lót sạch và rửa mặt nhẹ nhàng rất quan trọng. Nếu có mụn nhiều hay dấu hiệu khó chịu bất thường, bạn đừng tự dùng thuốc mà hãy nói với bố mẹ hoặc bác sĩ để được kiểm tra đúng cách nhé."
+    },
+    "over_ceiling_answer": {
+      "6-10": "Chuyện khám hay dùng thuốc thì tớ không trả lời được. Cậu nói với mẹ, bố hoặc bác sĩ để kiểm tra cho chắc nhé.",
+      "11-15": "Mình không thể chẩn đoán hay gợi ý thuốc được. Nếu cơ thể có dấu hiệu bất thường, bạn hãy nói với bố mẹ, cô y tế trường hoặc đi khám bác sĩ nhé."
+    },
+    "starter_questions": {
+      "6-10": ["Giữ người sạch sẽ thế nào?"],
+      "11-15": ["Tuổi dậy thì bị mụn làm sao?"]
+    },
+    "follow_ups": {
+      "6-10": ["Vùng đồ bơi là chỗ nào?", "Lớn lên người mình có đổi không?"],
+      "11-15": ["Dậy thì bắt đầu khi nào?", "Tự ti ngoại hình thì sao?"]
+    },
+    "rule_ids": ["R01", "R06"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education."
+  },
+  {
+    "id": "cam_xuc_ranh_gioi",
+    "age_groups": ["6-10", "11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Cảm xúc, bạn bè và tìm người giúp",
+    "keywords": ["cảm xúc", "sợ", "ngại", "buồn", "khó chịu", "tức giận", "bị trêu", "bắt nạt", "bạn bè", "nói với ai", "gia đình"],
+    "key_points": {
+      "6-10": [
+        "Ai cũng có lúc vui, buồn, ngại hay sợ. Thấy khó chịu khi bị bạn trêu không phải là lỗi của cậu.",
+        "Khi thấy trong lòng bất an hay không thoải mái, cậu có quyền bảo bạn dừng lại và đi ra chỗ khác.",
+        "Cậu luôn có thể kể với mẹ, bố, cô giáo hoặc người lớn trong Bàn tay tin cậy của cậu."
+      ],
+      "11-15": [
+        "Cảm xúc lên xuống thất thường ở tuổi mới lớn là điều bình thường do cả thay đổi cơ thể lẫn áp lực học tập, bạn bè.",
+        "Tình bạn lành mạnh dựa trên sự tôn trọng, không trêu chọc cơ thể nhau và không ép nhau làm điều mình không muốn.",
+        "Khi thấy quá tải, bị trêu chọc hay bối rối, chia sẻ với bố mẹ, thầy cô hoặc chuyên viên tâm lý trường sẽ giúp bạn nhẹ lòng hơn."
+      ]
+    },
+    "ceiling": {
+      "6-10": "Nhận diện cảm xúc cơ bản và biết tìm người lớn tin cậy. Không trị liệu tâm lý.",
+      "11-15": "Bình thường hóa cảm xúc tuổi teen và tình bạn tôn trọng. Không chẩn đoán bệnh tâm lý."
+    },
+    "avoid_terms": ["chẩn đoán trầm cảm", "thuốc tâm lý"],
+    "fallback_answer": {
+      "6-10": "Ai cũng có lúc buồn, ngại hay lo lắng cả, chuyện đó hoàn toàn bình thường. Nếu có bạn trêu làm cậu thấy khó chịu, cậu cứ bảo bạn dừng lại. Đừng giữ một mình, cậu kể với mẹ, bố hoặc cô giáo nhé.",
+      "11-15": "Cảm xúc thay đổi nhanh ở tuổi này là chuyện rất bình thường. Bạn bè tốt sẽ tôn trọng ranh giới của nhau chứ không đem cơ thể hay bí mật của bạn ra trêu đùa. Khi thấy bối rối hay buồn nhiều, bạn hãy chia sẻ với bố mẹ, thầy cô hoặc người lớn bạn tin nhé."
+    },
+    "over_ceiling_answer": {
+      "6-10": "Nếu cậu đang thấy buồn hay sợ nhiều quá, cậu kể ngay với mẹ, bố hoặc cô giáo để người lớn giúp cậu nhé.",
+      "11-15": "Nếu cảm xúc tiêu cực kéo dài làm bạn rất mệt, bạn đừng tự chịu một mình mà hãy nói với bố mẹ, thầy cô hoặc bác sĩ tâm lý nhé."
+    },
+    "starter_questions": {
+      "6-10": ["Bị bạn trêu thì làm sao?"],
+      "11-15": ["Cảm xúc thay đổi có sao không?"]
+    },
+    "follow_ups": {
+      "6-10": ["Không thích ôm hôn có sao không?", "Vùng đồ bơi là chỗ nào?"],
+      "11-15": ["Cảm nắng bạn cùng lớp có sao không?", "Tự ti ngoại hình thì sao?"]
+    },
+    "rule_ids": ["R02", "R05", "R09"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education."
+  },
+  {
+    "id": "day_thi_chung",
+    "age_groups": ["6-10", "11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Dậy thì và cơ thể lớn lên",
+    "keywords": ["dậy thì", "lớn lên", "thay đổi cơ thể", "mọc lông", "cao lên", "hormone", "mấy tuổi dậy thì"],
+    "key_points": {
+      "6-10": [
+        "Khi lớn thêm vài tuổi nữa, cơ thể ai cũng sẽ cao nhanh hơn và thay đổi dần để trở thành người lớn.",
+        "Đó là chuyện rất tự nhiên và khỏe mạnh, mỗi bạn lớn nhanh chậm khác nhau, không ai giống hệt ai.",
+        "Khi nào thấy cơ thể mình có điều gì lạ hay tò mò, cậu cứ hỏi mẹ hoặc bố nhé."
+      ],
+      "11-15": [
+        "Dậy thì là giai đoạn cơ thể chuyển từ trẻ em sang người trưởng thành, thường bắt đầu khoảng từ 9 đến 14 tuổi, mỗi người mỗi thời điểm khác nhau.",
+        "Cả nam và nữ đều cao nhanh hơn, mọc lông cơ thể, da dễ nhờn có mụn và cảm xúc nhạy cảm hơn.",
+        "Hiểu về dậy thì của cả hai giới giúp các bạn tôn trọng nhau hơn và không trêu chọc những thay đổi tự nhiên của bạn bè."
+      ]
+    },
+    "ceiling": {
+      "6-10": "Chỉ nói ngắn gọn là cơ thể sẽ cao lớn và thay đổi dần khi lớn hơn. KHÔNG nhắc kinh nguyệt, mộng tinh hay chi tiết sinh sản.",
+      "11-15": "Giải thích khái niệm dậy thì lành mạnh, tự nhiên cho cả hai giới. Không chẩn đoán rối loạn dậy thì."
+    },
+    "avoid_terms": ["dọa nạt", "so sánh xấu đẹp"],
+    "fallback_answer": {
+      "6-10": "Khi lớn thêm vài tuổi, cơ thể cậu sẽ cao vụt lên và thay đổi dần để trở thành người lớn đấy. Giống như mỗi bông hoa nở vào một lúc khác nhau, mỗi bạn cũng sẽ lớn nhanh theo nhịp riêng của mình, hoàn toàn tự nhiên thôi.",
+      "11-15": "Dậy thì là giai đoạn cơ thể chuyển từ trẻ em sang người trưởng thành, thường rơi vào khoảng 9 đến 14 tuổi tùy từng người. Cơ thể sẽ cao nhanh hơn, da dễ có mụn và cảm xúc nhạy cảm hơn, tất cả đều là dấu hiệu cho thấy bạn đang phát triển khỏe mạnh."
+    },
+    "over_ceiling_answer": {
+      "6-10": "Phần chi tiết hơn về lúc lớn lên bố mẹ kể cho cậu sẽ dễ hiểu hơn tớ. Cậu hỏi mẹ hoặc bố nhé.",
+      "11-15": "Nếu bạn lo lắng cơ thể mình phát triển sớm hay muộn bất thường, hãy nói với bố mẹ hoặc đi khám bác sĩ để yên tâm nhất nhé."
+    },
+    "starter_questions": {
+      "6-10": ["Lớn lên người mình có đổi không?"],
+      "11-15": ["Dậy thì bắt đầu khi nào?"]
+    },
+    "follow_ups": {
+      "6-10": ["Sao bạn nam khác bạn nữ?", "Giữ người sạch sẽ thế nào?"],
+      "11-15": ["Kinh nguyệt cần lưu ý gì?", "Vỡ giọng có bình thường không?"]
+    },
+    "rule_ids": ["R02", "R06"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education."
+  },
+  {
+    "id": "day_thi_nu",
+    "age_groups": ["11-15"],
+    "genders": ["nam", "nu"],
+    "prefer_gender": "nu",
+    "duyet": true,
+    "title": "Dậy thì ở bạn nữ: kinh nguyệt và phát triển ngực",
+    "keywords": ["kinh nguyệt", "đến tháng", "tới tháng", "rụng dâu", "băng vệ sinh", "ngực phát triển", "áo lót", "đau bụng kinh", "hành kinh"],
+    "key_points": {
+      "11-15": [
+        "Kinh nguyệt là hiện tượng sinh lý bình thường hằng tháng (thường 3 đến 7 ngày), cho thấy cơ thể bạn nữ đang trưởng thành khỏe mạnh.",
+        "Ngực phát triển dần và có thể hơi tức nhẹ là bình thường, chọn áo lót mềm vừa vặn sẽ giúp thoải mái hơn.",
+        "Ngày có kinh nguyệt cần thay băng vệ sinh đều đặn khoảng 4 giờ một lần và giữ sạch sẽ; nếu hơi đau bụng hay mỏi lưng, chườm ấm và nghỉ ngơi thường giúp dễ chịu hơn.",
+        "Nếu đau nhiều đến mức ảnh hưởng việc học hoặc chu kỳ quá bất thường, hãy báo mẹ, cô y tế trường hoặc bác sĩ. Cả bạn nam cũng nên hiểu để tôn trọng, không bao giờ trêu chọc."
+      ]
+    },
+    "ceiling": {
+      "11-15": "Giải thích sinh lý bình thường, cách giữ vệ sinh, chườm ấm và tôn trọng. KHÔNG gợi ý tên thuốc giảm đau, KHÔNG chẩn đoán bệnh phụ khoa."
+    },
+    "avoid_terms": ["tên thuốc giảm đau", "bẩn", "xui xẻo", "đáng xấu hổ"],
+    "fallback_answer": {
+      "11-15": "Kinh nguyệt và ngực phát triển là những thay đổi rất bình thường, khỏe mạnh của bạn nữ khi dậy thì. Ngày có kinh nguyệt có thể hơi đau bụng hoặc mỏi người, nghỉ ngơi, uống nước ấm, chườm ấm và thay băng vệ sinh đều đặn sẽ giúp dễ chịu hơn. Nếu đau nhiều hoặc có gì lo lắng, bạn hãy nói với mẹ hoặc cô y tế trường nhé."
+    },
+    "over_ceiling_answer": {
+      "11-15": "Mình không thể chẩn đoán hay gợi ý thuốc được. Nếu bạn bị đau bụng kinh nặng hoặc chu kỳ bất thường, hãy trao đổi với mẹ, cô y tế trường hoặc bác sĩ nhé."
+    },
+    "starter_questions": {
+      "11-15": ["Kinh nguyệt cần lưu ý gì?"]
+    },
+    "follow_ups": {
+      "11-15": ["Vỡ giọng có bình thường không?", "Tự ti ngoại hình thì sao?"]
+    },
+    "rule_ids": ["R02", "R06"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education."
+  },
+  {
+    "id": "day_thi_nam",
+    "age_groups": ["11-15"],
+    "genders": ["nam", "nu"],
+    "prefer_gender": "nam",
+    "duyet": true,
+    "title": "Dậy thì ở bạn nam: vỡ giọng và mộng tinh",
+    "keywords": ["mộng tinh", "vỡ giọng", "giọng ồm", "xuất tinh khi ngủ", "giấc mơ ướt", "yết hầu", "râu", "vai rộng", "dậy thì nam"],
+    "key_points": {
+      "11-15": [
+        "Khi dậy thì, thanh quản bạn nam phát triển nên giọng nói có lúc bị khàn hoặc ồm trước khi trầm ổn định, gọi là vỡ giọng.",
+        "Mộng tinh là hiện tượng sinh lý tự nhiên xảy ra lúc ngủ ở tuổi dậy thì, không phải bệnh và không phải lỗi của bạn.",
+        "Khi gặp mộng tinh chỉ cần bình tĩnh tắm rửa sạch sẽ và thay đồ. Cả bạn nữ hiểu về điều này cũng giúp các bạn tôn trọng lẫn nhau hơn."
+      ]
+    },
+    "ceiling": {
+      "11-15": "Bình thường hóa vỡ giọng và mộng tinh một cách khoa học, ngắn gọn. Không mô tả chi tiết hành vi tình dục hay hướng dẫn thủ dâm."
+    },
+    "avoid_terms": ["hư hỏng", "tội lỗi", "mô tả hành vi tình dục"],
+    "fallback_answer": {
+      "11-15": "Vỡ giọng và mộng tinh đều là dấu hiệu bình thường khi cơ thể bạn nam đang lớn lên ở tuổi dậy thì. Mộng tinh là chuyện tự nhiên xảy ra lúc ngủ, không phải bệnh và không có gì đáng ngại, bạn chỉ cần tắm rửa sạch sẽ và thay đồ là được. Nếu còn băn khoăn gì, bạn có thể hỏi thêm bố, mẹ hoặc cô y tế trường nhé."
+    },
+    "over_ceiling_answer": {
+      "11-15": "Phần câu hỏi này sâu hơn phạm vi trong trò chơi. Bạn có thể hỏi trực tiếp bố, mẹ, thầy cô sinh học hoặc bác sĩ để được giải đáp đúng và đầy đủ nhé."
+    },
+    "starter_questions": {
+      "11-15": ["Vỡ giọng có bình thường không?"]
+    },
+    "follow_ups": {
+      "11-15": ["Kinh nguyệt cần lưu ý gì?", "Tuổi dậy thì bị mụn làm sao?"]
+    },
+    "rule_ids": ["R02", "R06"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education."
+  },
+  {
+    "id": "cam_nang_tinh_ban",
+    "age_groups": ["11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Cảm nắng và tôn trọng nhau",
+    "keywords": ["cảm nắng", "thích bạn", "thích ai đó", "crush", "yêu", "người yêu", "tỏ tình", "hẹn hò", "chia tay", "áp lực tình cảm"],
+    "key_points": {
+      "11-15": [
+        "Cảm nắng hay thích một bạn nào đó ở tuổi 11-15 là cảm xúc hoàn toàn tự nhiên, không có gì sai hay đáng xấu hổ.",
+        "Thích nhau thật sự nghĩa là tôn trọng ranh giới, tôn trọng câu trả lời không của đối phương và cùng nhau tiến bộ.",
+        "Không ai được dùng lý do 'nếu thương thì phải làm' để ép bạn gửi ảnh riêng tư hay làm điều bạn chưa sẵn sàng."
+      ]
+    },
+    "ceiling": {
+      "11-15": "Tập trung vào cảm xúc lành mạnh, tôn trọng ranh giới và nhận diện áp lực tình cảm. Không cổ vũ hay mô tả quan hệ tình dục."
+    },
+    "avoid_terms": ["mô tả quan hệ tình dục", "cấm đoán nặng lời"],
+    "fallback_answer": {
+      "11-15": "Cảm nắng hay thích một bạn ở tuổi này là cảm xúc hoàn toàn tự nhiên, chứng tỏ bạn đang lớn lên đấy. Điều đẹp nhất khi thích ai đó là hai người biết tôn trọng nhau, lắng nghe và không bao giờ ép đối phương làm điều khiến họ ngại hay lo lắng."
+    },
+    "over_ceiling_answer": {
+      "11-15": "Chuyện tình cảm sâu hơn cần người lớn hiểu bạn ở bên lắng nghe. Bạn hãy thử trò chuyện với bố mẹ, anh chị hoặc thầy cô bạn tin tưởng nhé."
+    },
+    "starter_questions": {
+      "11-15": ["Cảm nắng bạn cùng lớp có sao không?"]
+    },
+    "follow_ups": {
+      "11-15": ["Thế nào là tôn trọng ranh giới?", "Bị ép gửi ảnh thì làm sao?"]
+    },
+    "rule_ids": ["R02", "R11"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education."
+  },
+  {
+    "id": "hinh_anh_co_the",
+    "age_groups": ["11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Hình ảnh cơ thể và không tự ti ngoại hình",
+    "keywords": ["ngoại hình", "xấu", "béo", "mập", "gầy", "lùn", "tự ti", "so sánh", "body shaming", "chê ngoại hình", "mạng xã hội"],
+    "key_points": {
+      "11-15": [
+        "Mỗi cơ thể lớn lên theo tốc độ và dáng vóc riêng, không có một khuôn mẫu duy nhất nào cho vẻ đẹp.",
+        "Hình ảnh trên mạng xã hội thường đã qua chỉnh sửa và chọn góc chụp, nên đừng lấy đó để tự chê bai bản thân.",
+        "Chê bai ngoại hình người khác là không tôn trọng; điều quan trọng nhất là cơ thể khỏe mạnh, ăn ngủ đủ và vận động đều."
+      ]
+    },
+    "ceiling": {
+      "11-15": "Khuyến khích yêu thương cơ thể khỏe mạnh và tỉnh táo trước ảnh mạng. Không tư vấn giảm cân cực đoan hay phẫu thuật thẩm mỹ."
+    },
+    "avoid_terms": ["nhịn ăn", "thuốc giảm cân", "phẫu thuật thẩm mỹ"],
+    "fallback_answer": {
+      "11-15": "Ở tuổi dậy thì cơ thể thay đổi nhanh nên rất nhiều bạn từng thấy tự ti khi lướt mạng xã hội. Thật ra ảnh trên mạng thường đã qua chỉnh sửa và chọn góc kỹ lắm, còn ngoài đời mỗi người đều có dáng vóc và nét riêng, quan trọng nhất vẫn là cơ thể khỏe mạnh và vui vẻ."
+    },
+    "over_ceiling_answer": {
+      "11-15": "Nếu bạn đang thấy rất áp lực về cân nặng hay ngoại hình, đừng tự nhịn ăn mà hãy nói với bố mẹ hoặc bác sĩ dinh dưỡng để được hướng dẫn an toàn nhé."
+    },
+    "starter_questions": {
+      "11-15": ["Tự ti ngoại hình thì sao?"]
+    },
+    "follow_ups": {
+      "11-15": ["Dậy thì bắt đầu khi nào?", "Cảm xúc thay đổi có sao không?"]
+    },
+    "rule_ids": ["R02", "R09"],
+    "source": "UNESCO (2018), International technical guidance on sexuality education."
+  },
+  {
+    "id": "an_toan_anh_mang",
+    "age_groups": ["11-15"],
+    "genders": ["nam", "nu"],
+    "duyet": true,
+    "title": "Ảnh riêng tư và an toàn trên mạng",
+    "keywords": ["gửi ảnh", "ảnh nhạy cảm", "chụp lén", "lộ ảnh", "dọa tung ảnh", "người lạ trên mạng", "chặn", "link", "phát tán", "mạng xã hội"],
+    "key_points": {
+      "11-15": [
+        "Không bao giờ gửi ảnh riêng tư hay ảnh không thoải mái cho bất kỳ ai trên mạng, kể cả người quen hay người mình thích, vì ảnh gửi đi sẽ không còn kiểm soát được.",
+        "Nếu bị gạ gửi ảnh hoặc dọa tung ảnh, đó KHÔNG phải lỗi của bạn: tuyệt đối không gửi thêm, không chuyển tiền, hãy chụp màn hình làm bằng chứng, chặn tài khoản đó và báo bố mẹ, thầy cô hoặc gọi 111.",
+        "Nếu thấy ảnh chụp lén bạn khác trong nhóm chat, không chia sẻ tiếp, không hùa vào trêu mà hãy báo người lớn và bảo vệ bạn."
+      ]
+    },
+    "ceiling": {
+      "11-15": "Tập trung vào phòng ngừa, không đổ lỗi nạn nhân, giữ bằng chứng, chặn và tìm người lớn/111. Không mô tả ảnh nhạy cảm."
+    },
+    "avoid_terms": ["mô tả ảnh nhạy cảm", "đổ lỗi nạn nhân", "link web"],
+    "fallback_answer": {
+      "11-15": "Ảnh đã gửi lên mạng rất dễ bị lưu lại hoặc phát tán ngoài ý muốn, nên bạn luôn có quyền từ chối gửi ảnh riêng tư với bất kỳ ai. Nếu lỡ gặp rắc rối hay bị ai đe dọa, bạn không có lỗi gì cả: không gửi thêm, không chuyển tiền, lưu bằng chứng, chặn ngay và kể với bố mẹ, thầy cô hoặc gọi 111 nhé."
+    },
+    "over_ceiling_answer": {
+      "11-15": "Nếu chuyện này đang thật sự xảy ra với bạn hoặc bạn bè, hãy dừng lại và kể ngay với bố mẹ, thầy cô hoặc gọi Tổng đài 111 (miễn phí, 24/7) để được hỗ trợ ngay nhé."
+    },
+    "starter_questions": {
+      "11-15": ["Bị ép gửi ảnh thì làm sao?"]
+    },
+    "follow_ups": {
+      "11-15": ["Thế nào là tôn trọng ranh giới?", "Cảm nắng bạn cùng lớp có sao không?"]
+    },
+    "rule_ids": ["R08", "R09", "R10", "R11"],
+    "source": "UNESCO (2018); Tổng đài quốc gia bảo vệ trẻ em 111."
+  }
+]
