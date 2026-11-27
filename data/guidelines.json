@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "_mo_ta": "Quy tắc chuẩn cho công cụ search_safety_guideline(age_group, query). Nhóm VIẾT LẠI ngắn theo tài liệu công khai, không chép nguyên văn. Mỗi quy tắc có lời nói cho từng nhóm tuổi (6-10: câu ≤25 từ). Xem data/DATA_CARD.md.",
   "phien_ban": "v0.1 · 2026-11-27 · bản đầu CP2",
@@ -149,3 +150,23 @@
     }
   ]
 }
+=======
+[
+  {
+    "code": "G-BIMAT",
+    "title": "Bí mật tốt và bí mật xấu",
+    "rule": "MẪU (Diệp thay bằng nội dung trích từ tài liệu gốc): Bí mật làm con thấy sợ, khó chịu hoặc bị dặn không được kể với bố mẹ là bí mật xấu, con không phải giữ và nên kể ngay cho người lớn con tin tưởng.",
+    "keywords": ["bí mật", "kể", "không được nói", "kẹo", "quà"],
+    "age_groups": ["6-10", "11-15"],
+    "source": "cần ghi link tài liệu UNICEF / UNESCO"
+  },
+  {
+    "code": "G-MANG",
+    "title": "An toàn trên mạng",
+    "rule": "MẪU (Diệp thay bằng nội dung trích từ tài liệu gốc): Không gửi ảnh riêng tư cho bất kỳ ai trên mạng. Gặp người lạ xin ảnh hay hẹn gặp thì chặn, báo cáo tài khoản và kể với người lớn.",
+    "keywords": ["ảnh", "mạng", "tin nhắn", "người lạ", "chặn"],
+    "age_groups": ["11-15"],
+    "source": "cần ghi link tài liệu UNICEF / UNESCO"
+  }
+]
+>>>>>>> a9e711e1a68ec703e58b7f0d6923a63e484d4957
