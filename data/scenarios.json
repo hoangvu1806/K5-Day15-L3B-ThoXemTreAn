@@ -1,0 +1,25 @@
+[
+  {
+    "id": "S-610-01",
+    "age_group": "6-10",
+    "topic": "bí mật xấu",
+    "situation": "MẪU (Diệp thay bằng tình huống thật): Một người quen nói với con: 'Chú cho con kẹo, nhưng đây là bí mật của hai chú cháu, không được kể với bố mẹ nhé.' Con sẽ làm gì?",
+    "key_actions": [
+      {"action": "từ chối giữ bí mật làm mình khó chịu", "keywords": ["không giữ", "không đồng ý", "không nhận", "từ chối"]},
+      {"action": "kể với bố mẹ hoặc người lớn tin tưởng", "keywords": ["kể", "nói với bố", "nói với mẹ", "nói với cô", "bố mẹ"]}
+    ],
+    "source": "tu_viet (mẫu)"
+  },
+  {
+    "id": "S-1115-01",
+    "age_group": "11-15",
+    "topic": "an toàn mạng",
+    "situation": "MẪU (Diệp thay bằng tình huống thật): Một tài khoản lạ trên mạng khen con xinh rồi xin con gửi ảnh riêng tư, hứa sẽ không cho ai xem. Con sẽ làm gì?",
+    "key_actions": [
+      {"action": "không gửi ảnh", "keywords": ["không gửi", "từ chối", "không đưa"]},
+      {"action": "chặn và báo cáo tài khoản", "keywords": ["chặn", "block", "báo cáo", "report"]},
+      {"action": "kể với người lớn tin tưởng", "keywords": ["kể", "nói với", "bố mẹ", "thầy cô"]}
+    ],
+    "source": "tu_viet (mẫu)"
+  }
+]

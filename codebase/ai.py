@@ -1,4 +1,4 @@
-"""Nối model — chỗ DUY NHẤT trong bản chạy thử gọi model AI. NHÓM VIẾT phần gọi model thật.
+"""Nối model — chỗ DUY NHẤT trong bản chạy thử gọi model AI.
 
 Hợp đồng (giữ nguyên để khung đo được token):
     call_model(system: str, user: str) -> dict với 4 khoá
@@ -6,16 +6,15 @@ Hợp đồng (giữ nguyên để khung đo được token):
         "model":      str   tên model đã gọi (để tra giá ở bảng giá model)
         "tokens_in":  int   số token vào, lấy từ trường usage trong phản hồi API — KHÔNG ước lượng
         "tokens_out": int   số token ra, gồm cả token suy luận / suy nghĩ nếu API tính riêng
-    @model_call (từ tracing.py) tự ghi mỗi lần gọi vào trace; agent.py gọi call_model bao nhiêu lần
-    cũng được, khung tự cộng token.
-    Lỗi gọi model (hết lượt, sai key, mất mạng): cứ để exception bay ra — khung ghi lỗi vào cột error.
+    @model_call (từ tracing.py) tự ghi mỗi lần gọi vào trace.
 
-Chế độ giả (mặc định khi .env chưa có MODEL_PROVIDER, hoặc MODEL_PROVIDER=fake):
-    trả một câu giả cố định, model "fake", token 0 — để luồng chạy hết từ trước CP2 (guide bước 3.2).
-    Lượt `run.py eval` / `run.py simulate` chạy bằng model giả KHÔNG được tính.
+GrowSafe gọi model theo hai đường, cả hai đều đi qua @model_call:
+    1. Agent ADK (agent.py) gọi model qua adk_model() → LiteLlm → OpenRouter.
+       Sau mỗi lần model trả lời, callback trong agent.py gọi record_adk_call() để ghi token vào trace.
+    2. call_model() gọi thẳng LiteLLM, dùng cho bước phụ (vd hậu kiểm) và cho chế độ giả.
 
-Nối model thật: điền .env (chép từ .env.example), rồi viết nhánh gọi API ở dưới theo docs/connect-model.md
-(có ví dụ OpenAI, Claude, model chạy trên máy, và cách nối nhà cung cấp khác). Không dán API key vào file này.
+Chế độ giả (MODEL_PROVIDER để trống hoặc =fake): trả câu giả, token 0, không cần cài thư viện nào.
+Không dán API key vào file này — điền ở .env.
 """
 import os
 
@@ -41,16 +40,53 @@ load_env()
 MODEL_PROVIDER = (os.environ.get("MODEL_PROVIDER") or "fake").strip().lower()
 MODEL_NAME = (os.environ.get("MODEL_NAME") or "").strip()
 API_KEY = (os.environ.get("API_KEY") or "").strip()
+TEMPERATURE = float(os.environ.get("MODEL_TEMPERATURE") or 0.3)
+
+
+def is_fake() -> bool:
+    return MODEL_PROVIDER in ("", "fake")
+
+
+def litellm_model_id() -> str:
+    """Mã model theo cách LiteLLM hiểu. OpenRouter cần tiền tố openrouter/ (vd openrouter/<hãng>/<model>)."""
+    if not MODEL_NAME:
+        raise RuntimeError("Chưa điền MODEL_NAME trong .env")
+    if MODEL_PROVIDER == "openrouter" and not MODEL_NAME.startswith("openrouter/"):
+        return "openrouter/" + MODEL_NAME
+    return MODEL_NAME
+
+
+def adk_model():
+    """Model cho agent ADK: bọc LiteLLM để gọi OpenRouter."""
+    from google.adk.models.lite_llm import LiteLlm
+    if not API_KEY:
+        raise RuntimeError("Chưa điền API_KEY trong .env")
+    return LiteLlm(model=litellm_model_id(), api_key=API_KEY, temperature=TEMPERATURE)
+
+
+@model_call
+def record_adk_call(model: str, text: str, tokens_in: int, tokens_out: int) -> dict:
+    """Ghi một lần gọi model do ADK thực hiện vào trace. Token lấy từ usage_metadata của phản hồi."""
+    return {"text": text, "model": model, "tokens_in": int(tokens_in or 0), "tokens_out": int(tokens_out or 0)}
 
 
 @model_call
 def call_model(system: str, user: str) -> dict:
-    if MODEL_PROVIDER == "fake":
+    if is_fake():
         last = (user.strip().splitlines() or [""])[-1]
         return {"text": "[câu trả lời giả — chưa nối model] " + last[:60], "model": "fake", "tokens_in": 0, "tokens_out": 0}
 
-    # NHÓM VIẾT: gọi model thật ở đây (theo MODEL_PROVIDER, MODEL_NAME, API_KEY) rồi trả đúng 4 khoá.
-    # Ví dụ chép được cho từng nhà cung cấp: docs/connect-model.md mục 2.
-    raise NotImplementedError(
-        "chưa viết phần gọi model thật cho MODEL_PROVIDER=%s trong codebase/ai.py — xem docs/connect-model.md"
-        % MODEL_PROVIDER)
+    import litellm
+    resp = litellm.completion(
+        model=litellm_model_id(),
+        api_key=API_KEY,
+        temperature=TEMPERATURE,
+        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+    )
+    usage = resp.usage  # completion_tokens của OpenRouter đã gồm token suy luận
+    return {
+        "text": resp.choices[0].message.content or "",
+        "model": resp.model or MODEL_NAME,
+        "tokens_in": int(usage.prompt_tokens or 0),
+        "tokens_out": int(usage.completion_tokens or 0),
+    }
