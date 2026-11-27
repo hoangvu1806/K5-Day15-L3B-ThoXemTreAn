@@ -15,6 +15,7 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 
 import agent
+import auth
 import game
 import tracing
 import tts
@@ -24,6 +25,7 @@ from tools import DRAFTS
 
 app = FastAPI(title="GrowSafe AI")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.include_router(auth.router)  # đăng ký, đăng nhập, đồng bộ bộ thẻ (SQLite, xem auth.py)
 _lock = asyncio.Lock()
 
 

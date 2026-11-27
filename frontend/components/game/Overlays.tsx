@@ -139,6 +139,7 @@ const PURPOSE: Record<LockPurpose, string> = {
   parent: "mở Góc phụ huynh",
   profile: "đổi hồ sơ",
   wipe: "xoá tiến độ",
+  account: "mở Tài khoản",
 };
 
 export function AdultLock() {

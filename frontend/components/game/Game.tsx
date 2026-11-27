@@ -2,6 +2,7 @@
 
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useEffect } from "react";
+import AccountPanel from "./AccountPanel";
 import { bg, owl, preload, ui } from "@/lib/assets";
 import { sound } from "@/lib/sound";
 import { useGame, type Phase } from "@/lib/store";
@@ -119,6 +120,7 @@ export default function Game() {
               {overlay === "pause" && <PauseMenu key="pause" />}
               {overlay === "confirmHome" && <ConfirmHome key="confirm" />}
               {overlay === "parent" && <ParentCorner key="parent" onClose={() => setOverlay("")} />}
+              {overlay === "account" && <AccountPanel key="account" />}
             </AnimatePresence>
             <AnimatePresence>{lock && <AdultLock key={"lock-" + lock} />}</AnimatePresence>
             <OfflineBanner />

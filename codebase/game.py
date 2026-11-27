@@ -179,20 +179,24 @@ def _tactics():
     return {t["code"]: t for t in (data.get("tactics", []) if isinstance(data, dict) else [])}
 
 
+def rule_card(code, age_group, guidelines=None):
+    """Một thẻ quy tắc theo mã và nhóm tuổi; None nếu mã không làm thẻ hoặc không có ở nhóm tuổi đó.
+    auth.py dùng hàm này để dựng lại thẻ từ mã đã lưu trong tài khoản."""
+    r = (guidelines if guidelines is not None else _guidelines()).get(code)
+    if not r or not r.get("the"):
+        return None
+    text = r.get("loi_6_10") if age_group == "6-10" else r.get("loi_11_15")
+    if not text or age_group not in r.get("age_groups", []):
+        return None
+    return {"code": code, "title": r.get("ten_the") or r.get("title", ""), "text": text, "card": r["the"],
+            "voice": "rule_%s_%s" % (code, lines.age_code(age_group))}
+
+
 def rule_cards(scenario, age_group):
     """Thẻ quy tắc của màn (R12 không làm thẻ; R11 chỉ có ở 11-15). Lời thẻ theo xưng hô mới."""
     g = _guidelines()
-    out = []
-    for code in scenario.get("rule_ids", []):
-        r = g.get(code)
-        if not r or not r.get("the"):
-            continue
-        text = r.get("loi_6_10") if age_group == "6-10" else r.get("loi_11_15")
-        if not text or age_group not in r.get("age_groups", []):
-            continue
-        out.append({"code": code, "title": r.get("ten_the") or r.get("title", ""), "text": text, "card": r["the"],
-                    "voice": "rule_%s_%s" % (code, lines.age_code(age_group))})
-    return out
+    cards = (rule_card(code, age_group, g) for code in scenario.get("rule_ids", []))
+    return [c for c in cards if c]
 
 
 def tactic_card(code):

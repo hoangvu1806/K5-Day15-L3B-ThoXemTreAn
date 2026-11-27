@@ -35,3 +35,8 @@ evidence/**/raw-*
 # Nguyên file data BTC cấp (data/preclass, data/training-ops… của repo đề): để ở đây, không commit
 data-btc
 data-btc/
+# DB SQLite (tài khoản, bộ thẻ): dữ liệu người dùng, không bao giờ commit
+data/runtime/
+*.db
+*.db-wal
+*.db-shm

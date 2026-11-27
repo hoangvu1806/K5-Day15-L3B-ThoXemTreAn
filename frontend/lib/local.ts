@@ -1,9 +1,10 @@
 "use client";
 
 /**
- * Hồ sơ, cài đặt và tiến độ chỉ lưu trên máy này (localStorage), không gửi lên server, không gắn tên hay tài khoản.
+ * Hồ sơ, cài đặt và tiến độ lưu trên máy này (localStorage).
  * Chỉ lưu: nhóm tuổi, giới tính (để chọn nhân vật chính),
  * mã màn đã xong, mã thẻ đã nhận, vai người lớn trong "Bàn tay tin cậy" (không lưu tên thật).
+ * Nếu người lớn đăng nhập, tiến độ (không gồm hồ sơ, giới tính, cài đặt) được đồng bộ lên tài khoản.
  */
 import type { AgeGroup, Gender, RuleCard, TacticCard } from "./types";
 
@@ -85,7 +86,65 @@ export function wipe() {
   } catch {}
 }
 
-/** Vai người lớn cho "Bàn tay tin cậy": chỉ chọn vai, không lưu tên thật. */
+/* ---------- Tài khoản (tuỳ chọn): chỉ để lưu bộ thẻ lên server, xem codebase/auth.py ---------- */
+
+const AUTH_KEY = "growsafe.auth";
+
+export interface Account {
+  username: string;
+  token: string;
+}
+
+export function loadAccount(): Account | null {
+  try {
+    const raw = window.localStorage.getItem(AUTH_KEY);
+    const a = raw ? (JSON.parse(raw) as Partial<Account>) : null;
+    return a?.username && a.token ? { username: a.username, token: a.token } : null;
+  } catch {
+    return null;
+  }
+}
+
+export function saveAccount(a: Account | null) {
+  try {
+    if (a) window.localStorage.setItem(AUTH_KEY, JSON.stringify(a));
+    else window.localStorage.removeItem(AUTH_KEY);
+  } catch {}
+}
+
+/** Bản gọn gửi lên server: chỉ mã màn, mã thẻ, vai. Server tự dựng lại nội dung thẻ. */
+export function compactProgress(progress: Record<AgeGroup, AgeProgress>) {
+  const out: Record<string, unknown> = {};
+  for (const [age, p] of Object.entries(progress)) {
+    out[age] = {
+      cleared: p.cleared,
+      rules: Object.fromEntries(Object.keys(p.rules).map((k) => [k, true])),
+      tactics: Object.fromEntries(Object.keys(p.tactics).map((k) => [k, true])),
+      hand: p.hand,
+    };
+  }
+  return out;
+}
+
+/**
+ * Gộp tiến độ từ tài khoản vào máy: thẻ và màn đã qua chỉ cộng thêm (không mất thẻ vừa nhận lúc đang đồng bộ).
+ * "Bàn tay tin cậy" giữ bản trên máy, trừ khi máy chưa chọn ô nào.
+ */
+export function mergeProgress(local: Record<AgeGroup, AgeProgress>, server: Record<AgeGroup, AgeProgress>) {
+  const out = structuredClone(local);
+  for (const age of Object.keys(out) as AgeGroup[]) {
+    const s = server?.[age];
+    if (!s) continue;
+    const p = out[age];
+    for (const [id, passed] of Object.entries(s.cleared ?? {})) p.cleared[id] = (p.cleared[id] ?? false) || passed;
+    p.rules = { ...(s.rules ?? {}), ...p.rules };
+    p.tactics = { ...(s.tactics ?? {}), ...p.tactics };
+    if (!p.hand.some(Boolean) && s.hand?.some(Boolean)) p.hand = [...s.hand];
+  }
+  return out;
+}
+
+/** Vai người lớn cho "Bàn tay tin cậy": chỉ chọn vai, không lưu tên thật. Giữ khớp TRUSTED_ROLES trong codebase/auth.py. */
 export const TRUSTED_ROLES = ["Mẹ", "Bố", "Bà", "Ông", "Cô chủ nhiệm", "Bác bảo vệ", "Cô y tế", "Anh chị lớn", "Cô chú trong nhà"];
 
 /** Tin lớn thêm một nấc sau mỗi 2 thẻ (de-xuat-tinh-nang.md mục 1). */

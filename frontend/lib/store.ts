@@ -4,7 +4,10 @@ import { create } from "zustand";
 import { api, ApiError, OFFLINE_HELP } from "./api";
 import { bg, card, kid, npc, owl, preload, ui } from "./assets";
 import { progressLine, waitLine } from "./lines";
-import { DEFAULT_SETTINGS, EMPTY, load, owlStage, save, wipe, type Profile, type Saved, type Settings } from "./local";
+import {
+  compactProgress, DEFAULT_SETTINGS, EMPTY, load, loadAccount, mergeProgress, owlStage, save, saveAccount, wipe,
+  type Account, type AgeProgress, type Profile, type Saved, type Settings,
+} from "./local";
 import { sound } from "./sound";
 import type {
   AgeGroup, AnswerResponse, ChatMsg, DetectiveResponse, DialogueTurn, Draft, HelpContent, Line, MapPlace, Progress,
@@ -13,8 +16,9 @@ import type {
 import { voice, tinRole, type Clip } from "./voice";
 
 export type Phase = "profile" | "home" | "map" | "intro" | "play" | "detective" | "reward" | "help" | "done" | "notebook" | "hand";
-export type Overlay = "" | "settings" | "pause" | "parent" | "confirmHome";
-export type LockPurpose = "parent" | "profile" | "wipe";
+export type Overlay = "" | "settings" | "pause" | "parent" | "confirmHome" | "account";
+export type LockPurpose = "parent" | "profile" | "wipe" | "account";
+export type SyncState = "idle" | "saving" | "saved" | "error";
 
 interface Reward {
   cards: RuleCard[];
@@ -61,8 +65,15 @@ interface GameState {
   online: boolean;
   speaking: boolean;
   muted: boolean;
+  account: Account | null;
+  sync: SyncState;
 
   hydrate: () => void;
+  /** Trả "" nếu được, hoặc câu báo lỗi để hiện trên form. */
+  register: (username: string, password: string, consent: boolean) => Promise<string>;
+  login: (username: string, password: string) => Promise<string>;
+  logout: () => void;
+  syncNow: () => Promise<void>;
   setProfile: (p: Profile) => void;
   updateSettings: (s: Partial<Settings>) => void;
   setOverlay: (o: Overlay) => void;
@@ -101,6 +112,27 @@ const EMPTY_PROGRESS: Progress = { index: 0, total: 5, stars: 0 };
 function persist(get: () => GameState, set: (p: Partial<GameState>) => void, mut: (s: Saved) => void) {
   const saved = structuredClone(get().saved);
   mut(saved);
+  save(saved);
+  set({ saved });
+  if (get().account) scheduleSync(get);
+}
+
+/* Đồng bộ lên tài khoản: gom các thay đổi trong 1,5 giây thành một lần gọi. Lỗi mạng thì để lần sau. */
+let syncTimer: ReturnType<typeof setTimeout> | null = null;
+function scheduleSync(get: () => GameState) {
+  if (syncTimer) clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => {
+    syncTimer = null;
+    void get().syncNow();
+  }, 1500);
+}
+
+/** Gộp tiến độ server trả về vào máy (chỉ cộng thêm), lưu lại nếu có gì mới. */
+function applyServer(get: () => GameState, set: (p: Partial<GameState>) => void, server: Record<AgeGroup, AgeProgress>) {
+  const current = get().saved;
+  const progress = mergeProgress(current.progress, server);
+  if (JSON.stringify(progress) === JSON.stringify(current.progress)) return;
+  const saved = { ...current, progress };
   save(saved);
   set({ saved });
 }
@@ -172,6 +204,8 @@ export const useGame = create<GameState>((set, get) => ({
   online: true,
   speaking: false,
   muted: false,
+  account: null,
+  sync: "idle",
 
   hydrate() {
     const saved = load();
@@ -180,7 +214,66 @@ export const useGame = create<GameState>((set, get) => ({
     applyLevels(saved.settings);
     voice.onSpeaking((on) => set({ speaking: on }));
     const age = saved.profile?.age ?? "6-10";
-    set({ hydrated: true, saved, phase: saved.profile ? "home" : "profile", help: OFFLINE_HELP[age] });
+    const account = loadAccount();
+    set({ hydrated: true, saved, account, phase: saved.profile ? "home" : "profile", help: OFFLINE_HELP[age] });
+    // Đã đăng nhập từ trước: gửi tiến độ trên máy lên và lấy về thẻ nhận ở máy khác.
+    if (account) void get().syncNow();
+  },
+
+  async register(username, password, consent) {
+    try {
+      const r = await api.register(username, password, consent, compactProgress(get().saved.progress));
+      const account = { username: r.username, token: r.token ?? "" };
+      saveAccount(account);
+      set({ account, sync: "saved" });
+      applyServer(get, set, r.progress);
+      sound.play("correct");
+      return "";
+    } catch (e) {
+      return (e as Error).message;
+    }
+  },
+
+  async login(username, password) {
+    try {
+      const r = await api.login(username, password, compactProgress(get().saved.progress));
+      const account = { username: r.username, token: r.token ?? "" };
+      saveAccount(account);
+      set({ account, sync: "saved" });
+      applyServer(get, set, r.progress);
+      sound.play("correct");
+      return "";
+    } catch (e) {
+      return (e as Error).message;
+    }
+  },
+
+  logout() {
+    const account = get().account;
+    if (syncTimer) clearTimeout(syncTimer);
+    syncTimer = null;
+    saveAccount(null);
+    set({ account: null, sync: "idle" });
+    // Thẻ trên máy vẫn giữ; tài khoản vẫn giữ bản đã đồng bộ.
+    if (account) api.logout(account.token).catch(() => {});
+  },
+
+  async syncNow() {
+    const account = get().account;
+    if (!account) return;
+    set({ sync: "saving" });
+    try {
+      const r = await api.sync(account.token, compactProgress(get().saved.progress));
+      if (get().account?.token !== account.token) return; // đã đăng xuất trong lúc chờ
+      applyServer(get, set, r.progress);
+      set({ sync: "saved" });
+    } catch (e) {
+      if ((e as ApiError).status === 401) {
+        // Hết hạn đăng nhập: thoát tài khoản trên máy, thẻ vẫn còn trên máy.
+        saveAccount(null);
+        set({ account: null, sync: "idle" });
+      } else set({ sync: "error" });
+    }
   },
 
   setProfile(p) {
@@ -503,6 +596,9 @@ export const useGame = create<GameState>((set, get) => ({
   },
 
   wipeProgress() {
+    // Đang đăng nhập thì thoát luôn, nếu không lần đồng bộ sau sẽ kéo thẻ từ tài khoản về lại máy.
+    // Bản trong tài khoản không bị xoá.
+    if (get().account) get().logout();
     wipe();
     voice.stop();
     const saved = structuredClone(EMPTY);
