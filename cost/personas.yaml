@@ -16,21 +16,22 @@ users:              # số người dùng thật nếu đưa vào dùng — 3 k�
   source: "(ví dụ) track A — thay bằng số của nhóm. Cơ sở: lớp L3 hơn 700 học viên (README hackathon); thấp, cao: (tự ước tính)"
 
 personas:           # ≥3 kiểu người dùng; share cộng lại = 1
+  # share chia trên 18 phiếu có chọn mức ở câu 7 (6 + 10 + 2), 2 phiếu còn lại không chọn mức nào.
   - name: dung_it
-    share: 0.5              # tỉ lệ người dùng kiểu này
-    uses_per_month: 4       # số phiên / người / tháng
-    turns_per_session: 1    # số lượt hỏi trong một phiên
-    source: "(ví dụ) phỏng vấn P1, P3 — thay bằng nguồn của nhóm"
+    share: 0.33             # tỉ lệ người dùng kiểu này
+    uses_per_month: 3       # số phiên / người / tháng
+    turns_per_session: 3    # số lượt hỏi trong một phiên
+    source: "Khảo sát 20 phiếu, câu 7: 6/20 chọn chơi vài lần mỗi tháng. 'Vài lần' lấy là 3 lần (tự ước tính). Mỗi phiên 3 tình huống (tự ước tính)."
   - name: dung_vua
-    share: 0.3
-    uses_per_month: 10
+    share: 0.56
+    uses_per_month: 6
     turns_per_session: 3
-    source: "(ví dụ) khảo sát n = 24, câu 3"
+    source: "Khảo sát 20 phiếu, câu 7: 10/20 chọn 1–2 lần mỗi tuần, lấy trung bình 1,5 lần x 4 tuần = 6 phiên. Mỗi phiên 3 tình huống (tự ước tính)."
   - name: dung_nhieu
-    share: 0.2
-    uses_per_month: 20
-    turns_per_session: 5
-    source: "(ví dụ) data/preclass: đếm số lượt / người — cách đếm ở evidence/data-mining.md"
+    share: 0.11
+    uses_per_month: 280
+    turns_per_session: 3
+    source: "Khảo sát 20 phiếu, câu 7: 2/20 chọn cả lớp chơi nhiều lượt mỗi tuần. Một người dùng ở đây là một lớp: 35 học sinh x 2 buổi mỗi tuần x 4 tuần = 280 phiên (tự ước tính số học sinh và số buổi). Mỗi phiên 3 tình huống (tự ước tính)."
 # Mỗi lượt hỏi lấy ngẫu nhiên một đầu vào trong eval/benchmark.csv (type thuong và kho).
 # Persona hỏi kiểu riêng: thêm vào persona đó
 #     types: [thuong, kho, tu_choi]
