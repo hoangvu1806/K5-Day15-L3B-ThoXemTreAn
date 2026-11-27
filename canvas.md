@@ -1,16 +1,38 @@
-# Canvas — [tên nhóm] · Track [A–F]
-
-> Điền ở guide bước 1.4. CP1 17:00 Thứ Sáu 27/11: nộp bản đầu, đủ 7 dòng (dòng 4 được ghi giả thuyết + nguồn sẽ kiểm).
-> CP2 19:30 Thứ Sáu 27/11: cập nhật (số bằng chứng đầu, lát cắt đã chốt) và điền dòng "Đã đổi gì so với CP1".
-> Track F: chép thêm thẻ đề của nhóm (khung trong file track F) xuống dưới bảng này.
+# Canvas: ThoXemTreAn (Track F)
 
 | # | Dòng | Nhóm điền |
 |---|---|---|
-| 1 | Track + lát cắt dự kiến | |
-| 2 | Người dùng chính (một vai cụ thể — không phải "học viên nói chung") | |
-| 3 | Pain một câu: ai — đang làm gì — vướng đâu — hậu quả | |
-| 4 | Bằng chứng đầu — CP1: giả thuyết + nguồn sẽ kiểm · CP2: số đầu tiên + 1 trích dẫn | |
-| 5 | **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả) | |
-| 6 | AI tự làm đến đâu + 1 dòng lý do: sai thì ai chịu gì | |
-| 7 | Phân công có tên | |
+| 1 | Track + lát cắt dự kiến | Track F. **GrowSafe AI**, game tình huống giáo dục giới tính và tự bảo vệ cho trẻ, chơi cùng con |
+| 2 | Người dùng chính (một vai cụ thể — không phải "học viên nói chung") | Người chơi là trẻ 6-10 tuổi và 11-15 tuổi. Phụ huynh, giáo viên đi kèm: đọc bản tổng kết sau mỗi lượt chơi để nói chuyện tiếp với trẻ. |
+| 3 | Pain một câu: ai — đang làm gì — vướng đâu — hậu quả | Phụ huynh và giáo viên muốn dạy trẻ về giới tính, cách tự bảo vệ nhưng ngại mở lời và không biết nói sao cho hợp tuổi, còn trẻ chỉ nghe dặn suông nên nhanh quên, gặp chuyện thật thì lúng túng hoặc bị người xấu dắt mũi. |
+| 4 | Bằng chứng đầu — CP1: giả thuyết + nguồn sẽ kiểm · CP2: số đầu tiên + 1 trích dẫn | **CP1, giả thuyết trước khi hỏi:** ≥2/3 phụ huynh hoặc giáo viên kể được ít nhất một lần lúng túng khi giải thích chuyện giới tính cho trẻ, hoặc không biết trẻ sẽ phản ứng ra sao nếu bị dụ giữ bí mật. **Nguồn sẽ kiểm:** phỏng vấn ≥3 phụ huynh hoặc giáo viên ngoài nhóm, thêm khảo sát nhanh hoặc đọc câu hỏi công khai trong các nhóm cha mẹ (ẩn danh). |
+| 5 | **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả) | Trẻ chọn một tình huống về ranh giới cơ thể trong game rồi gõ cách mình xử lý, AI đối chiếu với tài liệu chuẩn của đúng nhóm tuổi (có guardrail chặn đầu vào và soát đầu ra) để chấm phản xạ, chỉ lại chỗ sai và soạn bản nháp gợi ý cho phụ huynh hoặc giáo viên duyệt. |
+| 6 | AI tự làm đến đâu + 1 dòng lý do: sai thì ai chịu gì | Trong lúc chơi, AI tự dẫn tình huống, chấm câu trả lời và giảng lại. Bản tóm tắt thì phụ huynh hoặc giáo viên duyệt, rồi họ tự quyết nói chuyện với trẻ thế nào. Lý do: nội dung nhạy cảm, nói sai hay lệch tuổi là trẻ sợ hoặc hiểu nhầm, nên AI bị khóa bằng guardrail (thấy dấu hiệu xâm hại thật thì dừng game, hiện tổng đài 111) và không tự gửi đánh giá cho ai. |
+| 7 | Phân công có tên | Đỗ Hoàng Vũ và Vũ Quang Minh: thiết kế agent, guardrail, kho tình huống theo độ tuổi. Hoàng Minh Diệp và Trần Thị Hà Anh: thu bằng chứng từ người dùng thật, viết bộ câu thử và metric. |
 | — | *(CP2)* Đã đổi gì so với CP1 | |
+
+---
+
+# Track F: GrowSafe AI, game tình huống giáo dục giới tính và tự bảo vệ cho trẻ
+
+**Lĩnh vực.** Giáo dục giới tính và kỹ năng tự bảo vệ cho trẻ em, trẻ vị thành niên, có phụ huynh và giáo viên cùng theo dõi.
+
+**Pain.** Phụ huynh và giáo viên muốn dạy trẻ về ranh giới cơ thể và phòng tránh xâm hại nhưng ngại, khó chọn chữ cho đúng tuổi, và không biết trẻ thật sự phản ứng thế nào. Trẻ thì chỉ học lý thuyết một chiều, nên bị dụ dỗ ngoài đời hay trên mạng là lúng túng.
+
+**Insight từ người dùng thật.** *(Kiểm ngay sau CP1)* Hiện mới là quan sát ban đầu của nhóm. Nhóm sẽ phỏng vấn ≥3 phụ huynh hoặc giáo viên quen ngoài nhóm và đọc câu hỏi thật của cha mẹ, học sinh trên các diễn đàn công khai để xác nhận.
+
+**Người dùng.** Trẻ 6-10 tuổi và 11-15 tuổi chơi trực tiếp, phụ huynh và giáo viên đi kèm. Nhóm liên hệ trực tiếp được phụ huynh có con nhỏ, giáo viên và học sinh quen để hỏi và cho chơi thử trong hai ngày.
+
+**Data.** Nhóm tự soạn kho tình huống và quy tắc chuẩn trong `data/`, dựa trên tài liệu công khai của UNESCO và UNICEF Việt Nam (quy tắc vùng đồ bơi, quy tắc 5 ngón tay, bí mật tốt và bí mật xấu, an toàn trên mạng). Không thu thập, không lưu thông tin cá nhân của trẻ.
+
+**Lát cắt.** Trẻ chọn một tình huống trong game rồi gõ hoặc chat cách mình xử lý. AI đối chiếu với tài liệu chuẩn của đúng nhóm tuổi, qua 3 lớp guardrail, để chấm phản xạ, chỉ lại chỗ sai và soạn bản nháp phản hồi cho phụ huynh hoặc giáo viên duyệt.
+
+**Công cụ của agent.** `get_scenario(age_group, topic)` (đọc), `search_safety_guideline(age_group, query)` (đọc), `evaluate_child_response(scenario_id, text)` (đọc, chấm trong phiên), `draft_parent_teacher_note(session_summary)` (chỉ tạo bản nháp, không tự gửi đi).
+
+**Bộ câu thử.** Khoảng 20-30 câu. Câu thường là trẻ trả lời đúng hoặc sai theo từng độ tuổi. Câu khó là trẻ trả lời cụt lủn, ấp úng vì sợ bị mắng, hoặc hỏi vặn lại. Câu từ chối gồm nội dung 18+, đòi chẩn đoán bệnh, và tình huống nghi bị xâm hại thật phải dừng game, chỉ số 111. Thêm ít nhất 2 câu thử prompt injection.
+
+**Persona chi phí.** Ít: chơi 1-2 lần mỗi tuần cùng bố mẹ. Vừa: học sinh tự chơi 4-6 lần mỗi tháng. Nhiều: lớp học hoặc câu lạc bộ kỹ năng sống cho chơi nhiều lượt mỗi tuần.
+
+**Bẫy.** Dễ ôm quá nhiều chủ đề cho mọi lứa tuổi rồi không làm xong cái nào. Để AI trả lời tự do không bám tài liệu chuẩn thì dễ dùng chữ lệch tuổi, thậm chí đổ lỗi cho nạn nhân. Và có nguy cơ không phỏng vấn đủ người dùng thật ngoài nhóm.
+
+**An toàn.** 3 lớp guardrail: soát đầu vào, chỉ cho công cụ đọc kho chuẩn, soát giọng điệu đầu ra theo tuổi. AI không bao giờ đóng vai kẻ xấu dụ dỗ trẻ, không chẩn đoán y khoa, không giữ dữ liệu định danh của trẻ. Thấy dấu hiệu xâm hại thật thì dừng game ngay và hướng dẫn gọi tổng đài `111`.
