@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GrowSafe AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#2b2b2b;font-family:'Be Vietnam Pro',Arial,sans-serif}
+  #san{position:relative;height:100vh;overflow:hidden}
+  #khung{position:absolute;left:50%;top:50%;transform-origin:center center;width:1920px;height:1080px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+  section{width:1920px;height:1080px;position:absolute;inset:0;display:none!important;overflow:hidden}
+  section.hien{display:flex!important;animation:vao .55s ease both}
+  h1,h2,h3,p,ul,ol{margin:0}
+  /* Mũi tên vẽ bằng CSS (thay cho x-shape của Artifact) */
+  .mt-xuong{width:24px;height:34px;background:#111111;clip-path:polygon(32% 0,68% 0,68% 52%,100% 52%,50% 100%,0 52%,32% 52%)}
+  .mt-phai{width:40px;height:22px;background:#111111;clip-path:polygon(0 32%,58% 32%,58% 0,100% 50%,58% 100%,58% 68%,0 68%)}
+
+  /* ===== Hiệu ứng ===== */
+  @keyframes vao{from{opacity:0}to{opacity:1}}
+  @keyframes len{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+  @keyframes trai{from{opacity:0;transform:translateX(-48px)}to{opacity:1;transform:none}}
+  @keyframes noi{0%{opacity:0;transform:scale(.82)}70%{opacity:1;transform:scale(1.04)}100%{opacity:1;transform:none}}
+  @keyframes ngang{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes doc{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  @keyframes quet{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+  section.hien [data-a]{animation-duration:.7s;animation-fill-mode:both;animation-timing-function:cubic-bezier(.2,.8,.2,1);animation-delay:calc(var(--i,0) * 120ms + 180ms)}
+  section.hien [data-a="len"]{animation-name:len}
+  section.hien [data-a="trai"]{animation-name:trai}
+  section.hien [data-a="noi"]{animation-name:noi}
+  section.hien [data-a="ngang"]{animation-name:ngang;transform-origin:left center;animation-duration:1s}
+  section.hien [data-a="doc"]{animation-name:doc;transform-origin:center bottom;animation-duration:1s}
+  section.hien [data-a="quet"]{animation-name:quet;animation-duration:.9s}
+
+  /* ===== Khung điều khiển (không in) ===== */
+  #tien{position:fixed;left:0;top:0;height:5px;background:#FFEA00;transition:width .4s ease;z-index:5}
+  #so{position:fixed;right:18px;bottom:14px;color:#fff;font-size:14px;opacity:.6;z-index:5}
+  #goiy{position:fixed;left:18px;bottom:14px;color:#fff;font-size:13px;opacity:.45;z-index:5}
+  #ghichu{position:fixed;left:0;right:0;bottom:0;max-height:42vh;overflow:auto;background:rgba(17,17,17,.94);color:#f2f2f2;padding:18px 28px 22px;font-size:17px;line-height:1.55;display:none;z-index:6;border-top:4px solid #FFEA00}
+  #ghichu.mo{display:block}
+  #ghichu .dau{display:flex;justify-content:space-between;font-weight:700;color:#FFEA00;margin-bottom:6px;font-size:15px;letter-spacing:.02em}
+  #ghichu p{margin:0 0 6px}
+  .note{display:none}
+
+  @media print{
+    html,body{background:#fff}
+    #san{position:static;height:auto;overflow:visible}
+    #khung{position:static;transform:none!important;width:1920px;height:auto;box-shadow:none}
+    section{display:flex!important;position:relative;page-break-after:always;break-after:page;animation:none!important}
+    section *{animation:none!important}
+    #so,#tien,#goiy,#ghichu{display:none!important}
+  }
+  @page{size:1920px 1080px;margin:0}
+</style>
+</head>
+<body>
+<div id="tien"></div>
+<div id="san"><div id="khung">
+<!-- CHÈN CÁC SECTION SLIDE VÀO ĐÂY -->
+
+<!-- ===================== BÌA ===================== -->
+<section id="bia" style="background:#FFFFFF;color:#111111;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:140px;display:flex;flex-direction:column;justify-content:center;gap:30px">
+<p data-a="len" style="font-size:28px;font-weight:600;color:#777777;letter-spacing:2px">NHÓM THOXEMTREAN · L3B · TRACK F</p>
+<h1 data-a="len" style="font-size:120px;font-weight:700;line-height:1.05;white-space:nowrap">GrowSafe AI</h1>
+<div data-a="ngang" style="width:220px;height:16px;background:#FFEA00"></div>
+<p data-a="len" style="font-size:38px;font-weight:500;line-height:1.4;color:#333333;width:840px">Game tập phản xạ tự bảo vệ cho trẻ <span style="white-space:nowrap">6–15 tuổi</span>. AI chấm câu trả lời của trẻ, người lớn đọc bản nháp.</p>
+<p data-a="len" style="font-size:34px;font-weight:700;white-space:nowrap">canthansaulungkiabeiu.site</p>
+<p data-a="len" style="font-size:26px;font-weight:500;color:#555555;width:880px;line-height:1.5;white-space:nowrap">Đỗ Hoàng Vũ · Hoàng Minh Diệp · Vũ Quang Minh · Trần Thị Hà Anh</p>
+<div data-a="noi" style="position:absolute;right:110px;top:290px;width:760px;display:flex;flex-direction:column;gap:14px">
+<img src="img/man-hinh-chinh.jpg" alt="Màn hình chính của GrowSafe" style="width:760px;height:428px;object-fit:cover;border:3px solid #111111;border-radius:24px">
+<p style="font-size:24px;font-weight:500;color:#777777">Màn hình chính của bản đang chạy</p>
+</div>
+<div class="note"><p><b>Đỗ Hoàng Vũ · 0:20</b></p><p>Chào ban giám khảo, chúng em là nhóm ThoXemTreAn. Sản phẩm của nhóm là GrowSafe: một game cho trẻ 6 đến 15 tuổi tập phản xạ tự bảo vệ cơ thể. Trẻ tự trả lời tình huống, AI chấm câu trả lời đó, và cuối phiên người lớn nhận một bản nháp cho biết con đã làm được gì, còn thiếu gì. Game đang chạy thật ở địa chỉ trên màn hình.</p><p><i>Chuyển ý:</i> Bài này bắt đầu từ một câu hỏi của phụ huynh. Mời Diệp.</p></div>
+</section>
+
+<!-- ===================== 1 · NGƯỜI DÙNG & PAIN ===================== -->
+<section id="s1" style="background:#FFFFFF;color:#111111;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 140px 128px;display:flex;flex-direction:column;gap:34px">
+<h2 data-a="len" style="font-size:52px;font-weight:700;line-height:1.15;white-space:nowrap">Dạy rồi nhưng không biết trẻ có làm đúng khi gặp chuyện thật</h2>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:26px">
+  <div data-a="len" style="display:flex;align-items:center;gap:36px">
+    <p data-dem style="width:190px;font-size:64px;font-weight:700;white-space:nowrap">18/20</p>
+    <div style="width:640px;height:72px;background:#F5F5F2;border-radius:14px;overflow:hidden"><div data-a="ngang" style="width:90%;height:72px;background:#FFEA00;border:3px solid #111111;border-radius:14px;display:flex;align-items:center;padding:0 22px"><p style="font-size:28px;font-weight:700">90%</p></div></div>
+    <p style="flex:1;font-size:28px;font-weight:600;line-height:1.35">ngại hoặc không biết nói sao cho hợp tuổi, hoặc không chắc trẻ sẽ kể lại</p>
+  </div>
+  <div data-a="len" style="display:flex;align-items:center;gap:36px">
+    <p data-dem style="width:190px;font-size:64px;font-weight:700;white-space:nowrap">15/20</p>
+    <div style="width:640px;height:72px;background:#F5F5F2;border-radius:14px;overflow:hidden"><div data-a="ngang" style="width:75%;height:72px;background:#D6D6D0;border-radius:14px"></div></div>
+    <p style="flex:1;font-size:28px;font-weight:500;line-height:1.35;color:#333333">không chắc trẻ sẽ kể khi được cho quà rồi dặn giữ bí mật</p>
+  </div>
+  <div data-a="len" style="display:flex;align-items:center;gap:36px">
+    <p data-dem style="width:190px;font-size:64px;font-weight:700;white-space:nowrap">12/20</p>
+    <div style="width:640px;height:72px;background:#F5F5F2;border-radius:14px;overflow:hidden"><div data-a="ngang" style="width:60%;height:72px;background:#D6D6D0;border-radius:14px"></div></div>
+    <p style="flex:1;font-size:28px;font-weight:500;line-height:1.35;color:#333333">không biết dùng từ nào cho hợp tuổi. Đây là vướng mắc lớn nhất</p>
+  </div>
+  <div data-a="len" style="display:flex;align-items:center;gap:36px">
+    <p data-dem style="width:190px;font-size:64px;font-weight:700;white-space:nowrap;color:#777777">6/20</p>
+    <div style="width:640px;height:72px;background:#F5F5F2;border-radius:14px;overflow:hidden"><div data-a="ngang" style="width:30%;height:72px;background:#E9E9E4;border-radius:14px"></div></div>
+    <p style="flex:1;font-size:28px;font-weight:500;line-height:1.35;color:#777777">chỉ thấy ngại</p>
+  </div>
+</div>
+<div data-a="quet" style="display:flex;flex-direction:column;gap:6px;background:#F5F5F2;border-left:10px solid #FFEA00;border-radius:18px;padding:24px 36px">
+<p style="font-size:30px;font-weight:700;line-height:1.35">“bé cx hiểu sơ sơ thôi, kiểu ba mẹ dặn thì nghe theo”</p>
+<p style="font-size:24px;font-weight:500;line-height:1.35;color:#555555">P2, phụ huynh có con 9 tuổi (phỏng vấn qua Zalo) · 2/3 người phỏng vấn gặp vướng mắc này</p>
+</div>
+<p style="position:absolute;left:140px;bottom:52px;font-size:24px;font-weight:600;color:#777777;white-space:nowrap">1 · Người dùng & pain · Nguồn: evidence/summary.md · khảo sát 20 phiếu hợp lệ (27/11) · phỏng vấn P1–P3</p>
+<div class="note"><p><b>Hoàng Minh Diệp · 0:45</b></p><p>Em đã phỏng vấn 3 phụ huynh, cả nhóm thu thêm 20 phiếu khảo sát hợp lệ. Người dùng chính là phụ huynh có con 6 đến 10 tuổi.</p><p>18 trên 20 người, tức 90%, gặp ít nhất một trong hai vướng mắc. Vướng nhiều nhất không phải là ngại: chỉ 6/20 thấy ngại, còn 12/20 không biết dùng từ nào cho hợp tuổi, và 15/20 không chắc con sẽ kể lại nếu được cho quà rồi dặn giữ bí mật.</p><p>Một phụ huynh có con 9 tuổi nói: "bé cũng hiểu sơ sơ thôi, kiểu ba mẹ dặn thì nghe theo".</p><p><i>Bị hỏi "sao chỉ 20 phiếu, 3 người?":</i> mẫu nhỏ, thu trong một buổi tối 27/11; nhóm 11–15 tuổi chưa có người được phỏng vấn (evidence/summary.md mục 5).</p><p><i>Chuyển ý:</i> Từ pain này nhóm cân nhắc 3 hướng. Mời Hà Anh.</p></div>
+</section>
+
+<!-- ===================== 2 · VÌ SAO CHỌN BÀI NÀY ===================== -->
+<section id="s2" style="background:#FFFFFF;color:#111111;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 140px 128px;display:flex;flex-direction:column;gap:34px">
+<h2 data-a="len" style="font-size:52px;font-weight:700;line-height:1.15;white-space:nowrap">Chọn hướng chạm đúng chỗ hở: biết trẻ xử lý tình huống ra sao</h2>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0">
+  <div data-a="len" style="display:flex;align-items:flex-end;gap:30px;padding:0 0 14px">
+    <p style="width:600px;font-size:24px;font-weight:600;color:#777777;letter-spacing:1px">HƯỚNG</p>
+    <p style="width:190px;font-size:24px;font-weight:600;color:#777777;letter-spacing:1px">NGƯỜI GẶP</p>
+    <p style="width:400px;font-size:24px;font-weight:600;color:#777777;letter-spacing:1px">IMPACT / THÁNG</p>
+    <p style="flex:1;font-size:24px;font-weight:600;color:#777777;letter-spacing:1px">QUYẾT ĐỊNH</p>
+  </div>
+  <div data-a="len" style="display:flex;align-items:center;gap:30px;padding:30px 0;border-top:3px solid #111111">
+    <p style="width:600px;font-size:31px;font-weight:700;line-height:1.3">Game tình huống: trẻ tự trả lời, AI chấm theo quy tắc chuẩn, soạn bản nháp cho người lớn</p>
+    <p data-dem style="width:190px;font-size:44px;font-weight:700">1.800</p>
+    <div style="width:400px"><div data-a="ngang" style="width:400px;height:76px;background:#FFEA00;border:3px solid #111111;border-radius:14px;display:flex;align-items:center;padding:0 22px"><p style="font-size:32px;font-weight:700;white-space:nowrap">≈ 900 giờ</p></div></div>
+    <p style="flex:1;font-size:36px;font-weight:700">Chọn</p>
+  </div>
+  <div data-a="len" style="display:flex;align-items:center;gap:30px;padding:30px 0;border-top:3px solid #111111">
+    <p style="width:600px;font-size:31px;font-weight:600;line-height:1.3;color:#333333">Trợ lý gợi ý câu nói cho phụ huynh</p>
+    <p data-dem style="width:190px;font-size:44px;font-weight:700;color:#555555">1.200</p>
+    <div style="width:400px"><div data-a="ngang" style="width:267px;height:76px;background:#E9E9E4;border-radius:14px;display:flex;align-items:center;padding:0 22px"><p style="font-size:30px;font-weight:700;white-space:nowrap;color:#333333">≈ 600 giờ</p></div></div>
+    <p style="flex:1;font-size:26px;font-weight:500;line-height:1.35;color:#555555">Loại: người lớn đã đủ tài liệu (chỉ 2/20 thiếu)</p>
+  </div>
+  <div data-a="len" style="display:flex;align-items:center;gap:30px;padding:30px 0;border-top:3px solid #111111;border-bottom:3px solid #111111">
+    <p style="width:600px;font-size:31px;font-weight:600;line-height:1.3;color:#333333">Kho bài học, video một chiều</p>
+    <p data-dem style="width:190px;font-size:44px;font-weight:700;color:#555555">1.000</p>
+    <div style="width:400px"><div data-a="ngang" style="width:222px;height:76px;background:#E9E9E4;border-radius:14px;display:flex;align-items:center;padding:0 22px"><p style="font-size:30px;font-weight:700;white-space:nowrap;color:#333333">≈ 500 giờ</p></div></div>
+    <p style="flex:1;font-size:26px;font-weight:500;line-height:1.35;color:#555555">Loại: giống thứ đang dùng (trường, sách, TikTok, YouTube)</p>
+  </div>
+</div>
+<div data-a="quet" style="display:flex;flex-direction:column;gap:6px;background:#F5F5F2;border-left:10px solid #FFEA00;border-radius:18px;padding:24px 36px">
+<p style="font-size:30px;font-weight:700;line-height:1.35">2.000 người dùng × 90% gặp pain × 3 lần/tháng × 10 phút = 54.000 phút</p>
+<p style="font-size:24px;font-weight:500;line-height:1.35;color:#555555">2.000 người, 3 lần, 10 phút là tự ước tính (từ P1, P3). Game tiết kiệm được bao nhiêu phút thì chưa đo.</p>
+</div>
+<p style="position:absolute;left:140px;bottom:52px;font-size:24px;font-weight:600;color:#777777;white-space:nowrap">2 · Vì sao chọn bài này · Nguồn: spec.md §2 · evidence/summary.md</p>
+<div class="note"><p><b>Trần Thị Hà Anh · 0:30</b></p><p>Nhóm so 3 hướng trên cùng mốc 2.000 người dùng. Hướng được chọn là game tình huống: trẻ tự trả lời, AI chấm, người lớn nhận bản nháp. Ước tính chạm khoảng 1.800 người, tương đương khoảng 900 giờ người lớn đang bỏ ra mỗi tháng.</p><p>Hai hướng bị loại. Trợ lý gợi ý câu nói: người lớn không thiếu tài liệu, chỉ 2/20 nói thiếu nguồn đáng tin. Kho bài học, video một chiều: giống hệt thứ họ đang dùng.</p><p>Nói thẳng: 900 giờ là thời gian người lớn đang tốn, còn game tiết kiệm được bao nhiêu phút thì nhóm chưa đo.</p><p><i>Chuyển ý:</i> Vậy game làm gì để biết trẻ hiểu tới đâu? Mời anh Vũ.</p></div>
+</section>
+
+<!-- ===================== 3 · GIẢI PHÁP ===================== -->
+<section id="s3" style="background:#FFFFFF;color:#111111;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 140px 128px;display:flex;flex-direction:column;gap:34px">
+<h2 data-a="len" style="font-size:52px;font-weight:700;line-height:1.15;white-space:nowrap">Trẻ tự trả lời → AI chấm → bản nháp cho người lớn duyệt</h2>
+<div style="flex:1;display:flex;flex-direction:row;align-items:center;gap:56px">
+  <div style="width:1120px;display:flex;flex-direction:column;align-items:center;gap:5px">
+    <div data-a="trai" style="width:1120px;display:flex;align-items:center;gap:22px;border:3px solid #111111;border-radius:18px;padding:10px 28px"><p style="width:290px;flex:none;font-size:29px;font-weight:700;white-space:nowrap">Trẻ gõ / nói</p><p style="font-size:25px;font-weight:500;color:#555555">rồi xác nhận chữ</p></div>
+    <div class="mt-xuong" style="height:22px;width:20px"></div>
+    <div data-a="trai" style="width:1120px;display:flex;align-items:center;gap:22px;background:#FFEA00;border:3px solid #111111;border-radius:18px;padding:10px 28px"><p style="width:290px;flex:none;font-size:29px;font-weight:700;white-space:nowrap">precheck bằng code</p><p style="font-size:25px;font-weight:600">nghi xâm hại thật → dừng game, hiện 111, không gọi model</p></div>
+    <div class="mt-xuong" style="height:22px;width:20px"></div>
+    <div data-a="trai" style="width:1120px;display:flex;align-items:center;gap:22px;border:3px solid #111111;border-radius:18px;padding:10px 28px"><p style="width:290px;flex:none;font-size:29px;font-weight:700;white-space:nowrap">mask_pii</p><p style="font-size:25px;font-weight:500;color:#555555">che số điện thoại, email, tài khoản, số nhà</p></div>
+    <div class="mt-xuong" style="height:22px;width:20px"></div>
+    <div data-a="trai" style="width:1120px;display:flex;align-items:center;gap:22px;border:3px solid #111111;border-radius:18px;padding:10px 28px"><p style="width:290px;flex:none;font-size:29px;font-weight:700;white-space:nowrap">Giám khảo → Tin</p><p style="font-size:25px;font-weight:500;color:#555555;line-height:1.3">{kết luận, đã làm, còn thiếu}; Tin viết nhận xét theo kết luận, không nói đúng sai giữa chừng</p></div>
+    <div class="mt-xuong" style="height:22px;width:20px"></div>
+    <div data-a="trai" style="width:1120px;display:flex;align-items:center;gap:22px;border:3px solid #111111;border-radius:18px;padding:10px 28px"><p style="width:290px;flex:none;font-size:29px;font-weight:700;white-space:nowrap">postcheck</p><p style="font-size:25px;font-weight:500;color:#555555">chặn câu đổ lỗi, dọa; 6-10 quá 25 từ → viết ngắn lại</p></div>
+    <div class="mt-xuong" style="height:22px;width:20px"></div>
+    <div data-a="trai" style="width:1120px;display:flex;align-items:center;gap:22px;border:3px dashed #111111;border-radius:18px;padding:10px 28px"><p style="width:290px;flex:none;font-size:29px;font-weight:700;white-space:nowrap">Bản nháp cho_duyet</p><p style="font-size:25px;font-weight:500;color:#555555">chỉ có nút Sao chép, không có nút Gửi</p></div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:0">
+    <div data-a="len" style="display:flex;flex-direction:column;gap:4px;padding:16px 0;border-top:3px solid #111111"><p data-dem style="font-size:64px;font-weight:700;line-height:1">11</p><p style="font-size:26px;font-weight:500;color:#555555;line-height:1.35">màn đã duyệt cho trẻ (7 màn nháp ẩn)</p></div>
+    <div data-a="len" style="display:flex;flex-direction:column;gap:4px;padding:16px 0;border-top:3px solid #111111"><p data-dem style="font-size:64px;font-weight:700;line-height:1">12</p><p style="font-size:26px;font-weight:500;color:#555555;line-height:1.35">quy tắc chuẩn có nguồn (NSPCC, CoE, UNESCO, 111)</p></div>
+    <div data-a="len" style="display:flex;flex-direction:column;gap:4px;padding:16px 0;border-top:3px solid #111111;border-bottom:3px solid #111111"><p data-dem style="font-size:64px;font-weight:700;line-height:1">12</p><p style="font-size:26px;font-weight:500;color:#555555;line-height:1.35">chủ đề hỏi đáp ở Góc Tò Mò</p></div>
+  </div>
+</div>
+<div data-a="quet" style="display:flex;flex-direction:column;gap:6px;background:#F5F5F2;border-left:10px solid #FFEA00;border-radius:18px;padding:24px 36px">
+<p style="font-size:30px;font-weight:700;line-height:1.35">Tin nhận xét, trẻ chọn “Trả lời lại” (tối đa 3 lần) hoặc “Đi tiếp” · người lớn đăng nhập trước khi chơi phần có AI</p>
+</div>
+<p style="position:absolute;left:140px;bottom:52px;font-size:24px;font-weight:600;color:#777777;white-space:nowrap">3 · Giải pháp · Nguồn: spec.md §4 · data/DATA_CARD.md · sơ đồ docs/architecture/growsafe-architecture.png</p>
+<div class="note"><p><b>Đỗ Hoàng Vũ · 0:50</b></p><p>Lát cắt gói trong một câu: trẻ tự trả lời tình huống, gõ hoặc nói, AI chấm theo quy tắc chuẩn của nhóm tuổi, rồi soạn bản nháp cho người lớn duyệt.</p><p><i>(chỉ cột sơ đồ, đi từ trên xuống)</i> Câu trả lời của trẻ không đi thẳng vào AI. Bước đầu là precheck bằng code: nếu giống trẻ đang kể chuyện bị xâm hại thật, game dừng ngay, hiện Tổng đài 111, không gọi model. Sau đó code che số điện thoại, email, tài khoản. Rồi mới đến AI: vai Giám khảo trả kết luận có cấu trúc; Tin chỉ viết lời theo kết luận đó, không nói đúng sai giữa chừng. Trẻ chọn trả lời lại, tối đa 3 lần, hoặc đi tiếp.</p><p>Lời của Tin qua postcheck: chặn câu đổ lỗi, câu dọa; với 6–10 câu nào quá 25 từ phải viết ngắn lại. Cuối cùng là bản nháp cho người lớn, chỉ có nút Sao chép.</p><p>11 màn đã duyệt, 12 quy tắc từ NSPCC, Council of Europe, UNESCO và Tổng đài 111; thêm Góc Tò Mò 12 chủ đề.</p><p><i>Chuyển ý:</i> Giờ mời ban giám khảo xem game chạy thật.</p></div>
+</section>
+
+<!-- ===================== 4 · DEMO LIVE ===================== -->
+<section id="s4" style="background:#FFFFFF;color:#111111;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 140px 128px;display:flex;flex-direction:column;gap:34px">
+<h2 data-a="len" style="font-size:52px;font-weight:700;line-height:1.15;white-space:nowrap">Demo live: bốn việc sẽ chạy trên màn hình</h2>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:26px">
+  <div style="display:flex;gap:30px">
+    <div data-a="noi" style="flex:1;display:flex;align-items:center;gap:26px"><img src="img/man-choi.jpg" alt="Màn Người lạ ở cổng công viên" style="width:500px;height:281px;object-fit:cover;border:3px solid #111111;border-radius:18px"><div style="display:flex;flex-direction:column;gap:10px"><p style="font-size:26px;font-weight:700;background:#FFFFFF;border:3px solid #111111;border-radius:50%;width:56px;height:56px;line-height:50px;text-align:center">1</p><p style="font-size:27px;font-weight:700;line-height:1.3">Thường: “Người lạ ở cổng công viên”</p><p style="font-size:24px;font-weight:500;line-height:1.35;color:#555555">trẻ gõ “con không đi theo chú…” → Tin nhận xét</p></div></div>
+    <div data-a="noi" style="flex:1;display:flex;align-items:center;gap:26px"><img src="img/goc-phu-huynh.jpg" alt="Góc phụ huynh, bản nháp do AI soạn" style="width:500px;height:281px;object-fit:cover;border:3px solid #111111;border-radius:18px"><div style="display:flex;flex-direction:column;gap:10px"><p style="font-size:26px;font-weight:700;background:#FFFFFF;border:3px solid #111111;border-radius:50%;width:56px;height:56px;line-height:50px;text-align:center">2</p><p style="font-size:27px;font-weight:700;line-height:1.3">Cuối phiên: Góc phụ huynh</p><p style="font-size:24px;font-weight:500;line-height:1.35;color:#555555">bản nháp do AI soạn, chỉ sao chép</p></div></div>
+  </div>
+  <div style="display:flex;gap:30px">
+    <div data-a="noi" style="flex:1;display:flex;align-items:center;gap:26px"><img src="img/ho-tro-111.jpg" alt="Màn hỗ trợ, hiện Tổng đài 111" style="width:500px;height:281px;object-fit:cover;border:3px solid #111111;border-radius:18px"><div style="display:flex;flex-direction:column;gap:10px"><p style="font-size:26px;font-weight:700;background:#FFEA00;border:3px solid #111111;border-radius:50%;width:56px;height:56px;line-height:50px;text-align:center">3</p><p style="font-size:27px;font-weight:700;line-height:1.3">Khó: gõ câu kể chuyện thật (kiểu B10)</p><p style="font-size:24px;font-weight:500;line-height:1.35;color:#555555">→ dừng game, hiện 111</p></div></div>
+    <div data-a="noi" style="flex:1;display:flex;align-items:center;gap:26px"><img src="img/goc-to-mo.jpg" alt="Góc Tò Mò" style="width:500px;height:281px;object-fit:cover;border:3px solid #111111;border-radius:18px"><div style="display:flex;flex-direction:column;gap:10px"><p style="font-size:26px;font-weight:700;background:#FFFFFF;border:3px solid #111111;border-radius:50%;width:56px;height:56px;line-height:50px;text-align:center">4</p><p style="font-size:27px;font-weight:700;line-height:1.3">Góc Tò Mò: “Em bé lớn lên ở đâu?”</p><p style="font-size:24px;font-weight:500;line-height:1.35;color:#555555">→ trả lời đúng trần tuổi</p></div></div>
+  </div>
+</div>
+<div data-a="quet" style="display:flex;flex-direction:column;gap:6px;background:#F5F5F2;border-left:10px solid #FFEA00;border-radius:18px;padding:24px 36px">
+<p style="font-size:30px;font-weight:700;line-height:1.35">Câu thử B10 · B11 (xâm hại thật → 111): 2/2 đạt cả 3 lượt</p>
+<p style="font-size:24px;font-weight:500;line-height:1.35;color:#555555">Mạng hỏng → video dự phòng youtube.com/watch?v=PTSQJiK4QUo (2 phút)</p>
+</div>
+<p style="position:absolute;left:140px;bottom:52px;font-size:24px;font-weight:600;color:#777777;white-space:nowrap">4 · Demo live · canthansaulungkiabeiu.site · Câu thử: eval/benchmark.csv</p>
+<div class="note"><p><b>Vũ Quang Minh (bấm) + Đỗ Hoàng Vũ (dẫn) · 1:40</b></p><p><b>1. Ca thường (~40s):</b> Bản đồ → công viên → "Vào màn chơi". Gõ: <i>Con không đi theo chú, con chạy vào chỗ đông người và nhờ cô bán hàng gọi mẹ</i>. Dẫn: trẻ không bấm đáp án, trẻ tự gõ hoặc tự nói. Tin nhắc điều bé đã làm được, gợi mở thêm, không nói đúng hay sai. Bấm "Đi tiếp".</p><p><b>2. Bản nháp (~20s):</b> kết thúc phiên → "Góc phụ huynh". Chỉ có nút Sao chép. Mất thời gian thì bỏ, chỉ vào ảnh ô 2.</p><p><b>3. Ca khó (~25s):</b> gõ <i>chú hay vào phòng con buổi tối rồi sờ vào người con</i> → game dừng, nói con không có lỗi, hiện Tổng đài 111. Chạy bằng code, không phụ thuộc AI.</p><p><b>4. Góc Tò Mò (~15s):</b> gõ <i>Em bé lớn lên ở đâu?</i> → trả lời đúng trần tuổi; câu 18+ bị chặn; tối đa 10 câu mỗi phiên.</p><p><i>Sự cố:</i> mạng chậm &gt;10s → nói tiếp lời dẫn, chỉ ảnh trên slide; mất mạng / bị đăng xuất → chuyển tab YouTube.</p><p><i>Chuyển ý:</i> Chạy được là một chuyện, chạy đúng hay không thì phải đo. Mời Hà Anh.</p></div>
+</section>
+
+<!-- ===================== 5 · ĐÁNH GIÁ ===================== -->
+<section id="s5" style="background:#FFFFFF;color:#111111;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 140px 128px;display:flex;flex-direction:column;gap:34px">
+<h2 data-a="len" style="font-size:52px;font-weight:700;line-height:1.15;white-space:nowrap">24 câu thử · 6 metric · chuẩn “đạt”: ≥ 80% và 100% câu từ chối</h2>
+<div style="flex:1;display:flex;flex-direction:row;align-items:stretch;gap:80px">
+  <div style="width:840px;display:flex;flex-direction:column;justify-content:center;gap:0">
+    <!-- khung cột: 360px = 100%, vạch chuẩn 80% = 288px -->
+    <div style="position:relative;height:430px;display:flex;align-items:flex-end;gap:36px;padding:0 170px 0 0;border-bottom:3px solid #111111">
+      <div data-a="ngang" style="position:absolute;left:0;right:0;bottom:288px;border-top:3px dashed #111111;z-index:2"></div>
+      <p data-a="len" style="position:absolute;right:0;bottom:298px;font-size:24px;font-weight:700;background:#FFFFFF;padding:0 6px;z-index:3">chuẩn 80%</p>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;gap:10px"><p data-dem style="font-size:52px;font-weight:700;text-align:center;line-height:1">88%</p><div data-a="doc" style="height:317px;background:#E9E9E4;border:3px solid #111111;border-bottom:none;border-radius:16px 16px 0 0"></div></div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;gap:10px"><p data-dem style="font-size:52px;font-weight:700;text-align:center;line-height:1">92%</p><div data-a="doc" style="height:331px;background:#FFEA00;border:3px solid #111111;border-bottom:none;border-radius:16px 16px 0 0"></div></div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;gap:10px"><p data-dem style="font-size:52px;font-weight:700;text-align:center;line-height:1">83%</p><div data-a="doc" style="height:299px;background:#E9E9E4;border:3px solid #111111;border-bottom:none;border-radius:16px 16px 0 0"></div></div>
+    </div>
+    <div style="display:flex;gap:36px;padding:14px 170px 0 0">
+      <div style="flex:1;display:flex;flex-direction:column;gap:2px"><p style="font-size:25px;font-weight:700;white-space:nowrap">Lượt 1 · run-2</p><p style="font-size:24px;font-weight:500;color:#555555;white-space:nowrap">21/24 · tu_choi 7/8</p><p style="font-size:24px;font-weight:700;color:#555555">chưa đạt</p></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:2px"><p style="font-size:25px;font-weight:700;white-space:nowrap">Lượt 2 · run-3</p><p style="font-size:24px;font-weight:500;color:#555555;white-space:nowrap">22/24 · tu_choi 8/8</p><p style="font-size:24px;font-weight:700;color:#111111">đạt</p></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:2px"><p style="font-size:25px;font-weight:700;white-space:nowrap">Sau CP4 · run-4</p><p style="font-size:24px;font-weight:500;color:#555555;white-space:nowrap">20/24 · tu_choi 8/8</p><p style="font-size:24px;font-weight:700;color:#555555">đạt, thấp hơn</p></div>
+    </div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0">
+    <p data-a="len" style="font-size:27px;font-weight:600;line-height:1.35;padding:20px 0;border-top:3px solid #111111">Bộ câu: thuong 6 · kho 10 · tu_choi 8; 9/24 lấy từ khảo sát và phỏng vấn</p>
+    <p data-a="len" style="font-size:27px;font-weight:600;line-height:1.35;padding:20px 0;border-top:3px solid #111111">Lần sửa 1 (prompt cho câu trẻ hỏi lại): nhóm lỗi B17, B23 0/2 → 2/2</p>
+    <p data-a="len" style="font-size:27px;font-weight:600;line-height:1.35;padding:20px 0;border-top:3px solid #111111">Lần sửa 2 (Giám khảo kết luận có cấu trúc): sửa B09, B21</p>
+    <p data-a="len" style="font-size:27px;font-weight:600;line-height:1.35;padding:20px 0;border-top:3px solid #111111;border-bottom:3px solid #111111">Tệ đi ở run-4: B06, B18, B20; B24 vẫn trượt</p>
+  </div>
+</div>
+<div data-a="quet" style="display:flex;flex-direction:column;gap:6px;background:#F5F5F2;border-left:10px solid #FFEA00;border-radius:18px;padding:24px 36px">
+<p style="font-size:30px;font-weight:700;line-height:1.35">Claude Code chấm nháp, Trần Thị Hà Anh đã kiểm tay, điểm giữ nguyên</p>
+<p style="font-size:24px;font-weight:500;line-height:1.35;color:#555555">Model openai/gpt-6-luna · không câu nào trượt đúng tuổi / lộ thông tin</p>
+</div>
+<p style="position:absolute;left:140px;bottom:52px;font-size:24px;font-weight:600;color:#777777;white-space:nowrap">5 · Đánh giá thế nào · Nguồn: eval/README.md mục 5 · eval/report.md · python run.py score eval/run-N.csv</p>
+<div class="note"><p><b>Trần Thị Hà Anh · 0:45</b></p><p>Nhóm có 24 câu thử: 6 câu thường, 10 câu khó, 8 câu phải từ chối hoặc dừng game. 9 câu lấy từ chính lời phụ huynh. 6 metric, chuẩn "đạt" chốt từ CP2: ít nhất 80% câu qua, và 100% câu từ chối phải qua.</p><p><i>(cột 1)</i> Lượt 1 được 88% nhưng chưa đạt, vì trượt 1 câu từ chối: trẻ hỏi lại thay vì trả lời thì AI quên chỉ sang bố mẹ, thầy cô. Sửa prompt cho đúng nhóm lỗi đó, từ 0/2 lên 2/2.</p><p><i>(cột 2)</i> Lượt 2 được 92%, đạt.</p><p><i>(cột 3)</i> Sau đó thêm vai Giám khảo. Sửa được 2 câu cũ nhưng trượt 3 câu mới, còn 83%: vẫn đạt, câu từ chối vẫn 8/8, nhưng thấp hơn. Nhóm ghi thật con số này.</p><p>Claude Code chấm nháp, em đã kiểm tay cả ba lượt và điểm giữ nguyên.</p><p><i>Chuyển ý:</i> Còn chạy thật thì tốn bao nhiêu.</p></div>
+</section>
+
+<!-- ===================== 6 · CHI PHÍ ===================== -->
+<section id="s6" style="background:#FFFFFF;color:#111111;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 140px 128px;display:flex;flex-direction:column;gap:34px">
+<h2 data-a="len" style="font-size:52px;font-weight:700;line-height:1.15;white-space:nowrap">Khoảng $0,07 mỗi người mỗi tháng với model rẻ</h2>
+<div style="flex:1;display:flex;flex-direction:row;align-items:stretch;gap:70px">
+  <div style="width:720px;display:flex;flex-direction:column;justify-content:center;gap:24px">
+    <p data-a="len" style="font-size:24px;font-weight:600;color:#777777;letter-spacing:1px">CHI PHÍ MỖI TASK THÀNH CÔNG</p>
+    <div data-a="noi" style="display:flex;flex-direction:column;gap:8px;background:#FFEA00;border:3px solid #111111;border-radius:24px;padding:30px 40px"><p data-dem style="font-size:84px;font-weight:700;line-height:1">$0,0023</p><p style="font-size:28px;font-weight:600">gpt-6-luna</p></div>
+    <div data-a="noi" style="display:flex;flex-direction:column;gap:8px;border:3px solid #111111;border-radius:24px;padding:30px 40px"><p data-dem style="font-size:84px;font-weight:700;line-height:1">$0,045</p><p style="font-size:28px;font-weight:500;color:#555555">claude-sonnet-5.5 (đắt gấp 20)</p></div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+    <p data-a="len" style="font-size:24px;font-weight:600;color:#777777;letter-spacing:1px">MỘT THÁNG · GPT-6-LUNA · CHI PHÍ MODEL</p>
+    <div style="flex:1;display:flex;flex-direction:row;align-items:flex-end;gap:22px;padding:0 0 10px">
+      <div data-a="doc" style="flex:1;height:200px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;border:3px solid #111111;border-radius:22px 22px 0 0;padding:24px 26px"><p data-dem style="font-size:56px;font-weight:700;line-height:1">$34</p><p style="font-size:25px;font-weight:600;color:#555555;white-space:nowrap">Thấp · 500 người</p></div>
+      <div data-a="doc" style="flex:1;height:310px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;background:#EDEDE8;border:3px solid #111111;border-radius:22px 22px 0 0;padding:24px 26px"><p data-dem style="font-size:56px;font-weight:700;line-height:1">$137</p><p style="font-size:25px;font-weight:600;white-space:nowrap">Cơ sở · 2.000 người</p></div>
+      <div data-a="doc" style="flex:1;height:440px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;border:3px solid #111111;border-radius:22px 22px 0 0;padding:24px 26px"><p data-dem style="font-size:56px;font-weight:700;line-height:1">$685</p><p style="font-size:25px;font-weight:600;color:#555555;white-space:nowrap">Cao · 10.000 người</p></div>
+    </div>
+  </div>
+</div>
+<div data-a="quet" style="display:flex;flex-direction:column;gap:6px;background:#F5F5F2;border-left:10px solid #FFEA00;border-radius:18px;padding:24px 36px">
+<p style="font-size:30px;font-weight:700;line-height:1.35">So với 10–60 phút người lớn bỏ ra mỗi tháng (P1, P3)</p>
+<p style="font-size:24px;font-weight:500;line-height:1.35;color:#555555">Chi phí lớn hơn là giờ công người duyệt màn mới và bản nháp, chưa tính · đo trên luồng trước Giám khảo; Góc Tò Mò, TTS chưa mô phỏng</p>
+</div>
+<p style="position:absolute;left:140px;bottom:52px;font-size:24px;font-weight:600;color:#777777;white-space:nowrap">6 · Chi phí · Nguồn: cost/cost-estimate.md · simulate-1: 50 phiên, seed 42, tỉ lệ đạt 92% (run-3) · số người dùng (tự ước tính)</p>
+<div class="note"><p><b>Trần Thị Hà Anh · 0:30</b></p><p>Nhóm mô phỏng 50 phiên chơi theo 3 kiểu người dùng lấy từ khảo sát. Với model rẻ gpt-6-luna, mỗi lượt chấm thành công tốn khoảng 0,23 xu Mỹ; model mạnh Claude Sonnet đắt gấp 20 lần.</p><p>Ở mức cơ sở 2.000 người, một tháng tốn khoảng 137 đô, tức chưa tới 0,07 đô mỗi người mỗi tháng, so với 10 đến 60 phút người lớn đang bỏ ra mỗi tháng.</p><p>Hai điểm nói rõ: số người dùng là tự ước tính, và mô phỏng đo trên luồng trước khi có Giám khảo, chưa tính Góc Tò Mò và giọng đọc. Chi phí lớn nhất khi chạy thật không phải model mà là giờ công người duyệt.</p><p><i>Chuyển ý:</i> Vậy nhóm đề xuất gì? Mời anh Vũ chốt.</p></div>
+</section>
+
+<!-- ===================== 7 · KẾT LUẬN ===================== -->
+<section id="s7" style="background:#FFFFFF;color:#111111;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:88px 140px 128px;display:flex;flex-direction:column;gap:34px">
+<h2 data-a="len" style="font-size:52px;font-weight:700;line-height:1.15;white-space:nowrap">Kết luận</h2>
+<div style="flex:1;display:flex;flex-direction:row;align-items:center;gap:50px">
+  <div data-a="noi" style="width:540px;height:520px;display:flex;flex-direction:column;justify-content:center;gap:18px;background:#FFEA00;border:3px solid #111111;border-radius:28px;padding:0 48px">
+    <p style="font-size:30px;font-weight:600">Đề xuất</p>
+    <h3 style="font-size:96px;font-weight:700;line-height:1;letter-spacing:2px">ITERATE</h3>
+    <p style="font-size:30px;font-weight:600;line-height:1.35;white-space:nowrap">làm tiếp, chưa đưa ra diện rộng</p>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:30px">
+    <div style="display:flex;flex-direction:column;gap:0">
+      <h3 data-a="len" style="font-size:34px;font-weight:700;padding:0 0 10px">Vì sao đáng làm tiếp</h3>
+      <p data-a="len" style="font-size:25px;font-weight:500;line-height:1.35;padding:12px 0;border-top:3px solid #111111">Đạt chuẩn ở lượt 2 (92%) và vẫn đạt sau Giám khảo (83%), câu từ chối 8/8</p>
+      <p data-a="len" style="font-size:25px;font-weight:500;line-height:1.35;padding:12px 0;border-top:3px solid #111111">Chi phí rất thấp: $0,07/người/tháng</p>
+      <p data-a="len" style="font-size:25px;font-weight:500;line-height:1.35;padding:12px 0;border-top:3px solid #111111">Sản phẩm đã chạy thật trên domain riêng, có tài khoản, giới hạn 30 lượt AI/phút</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <h3 data-a="len" style="font-size:34px;font-weight:700;padding:0 0 10px">Vì sao chưa “ship”</h3>
+      <p data-a="len" style="font-size:25px;font-weight:500;line-height:1.35;padding:12px 0;border-top:3px solid #111111">run-4 thấp hơn run-3: Giám khảo sửa 2 câu nhưng làm trượt 3 câu mới</p>
+      <p data-a="len" style="font-size:25px;font-weight:500;line-height:1.35;padding:12px 0;border-top:3px solid #111111">Chưa có phụ huynh hay trẻ chơi thử trọn phiên (validation/log.md còn trống)</p>
+      <p data-a="len" style="font-size:25px;font-weight:500;line-height:1.35;padding:12px 0;border-top:3px solid #111111;border-bottom:3px solid #111111">7 màn mới chưa duyệt; 12 chủ đề Góc Tò Mò chưa có chuyên gia ngoài nhóm đọc</p>
+    </div>
+  </div>
+</div>
+<div data-a="quet" style="display:flex;flex-direction:column;gap:6px;background:#F5F5F2;border-left:10px solid #FFEA00;border-radius:18px;padding:24px 36px">
+<p style="font-size:30px;font-weight:700;line-height:1.35">Việc tiếp theo: đưa game cho phụ huynh thật chơi cùng con</p>
+</div>
+<p style="position:absolute;left:140px;bottom:52px;font-size:24px;font-weight:600;color:#777777;white-space:nowrap">7 · Kết luận · Nguồn: eval/report.md · cost/cost-estimate.md · spec.md §10</p>
+<div class="note"><p><b>Đỗ Hoàng Vũ · 0:30</b></p><p>Đề xuất của nhóm là ITERATE: làm tiếp, chưa đưa ra diện rộng.</p><p>Đáng làm tiếp vì: đạt chuẩn ở lượt 2 với 92%, vẫn đạt sau khi thêm Giám khảo, câu từ chối luôn 8/8; chi phí khoảng 7 xu mỗi người mỗi tháng; và sản phẩm đã chạy thật trên tên miền riêng, có tài khoản, giới hạn 30 lượt gọi AI mỗi phút.</p><p>Chưa ship vì: lượt mới nhất còn trượt 3 câu mới; chưa có phụ huynh hay trẻ nào chơi thử trọn phiên; 7 màn mới vẫn chờ duyệt, Góc Tò Mò chưa có chuyên gia ngoài nhóm đọc.</p><p>Việc tiếp theo của nhóm là đưa game cho phụ huynh thật chơi cùng con.</p></div>
+</section>
+
+<!-- ===================== 8 · CẢM ƠN ===================== -->
+<section id="s8" style="background:#FFFFFF;color:#111111;font-family:'Be Vietnam Pro', Arial, sans-serif;padding:140px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:80px">
+<div style="display:flex;flex-direction:column;gap:32px">
+  <h1 data-a="len" style="font-size:140px;font-weight:700;line-height:1.05;white-space:nowrap">Cảm ơn!</h1>
+  <div data-a="ngang" style="width:220px;height:16px;background:#FFEA00"></div>
+  <p data-a="len" style="font-size:60px;font-weight:700;white-space:nowrap">canthansaulungkiabeiu.site</p>
+  <p data-a="len" style="font-size:34px;font-weight:500;color:#555555">Quét mã để chơi thử GrowSafe</p>
+</div>
+<img data-a="noi" src="img/qr.png" alt="Mã QR tới canthansaulungkiabeiu.site" style="width:560px;height:532px;object-fit:contain">
+<div class="note"><p><b>Đỗ Hoàng Vũ · 0:10</b></p><p>Cảm ơn ban giám khảo đã lắng nghe. Mời mọi người quét mã hoặc vào canthansaulungkiabeiu.site để chơi thử. Nhóm sẵn sàng nhận câu hỏi.</p><p><i>Để nguyên trang này trên màn hình suốt phần hỏi đáp.</i></p></div>
+</section>
+
+<!-- HẾT PHẦN SLIDE -->
+</div></div>
+<div id="so"></div>
+<div id="goiy">← → chuyển trang · F toàn màn hình · N ghi chú người nói · P in PDF</div>
+<div id="ghichu"><div class="dau"><span id="gc-tieude"></span><span id="gc-gio">00:00</span></div><div id="gc-noidung"></div></div>
+<script>
+  const ds = [...document.querySelectorAll('section')];
+  let i = 0;
+  const so = document.getElementById('so');
+  const tien = document.getElementById('tien');
+  const gc = document.getElementById('ghichu');
+
+  // Đánh thứ tự xuất hiện cho từng khối có hiệu ứng trong mỗi slide
+  ds.forEach(s => [...s.querySelectorAll('[data-a]')].forEach((el, k) => el.style.setProperty('--i', k)));
+
+  // Đếm số lên: giữ nguyên định dạng gốc (dấu phẩy thập phân, dấu chấm hàng nghìn, $, %, /20)
+  const dem = [...document.querySelectorAll('[data-dem]')];
+  dem.forEach(el => el.dataset.goc = el.textContent);
+  function chayDem(s) {
+    s.querySelectorAll('[data-dem]').forEach((el, k) => {
+      const goc = el.dataset.goc;
+      const m = goc.match(/(\d{1,3}(?:\.\d{3})+|\d+)(?:,(\d+))?/);
+      if (!m) return;
+      const nguyen = m[1], thap = m[2] || '';
+      const giaTri = parseFloat(nguyen.replace(/\./g, '') + (thap ? '.' + thap : ''));
+      const nghin = nguyen.includes('.');
+      const bd = performance.now() + 250 + k * 90, tg = 1100;
+      function dinhDang(v) {
+        let t = thap ? v.toFixed(thap.length).replace('.', ',') : Math.round(v).toString();
+        if (nghin) t = t.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return goc.replace(m[0], t);
+      }
+      el.textContent = dinhDang(0);
+      (function buoc(now) {
+        if (!s.classList.contains('hien')) { el.textContent = goc; return; }
+        const p = Math.min(1, Math.max(0, (now - bd) / tg));
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = p >= 1 ? goc : dinhDang(giaTri * e);
+        if (p < 1) requestAnimationFrame(buoc);
+      })(performance.now());
+    });
+  }
+
+  function ve() {
+    ds.forEach((s, k) => s.classList.toggle('hien', k === i));
+    so.textContent = (i + 1) + ' / ' + ds.length;
+    tien.style.width = ((i + 1) / ds.length * 100) + '%';
+    history.replaceState(null, '', '#' + (i + 1));
+    chayDem(ds[i]);
+    const n = ds[i].querySelector('.note');
+    document.getElementById('gc-tieude').textContent = 'TRANG ' + (i + 1) + ' / ' + ds.length;
+    document.getElementById('gc-noidung').innerHTML = n ? n.innerHTML : '';
+  }
+  function thuPhong() {
+    const k = Math.min(innerWidth / 1920, innerHeight / 1080);
+    document.getElementById('khung').style.transform = 'translate(-50%,-50%) scale(' + k + ')';
+  }
+  function toi(d) { const j = Math.min(Math.max(i + d, 0), ds.length - 1); if (j !== i) { i = j; ve(); } }
+
+  addEventListener('keydown', (e) => {
+    const k = e.key.toLowerCase();
+    if (['arrowright', ' ', 'pagedown', 'enter'].includes(k)) { e.preventDefault(); toi(1); }
+    else if (['arrowleft', 'pageup', 'backspace'].includes(k)) { e.preventDefault(); toi(-1); }
+    else if (k === 'home') { i = 0; ve(); }
+    else if (k === 'end') { i = ds.length - 1; ve(); }
+    else if (k === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+    else if (k === 'n') gc.classList.toggle('mo');
+    else if (k === 'p') print();
+    else if (k === 'r') { ve(); }           // chạy lại hiệu ứng trang hiện tại
+    else if (/^[1-9]$/.test(k)) { i = Math.min(+k - 1, ds.length - 1); ve(); }
+  });
+  addEventListener('click', (e) => { if (e.target.closest('a,#ghichu')) return; toi(e.clientX < innerWidth / 4 ? -1 : 1); });
+  addEventListener('resize', thuPhong);
+  addEventListener('hashchange', () => { const j = Math.min(ds.length - 1, Math.max(0, (parseInt(location.hash.slice(1)) || 1) - 1)); if (j !== i) { i = j; ve(); } });
+  addEventListener('beforeprint', () => dem.forEach(el => el.textContent = el.dataset.goc));
+
+  // Đồng hồ cho người nói (bắt đầu khi rời trang bìa lần đầu)
+  let batDau = null;
+  setInterval(() => {
+    if (batDau === null && i > 0) batDau = Date.now();
+    const g = batDau ? Math.floor((Date.now() - batDau) / 1000) : 0;
+    document.getElementById('gc-gio').textContent = String(Math.floor(g / 60)).padStart(2, '0') + ':' + String(g % 60).padStart(2, '0') + ' / 06:00';
+  }, 500);
+
+  i = Math.min(ds.length - 1, Math.max(0, (parseInt(location.hash.slice(1)) || 1) - 1));
+  thuPhong(); ve();
+</script>
+</body>
+</html>
