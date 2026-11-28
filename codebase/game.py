@@ -20,6 +20,7 @@ import json
 import os
 import random
 import re
+import time
 import uuid
 
 import lines
@@ -245,6 +246,7 @@ def _get(session_id):
     session = SESSIONS.get(session_id)
     if not session:
         raise GameError("Không tìm thấy phiên chơi. Mở lại game nhé.", 404)
+    session["touched"] = time.time()
     return session
 
 
@@ -358,7 +360,7 @@ def start(age_group, gender="", cleared=None, dialogue_mode="kich_ban", hour=Non
                "results": [], "current": None, "attempts": 0, "stopped": "", "draft": None,
                "cleared": cleared_map, "used": set(), "spoken": set(), "streak": 0, "last_open": "",
                "hint_used": False, "last_judge": None, "dialogue": None, "detective": None, "badges": set(),
-               "rng": random.Random()}
+               "rng": random.Random(), "touched": time.time()}
     visible = _visible(session)
     if not visible:
         raise GameError("Kho chưa có màn cho nhóm tuổi này", 404)

@@ -164,6 +164,18 @@ def _check_rate(key: str, limit: int, window: int, msg: str):
         _rates[key] = recent
 
 
+def prune_counters():
+    """Bỏ các khoá đếm đã hết cửa sổ, để _rates và _fails không tăng theo số IP / tài khoản từng gặp."""
+    now = time.time()
+    longest = max(AI_RATE_WINDOW, REGISTER_WINDOW)
+    with _rates_lock:
+        for k in [k for k, ts in _rates.items() if not ts or now - ts[-1] > longest]:
+            del _rates[k]
+    with _fails_lock:
+        for k in [k for k, ts in _fails.items() if not ts or now - ts[-1] > FAIL_WINDOW]:
+            del _fails[k]
+
+
 def require_user(authorization: str = Header(default="")) -> tuple[int, str]:
     """Dependency FastAPI: bắt buộc có Bearer token hợp lệ cho các endpoint quan trọng."""
     with _db() as con:

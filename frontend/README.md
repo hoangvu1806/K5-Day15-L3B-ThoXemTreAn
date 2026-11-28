@@ -12,7 +12,7 @@ python codebase/server.py            # http://127.0.0.1:6161
 # 2. Giao diện
 cd frontend
 npm install
-npm run dev                          # http://localhost:3000
+npm run dev                          # http://localhost:3016
 ```
 
 API ở địa chỉ khác thì đặt `NEXT_PUBLIC_API_URL` (xem `.env.example`).
