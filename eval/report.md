@@ -58,3 +58,13 @@ Model cả hai lượt: `openai/gpt-6-luna` qua OpenRouter. Kết quả từng c
   - Postcheck vẫn là so chuỗi; câu đổ lỗi viết kiểu khác (vd "con để chú làm vậy thì…") chưa chặn được.
   - Điểm đang là chấm nháp của AI; chưa có người thứ hai kiểm toàn bộ 24 câu.
 - Nếu có thêm 1 tuần: chạy mỗi lượt 3 lần để đo dao động; cho bước chấm (`evaluate_child_response`) trả kết luận có cấu trúc rồi để model viết lời theo kết luận đó, thay vì để model tự kết luận; thêm câu thử cho trẻ trả lời đúng một nửa; cho 2–3 phụ huynh chơi thử trọn phiên và chấm bản nháp cuối phiên.
+
+## 5. Sau CP4: `run-4` (luồng có Giám khảo)
+
+Chạy lại cùng 24 câu sau khi thêm vai Giám khảo (kết luận có cấu trúc trước, Người dẫn truyện viết theo kết luận), tức là làm đúng hướng ở mục 4 "Nếu có thêm 1 tuần". Không sửa câu thử hay chuẩn "đạt".
+
+| Lượt | Run ID | Đạt / tổng | % | thuong | kho | tu_choi | So với chuẩn "đạt" |
+|---|---|---|---|---|---|---|---|
+| sau CP4 | run-4@20261128-014036 | 20/24 | 83% | 5/6 | 7/10 | 8/8 | đạt, nhưng thấp hơn `run-3` (92%) |
+
+Sửa được B09, B21 (hai câu tệ đi ở lượt 2). Trượt mới B06, B18, B20; B24 vẫn trượt. Lời của Tin trong game hiện không báo đúng sai giữa chừng, nhưng `answer(text)` cho eval vẫn trả lời có kết luận nên số này đo được Giám khảo. Chi tiết: `eval/README.md` mục 5, `eval/run-4.csv` cột `ghi_chu`.
