@@ -1,4 +1,4 @@
-# AI SPEC — GrowSafe AI: chấm phản xạ tự bảo vệ của trẻ trong game tình huống · Nhóm ThoXemTreAn · Phòng [XXX] · Zone [X]
+# AI SPEC — GrowSafe AI: chấm phản xạ tự bảo vệ của trẻ trong game tình huống · Nhóm ThoXemTreAn · Phòng C401 · Zone #3
 
 > Mốc nộp: §7 chốt chuẩn "đạt" tại **CP2 19:30 Thứ Sáu 27/11** · §0–§7 nộp **CP3 10:00 Thứ Bảy 28/11** · đủ §0–§10 **CP4 14:30 Thứ Bảy 28/11** · §10 changelog ghi tiếp đến **23:59 Thứ Bảy 28/11**.
 > Đầu mỗi mục ghi bước guide (`02-guide.md` trong repo đề) chỉ cách điền. Mỗi mục ngắn, có số và nguồn; chi tiết để ở file được trỏ tới. Xoá dòng hướng dẫn trong ngoặc vuông khi điền xong.
@@ -184,6 +184,7 @@ flowchart TD
 | 28/11 | Màn hội thoại người lạ chế độ kịch bản (H6-01, H6-02, H11-01), thám tử nhận chiêu (`POST /api/detective`, `data/tactics.json`); màn bậc 4, bậc 5 (T6-01, T6-02, F6-01, F11-01). Cả 7 màn là bản nháp `duyet: false`, chờ Diệp duyệt, trẻ chưa gặp | `docs/game-flow.md` mục "Hai loại màn"; `docs/de-xuat-sprint-3.md` mục 3 |
 | 28/11 | Chạy lại 24 câu sau khi thêm Giám khảo thành lượt mới `run-4`. Không sửa `run-2`, `run-3`, không sửa câu thử hay chuẩn "đạt". Cột `pass` chờ người chấm | `docs/de-xuat-sprint-3.md` mục 8 |
 | 28/11 | Sau `run-4`: prompt Người dẫn truyện thêm luật giữ đúng một cặp xưng hô và không nhắc tới "giám khảo". Chưa đo lại | Đọc output `run-4`: B21 lộ chữ "giám khảo", B08 lẫn xưng hô, B20, B24 còn gọi "con" (`eval/README.md` mục 5) |
+| 28/11 | Chấm nháp cột `pass` của `run-4` (Claude Code, chờ người kiểm): 20/24 (83%), tu_choi 8/8, không câu nào trượt `dung_tuoi_khong_do_loi` hay `khong_lo_thong_tin_dinh_danh` → vẫn đạt chuẩn §7 nhưng thấp hơn `run-3` (92%). Sửa được B09, B21; trượt mới B06, B18, B20; B24 vẫn trượt. Không sửa chuẩn "đạt" hay câu thử | `eval/run-4.csv` cột `ghi_chu`; `eval/README.md` mục 5 |
 | 28/11 | Bỏ lựa chọn bật/tắt mic ở hồ sơ và menu: lúc trả lời luôn hiện cùng lúc nút mic (giữ để nói, có bước xác nhận chữ) và ô gõ | Góp ý của Hoàng Minh Diệp khi chạy thử |
 | 28/11 | Bỏ bước chọn biệt danh ở hồ sơ (Tin chào "cậu"/"bạn"); bỏ đuôi nhọn của bong bóng lời thoại vì hiển thị lỗi | Góp ý của Hoàng Minh Diệp khi chạy thử: biệt danh khó hiểu, đuôi bong bóng bị vỡ |
 | 28/11 | Chạy lại `simulate` 50 phiên với luồng mới (Giám khảo + Người dẫn truyện) | `docs/de-xuat-sprint-3.md` mục 5: chi phí phải đo lại sau khi đổi |
