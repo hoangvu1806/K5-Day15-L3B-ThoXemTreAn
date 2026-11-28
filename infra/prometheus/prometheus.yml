@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Metrics của Nginx (kết nối đang mở, tốc độ request) qua nginx-prometheus-exporter
+  - job_name: "nginx"
+    static_configs:
+      - targets: ["nginx-exporter:9113"]
+
+  # Metrics của FastAPI Backend (tự bật sau khi gắn prometheus-fastapi-instrumentator ở Pha 1)
+  - job_name: "growsafe-api"
+    metrics_path: /metrics
+    dns_sd_configs:
+      - names: ["api"]
+        type: "A"
+        port: 6161
+
+  # Tài nguyên VPS: CPU, RAM, Disk, Network
+  - job_name: "node"
+    static_configs:
+      - targets: ["node-exporter:9100"]
