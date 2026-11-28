@@ -7,6 +7,7 @@ import json
 import os
 import re
 import time
+import uuid
 
 from tracing import tool, TOOLS  # noqa: F401
 
@@ -14,6 +15,7 @@ DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__
 AGE_GROUPS = ("6-10", "11-15")
 
 DRAFTS = []  # bản nháp gửi phụ huynh / giáo viên, chờ duyệt (chỉ nằm trong bộ nhớ)
+MAX_DRAFTS = 500  # bản nháp đã trả về cho phiên của nó, giữ thêm chỉ để chống RAM tăng mãi
 
 
 def _load(name):
@@ -132,7 +134,8 @@ def draft_parent_teacher_note(session_summary: str) -> dict:
     Input: session_summary (tóm tắt lượt chơi, không chứa thông tin định danh của trẻ).
     Output: {"draft_id", "status": "cho_duyet", "note"}.
     Tác động ra ngoài: KHÔNG gửi. Chỉ lưu bản nháp trong bộ nhớ, người lớn duyệt rồi mới dùng."""
-    draft = {"draft_id": "D%d" % (len(DRAFTS) + 1), "status": "cho_duyet",
+    draft = {"draft_id": "D" + uuid.uuid4().hex[:12], "status": "cho_duyet",
              "created_at": time.strftime("%Y-%m-%d %H:%M:%S"), "note": session_summary}
     DRAFTS.append(draft)
+    del DRAFTS[:-MAX_DRAFTS]
     return draft

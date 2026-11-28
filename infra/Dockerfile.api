@@ -37,7 +37,9 @@ ENV PATH="/opt/venv/bin:$PATH" \
     PYTHONIOENCODING=utf-8 \
     PORT=6161 \
     GROWSAFE_DB=/var/lib/growsafe/growsafe.db \
-    UVICORN_WORKERS=1
+    GROWSAFE_TTS_CACHE=/var/lib/growsafe/tts \
+    UVICORN_WORKERS=1 \
+    FORWARDED_ALLOW_IPS=172.28.0.0/16
 
 USER growsafe
 EXPOSE 6161
@@ -45,4 +47,5 @@ EXPOSE 6161
 HEALTHCHECK --interval=20s --timeout=5s --start-period=25s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:6161/health', timeout=3)" || exit 1
 
-CMD ["sh", "-c", "exec uvicorn server:app --app-dir codebase --host 0.0.0.0 --port ${PORT:-6161} --workers ${UVICORN_WORKERS:-1} --proxy-headers --forwarded-allow-ips='*' --no-access-log"]
+# Chỉ tin X-Forwarded-For từ mạng nội bộ của compose (nơi Nginx đứng), không tin '*'
+CMD ["sh", "-c", "exec uvicorn server:app --app-dir codebase --host 0.0.0.0 --port ${PORT:-6161} --workers ${UVICORN_WORKERS:-1} --proxy-headers --forwarded-allow-ips=\"${FORWARDED_ALLOW_IPS}\" --no-access-log"]
