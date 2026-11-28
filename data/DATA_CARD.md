@@ -15,10 +15,10 @@
 | Dùng để làm gì | Nguồn cho công cụ `search_safety_guideline(age_group, query)`, là "tài liệu chuẩn" để chấm phản xạ của trẻ. Cũng là căn cứ để viết `expected` trong `eval/benchmark.csv` |
 | Từ đâu | Nhóm **viết lại ngắn** (không chép nguyên văn) theo tài liệu công khai: UNESCO *International technical guidance on sexuality education* (2018), Council of Europe *The Underwear Rule*, NSPCC *Talk PANTS*, Tổng đài 111. Mỗi quy tắc ghi mã nguồn trong trường `nguon` |
 | Xử lý những bước gì | Chọn các ý về giữ an toàn cơ thể, bỏ nội dung ngoài lát cắt (sức khoẻ sinh sản, quan hệ tình dục) · viết lại thành 1 đoạn chuẩn và 2 lời nói theo tuổi (`loi_6_10` câu ≤25 từ, `loi_11_15`) · gắn 3 hành động chuẩn A/B/C khớp metric `chi_ra_hanh_dong_an_toan` |
-| Số dòng / số đoạn | 12 quy tắc (R01–R12) · 6 nguồn |
+| Số dòng / số đoạn | 12 quy tắc (R01–R12) · 5 nguồn (bỏ `SRC-UNICEF-ONLINE` ngày 28/11) |
 | Phiên bản / ngày lấy | v0.1 · 27/11/2026 |
 | Nhãn | Nhóm tự viết, dựa trên tài liệu thật. Không phải `synthetic` sinh tự động |
-| Giới hạn | **Chưa kiểm link và số mục của từng nguồn** (trường `trang_thai`). `SRC-UNICEF-ONLINE` chưa tìm được tài liệu cụ thể, phải thay hoặc bỏ trước CP3 · Tài liệu gốc là của nước ngoài, cách nói đã được chỉnh cho tiếng Việt nhưng chưa có chuyên gia hay giáo viên duyệt · Chỉ phủ 6 chủ đề trong lát cắt |
+| Giới hạn | **Chưa kiểm link và số mục của từng nguồn** (trường `trang_thai`). `SRC-UNICEF-ONLINE` đã bỏ ngày 28/11 vì chưa tìm được tài liệu cụ thể; R08 (an toàn trên mạng) nay chỉ dựa trên UNESCO 4.3, còn 5 nguồn · Tài liệu gốc là của nước ngoài, cách nói đã được chỉnh cho tiếng Việt nhưng chưa có chuyên gia hay giáo viên duyệt · Chỉ phủ 6 chủ đề trong lát cắt |
 
 ## Dataset 2 · Kho tình huống (`data/scenarios.json`)
 
