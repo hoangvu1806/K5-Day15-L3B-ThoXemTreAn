@@ -2,7 +2,7 @@
 
 Bản nháp ngày 28/11, viết theo code hiện tại (`codebase/server.py`, `agent.py`, `guardrails.py`, `tools.py`). Code bây giờ mới là bản demo. File này ghi những gì phải làm trước khi cho người dùng thật chơi, và cách giữ cho bản chạy thật an toàn sau đó.
 
-Nhóm tự chạy cả frontend lẫn backend trên một VPS cá nhân chạy Ubuntu, domain `canthansaulungkiabeiu.site`. Các lệnh trong file viết cho Ubuntu; nên dùng bản LTS để có cập nhật bảo mật lâu dài. Frontend game chưa nằm trong repo này, nên phần frontend dưới đây chỉ ghi chỗ đặt file.
+Nhóm tự chạy cả frontend lẫn backend trên một VPS cá nhân chạy Ubuntu, domain `canthansaulungkiabeiu.site`. Các lệnh trong file viết cho Ubuntu; nên dùng bản LTS để có cập nhật bảo mật lâu dài. Bản đầu file này viết khi frontend chưa vào repo. Nay frontend ở `frontend/` và bản đang chạy dùng Docker Compose + Nginx trong `infra/` (xem `infra/README.md`), có tài khoản người lớn lưu SQLite.
 
 ## 0. Phải sửa trước khi có URL công khai
 
