@@ -2,7 +2,7 @@
 # Deploy một tag đã gắn trên main, tự quay lại bản đang chạy nếu /health không lên.
 #   infra/scripts/deploy.sh v0.4        deploy tag v0.4
 #   infra/scripts/deploy.sh v0.3        rollback = deploy lại tag cũ
-# Deploy vào giờ ít người chơi: restart API làm mất các phiên đang chơi (phiên chỉ nằm trong RAM).
+# Phiên chơi nằm ở Redis nên restart API không mất phiên. Vẫn nên deploy giờ ít người chơi.
 set -euo pipefail
 
 TAG="${1:?Cách dùng: deploy.sh <tag>, vd deploy.sh v0.4}"

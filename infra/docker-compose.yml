@@ -1,8 +1,8 @@
 # GrowSafe AI — Production Docker Compose (Nginx + FastAPI + Next.js + Redis + Postgres + Observability)
 # Chạy từ thư mục infra/ (hoặc qua scripts/compose.sh):
-#   Cơ bản (Nginx + Frontend + API + Redis):   docker compose --env-file .env.prod up -d --build
-#   Thêm xem log realtime nhẹ (Dozzle):        docker compose --env-file .env.prod --profile logs up -d
-#   Đủ giám sát (Prometheus + Grafana + Loki): docker compose --env-file .env.prod --profile obs up -d
+#   Cơ bản (Nginx + Frontend + API + Redis):   scripts/compose.sh up -d --build
+#   Thêm xem log realtime nhẹ (Dozzle):        scripts/compose.sh --profile logs up -d
+#   Đủ giám sát (Prometheus + Grafana + Loki): scripts/compose.sh --profile obs up -d
 #   Dùng PostgreSQL có sẵn trên server:        scripts/compose.sh up -d --build   (tự thêm docker-compose.pg.yml)
 
 x-logging: &default-logging
