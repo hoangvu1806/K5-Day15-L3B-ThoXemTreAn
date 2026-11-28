@@ -10,8 +10,7 @@ import { Chunky, Pic, Toast, TopBar, WordReveal } from "./ui";
 function placeState(p: MapPlace, cleared: Record<string, boolean>) {
   const done = p.scenes.every((s) => s.id in cleared);
   const fresh = p.scenes.some((s) => s.open && !(s.id in cleared));
-  const drafts = p.scenes.some((s) => s.draft);
-  return { done, fresh, drafts };
+  return { done, fresh };
 }
 
 function Arrow() {
@@ -44,7 +43,6 @@ function Map610() {
               {st.fresh && <span className="absolute right-[6px] top-[6px] h-[22px] w-[22px] rounded-full border-[3px] border-white bg-[var(--coral)]" />}
             </div>
             <span className="panel-soft -mt-2 rounded-full! px-4 py-[2px] font-display text-[20px] font-extrabold">{p.label}</span>
-            {st.drafts && <span className="mt-1 rounded-full bg-[var(--lilac)] px-2 text-[13px] font-bold">có màn nháp</span>}
           </motion.button>
         );
       })}
@@ -104,7 +102,7 @@ function Phone1115() {
 }
 
 export default function MapScreen() {
-  const { saved, mapLine, endSession, progress, busy, showDrafts } = useGame();
+  const { saved, mapLine, endSession, progress, busy } = useGame();
   const age = saved.profile?.age ?? "6-10";
   const owlPos = age === "6-10" ? "left-[470px] bottom-[10px]" : "left-[690px] bottom-[250px]";
 
@@ -129,7 +127,6 @@ export default function MapScreen() {
       </div>
 
       <div className="absolute bottom-[22px] right-[26px] z-20 flex flex-col items-end gap-2">
-        {showDrafts && <span className="rounded-full bg-[var(--lilac)] px-3 py-1 text-[14px] font-bold">Đang bật màn nháp để nhóm duyệt</span>}
         {progress.index > 0 && (
           <Chunky size="sm" color="var(--cream)" onClick={() => void endSession()}>Nghỉ thôi</Chunky>
         )}

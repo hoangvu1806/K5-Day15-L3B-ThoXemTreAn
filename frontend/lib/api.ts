@@ -10,7 +10,9 @@ export interface AccountResponse {
   progress: Record<AgeGroup, AgeProgress>;
 }
 
-export const BASE = (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:6161").replace(/\/$/, "");
+// Bản production để trống biến này thì gọi /api/* cùng domain (qua Nginx). Chỉ bản dev mới mặc định cổng 6161.
+export const BASE = (process.env.NEXT_PUBLIC_API_URL
+  || (process.env.NODE_ENV === "production" ? "" : "http://127.0.0.1:6161")).replace(/\/$/, "");
 
 export class ApiError extends Error {
   constructor(message: string, public status = 0) {

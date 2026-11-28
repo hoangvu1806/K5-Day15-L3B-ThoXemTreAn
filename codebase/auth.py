@@ -1,6 +1,7 @@
 """Tài khoản cơ bản (tên đăng nhập + mật khẩu) để lưu bộ thẻ qua nhiều lần chơi, nhiều máy.
 
-Lưu bằng SQLite (thư viện chuẩn), một file: biến GROWSAFE_DB, mặc định data/runtime/growsafe.db (đã có trong .gitignore).
+Có DATABASE_URL (postgresql://…) thì lưu ở PostgreSQL (nhiều worker / replica). Không có thì lưu SQLite, một file:
+biến GROWSAFE_DB, mặc định data/runtime/growsafe.db (đã có trong .gitignore).
 Quyết định và cách sao lưu: docs/deploy-plan.md mục 1 và 5.
 
 Chỉ lưu:
@@ -10,7 +11,7 @@ Chỉ lưu:
 Không lưu câu trả lời của trẻ, giới tính, bản nháp, email hay tên thật.
 Nội dung thẻ không lưu: khi trả về, dựng lại từ data/ bằng game.rule_card / game.tactic_card.
 
-Mọi truy vấn SQL nằm trong file này, muốn chuyển sang Postgres thì chỉ đổi ở đây.
+Mọi truy vấn SQL nằm trong file này, viết theo cú pháp SQLite; lớp _Postgres đổi dấu ? thành %s.
 """
 import hashlib
 import hmac
@@ -26,6 +27,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel
 
 import game
+import store
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.environ.get("GROWSAFE_DB") or os.path.join(ROOT, "data", "runtime", "growsafe.db")
@@ -38,19 +40,17 @@ TRUSTED_ROLES = {"Mẹ", "Bố", "Bà", "Ông", "Cô chủ nhiệm", "Bác bảo
 USERNAME_RE = re.compile(r"^[a-z0-9_.]{3,20}$")
 PASSWORD_MIN, PASSWORD_MAX = 8, 128
 TOKEN_DAYS = 30
+DATABASE_URL = (os.environ.get("DATABASE_URL") or "").strip()
+POOL_SIZE = int(os.environ.get("GROWSAFE_DB_POOL") or 10)  # kết nối Postgres tối đa mỗi tiến trình
 SCRYPT = {"n": 2 ** 14, "r": 8, "p": 1, "dklen": 32}
 
-# Chặn dò mật khẩu: sai 5 lần trong 10 phút với cùng tên đăng nhập hoặc cùng IP thì khoá 10 phút (chỉ trong RAM).
+# Chặn dò mật khẩu: sai 5 lần trong 10 phút với cùng tên đăng nhập hoặc cùng IP thì khoá 10 phút (đếm chung giữa các tiến trình).
 FAIL_LIMIT, FAIL_WINDOW = 5, 600
-_fails: dict = {}
-_fails_lock = threading.Lock()
 
 # Chống spam các endpoint AI / TTS tốn chi phí: mặc định tối đa 30 lượt/phút mỗi tài khoản.
 AI_RATE_LIMIT = int(os.environ.get("GROWSAFE_AI_RATE_LIMIT") or 30)
 AI_RATE_WINDOW = 60
-REGISTER_LIMIT, REGISTER_WINDOW = 10, 600
-_rates: dict = {}
-_rates_lock = threading.Lock()
+REGISTER_LIMIT, REGISTER_WINDOW = int(os.environ.get("GROWSAFE_REGISTER_LIMIT") or 10), 600
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS users (
@@ -79,8 +79,36 @@ CREATE TABLE IF NOT EXISTS items (
 
 # ---------- Kết nối ----------
 
+class _Postgres:
+    """Cho phần còn lại của file dùng kết nối psycopg giống kết nối sqlite3."""
+
+    def __init__(self, con):
+        self.con = con
+
+    def execute(self, sql, params=()):
+        return self.con.execute(sql.replace("?", "%s"), params)
+
+
+_pool = None
+_pool_lock = threading.Lock()
+
+
+def _pg_pool():
+    global _pool
+    with _pool_lock:
+        if _pool is None:
+            from psycopg_pool import ConnectionPool
+            _pool = ConnectionPool(DATABASE_URL, min_size=1, max_size=POOL_SIZE, timeout=10,
+                                   check=ConnectionPool.check_connection, open=True)
+    return _pool
+
+
 @contextmanager
 def _db():
+    if DATABASE_URL:
+        with _pg_pool().connection() as con:  # tự commit, lỗi thì rollback
+            yield _Postgres(con)
+        return
     con = sqlite3.connect(DB_PATH, timeout=10)
     try:
         con.execute("PRAGMA foreign_keys = ON")
@@ -90,7 +118,26 @@ def _db():
         con.close()
 
 
+def _duplicate_errors():
+    if DATABASE_URL:
+        from psycopg import errors
+        return (errors.UniqueViolation,)
+    return (sqlite3.IntegrityError,)
+
+
+def _postgres_schema():
+    schema = "\n".join(line.split("--")[0] for line in SCHEMA.splitlines())
+    schema = re.sub(r"INTEGER PRIMARY KEY\b", "BIGSERIAL PRIMARY KEY", schema)
+    return re.sub(r"\bINTEGER\b", "BIGINT", schema.replace("BLOB", "BYTEA"))
+
+
 def init_db():
+    if DATABASE_URL:
+        with _db() as con:
+            con.execute("SELECT pg_advisory_xact_lock(724011)")  # nhiều worker khởi động cùng lúc
+            for statement in filter(str.strip, _postgres_schema().split(";")):
+                con.execute(statement)
+        return
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     with _db() as con:
         con.execute("PRAGMA journal_mode = WAL")
@@ -128,52 +175,23 @@ def _user_from_token(con, authorization: str):
 
 
 def _too_many(keys) -> bool:
-    now = time.time()
-    with _fails_lock:
-        for k in keys:
-            recent = [t for t in _fails.get(k, []) if now - t < FAIL_WINDOW]
-            _fails[k] = recent
-            if len(recent) >= FAIL_LIMIT:
-                return True
-    return False
+    return any(store.backend.count("fail:" + k, FAIL_WINDOW) >= FAIL_LIMIT for k in keys)
 
 
 def _record_fail(keys):
-    with _fails_lock:
-        for k in keys:
-            _fails.setdefault(k, []).append(time.time())
+    for k in keys:
+        store.backend.record("fail:" + k, FAIL_WINDOW)
 
 
 def _clear_fails(keys):
-    with _fails_lock:
-        for k in keys:
-            _fails.pop(k, None)
+    for k in keys:
+        store.backend.clear("fail:" + k)
 
 
 def _check_rate(key: str, limit: int, window: int, msg: str):
-    """Giới hạn số lượt gọi theo cửa sổ trượt trong RAM. Vượt ngưỡng thì trả 429."""
-    if limit <= 0:
-        return
-    now = time.time()
-    with _rates_lock:
-        recent = [t for t in _rates.get(key, []) if now - t < window]
-        if len(recent) >= limit:
-            _rates[key] = recent
-            raise HTTPException(429, msg)
-        recent.append(now)
-        _rates[key] = recent
-
-
-def prune_counters():
-    """Bỏ các khoá đếm đã hết cửa sổ, để _rates và _fails không tăng theo số IP / tài khoản từng gặp."""
-    now = time.time()
-    longest = max(AI_RATE_WINDOW, REGISTER_WINDOW)
-    with _rates_lock:
-        for k in [k for k, ts in _rates.items() if not ts or now - ts[-1] > longest]:
-            del _rates[k]
-    with _fails_lock:
-        for k in [k for k, ts in _fails.items() if not ts or now - ts[-1] > FAIL_WINDOW]:
-            del _fails[k]
+    """Giới hạn số lượt gọi theo cửa sổ trượt, tính chung giữa các tiến trình. Vượt ngưỡng thì trả 429."""
+    if limit > 0 and not store.backend.hit("rate:" + key, limit, window):
+        raise HTTPException(429, msg)
 
 
 def require_user(authorization: str = Header(default="")) -> tuple[int, str]:
@@ -211,21 +229,22 @@ def _merge_progress(con, user_id: int, incoming: dict):
         for sid, passed in list(cleared.items())[:500]:
             if sid in scenario_ids:
                 con.execute(
-                    "INSERT INTO items VALUES (?, ?, 'cleared', ?, ?) ON CONFLICT DO UPDATE "
-                    "SET value = MAX(value, excluded.value)", (user_id, age, sid, "1" if passed else "0"))
+                    "INSERT INTO items VALUES (?, ?, 'cleared', ?, ?) ON CONFLICT (user_id, age, kind, code) DO UPDATE "
+                    "SET value = CASE WHEN excluded.value > items.value THEN excluded.value ELSE items.value END", (user_id, age, sid, "1" if passed else "0"))
         rules = p.get("rules") if isinstance(p.get("rules"), dict) else {}
         for code in list(rules)[:200]:
             if game.rule_card(code, age, guidelines):
-                con.execute("INSERT OR IGNORE INTO items VALUES (?, ?, 'rule', ?, '')", (user_id, age, code))
+                con.execute("INSERT INTO items VALUES (?, ?, 'rule', ?, '') ON CONFLICT DO NOTHING", (user_id, age, code))
         tactics = p.get("tactics") if isinstance(p.get("tactics"), dict) else {}
         for code in list(tactics)[:200]:
             if game.tactic_card(code):
-                con.execute("INSERT OR IGNORE INTO items VALUES (?, ?, 'tactic', ?, '')", (user_id, age, code))
+                con.execute("INSERT INTO items VALUES (?, ?, 'tactic', ?, '') ON CONFLICT DO NOTHING", (user_id, age, code))
         hand = p.get("hand")
         if isinstance(hand, list) and any(isinstance(r, str) and r in TRUSTED_ROLES for r in hand):
             for i in range(HAND_SLOTS):
                 role = hand[i] if i < len(hand) and isinstance(hand[i], str) and hand[i] in TRUSTED_ROLES else ""
-                con.execute("INSERT INTO items VALUES (?, ?, 'hand', ?, ?) ON CONFLICT DO UPDATE SET value = excluded.value",
+                con.execute("INSERT INTO items VALUES (?, ?, 'hand', ?, ?) "
+                            "ON CONFLICT (user_id, age, kind, code) DO UPDATE SET value = excluded.value",
                             (user_id, age, str(i), role))
 
 
@@ -297,11 +316,11 @@ def register(body: RegisterIn, request: Request):
     now = int(time.time())
     with _db() as con:
         try:
-            cur = con.execute("INSERT INTO users (username, pw_hash, salt, created_at, consent_at) VALUES (?, ?, ?, ?, ?)",
-                              (username, _hash_password(body.password, salt), salt, now, now))
-        except sqlite3.IntegrityError:
+            user_id = con.execute(
+                "INSERT INTO users (username, pw_hash, salt, created_at, consent_at) VALUES (?, ?, ?, ?, ?) "
+                "RETURNING id", (username, _hash_password(body.password, salt), salt, now, now)).fetchone()[0]
+        except _duplicate_errors():
             raise HTTPException(409, "Tên đăng nhập này đã có người dùng")
-        user_id = cur.lastrowid
         _merge_progress(con, user_id, body.progress)
         return _account(con, user_id, username, _new_login(con, user_id))
 

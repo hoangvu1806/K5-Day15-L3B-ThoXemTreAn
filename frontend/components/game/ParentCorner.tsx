@@ -1,21 +1,29 @@
 "use client";
 
+import clsx from "clsx";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { owl, ui } from "@/lib/assets";
+import { loadReports } from "@/lib/local";
 import { sound } from "@/lib/sound";
 import { useGame } from "@/lib/store";
 import { Chunky, Modal, Pic } from "./ui";
 
-/** Góc phụ huynh (sau khoá người lớn): bản nháp do AI soạn, chỉ có nút sao chép, không có nút gửi. */
+const when = (t: number) => new Date(t).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+
+/** Góc phụ huynh: các bản nháp do AI soạn (mới nhất đứng đầu), chỉ có nút sao chép, không có nút gửi. */
 export default function ParentCorner({ onClose }: { onClose: () => void }) {
-  const { draft, saved, setOverlay } = useGame();
+  // useGame() theo dõi cả kho: vừa soạn xong báo cáo thì màn này vẽ lại và đọc lịch sử mới.
+  const { saved, account, setOverlay } = useGame();
+  const reports = account ? loadReports(account.username) : [];
+  const [picked, setPicked] = useState("");
+  const draft = reports.find((r) => r.id === picked) ?? reports[0];
   const [copied, setCopied] = useState(false);
   const profile = saved.profile;
 
   return (
     <Modal onClose={onClose} z={60}>
-      <div className="panel paper-grain relative flex h-[680px] w-[1060px] flex-col px-9 py-6">
+      <div className="panel paper-grain relative flex h-[680px] w-[1240px] flex-col px-9 py-6">
         <div className="flex shrink-0 items-center gap-4">
           <Pic src={ui.parent} w={512} h={512} className="h-[62px] w-[62px]" />
           <div className="flex-1">
@@ -25,7 +33,29 @@ export default function ParentCorner({ onClose }: { onClose: () => void }) {
           <span className="rounded-full border-[3px] border-[var(--ink)] bg-[var(--lilac)] px-4 py-1 font-display text-[16px] font-bold">Bản nháp</span>
         </div>
 
-        <div className="mt-4 flex min-h-0 flex-1 gap-6">
+        <div className="mt-4 flex min-h-0 flex-1 gap-5">
+          <div className="flex w-[200px] shrink-0 flex-col gap-2">
+            <p className="font-display text-[19px] font-bold">Các lần trước</p>
+            <div className="parent-scroll min-h-0 flex-1 space-y-2 overflow-y-auto pr-1">
+              {reports.map((r) => (
+                <button key={r.id} type="button" aria-pressed={r.id === draft?.id}
+                  onClick={() => { sound.play("select"); setPicked(r.id); setCopied(false); }}
+                  className={clsx("w-full rounded-[16px] border-[3px] border-[var(--ink)]/80 px-3 py-2 text-left",
+                    r.id === draft?.id ? "bg-[var(--sun)]" : "bg-white/80")}>
+                  <span className="block font-display text-[16px] font-bold leading-tight">{when(r.saved_at)}</span>
+                  <span className="block text-[13px] font-bold text-[var(--ink-soft)]">
+                    {r.kind === "ask" ? "Góc Tò Mò" : `${r.levels.length} màn`} · {r.age} tuổi
+                  </span>
+                </button>
+              ))}
+              {!reports.length && (
+                <p className="text-[14px] font-bold leading-snug text-[var(--ink-soft)]">
+                  {account ? "Chưa có phiên nào hoàn thành." : "Đăng nhập để xem báo cáo của tài khoản trên máy này."}
+                </p>
+              )}
+            </div>
+            {!account && <Chunky size="sm" color="var(--mint)" onClick={() => setOverlay("account")}>Đăng nhập</Chunky>}
+          </div>
           <div className="flex min-h-0 flex-1 flex-col rounded-[24px] border-[3px] border-[var(--ink)] bg-white px-6 py-5">
             {draft ? (
               <div className="parent-scroll min-h-0 flex-1 space-y-3.5 overflow-y-auto pr-2 text-[17.5px] font-semibold leading-[1.65] text-[var(--ink)]">
@@ -54,7 +84,7 @@ export default function ParentCorner({ onClose }: { onClose: () => void }) {
               </div>
             )}
           </div>
-          <div className="flex w-[285px] shrink-0 flex-col gap-2">
+          <div className="flex w-[260px] shrink-0 flex-col gap-2">
             <p className="font-display text-[19px] font-bold">Kết quả từng màn</p>
             {(draft?.levels ?? []).map((l, i) => (
               <div key={i} className="flex items-center justify-between gap-2 rounded-[16px] border-[3px] border-[var(--ink)]/80 bg-white/80 px-3 py-[6px]">
@@ -74,7 +104,7 @@ export default function ParentCorner({ onClose }: { onClose: () => void }) {
 
         <div className="mt-4 flex shrink-0 items-center gap-4">
           <Pic src={ui.privacy} w={512} h={512} className="h-[40px] w-[40px]" />
-          <p className="flex-1 text-[14px] font-bold leading-snug text-[var(--ink-soft)]">Game không tự gửi bản nháp này đi đâu. Bản nháp không có tên, giới tính hay thông tin định danh của con. Khi con bấm nút mic để nói, giọng nói được gửi tới Google để chuyển thành chữ; game không lưu âm thanh, chỉ gửi chữ con đã xác nhận.</p>
+          <p className="flex-1 text-[14px] font-bold leading-snug text-[var(--ink-soft)]">Game không tự gửi bản nháp này đi đâu, lịch sử chỉ lưu trên máy này. Bản nháp không có tên, giới tính hay thông tin định danh của con. Khi con bấm nút mic để nói, giọng nói được gửi tới Google để chuyển thành chữ; game không lưu âm thanh, chỉ gửi chữ con đã xác nhận.</p>
           <Chunky size="sm" color="var(--sky)" disabled={!draft} onClick={async () => {
             if (!draft) return;
             try { await navigator.clipboard.writeText(draft.note); setCopied(true); setTimeout(() => setCopied(false), 1800); } catch {}

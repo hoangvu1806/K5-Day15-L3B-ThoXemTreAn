@@ -2,13 +2,14 @@
 
 Thư mục này chứa toàn bộ cấu hình Docker Compose, Dockerfile tối ưu image, Reverse Proxy (**Nginx**), và bộ giám sát (Prometheus, Nginx Exporter, Loki, Promtail, Grafana, Dozzle) để chạy GrowSafe AI trên production.
 
-> Xem lộ trình tối ưu đa luồng, tách session sang Redis và mở rộng nhiều replica trong [`PLAN.md`](./PLAN.md).
+> API chạy được nhiều replica / worker: phiên chơi và rate limit ở Redis, tài khoản ở PostgreSQL có sẵn trên server. Lộ trình tiếp theo: [`PLAN.md`](./PLAN.md).
 
 ## 1. Cấu trúc thư mục
 
 ```text
 infra/
-├── docker-compose.yml            # Stack đầy đủ, chia profile: cơ bản / logs / obs / scale
+├── docker-compose.yml            # Stack cơ bản (có Redis), thêm profile logs / obs
+├── docker-compose.pg.yml         # Nối API vào Docker network của PostgreSQL có sẵn
 ├── Dockerfile.api                # Multi-stage python:3.12-slim + uv + ffmpeg tối giản (~300MB)
 ├── Dockerfile.frontend           # Multi-stage node:22-alpine cho Next.js 16
 ├── env.prod.example              # Mẫu biến môi trường production (chép thành .env.prod)
@@ -18,8 +19,10 @@ infra/
 │   ├── https.conf.example        # HTTPS 443 + chuyển 80 → 443, www → domain chính (chọn bằng NGINX_SITE)
 │   └── snippets/                 # proxy.conf (header chung), locations.conf (route + rate limit dùng chung)
 ├── scripts/
+│   ├── compose.sh                # docker compose với đúng .env.prod và network Postgres, dùng cho mọi lệnh
 │   ├── deploy.sh                 # Deploy theo git tag, tự rollback khi /health lỗi
-│   └── backup.sh                 # Sao lưu SQLite ra ngoài volume, giữ 14 bản, tuỳ chọn rsync
+│   ├── backup.sh                 # Sao lưu DB tài khoản ra ngoài Docker, giữ 14 bản, tuỳ chọn rsync
+│   └── loadtest.py               # N người chơi cùng lúc, mỗi người trọn một phiên
 ├── prometheus/
 │   └── prometheus.yml            # Thu thập metric từ Nginx Exporter, FastAPI (/metrics) và VPS
 ├── loki/
@@ -33,12 +36,14 @@ infra/
 
 ## 2. Yêu cầu VPS tối thiểu
 
-| Chế độ chạy | Profile | RAM ước tính | Khuyến nghị VPS |
-|---|---|---:|---|
-| Cơ bản (Nginx + Certbot + Frontend + 1 API) | *(mặc định)* | ~450 MB | 1–2 vCPU / 2 GB RAM |
-| Cơ bản + xem log realtime nhẹ (Dozzle) | `--profile logs` | ~580 MB | 2 vCPU / 2 GB RAM |
-| Cơ bản + Full Giám sát (Prometheus + Loki + Grafana) | `--profile obs` | ~1.2 GB | 2 vCPU / 4 GB RAM |
-| Đa replica API (2–4) + Postgres + Full Giám sát | `--profile scale --profile obs` | ~1.8–2.5 GB | 4 vCPU / 4–8 GB RAM |
+RAM là ước tính, **chưa đo**. PostgreSQL chạy riêng, không tính ở đây.
+
+| Chế độ chạy | Profile | RAM nên có |
+|---|---|---|
+| 1 replica x 1 worker | *(mặc định khi không đặt)* | 2 GB |
+| 2 replica x 2 worker (giới hạn 1 GB mỗi replica) | *(mặc định)* | 4 GB |
+| Thêm Dozzle | `--profile logs` | thêm ~60 MB |
+| Thêm Prometheus + Loki + Grafana | `--profile obs` | thêm ~800 MB |
 
 ## 3. Deploy lên VPS từ đầu
 
@@ -87,10 +92,15 @@ nano .env.prod
 | `CORS_ORIGINS` | `https://<DOMAIN>,https://www.<DOMAIN>` | có |
 | `API_KEY` | key OpenRouter. Đặt hạn mức chi tiêu tháng trên dashboard OpenRouter | có |
 | `MODEL_NAME` | giữ mặc định, ghim phiên bản, không dùng alias "latest" | — |
-| `GRAFANA_PASSWORD`, `POSTGRES_PASSWORD` | mật khẩu mạnh, **phải điền kể cả khi chưa bật** `obs`, `scale` (compose báo lỗi nếu trống) | có |
+| `DATABASE_URL` | `postgresql://<user>:<mật khẩu>@<container postgres>:5432/<db>`, DB và user riêng. Ký tự đặc biệt trong mật khẩu mã hoá kiểu URL | có khi hơn 1 replica / worker |
+| `PG_NETWORK` | Docker network của container Postgres (`docker network ls`) | có khi dùng Postgres |
+| `PG_IMAGE` | image chạy `pg_dump`, phiên bản chính bằng hoặc mới hơn server | — |
+| `REDIS_URL`, `GROWSAFE_SESSION_TTL`, `MODEL_TIMEOUT` | giữ mặc định: Redis trong compose, 2700 giây, 20 giây | — |
+| `API_MEM_LIMIT` | RAM tối đa mỗi replica API, mặc định `1g` (ước tính, chưa đo) | — |
+| `GRAFANA_PASSWORD` | mật khẩu mạnh, **phải điền kể cả khi chưa bật** `obs` (compose báo lỗi nếu trống) | có |
 | `SAFE_MODE` | `0`. Công tắc khẩn, xem mục 5 | — |
 | `GROWSAFE_AI_RATE_LIMIT` | số lượt gọi AI mỗi phút mỗi tài khoản, mặc định `30` | — |
-| `API_REPLICAS`, `UVICORN_WORKERS` | **giữ `1`** cho đến khi xong Pha 1 trong `PLAN.md` | — |
+| `API_REPLICAS`, `UVICORN_WORKERS` | số bản API và số tiến trình mỗi bản, mẫu để `2` và `2`. Server ít RAM thì bắt đầu `1` và `1`. Hơn 1 thì bắt buộc dùng PostgreSQL | — |
 | `NEXT_PUBLIC_API_URL` | để trống (frontend gọi `/api/*` cùng domain qua Nginx) | — |
 
 `deploy.sh` từ chối chạy khi file còn giá trị mẫu (`replace-...`, `changeme`).
@@ -101,13 +111,21 @@ nano .env.prod
 cd /opt/growsafe
 git checkout v0.4
 cd infra
-docker compose --env-file .env.prod up -d --build
-docker compose --env-file .env.prod ps                  # mọi service "healthy"
+scripts/compose.sh up -d --build
+scripts/compose.sh ps                                    # mọi service "healthy"
 curl -fsS http://<DOMAIN>/health                         # {"ok": true, ...}
 ```
 
 Muốn thêm công cụ xem log hoặc giám sát thì thêm profile vào lệnh `up` (xem bảng ở mục 2):
 `--profile logs` (Dozzle) hoặc `--profile obs` (Prometheus, Loki, Grafana).
+
+**Chuyển tài khoản cũ từ SQLite sang PostgreSQL** (chỉ một lần, nếu server đã chạy bản SQLite):
+
+```bash
+scripts/compose.sh exec api python codebase/migrate_sqlite.py
+```
+
+Chạy lại được, dòng đã có thì bỏ qua. DB Postgres nên còn trống khi chuyển.
 
 ### Bước 4 — Lấy chứng chỉ và bật HTTPS
 
@@ -124,7 +142,7 @@ docker run --rm \
 Sửa `NGINX_SITE=https.conf.example` trong `.env.prod`, rồi:
 
 ```bash
-docker compose --env-file .env.prod up -d nginx
+scripts/compose.sh up -d nginx
 curl -fsS https://<DOMAIN>/health
 ```
 
@@ -156,7 +174,7 @@ Kiểm tra trạng thái bất cứ lúc nào:
 
 ```bash
 cd /opt/growsafe/infra
-docker compose --env-file .env.prod ps
+scripts/compose.sh ps
 curl -fsS https://<DOMAIN>/health
 ```
 
@@ -177,30 +195,42 @@ ssh -L 8080:127.0.0.1:8080 user@<IP_VPS>
 - **Bật chế độ an toàn `SAFE_MODE=1`** (tắt AI tự do ở Góc Tò Mò khi OpenRouter có sự cố):
   Sửa `SAFE_MODE=1` trong `infra/.env.prod`, rồi chạy:
   ```bash
-  docker compose --env-file .env.prod up -d api
+  scripts/compose.sh up -d api
   ```
 - **Cập nhật phiên bản mới:** merge vào `main`, gắn tag (vd `v0.4`), rồi trên VPS:
   ```bash
   infra/scripts/deploy.sh v0.4
   ```
-  Script từ chối chạy khi `.env.prod` còn giá trị mẫu, sao lưu DB trước, build và chạy tag mới, đợi `/health` tối đa 90 giây; không lên thì tự quay lại bản đang chạy trước đó. Rollback tay: `infra/scripts/deploy.sh <tag cũ>`. Restart API làm mất phiên đang chơi, nên deploy giờ ít người chơi.
-- **Sao lưu SQLite hằng đêm (cron trên VPS):**
+  Script từ chối chạy khi `.env.prod` còn giá trị mẫu, sao lưu DB trước, build và chạy tag mới, đợi `/health` tối đa 90 giây; không lên thì tự quay lại bản đang chạy trước đó. Rollback tay: `infra/scripts/deploy.sh <tag cũ>`. Phiên chơi nằm ở Redis nên restart API không làm mất phiên. Restart Redis thì mất.
+- **Sao lưu DB tài khoản hằng đêm (cron trên VPS):**
   ```bash
   # crontab -e
   15 3 * * * BACKUP_REMOTE=backup@may-khac:/srv/growsafe/ /opt/growsafe/infra/scripts/backup.sh >> /var/log/growsafe-backup.log 2>&1
   ```
-  Bản sao ra `/var/backups/growsafe` (ngoài volume Docker), giữ 14 bản, `BACKUP_REMOTE` (rsync) để đẩy ra ngoài VPS. Mỗi tháng thử khôi phục một bản.
-- **Dọn bộ nhớ:** API tự dọn phiên không dùng quá `GROWSAFE_SESSION_TTL` giây (mặc định 2700 = 45 phút) mỗi 5 phút, giới hạn cache giọng đọc trong RAM (200 câu) và trên đĩa (5000 file).
+  Có `DATABASE_URL` thì sao lưu bằng `pg_dump` (file `.dump`, khôi phục bằng `pg_restore --clean --if-exists -d <url> <file>`), không thì sao lưu SQLite. Bản sao ra `/var/backups/growsafe` (ngoài volume Docker), giữ 14 bản, `BACKUP_REMOTE` (rsync) để đẩy ra ngoài VPS. Mỗi tháng thử khôi phục một bản.
+- **Dọn bộ nhớ:** phiên và bản nháp tự hết hạn sau `GROWSAFE_SESSION_TTL` giây không dùng (mặc định 2700 = 45 phút), API giới hạn cache giọng đọc trong RAM (200 câu) và trên đĩa (5000 file).
 - **Xem log nhanh trên terminal:**
   ```bash
-  docker compose --env-file .env.prod logs -f --tail=100 api nginx
+  scripts/compose.sh logs -f --tail=100 api nginx
   ```
 
 ## 6. Kiểm tra bảo mật trước khi mở công khai
 
 - [ ] Chỉ mở cổng `22`, `80`, `443` trên tường lửa VPS (`ufw`).
 - [ ] Đặt hạn mức chi tiêu (monthly spend limit) ngay trên key OpenRouter.
-- [ ] Đổi toàn bộ mật khẩu mẫu trong `infra/.env.prod` và `chmod 600 infra/.env.prod` (`deploy.sh` từ chối chạy khi còn giá trị mẫu; Grafana, Postgres không có mật khẩu là compose báo lỗi).
+- [ ] Đổi toàn bộ mật khẩu mẫu trong `infra/.env.prod` và `chmod 600 infra/.env.prod` (`deploy.sh` từ chối chạy khi còn giá trị mẫu; Grafana không có mật khẩu là compose báo lỗi).
 - [ ] Đặt `CORS_ORIGINS` trong `infra/.env.prod` đúng domain thật (không đặt thì API chỉ cho localhost dev).
 - [ ] Nếu đặt Cloudflare phía trước: bật `real_ip_header CF-Connecting-IP` trong `nginx/nginx.conf`, không thì mọi người dùng chung IP của Cloudflare và giới hạn theo IP mất tác dụng.
-- [ ] Giữ `API_REPLICAS=1` cho đến khi xong Pha 1 trong `PLAN.md`: phiên chơi vẫn nằm trong RAM của một tiến trình.
+- [ ] Chạy load test trước khi mở cho nhiều người (xem mục 7).
+
+## 7. Load test
+
+Chạy trên bản **không có người chơi**. Đặt `MODEL_PROVIDER=fake` (không tốn tiền model) và `GROWSAFE_REGISTER_LIMIT=1000` trong `.env.prod`, rồi `scripts/compose.sh up -d api`. Đo xong thì trả hai biến về cũ.
+
+```bash
+cd /opt/growsafe/infra
+scripts/compose.sh run --rm --no-deps -T api python - --base http://api:6161 --users 50 --seconds 120 < scripts/loadtest.py
+```
+
+Script thoát mã 0 khi không có lỗi, in p50, p95 từng endpoint. Xoá tài khoản thử sau khi đo: `DELETE FROM users WHERE username LIKE 'lt\_%';`
+

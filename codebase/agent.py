@@ -24,7 +24,7 @@ import json
 import re
 import uuid
 
-from ai import MODEL_NAME, adk_model, call_model, is_fake, record_adk_call
+from ai import MODEL_NAME, MODEL_TIMEOUT, adk_model, call_model, is_fake, record_adk_call
 from guardrails import long_sentences, mask_pii, postcheck, precheck, strip_injection
 from tools import (draft_parent_teacher_note, evaluate_child_response, get_scenario, keyword_judge,
                    search_safety_guideline)
@@ -32,6 +32,7 @@ from tracing import note
 
 APP_NAME = "growsafe"
 MAX_LLM_CALLS = 6
+TURN_TIMEOUT = MODEL_TIMEOUT * 2  # cả lượt Người dẫn truyện, gồm các lần gọi công cụ
 
 # Ba hành động chuẩn, dùng khi không có màn cụ thể (vd câu thử trong eval/benchmark.csv).
 STANDARD_ACTIONS = [
@@ -224,11 +225,16 @@ def _fake_flow(p: dict, scenario_id: str, message: str) -> str:
 
 # ---------- Chế độ thật: agent ADK ----------
 
+def _reply_text(content) -> str:
+    """Chữ trả lời của model. Bỏ phần suy nghĩ (thought=True) mà ADK trả kèm: trẻ không được thấy phần đó."""
+    parts = content.parts if content and content.parts else []
+    return "".join(p.text or "" for p in parts if not getattr(p, "thought", False))
+
+
 def _track_usage(callback_context, llm_response):
     """after_model_callback: ghi token của mỗi lần ADK gọi model vào trace (khung cần để tính chi phí)."""
     um = llm_response.usage_metadata
-    parts = llm_response.content.parts if llm_response.content and llm_response.content.parts else []
-    text = "".join(p.text or "" for p in parts) or "[gọi công cụ]"
+    text = _reply_text(llm_response.content) or "[gọi công cụ]"
     record_adk_call(llm_response.model_version or MODEL_NAME, text,
                     getattr(um, "prompt_token_count", 0) or 0,
                     getattr(um, "candidates_token_count", 0) or 0)
@@ -265,10 +271,14 @@ async def _run_adk(message: str) -> str:
     await runner.session_service.create_session(app_name=APP_NAME, user_id="player", session_id=session_id)
     content = types.Content(role="user", parts=[types.Part(text=message)])
     final = ""
-    async for event in runner.run_async(user_id="player", session_id=session_id, new_message=content,
-                                        run_config=RunConfig(max_llm_calls=MAX_LLM_CALLS)):
-        if event.is_final_response() and event.content and event.content.parts:
-            final = "".join(p.text or "" for p in event.content.parts)
+    try:
+        async for event in runner.run_async(user_id="player", session_id=session_id, new_message=content,
+                                            run_config=RunConfig(max_llm_calls=MAX_LLM_CALLS)):
+            if event.is_final_response() and event.content and event.content.parts:
+                final = _reply_text(event.content)
+    finally:
+        # InMemoryRunner giữ mọi session đã tạo: xoá ngay để RAM không tăng theo số lượt
+        await runner.session_service.delete_session(app_name=APP_NAME, user_id="player", session_id=session_id)
     return final
 
 
@@ -302,7 +312,7 @@ async def answer_async(text: str, session_id: str = "", age_group: str = "", sce
         p["child"] = masked
 
     actions = (scenario or {}).get("key_actions") or STANDARD_ACTIONS
-    verdict = judge(p, actions)
+    verdict = await asyncio.to_thread(judge, p, actions)
     note("giám khảo (%s): %s, đã làm %s, còn thiếu %s" % (
         verdict.get("nguon"), verdict["ket_luan"], verdict["da_lam"], verdict["con_thieu"]))
     message = _user_message(p, scenario_id, verdict, actions, name, context, reveal)
@@ -310,10 +320,10 @@ async def answer_async(text: str, session_id: str = "", age_group: str = "", sce
     if is_fake():
         raw = _fake_flow(p, scenario_id, message)
     else:
-        raw = await _run_adk(message)
+        raw = await asyncio.wait_for(_run_adk(message), TURN_TIMEOUT)
         if long_sentences(raw, p["age"]):
             note("có câu quá 25 từ, gọi model viết ngắn lại")
-            raw = call_model(SHORTEN, raw)["text"] or raw
+            raw = (await asyncio.to_thread(call_model, SHORTEN, raw))["text"] or raw
 
     output = postcheck(raw, p["age"], name)
     if output != raw.strip():

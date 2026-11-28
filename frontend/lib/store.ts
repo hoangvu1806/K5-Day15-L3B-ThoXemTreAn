@@ -5,7 +5,7 @@ import { api, ApiError, OFFLINE_HELP } from "./api";
 import { bg, card, kid, npc, owl, preload, ui, type OwlMood } from "./assets";
 import { progressLine, waitLine } from "./lines";
 import {
-  compactProgress, DEFAULT_SETTINGS, EMPTY, load, loadAccount, mergeProgress, owlStage, save, saveAccount, wipe,
+  compactProgress, DEFAULT_SETTINGS, EMPTY, load, loadAccount, mergeProgress, owlStage, save, saveAccount, saveReport, wipe,
   type Account, type AgeProgress, type Profile, type Saved, type Settings,
 } from "./local";
 import { sound } from "./sound";
@@ -565,7 +565,8 @@ export const useGame = create<GameState>((set, get) => ({
   },
 
   async endSession() {
-    const { sessionId, draft, progress } = get();
+    const { sessionId, draft, progress, account } = get();
+    const age = ageOf(get);
     voice.stop();
     if (!sessionId || progress.index === 0) {
       set({ phase: "home", sessionId: "" });
@@ -576,6 +577,7 @@ export const useGame = create<GameState>((set, get) => ({
     if (draft) return;
     try {
       const d = await api.end(sessionId);
+      if (account) saveReport(account.username, { ...d, id: d.draft_id, kind: "game", saved_at: Date.now(), age });
       set({ draft: d });
       if (d.bye?.voice) get().say([{ pause: 800 }, { file: d.bye.voice }]);
     } catch (e) {
@@ -706,15 +708,17 @@ export const useGame = create<GameState>((set, get) => ({
   },
 
   closeAsk() {
-    const { askSessionId, sessionId, askChat, draft } = get();
+    const { askSessionId, sessionId, askChat, account } = get();
+    const age = ageOf(get);
     voice.stop();
     if (sessionId) voice.setSession(sessionId);
     set({ phase: "home", overlay: "", error: "" });
-    // Nếu trẻ chỉ dùng Hỏi Tin (chưa có bản nháp phiên chơi), cập nhật bản nháp ngắn theo chủ đề cho Góc phụ huynh.
+    // Lưu báo cáo ngắn theo chủ đề vào lịch sử. Không đụng tới `draft`: đó là báo cáo của phiên chơi,
+    // gán vào đây thì phiên đang chơi sẽ không bao giờ được soạn báo cáo.
     const asked = askChat.some((m) => m.who === "kid");
-    if (askSessionId && asked && !draft) {
+    if (askSessionId && asked && account) {
       api.askEnd(askSessionId).then((d) => {
-        if (d?.note && !get().draft) set({ draft: d });
+        if (d?.note) saveReport(account.username, { ...d, id: "ask:" + askSessionId, kind: "ask", saved_at: Date.now(), age });
       }).catch(() => {});
     }
   },

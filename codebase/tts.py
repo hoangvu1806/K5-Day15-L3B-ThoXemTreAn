@@ -122,7 +122,9 @@ def synthesize(text: str, role: str) -> bytes:
     except (OSError, subprocess.SubprocessError) as e:
         raise TTSError("Chuyển wav sang mp3 lỗi (cần cài ffmpeg): %s" % e)
     os.makedirs(CACHE_DIR, exist_ok=True)
-    with open(path, "wb") as f:
+    tmp = "%s.%d.%d.tmp" % (path, os.getpid(), threading.get_ident())
+    with open(tmp, "wb") as f:
         f.write(audio)
+    os.replace(tmp, path)  # nhiều worker cùng ghi một câu: không ai đọc phải file dở
     _remember(key, audio)
     return audio

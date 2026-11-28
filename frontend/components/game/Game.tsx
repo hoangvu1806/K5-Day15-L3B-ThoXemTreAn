@@ -65,6 +65,9 @@ export default function Game() {
       window.removeEventListener("pointerdown", warm);
     };
     window.addEventListener("pointerdown", warm);
+    // Nhạc nền bật ở lần bấm đầu tiên (trình duyệt chặn tự phát), không cần đăng nhập.
+    const startMusic = () => sound.music(useGame.getState().saved.settings.music > 0);
+    window.addEventListener("click", startMusic, { once: true, capture: true });
     const on = () => setOnline(true);
     const off = () => setOnline(false);
     window.addEventListener("online", on);
@@ -72,6 +75,7 @@ export default function Game() {
     setOnline(navigator.onLine);
     return () => {
       window.removeEventListener("pointerdown", warm);
+      window.removeEventListener("click", startMusic, { capture: true });
       window.removeEventListener("online", on);
       window.removeEventListener("offline", off);
     };

@@ -13,9 +13,9 @@ Luồng mỗi câu hỏi:
 import json
 import os
 import re
-import time
 import uuid
 
+import store
 from ai import call_model, is_fake
 from guardrails import (
     ask_input_block,
@@ -31,8 +31,7 @@ from tracing import note
 MAX_QUESTIONS = 10
 SAFE_MODE = (os.environ.get("SAFE_MODE") or "").strip().lower() in ("1", "true", "yes")
 
-ASK_SESSIONS = {}
-RECENT_ASK = {}  # {age_group: ask_session_id} để gắn tóm tắt chủ đề vào báo cáo phụ huynh cuối phiên game
+ASK_SESSIONS = store.Sessions("ask")
 
 CLASSIFIER_SYSTEM = """Bạn là bộ phân loại câu hỏi trong chế độ "Góc Tò Mò" (giáo dục giới tính đúng tuổi cho trẻ 6-15 tuổi).
 Bạn KHÔNG viết lời cho trẻ. Đọc nhóm tuổi, danh sách chủ đề được phép và câu hỏi của trẻ.
@@ -296,11 +295,14 @@ def start(age_group="6-10", gender="nam", game_session_id=""):
         "over_streak": {"topic": "", "count": 0},
         "stopped": "",
         "spoken": set(),
-        "touched": time.time(),
     }
     _speak(session, greeting)
     ASK_SESSIONS[sid] = session
-    RECENT_ASK[age] = sid
+    if game_session_id:
+        key = "askgame:" + game_session_id
+        store.put(key, (store.fetch(key, []) + [sid])[-5:])
+    if store.owner.get():
+        store.put(_recent_key(age), sid)
     note("bắt đầu Hỏi Tin (%s, %s, safe=%s)" % (age, gen, SAFE_MODE))
     return {
         "ask_session_id": sid,
@@ -317,7 +319,6 @@ def message(ask_session_id, text):
     session = ASK_SESSIONS.get(ask_session_id)
     if not session:
         raise AskError("Không tìm thấy phiên Góc Tò Mò. Mở lại nhé.", 404)
-    session["touched"] = time.time()
     age = session["age_group"]
     gen = session["gender"]
     raw_text = (text or "").strip()[:300]
@@ -520,15 +521,19 @@ def message(ask_session_id, text):
     }
 
 
+def _recent_key(age_group):
+    """Phiên Góc Tò Mò mới nhất của đúng tài khoản này. Không dùng chung giữa các tài khoản."""
+    return "askrecent:%s:%s" % (store.owner.get(), age_group)
+
+
 def _find_session_for_report(game_session_id="", age_group=""):
-    if game_session_id:
-        for s in reversed(list(ASK_SESSIONS.values())):
-            if s["game_session_id"] == game_session_id and (s["topics_asked"] or s["flags"] or s["out_of_scope"] or s["stopped"]):
-                return s
-    sid = RECENT_ASK.get(_norm_age(age_group)) if age_group else ""
-    s = ASK_SESSIONS.get(sid) if sid else None
-    if s and (s["topics_asked"] or s["flags"] or s["out_of_scope"] or s["stopped"]):
-        return s
+    sids = list(reversed(store.fetch("askgame:" + game_session_id, []))) if game_session_id else []
+    if age_group and store.owner.get():
+        sids.append(store.fetch(_recent_key(_norm_age(age_group)), ""))
+    for sid in sids:
+        s = ASK_SESSIONS.get(sid)
+        if s and (s["topics_asked"] or s["flags"] or s["out_of_scope"] or s["stopped"]):
+            return s
     return None
 
 

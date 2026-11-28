@@ -41,6 +41,7 @@ MODEL_PROVIDER = (os.environ.get("MODEL_PROVIDER") or "fake").strip().lower()
 MODEL_NAME = (os.environ.get("MODEL_NAME") or "").strip()
 API_KEY = (os.environ.get("API_KEY") or "").strip()
 TEMPERATURE = float(os.environ.get("MODEL_TEMPERATURE") or 0.3)
+MODEL_TIMEOUT = float(os.environ.get("MODEL_TIMEOUT") or 20)  # giây cho mỗi lần gọi model
 
 
 def is_fake() -> bool:
@@ -61,7 +62,7 @@ def adk_model():
     from google.adk.models.lite_llm import LiteLlm
     if not API_KEY:
         raise RuntimeError("Chưa điền API_KEY trong .env")
-    return LiteLlm(model=litellm_model_id(), api_key=API_KEY, temperature=TEMPERATURE)
+    return LiteLlm(model=litellm_model_id(), api_key=API_KEY, temperature=TEMPERATURE, timeout=MODEL_TIMEOUT)
 
 
 @model_call
@@ -81,6 +82,7 @@ def call_model(system: str, user: str) -> dict:
         model=litellm_model_id(),
         api_key=API_KEY,
         temperature=TEMPERATURE,
+        timeout=MODEL_TIMEOUT,
         messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
     )
     usage = resp.usage  # completion_tokens của OpenRouter đã gồm token suy luận
