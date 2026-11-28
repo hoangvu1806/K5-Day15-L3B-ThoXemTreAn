@@ -2,6 +2,8 @@
 
 **Bản đang chạy:** https://canthansaulungkiabeiu.site/ (người lớn tạo tài khoản trong game rồi mới chơi được các phần có AI).
 
+![Màn hình chính của game GrowSafe](slides/img/man-hinh-chinh.jpg)
+
 **Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md). **Điền TEAMS.md đúng format**: khi chấm và đánh giá, BTC quét file này để ghép điểm cho từng người.
 
 *Lát cắt = phần nhỏ nhất làm xong được trong hackathon: một người dùng · một việc · một quyết định AI · một kết quả.*
