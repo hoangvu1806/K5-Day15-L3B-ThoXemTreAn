@@ -10,6 +10,7 @@
 - **Số người dùng thật** 3 kịch bản: thấp 500 · cơ sở 2.000 · cao 10.000 phụ huynh hoặc giáo viên. Nguồn: *(tự ước tính)*, mốc so sánh 19,08 triệu học sinh phổ thông năm học 2025-2026 (Bộ GD&ĐT qua https://giaoduc.net.vn/ban-in/post262421.gd, xem 28/11/2026)
 - **Giá** 2 mức model (USD / 1 triệu token, xem 28/11/2026): `openai/gpt-6-luna` vào 0,10 · ra 0,50 (https://openrouter.ai/openai/gpt-6-luna; trang này có hiện thêm mức 0,05 / 0,25, có vẻ là giá batch nên không dùng) · `anthropic/claude-sonnet-5.5` vào 2,00 · ra 10,00 (https://openrouter.ai/anthropic/claude-sonnet-5.5). Chưa đối chiếu với `further-reading/model-prices.md` của repo đề
 - **Tỉ lệ đạt** dùng để tính: 22/24 (92%) — lượt `run-3` (lượt 2), điểm chấm nháp chờ người kiểm
+- Luồng đo: `simulate-1` chạy trên luồng trước Sprint 3 (một agent). Luồng đang chạy thêm vai Giám khảo; `run-4` đo khoảng 2,7 lần gọi model và ~4.100 token vào mỗi câu (`eval/README.md` mục 5), gần với ~4.400–4.800 token vào mỗi lượt của `simulate-1`. Chưa có file `simulate-N` nào đo luồng mới, nên số dưới đây vẫn là của `simulate-1`. Góc Tò Mò và TTS chưa nằm trong mô phỏng
 - Đo token trên model `openai/gpt-6-luna`, tính giá model `openai/gpt-6-luna` và `anthropic/claude-sonnet-5.5` (Claude tách token khác nên số token thật có thể lệch)
 
 ## 2. Kết quả mô phỏng
@@ -31,7 +32,7 @@ Chi phí / task thành công = chi phí trung bình mỗi phiên ÷ tỉ lệ đ
 
 ## 3. So với impact
 
-- Impact / người / tháng: §2 chưa chốt. Từ phỏng vấn, người lớn gặp chuyện này khoảng 2–4 lần/tháng, mỗi lần 5–15 phút (P1: 3–4 lần, ~15 phút; P3: 2–3 lần, 5–10 phút; `evidence/summary.md`), tức khoảng 10–60 phút/người/tháng
+- Impact / người / tháng: `spec.md` §2 lấy tròn 3 lần × 10 phút = 30 phút *(tự ước tính từ P1, P3)*. Từ phỏng vấn, người lớn gặp chuyện này khoảng 2–4 lần/tháng, mỗi lần 5–15 phút (P1: 3–4 lần, ~15 phút; P3: 2–3 lần, 5–10 phút; `evidence/summary.md`), tức khoảng 10–60 phút/người/tháng
 - Chi phí / người / tháng (cơ sở, model `openai/gpt-6-luna`): $0,0685 · với `claude-sonnet-5.5`: $1,37. Một lớp học (`dung_nhieu`, 280 phiên/tháng) tốn khoảng $0,59/tháng với gpt-6-luna
 - **Kết luận một dòng — đáng làm không:** đáng, với model rẻ: chưa tới 0,07 USD mỗi người mỗi tháng, ở quy mô cơ sở 2.000 người khoảng 137 USD/tháng, rất nhỏ so với 10–60 phút người lớn tiết kiệm mỗi tháng. Model mạnh đắt gấp 20 lần, chỉ đáng dùng nếu lượt chấm với model rẻ không đạt chuẩn. Chi phí lớn nhất khi dùng thật không phải model mà là giờ công người duyệt màn mới và bản nháp.
 
