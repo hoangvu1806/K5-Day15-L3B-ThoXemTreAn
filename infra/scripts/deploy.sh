@@ -2,7 +2,7 @@
 # Deploy một tag đã gắn trên main, tự quay lại bản đang chạy nếu /health không lên.
 #   infra/scripts/deploy.sh v0.4        deploy tag v0.4
 #   infra/scripts/deploy.sh v0.3        rollback = deploy lại tag cũ
-# Deploy vào giờ ít người chơi: restart API làm mất các phiên đang chơi (phiên chỉ nằm trong RAM).
+# Phiên chơi nằm ở Redis nên restart API không mất phiên. Vẫn nên deploy giờ ít người chơi.
 set -euo pipefail
 
 TAG="${1:?Cách dùng: deploy.sh <tag>, vd deploy.sh v0.4}"
@@ -10,7 +10,7 @@ INFRA_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REPO_DIR="$(cd "$INFRA_DIR/.." && pwd)"
 ENV_FILE="$INFRA_DIR/.env.prod"
 
-compose() { docker compose --project-directory "$INFRA_DIR" --env-file "$ENV_FILE" "$@"; }
+compose() { "$INFRA_DIR/scripts/compose.sh" "$@"; }
 
 [ -f "$ENV_FILE" ] || { echo "Thiếu $ENV_FILE (chép từ env.prod.example)"; exit 1; }
 if grep -Eq '=(replace-me|replace-with|sk-or-v1-replace-me|changeme)' "$ENV_FILE"; then

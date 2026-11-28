@@ -6,3 +6,7 @@ google-adk==2.2.0
 litellm==1.89.3
 fastapi==0.138.0
 uvicorn==0.42.0
+# Chỉ cần khi đặt REDIS_URL / DATABASE_URL (chạy nhiều tiến trình)
+redis==8.0.1
+psycopg[binary]==3.3.4
+psycopg-pool==3.3.3
