@@ -6,7 +6,7 @@
  * mã màn đã xong, mã thẻ đã nhận, vai người lớn trong "Bàn tay tin cậy" (không lưu tên thật).
  * Nếu người lớn đăng nhập, tiến độ (không gồm hồ sơ, giới tính, cài đặt) được đồng bộ lên tài khoản.
  */
-import type { AgeGroup, Gender, RuleCard, TacticCard } from "./types";
+import type { AgeGroup, Draft, Gender, RuleCard, TacticCard } from "./types";
 
 const KEY = "growsafe.v3";
 
@@ -83,6 +83,43 @@ export function save(data: Saved) {
 export function wipe() {
   try {
     window.localStorage.removeItem(KEY);
+    window.localStorage.removeItem(REPORTS_KEY);
+  } catch {}
+}
+
+/* ---------- Lịch sử báo cáo cho Góc phụ huynh: chỉ nằm trên máy này, tách theo tài khoản ---------- */
+
+const REPORTS_KEY = "growsafe.reports";
+const MAX_REPORTS = 30; // mỗi tài khoản, bỏ bản cũ nhất
+
+export interface Report extends Draft {
+  id: string;
+  kind: "game" | "ask";
+  saved_at: number;
+  age: AgeGroup;
+}
+
+function allReports(): Record<string, Report[]> {
+  try {
+    const data = JSON.parse(window.localStorage.getItem(REPORTS_KEY) || "{}");
+    return data && typeof data === "object" ? data : {};
+  } catch {
+    return {};
+  }
+}
+
+/** Mới nhất đứng đầu. */
+export function loadReports(owner: string): Report[] {
+  const list = allReports()[owner];
+  return Array.isArray(list) ? list.filter((r) => r?.id && r.note) : [];
+}
+
+/** Cùng id thì thay bản cũ (đóng Góc Tò Mò nhiều lần trong một phiên hỏi chỉ giữ một báo cáo). */
+export function saveReport(owner: string, report: Report) {
+  const all = allReports();
+  all[owner] = [report, ...loadReports(owner).filter((r) => r.id !== report.id)].slice(0, MAX_REPORTS);
+  try {
+    window.localStorage.setItem(REPORTS_KEY, JSON.stringify(all));
   } catch {}
 }
 

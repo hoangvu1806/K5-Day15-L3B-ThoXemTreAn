@@ -225,11 +225,16 @@ def _fake_flow(p: dict, scenario_id: str, message: str) -> str:
 
 # ---------- Chế độ thật: agent ADK ----------
 
+def _reply_text(content) -> str:
+    """Chữ trả lời của model. Bỏ phần suy nghĩ (thought=True) mà ADK trả kèm: trẻ không được thấy phần đó."""
+    parts = content.parts if content and content.parts else []
+    return "".join(p.text or "" for p in parts if not getattr(p, "thought", False))
+
+
 def _track_usage(callback_context, llm_response):
     """after_model_callback: ghi token của mỗi lần ADK gọi model vào trace (khung cần để tính chi phí)."""
     um = llm_response.usage_metadata
-    parts = llm_response.content.parts if llm_response.content and llm_response.content.parts else []
-    text = "".join(p.text or "" for p in parts) or "[gọi công cụ]"
+    text = _reply_text(llm_response.content) or "[gọi công cụ]"
     record_adk_call(llm_response.model_version or MODEL_NAME, text,
                     getattr(um, "prompt_token_count", 0) or 0,
                     getattr(um, "candidates_token_count", 0) or 0)
@@ -270,7 +275,7 @@ async def _run_adk(message: str) -> str:
         async for event in runner.run_async(user_id="player", session_id=session_id, new_message=content,
                                             run_config=RunConfig(max_llm_calls=MAX_LLM_CALLS)):
             if event.is_final_response() and event.content and event.content.parts:
-                final = "".join(p.text or "" for p in event.content.parts)
+                final = _reply_text(event.content)
     finally:
         # InMemoryRunner giữ mọi session đã tạo: xoá ngay để RAM không tăng theo số lượt
         await runner.session_service.delete_session(app_name=APP_NAME, user_id="player", session_id=session_id)

@@ -144,8 +144,8 @@ export function ConfirmWipe() {
         <h3 className="font-display text-[32px] font-extrabold leading-tight">Xoá tiến độ trên máy này?</h3>
         <p className="text-[19px] font-bold leading-snug text-[var(--ink-soft)]">
           {account
-            ? `Thẻ và màn đã qua trên máy này sẽ bị xoá và đăng xuất khỏi ${account.username}. Thẻ đã lưu trong tài khoản vẫn giữ nguyên.`
-            : "Toàn bộ màn đã qua, bộ thẻ và Bàn tay tin cậy trên máy này sẽ bị xoá."}
+            ? `Thẻ, màn đã qua và lịch sử báo cáo trên máy này sẽ bị xoá và đăng xuất khỏi ${account.username}. Thẻ đã lưu trong tài khoản vẫn giữ nguyên.`
+            : "Toàn bộ màn đã qua, bộ thẻ, Bàn tay tin cậy và lịch sử báo cáo trên máy này sẽ bị xoá."}
         </p>
         <div className="flex w-full gap-3">
           <Chunky size="md" color="var(--cream)" className="flex-1" onClick={close}>Huỷ</Chunky>
