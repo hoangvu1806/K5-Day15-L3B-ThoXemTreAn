@@ -46,6 +46,13 @@ export default function DoneScreen() {
   return (
     <div className="absolute inset-0">
       <Pic src={ui.illusDone} w={1376} h={768} priority className="absolute inset-0 h-full w-full" />
+      {/* Mèo ló lên từ mép dưới, dưới bong bóng lời chào. Phiên dừng vì cần giúp thì không hiện: lúc đó không đùa. */}
+      {draft && !draft.stopped && (
+        <motion.div className="pointer-events-none absolute bottom-0 left-[470px]" initial={{ y: 170 }} animate={{ y: 0 }}
+          transition={{ delay: 1.8, type: "spring", stiffness: 120, damping: 14 }}>
+          <Pic src="/assets/illustrations/mascot_cat.webp" w={640} h={518} className="h-[156px] w-[193px]" />
+        </motion.div>
+      )}
       <motion.div initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} className="absolute bottom-[40px] left-[60px] flex items-end gap-2">
         <Pic src={owlStage(stage)} w={640} h={640} className="h-[220px] w-[220px]" />
         {draft?.bye?.text && <div className="panel-soft mb-[120px] w-[300px] px-5 py-3"><p ref={byeRef} className="max-h-[110px] overflow-hidden font-bold leading-snug">{draft.bye.text}</p></div>}

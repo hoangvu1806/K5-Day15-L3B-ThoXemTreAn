@@ -35,6 +35,11 @@ export default function HomeScreen() {
     <div className="absolute inset-0">
       <Pic src={bg("bg_home_main")} w={1376} h={768} priority className="absolute inset-0 h-full w-full" />
       <Toast />
+      {/* Linh vật trang trí trên lối mòn, nằm giữa lời chào và các ô menu; không chặn bấm. */}
+      <motion.div className="pointer-events-none absolute bottom-[10px] left-[550px]" initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: [0, -8, 0] }} transition={{ opacity: { delay: 0.3 }, y: { repeat: Infinity, duration: 2.4, ease: "easeInOut" } }}>
+        <Pic src="/assets/illustrations/mascot_unicorn.webp" w={522} h={600} className="h-[250px] w-[218px] drop-shadow-[0_6px_6px_rgba(74,47,34,0.3)]" />
+      </motion.div>
       <div className="absolute inset-x-6 top-4 z-40 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <IconButton src={ui.back} label="Đổi nhóm tuổi, nhân vật" onClick={editProfile} />
