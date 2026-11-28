@@ -4,13 +4,15 @@
 
 Hoặc: python codebase/server.py   (port lấy từ biến PORT, mặc định 6161)
 Rồi mở http://127.0.0.1:6161/docs để thử.
-Trace dùng biến toàn cục nên server xử lý tuần tự từng lượt (đủ cho demo, chưa dùng cho nhiều người cùng lúc).
+Các lượt chạy song song: mỗi request một lượt trace riêng (prod_trace.py), chỉ các request cùng một phiên mới xếp
+hàng (store.py). Chạy nhiều worker / replica thì phải đặt REDIS_URL, và DATABASE_URL cho tài khoản.
 Bật GROWSAFE_SHOW_DRAFT_SCENES=1 để nhóm chơi thử các màn chưa duyệt (duyet = false trong data/scenarios.json).
 """
 import asyncio
 import os
-import time
+from concurrent.futures import ThreadPoolExecutor
 
+import anyio
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
@@ -20,10 +22,16 @@ import agent
 import ask
 import auth
 import game
+import prod_trace
+import store
 import tracing
 import tts
 from agent import answer_async
 from ai import MODEL_NAME, is_fake
+
+prod_trace.install()
+# Số luồng mỗi tiến trình cho phần gọi model / Redis chạy ngoài event loop
+THREADS = int(os.environ.get("GROWSAFE_THREADS") or 64)
 
 app = FastAPI(title="GrowSafe AI")
 # CORS_ORIGINS: danh sách domain cách nhau bằng dấu phẩy. Không đặt (hoặc để trống) thì chỉ cho localhost dev,
@@ -34,7 +42,6 @@ _cors_origins = [o.strip() for o in _cors_env.split(",") if o.strip()] or [
     "http://localhost:3016", "http://127.0.0.1:3016"]
 app.add_middleware(CORSMiddleware, allow_origins=_cors_origins, allow_methods=["*"], allow_headers=["*"])
 app.include_router(auth.router)  # đăng ký, đăng nhập, đồng bộ bộ thẻ (SQLite, xem auth.py)
-_lock = asyncio.Lock()
 
 
 class ChatIn(BaseModel):
@@ -52,47 +59,30 @@ class ChatOut(BaseModel):
 
 
 async def _warm_up():
-    async with _lock:
-        tracing.begin("warm-up")
-        try:
-            await asyncio.to_thread(agent.warm_up)
-        except Exception as e:  # không chặn server khi model chưa sẵn sàng
-            print("warm-up lỗi: %s" % e)
-        finally:
-            tracing.end()
-
-
-SESSION_TTL = int(os.environ.get("GROWSAFE_SESSION_TTL") or 45 * 60)
-CLEANUP_EVERY = 300
-
-
-def _purge_sessions(now: float) -> int:
-    """Chạy trên event loop, không await giữa chừng, nên không đụng với các lượt đang xử lý."""
-    removed = 0
-    for store in (game.SESSIONS, ask.ASK_SESSIONS):
-        for sid in [sid for sid, s in store.items() if now - s.get("touched", 0) > SESSION_TTL]:
-            del store[sid]
-            removed += 1
-    return removed
+    tracing.begin("warm-up")
+    try:
+        await asyncio.to_thread(agent.warm_up)
+    except Exception as e:  # không chặn server khi model chưa sẵn sàng
+        print("warm-up lỗi: %s" % e)
+    finally:
+        tracing.end()
 
 
 async def _cleanup_loop():
     while True:
-        await asyncio.sleep(CLEANUP_EVERY)
+        await asyncio.sleep(300)
         try:
-            removed = _purge_sessions(time.time())
-            auth.prune_counters()
+            store.backend.prune()
             await asyncio.to_thread(tts.prune_disk)
-            if removed:
-                print("đã dọn %d phiên quá %d phút" % (removed, SESSION_TTL // 60))
         except Exception as e:  # dọn lỗi thì thử lại lượt sau, không làm chết server
             print("dọn bộ nhớ lỗi: %s" % e)
 
 
 @app.on_event("startup")
 async def _startup():
-    asyncio.create_task(_warm_up())
-    asyncio.create_task(_cleanup_loop())
+    anyio.to_thread.current_default_thread_limiter().total_tokens = THREADS  # endpoint và dependency kiểu def
+    asyncio.get_running_loop().set_default_executor(ThreadPoolExecutor(max_workers=THREADS))
+    app.state.tasks = [asyncio.create_task(_warm_up()), asyncio.create_task(_cleanup_loop())]
 
 
 @app.get("/health")
@@ -102,12 +92,11 @@ def health():
 
 @app.post("/api/chat", response_model=ChatOut)
 async def chat(body: ChatIn, _user=Depends(auth.require_ai_user)):
-    async with _lock:
-        tracing.begin("api")
-        try:
-            res = await answer_async(body.text, body.session_id, body.age_group, body.scenario_id)
-        finally:
-            summary, _ = tracing.end()
+    tracing.begin("api")
+    try:
+        res = await answer_async(body.text, body.session_id, body.age_group, body.scenario_id)
+    finally:
+        summary, _ = tracing.end()
     return ChatOut(output=res["output"], session_id=res["session_id"], stopped=res.get("stopped", ""),
                    usage={k: summary[k] for k in ("model_calls", "tool_calls", "tokens_in", "tokens_out")})
 
@@ -166,84 +155,105 @@ class AskEndIn(BaseModel):
     ask_session_id: str
 
 
-async def _traced(name, fn, *args):
-    """Chạy một lượt game trong trace, đổi GameError thành lỗi HTTP."""
-    async with _lock:
-        tracing.begin(name)
-        try:
-            res = fn(*args)
-            if asyncio.iscoroutine(res):
-                res = await res
-        except (game.GameError, ask.AskError) as e:
-            raise HTTPException(status_code=e.status, detail=str(e))
-        finally:
-            summary, _ = tracing.end()
+async def _traced(name, user, sessions, fn, *args):
+    """Chạy một lượt game: khoá các phiên liên quan, ghi trace, đổi lỗi thành lỗi HTTP.
+    Hàm đồng bộ (có thể gọi model) chạy trong luồng riêng để không chặn event loop."""
+    store.owner.set(str(user[0]))
+    tracing.begin(name)
+    try:
+        async with store.unit(*sessions):
+            if asyncio.iscoroutinefunction(fn):
+                res = await fn(*args)
+            else:
+                res = await asyncio.to_thread(fn, *args)
+    except (game.GameError, ask.AskError) as e:
+        raise HTTPException(status_code=e.status, detail=str(e))
+    except store.Busy:
+        raise HTTPException(status_code=409, detail="Lượt trước chưa xong, đợi một chút rồi thử lại nhé")
+    finally:
+        summary, _ = tracing.end()
     if isinstance(res, dict):
         res = {**res, "usage": {k: summary[k] for k in ("model_calls", "tool_calls", "tokens_in", "tokens_out")}}
     return res
 
 
+def _game(session_id):
+    return [(game.SESSIONS, session_id)]
+
+
 @app.post("/api/session")
-async def session_start(body: SessionIn, _user=Depends(auth.require_user)):
-    return await _traced("api-session", game.start, body.age_group, body.gender,
+async def session_start(body: SessionIn, user=Depends(auth.require_user)):
+    return await _traced("api-session", user, [], game.start, body.age_group, body.gender,
                          [c.model_dump() for c in body.cleared], body.dialogue_mode, body.hour)
 
 
 @app.post("/api/level")
-async def session_level(body: LevelIn, _user=Depends(auth.require_ai_user)):
+async def session_level(body: LevelIn, user=Depends(auth.require_ai_user)):
     """Trẻ chọn một địa điểm trên bản đồ / một app trên điện thoại: Đạo diễn mở màn tiếp theo ở đó."""
-    return await _traced("api-level", game.open_level, body.session_id, body.location)
+    return await _traced("api-level", user, _game(body.session_id), game.open_level, body.session_id, body.location)
 
 
 @app.post("/api/answer")
-async def session_answer(body: AnswerIn, _user=Depends(auth.require_ai_user)):
-    return await _traced("api-answer", game.answer, body.session_id, body.scenario_id, body.text)
+async def session_answer(body: AnswerIn, user=Depends(auth.require_ai_user)):
+    return await _traced("api-answer", user, _game(body.session_id), game.answer, body.session_id,
+                         body.scenario_id, body.text)
 
 
 @app.post("/api/hint")
-async def session_hint(body: HintIn, _user=Depends(auth.require_ai_user)):
+async def session_hint(body: HintIn, user=Depends(auth.require_ai_user)):
     """Nút "Gợi ý" (bóng đèn): một câu hỏi ngược, không đưa đáp án. Tối đa 1 gợi ý mỗi lượt."""
-    return await _traced("api-hint", game.hint, body.session_id, body.scenario_id)
+    return await _traced("api-hint", user, _game(body.session_id), game.hint, body.session_id, body.scenario_id)
 
 
 @app.post("/api/detective")
-async def session_detective(body: AnswerIn, _user=Depends(auth.require_ai_user)):
+async def session_detective(body: AnswerIn, user=Depends(auth.require_ai_user)):
     """Thám tử nhận chiêu sau màn hội thoại: trẻ kể lại người lạ đã dùng chiêu gì."""
-    return await _traced("api-detective", game.detective, body.session_id, body.scenario_id, body.text)
+    return await _traced("api-detective", user, _game(body.session_id), game.detective, body.session_id,
+                         body.scenario_id, body.text)
 
 
 @app.post("/api/help")
 async def session_help(body: SessionRef):
-    """Nút cần giúp: dừng phiên, trả nội dung hướng dẫn và số 111. Không gọi model, KHÔNG khoá auth."""
-    return game.help_session(body.session_id)
+    """Nút cần giúp: dừng phiên, trả nội dung hướng dẫn và số 111. Không gọi model, KHÔNG khoá auth.
+    Kho phiên chậm hoặc mọi luồng đang bận thì vẫn trả nội dung 111 sau tối đa 2 giây."""
+    try:
+        return await asyncio.wait_for(asyncio.to_thread(game.help_session, body.session_id), 2)
+    except asyncio.TimeoutError:
+        return game.help_content()
 
 
 @app.post("/api/session/end")
-async def session_end(body: SessionRef, _user=Depends(auth.require_ai_user)):
+async def session_end(body: SessionRef, user=Depends(auth.require_ai_user)):
     """Kết phiên: bản nháp cho phụ huynh / giáo viên, trạng thái cho_duyet. Không gửi đi đâu."""
-    return await _traced("api-end", game.end, body.session_id)
+    return await _traced("api-end", user, _game(body.session_id), game.end, body.session_id)
 
 
 @app.post("/api/ask/start")
-async def ask_start(body: AskStartIn, _user=Depends(auth.require_user)):
+async def ask_start(body: AskStartIn, user=Depends(auth.require_user)):
     """Mở phiên Góc Tò Mò: trẻ hỏi, Tin giải đáp giáo dục giới tính đúng trần tuổi."""
-    return await _traced("api-ask-start", ask.start, body.age_group, body.gender, body.session_id)
+    return await _traced("api-ask-start", user, [], ask.start, body.age_group, body.gender, body.session_id)
 
 
 @app.post("/api/ask/message")
-async def ask_message(body: AskMessageIn, _user=Depends(auth.require_ai_user)):
+async def ask_message(body: AskMessageIn, user=Depends(auth.require_ai_user)):
     """Trẻ gửi một câu hỏi trong Góc Tò Mò (qua precheck, phân loại chủ đề, trần tuổi, postcheck)."""
-    return await _traced("api-ask-message", ask.message, body.ask_session_id, body.text)
+    return await _traced("api-ask-message", user, [(ask.ASK_SESSIONS, body.ask_session_id)], ask.message,
+                         body.ask_session_id, body.text)
+
+
+def _ask_draft(ask_session_id):
+    return ask.draft_standalone(ask_session_id) or {"draft_id": "", "note": ""}
 
 
 @app.post("/api/ask/end")
-async def ask_end(body: AskEndIn, _user=Depends(auth.require_user)):
+async def ask_end(body: AskEndIn, user=Depends(auth.require_user)):
     """Tạo bản nháp ngắn cho Góc phụ huynh sau phiên Góc Tò Mò (chỉ ghi chủ đề, không ghi nguyên văn câu trẻ hỏi)."""
-    return ask.draft_standalone(body.ask_session_id) or {"draft_id": "", "note": ""}
+    return await _traced("api-ask-end", user, [(ask.ASK_SESSIONS, body.ask_session_id)], _ask_draft,
+                         body.ask_session_id)
 
 
 @app.post("/api/tts")
-async def speak(body: TTSIn, _user=Depends(auth.require_ai_user)):
+def speak(body: TTSIn, _user=Depends(auth.require_ai_user)):
     """Đọc to lời game vừa tạo ra (lời Tin, lời người lạ). Không đọc chữ trẻ gõ hay nói."""
     session = game.SESSIONS.get(body.session_id)
     in_game = bool(session and body.text.strip() in session["spoken"])
@@ -253,7 +263,7 @@ async def speak(body: TTSIn, _user=Depends(auth.require_ai_user)):
     if body.role not in tts.roles():
         raise HTTPException(status_code=400, detail="Không có vai giọng này")
     try:
-        audio = await asyncio.to_thread(tts.synthesize, body.text, body.role)
+        audio = tts.synthesize(body.text, body.role)
     except tts.TTSError as e:
         raise HTTPException(status_code=503, detail=str(e))
     return Response(content=audio, media_type="audio/mpeg")

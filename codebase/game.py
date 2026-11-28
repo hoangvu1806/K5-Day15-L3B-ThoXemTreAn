@@ -12,18 +12,19 @@ Các vai AI trong file này (cùng một agent, mỗi vai một prompt, code quy
 Giám khảo và Người dẫn truyện nằm ở agent.py. Chế độ AI đóng vai người lạ và màn AI biến tấu chưa bật
 (mục 9, bước 9: chỉ làm khi nhóm đã chốt mục 8).
 
-Phiên chỉ nằm trong bộ nhớ, không lưu tên hay thông tin định danh. Giới tính chỉ dùng để chọn tên nhân vật chính
+Phiên chỉ sống tạm (Redis hoặc RAM, hết hạn sau 45 phút không dùng, xem store.py), không lưu tên hay thông tin định danh. Giới tính chỉ dùng để chọn tên nhân vật chính
 (Bin/Na, Khôi/Mai), không gửi cho model, không ghi vào bản nháp cho phụ huynh.
 Tiến độ (màn đã xong, thẻ đã nhận) lưu trên máy của trẻ; trình duyệt gửi lên danh sách mã màn đã xong khi mở phiên.
 """
+import asyncio
 import json
 import os
 import random
 import re
-import time
 import uuid
 
 import lines
+import store
 from agent import answer_async
 from ai import call_model, is_fake
 from guardrails import (exitrole_message, helpbtn_message, hotline_message, inappropriate, is_fallback, mask_pii,
@@ -41,7 +42,17 @@ TIRED_STREAK = 3
 # Màn chưa duyệt (duyet = false) chỉ hiện khi nhóm bật để duyệt. Trẻ chỉ gặp màn đã có người duyệt.
 SHOW_DRAFTS = (os.environ.get("GROWSAFE_SHOW_DRAFT_SCENES") or "").strip().lower() in ("1", "true", "yes")
 
-SESSIONS = {}
+
+
+def _apply_help(session):
+    """Nút cần giúp không chờ khoá phiên (xem help_session), nên áp cờ của nó mỗi lần đọc phiên."""
+    if store.fetch("help:" + session["id"]):
+        session["stopped"] = session["stopped"] or "con_can_giup"
+        session["dialogue"] = None
+        _speak(session, help_content(session["age_group"])["message"])
+
+
+SESSIONS = store.Sessions("game", on_load=_apply_help)
 
 LOCATIONS = {
     "6-10": [
@@ -246,7 +257,6 @@ def _get(session_id):
     session = SESSIONS.get(session_id)
     if not session:
         raise GameError("Không tìm thấy phiên chơi. Mở lại game nhé.", 404)
-    session["touched"] = time.time()
     return session
 
 
@@ -360,7 +370,7 @@ def start(age_group, gender="", cleared=None, dialogue_mode="kich_ban", hour=Non
                "results": [], "current": None, "attempts": 0, "stopped": "", "draft": None,
                "cleared": cleared_map, "used": set(), "spoken": set(), "streak": 0, "last_open": "",
                "hint_used": False, "last_judge": None, "dialogue": None, "detective": None, "badges": set(),
-               "rng": random.Random(), "touched": time.time()}
+               "rng": random.Random()}
     visible = _visible(session)
     if not visible:
         raise GameError("Kho chưa có màn cho nhóm tuổi này", 404)
@@ -505,9 +515,14 @@ async def answer(session_id, scenario_id, text=""):
     age, name = session["age_group"], session["name"]
     situation, question = _filled(scenario, name)
     base = {"scenario_id": scenario_id, "stopped": "", "level_complete": False, "mode": "mot_cau"}
-    res = await answer_async("Nhóm tuổi: %s | Tình huống: %s | Trẻ trả lời: %s" % (age, situation + " " + question, text),
-                             session_id, age, scenario_id, name=name, scenario=scenario,
-                             context=_context(session, scenario), reveal=False)
+    try:
+        res = await answer_async("Nhóm tuổi: %s | Tình huống: %s | Trẻ trả lời: %s" % (age, situation + " " + question, text),
+                                 session_id, age, scenario_id, name=name, scenario=scenario,
+                                 context=_context(session, scenario), reveal=False)
+    except Exception as e:  # model quá hạn hoặc lỗi: phiên giữ nguyên, trẻ gửi lại được
+        note("lỗi khi gọi model: %r" % e)
+        print("api-answer lỗi khi gọi model: %r" % e)
+        raise GameError("Tin đang nghĩ hơi lâu, gửi lại câu trả lời nhé", 503)
     if res.get("stopped") == "nghi_xam_hai_that":
         return _stop_for_help(session, base, res)
     answer_text = mask_pii(text)
@@ -707,7 +722,7 @@ async def _dialogue_answer(session, scenario, text):
         pii_note = ("Cậu đừng đưa thông tin thật như số điện thoại hay nhà ở đâu cho người lạ nhé. " if age == "6-10"
                     else "Đừng đưa thông tin thật cho người lạ nhé. ")
     state["history"].append(["kid", answer_text])
-    branch = _classify(answer_text, scenario)
+    branch = await asyncio.to_thread(_classify, answer_text, scenario)
     note("hội thoại lượt %d: nhánh %s" % (state["turn"], branch))
     max_turns = scenario.get("max_turns", 3)
 
@@ -831,16 +846,17 @@ def help_content(age_group="6-10", message="", voice=""):
 
 
 def help_session(session_id):
-    session = SESSIONS.get(session_id)
-    age = session["age_group"] if session else "6-10"
-    if session:
-        session["stopped"] = session["stopped"] or "con_can_giup"
-        session["dialogue"] = None
-        note("trẻ bấm nút cần giúp, dừng phiên")
-    out = help_content(age)
-    if session:
-        _speak(session, out["message"])
-    return out
+    """Luôn trả nội dung 111 ngay, kể cả khi kho phiên lỗi hoặc phiên đang bận."""
+    age = "6-10"
+    try:
+        session = SESSIONS.get(session_id)
+        if session:
+            age = session["age_group"]
+            store.put("help:" + session_id, True)
+            note("trẻ bấm nút cần giúp, dừng phiên")
+    except Exception as e:
+        print("không đánh dấu dừng phiên được: %s" % e)
+    return help_content(age)
 
 
 def _level_line(r):
