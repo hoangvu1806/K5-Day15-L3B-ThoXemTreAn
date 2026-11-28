@@ -7,13 +7,12 @@
 
 | Nguồn | Đạt ngưỡng? | File |
 |---|---|---|
-| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ | `evidence/data-mining.md` |
+| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ Không dùng: track F không có data BTC cấp, nhóm chưa thu được bài hỏi đáp công khai đủ để đếm | — |
 | Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | ☑ 3 người, cả 3 là người chăm trẻ 6–10 tuổi. Phỏng vấn qua tin nhắn (Zalo, Messenger), không phải trực tiếp. P3 đang chờ kiểm lại độ tin cậy | `evidence/interviews/P1.md`… |
 | Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☑ 20 phiếu hợp lệ, vừa đủ ngưỡng. Nếu chỉ tính trẻ 6–15 tuổi thì còn 14 (xem giới hạn ở `questions.md`) | `evidence/survey/` |
 
 ## 2. Số chính
 
-- Đào data: __/__ (__%) …
 - Phỏng vấn: **2/3 người gặp** (P1 bí khi con hỏi vặn và nghĩ bé sẽ giấu quà; P2 nghĩ bé chỉ "hiểu sơ sơ" và có thể nghe theo người lạ; P3 gần như không vướng) · số lần / tháng: P1 3–4, P2 không hỏi, P3 2–3 · mỗi lần mất 5–15 phút (P1 ~15, P3 5–10, P2 không hỏi)
 - Khảo sát (Zalo, Messenger · 17:40–18:30 27/11 · đếm bằng `python evidence/survey/count.py`): n = 20 hợp lệ / 21 phiếu
   - **Giả thuyết:** **18/20 (90%)** thấy ngại hoặc không biết nói sao cho hợp tuổi (câu 3), **hoặc** không chắc trẻ sẽ kể lại khi bị cho quà rồi dặn giữ bí mật (câu 6). Chỉ tính trẻ 6–15 tuổi: 12/14 (86%).
