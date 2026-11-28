@@ -10,7 +10,7 @@ INFRA_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REPO_DIR="$(cd "$INFRA_DIR/.." && pwd)"
 ENV_FILE="$INFRA_DIR/.env.prod"
 
-compose() { docker compose --project-directory "$INFRA_DIR" --env-file "$ENV_FILE" "$@"; }
+compose() { "$INFRA_DIR/scripts/compose.sh" "$@"; }
 
 [ -f "$ENV_FILE" ] || { echo "Thiếu $ENV_FILE (chép từ env.prod.example)"; exit 1; }
 if grep -Eq '=(replace-me|replace-with|sk-or-v1-replace-me|changeme)' "$ENV_FILE"; then

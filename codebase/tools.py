@@ -9,13 +9,12 @@ import re
 import time
 import uuid
 
+import store
 from tracing import tool, TOOLS  # noqa: F401
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
 AGE_GROUPS = ("6-10", "11-15")
 
-DRAFTS = []  # bản nháp gửi phụ huynh / giáo viên, chờ duyệt (chỉ nằm trong bộ nhớ)
-MAX_DRAFTS = 500  # bản nháp đã trả về cho phiên của nó, giữ thêm chỉ để chống RAM tăng mãi
 
 
 def _load(name):
@@ -133,9 +132,8 @@ def draft_parent_teacher_note(session_summary: str) -> dict:
     """draft_parent_teacher_note — soạn bản nháp gợi ý cho phụ huynh / giáo viên sau lượt chơi.
     Input: session_summary (tóm tắt lượt chơi, không chứa thông tin định danh của trẻ).
     Output: {"draft_id", "status": "cho_duyet", "note"}.
-    Tác động ra ngoài: KHÔNG gửi. Chỉ lưu bản nháp trong bộ nhớ, người lớn duyệt rồi mới dùng."""
+    Tác động ra ngoài: KHÔNG gửi. Chỉ lưu tạm bản nháp (hết hạn sau 45 phút), người lớn duyệt rồi mới dùng."""
     draft = {"draft_id": "D" + uuid.uuid4().hex[:12], "status": "cho_duyet",
              "created_at": time.strftime("%Y-%m-%d %H:%M:%S"), "note": session_summary}
-    DRAFTS.append(draft)
-    del DRAFTS[:-MAX_DRAFTS]
+    store.put("draft:" + draft["draft_id"], draft)  # tự xoá sau SESSION_TTL
     return draft

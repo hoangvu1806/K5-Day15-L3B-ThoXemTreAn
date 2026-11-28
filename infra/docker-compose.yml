@@ -1,9 +1,9 @@
 # GrowSafe AI — Production Docker Compose (Nginx + FastAPI + Next.js + Redis + Postgres + Observability)
-# Chạy từ thư mục infra/:
+# Chạy từ thư mục infra/ (hoặc qua scripts/compose.sh):
 #   Cơ bản (Nginx + Frontend + API + Redis):   docker compose --env-file .env.prod up -d --build
 #   Thêm xem log realtime nhẹ (Dozzle):        docker compose --env-file .env.prod --profile logs up -d
 #   Đủ giám sát (Prometheus + Grafana + Loki): docker compose --env-file .env.prod --profile obs up -d
-#   Mở rộng nhiều replica + Postgres:          docker compose --env-file .env.prod --profile scale --profile obs up -d
+#   Dùng PostgreSQL có sẵn trên server:        scripts/compose.sh up -d --build   (tự thêm docker-compose.pg.yml)
 
 x-logging: &default-logging
   driver: json-file
@@ -78,8 +78,8 @@ services:
     logging: *default-logging
 
   # ---------- 3. Backend FastAPI (AI Agent + Auth + TTS) ----------
-  # Lưu ý: giữ API_REPLICAS=1 và UVICORN_WORKERS=1 cho đến khi hoàn thành Pha 1 trong infra/PLAN.md
-  # (tách session sang Redis và bỏ _lock bằng contextvars). Khi xong Pha 1 có thể nâng API_REPLICAS=2..4.
+  # Phiên, bản nháp, rate limit nằm ở Redis nên tăng API_REPLICAS / UVICORN_WORKERS được.
+  # Nhiều tiến trình thì tài khoản phải nằm ở PostgreSQL (DATABASE_URL + docker-compose.pg.yml).
   api:
     build:
       context: ..
@@ -98,27 +98,34 @@ services:
       GROWSAFE_AI_RATE_LIMIT: ${GROWSAFE_AI_RATE_LIMIT:-30}
       GROWSAFE_DB: /var/lib/growsafe/growsafe.db
       DATABASE_URL: ${DATABASE_URL:-}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      MODEL_TIMEOUT: ${MODEL_TIMEOUT:-20}
+      GROWSAFE_THREADS: ${GROWSAFE_THREADS:-64}
+      GROWSAFE_DB_POOL: ${GROWSAFE_DB_POOL:-10}
+      GROWSAFE_REGISTER_LIMIT: ${GROWSAFE_REGISTER_LIMIT:-10}
       UVICORN_WORKERS: ${UVICORN_WORKERS:-1}
       GROWSAFE_SESSION_TTL: ${GROWSAFE_SESSION_TTL:-2700}
     volumes:
       - growsafe_data:/var/lib/growsafe
+    depends_on:
+      redis:
+        condition: service_healthy
+    stop_grace_period: 40s  # cho lượt đang gọi model chạy xong khi restart
     deploy:
       replicas: ${API_REPLICAS:-1}
       resources:
         limits:
-          memory: 512m
-          cpus: "1.0"
+          memory: ${API_MEM_LIMIT:-1g}  # mỗi worker nạp ADK + LiteLLM khoảng 250-350MB
+          cpus: "${API_CPUS:-1.0}"
     networks:
       - internal
     logging: *default-logging
 
-  # ---------- 4. Redis — chưa có code dùng, để sẵn cho Pha 1 trong PLAN.md (session, rate limit chung) ----------
-  # Bật bằng --profile scale. Chưa chuyển session sang Redis thì KHÔNG nâng API_REPLICAS > 1.
+  # ---------- 4. Redis (phiên chơi, bản nháp, rate limit; TTL 45 phút, không ghi ra đĩa) ----------
   redis:
     image: redis:7.4-alpine
-    profiles: ["scale"]
     restart: unless-stopped
-    command: ["redis-server", "--maxmemory", "96mb", "--maxmemory-policy", "allkeys-lru", "--save", ""]
+    command: ["redis-server", "--maxmemory", "96mb", "--maxmemory-policy", "volatile-lru", "--save", ""]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 15s
@@ -127,27 +134,6 @@ services:
     networks:
       - internal
     mem_limit: 128m
-    logging: *default-logging
-
-  # ---------- 5. PostgreSQL (Bật bằng --profile scale khi chạy nhiều replica API) ----------
-  db:
-    image: postgres:16-alpine
-    profiles: ["scale"]
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-growsafe}
-      POSTGRES_USER: ${POSTGRES_USER:-growsafe}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Chua dien POSTGRES_PASSWORD trong infra/.env.prod}
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-growsafe} -d ${POSTGRES_DB:-growsafe}"]
-      interval: 15s
-      timeout: 5s
-      retries: 5
-    networks:
-      - internal
-    mem_limit: 256m
     logging: *default-logging
 
   # ---------- 6. Log Viewer siêu nhẹ (~15MB RAM) — bật bằng --profile logs ----------
@@ -275,7 +261,6 @@ volumes:
   certbot_www:
   certbot_conf:
   growsafe_data:
-  pg_data:
   prom_data:
   loki_data:
   grafana_data:

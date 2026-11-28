@@ -48,4 +48,4 @@ HEALTHCHECK --interval=20s --timeout=5s --start-period=25s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:6161/health', timeout=3)" || exit 1
 
 # Chỉ tin X-Forwarded-For từ mạng nội bộ của compose (nơi Nginx đứng), không tin '*'
-CMD ["sh", "-c", "exec uvicorn server:app --app-dir codebase --host 0.0.0.0 --port ${PORT:-6161} --workers ${UVICORN_WORKERS:-1} --proxy-headers --forwarded-allow-ips=\"${FORWARDED_ALLOW_IPS}\" --no-access-log"]
+CMD ["sh", "-c", "exec uvicorn server:app --app-dir codebase --host 0.0.0.0 --port ${PORT:-6161} --workers ${UVICORN_WORKERS:-1} --proxy-headers --forwarded-allow-ips=\"${FORWARDED_ALLOW_IPS}\" --no-access-log --timeout-graceful-shutdown 30"]

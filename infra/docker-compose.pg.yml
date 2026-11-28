@@ -1,0 +1,11 @@
+# Cho API vào network của PostgreSQL có sẵn trên server. scripts/compose.sh tự thêm file này khi .env.prod có PG_NETWORK.
+services:
+  api:
+    networks:
+      - internal
+      - postgres
+
+networks:
+  postgres:
+    external: true
+    name: ${PG_NETWORK:?Chua dien PG_NETWORK trong infra/.env.prod}
