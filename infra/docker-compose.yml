@@ -14,8 +14,11 @@ x-logging: &default-logging
 services:
   # ---------- 1. Nginx Reverse Proxy + Load Balancer (least_conn) + Rate Limit ----------
   nginx:
-    image: nginx:1.27-alpine
+    image: nginx:1.27.5-alpine  # >= 1.27.3 để dùng "server ... resolve" trong upstream
     restart: unless-stopped
+    # Reload mỗi 6 giờ để nhận chứng chỉ certbot vừa gia hạn. Gọi qua /docker-entrypoint.sh để vẫn render template.
+    entrypoint: ["/bin/sh", "-c", "(while :; do sleep 6h; nginx -s reload; done) & exec /docker-entrypoint.sh nginx -g 'daemon off;'"]
+    command: []
     ports:
       - "80:80"
       - "443:443"
@@ -24,7 +27,9 @@ services:
       NGINX_ENVSUBST_FILTER: "^DOMAIN$"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+      # NGINX_SITE=https.conf.example trong .env.prod sau khi đã có chứng chỉ (không sửa file trong git)
+      - ./nginx/${NGINX_SITE:-default.conf.template}:/etc/nginx/templates/default.conf.template:ro
+      - ./nginx/snippets:/etc/nginx/snippets:ro
       - certbot_www:/var/www/certbot:ro
       - certbot_conf:/etc/letsencrypt:ro
     depends_on:
@@ -43,6 +48,19 @@ services:
     mem_limit: 96m
     logging: *default-logging
 
+  # ---------- 1b. Gia hạn chứng chỉ Let's Encrypt (thử mỗi 12 giờ, chỉ gia hạn khi còn < 30 ngày) ----------
+  certbot:
+    image: certbot/certbot:v2.11.0
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c", "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 12h & wait $${!}; done"]
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_conf:/etc/letsencrypt
+    networks:
+      - edge
+    mem_limit: 64m
+    logging: *default-logging
+
   # ---------- 2. Frontend Next.js ----------
   frontend:
     build:
@@ -52,7 +70,7 @@ services:
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
     restart: unless-stopped
     expose:
-      - "3000"
+      - "3016"
     networks:
       - internal
     mem_limit: 320m
@@ -75,17 +93,15 @@ services:
       API_KEY: ${API_KEY:?Chua dien API_KEY trong infra/.env.prod}
       MODEL_TEMPERATURE: ${MODEL_TEMPERATURE:-0.3}
       SAFE_MODE: ${SAFE_MODE:-0}
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
       GROWSAFE_SHOW_DRAFT_SCENES: ${GROWSAFE_SHOW_DRAFT_SCENES:-0}
       GROWSAFE_AI_RATE_LIMIT: ${GROWSAFE_AI_RATE_LIMIT:-30}
       GROWSAFE_DB: /var/lib/growsafe/growsafe.db
-      REDIS_URL: redis://redis:6379/0
       DATABASE_URL: ${DATABASE_URL:-}
       UVICORN_WORKERS: ${UVICORN_WORKERS:-1}
+      GROWSAFE_SESSION_TTL: ${GROWSAFE_SESSION_TTL:-2700}
     volumes:
       - growsafe_data:/var/lib/growsafe
-    depends_on:
-      redis:
-        condition: service_healthy
     deploy:
       replicas: ${API_REPLICAS:-1}
       resources:
@@ -96,9 +112,11 @@ services:
       - internal
     logging: *default-logging
 
-  # ---------- 4. Redis (Session TTL, Rate Limit chung, TTS MP3 Cache) ----------
+  # ---------- 4. Redis — chưa có code dùng, để sẵn cho Pha 1 trong PLAN.md (session, rate limit chung) ----------
+  # Bật bằng --profile scale. Chưa chuyển session sang Redis thì KHÔNG nâng API_REPLICAS > 1.
   redis:
     image: redis:7.4-alpine
+    profiles: ["scale"]
     restart: unless-stopped
     command: ["redis-server", "--maxmemory", "96mb", "--maxmemory-policy", "allkeys-lru", "--save", ""]
     healthcheck:
@@ -119,7 +137,7 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-growsafe}
       POSTGRES_USER: ${POSTGRES_USER:-growsafe}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme_strong_password}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Chua dien POSTGRES_PASSWORD trong infra/.env.prod}
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
@@ -134,7 +152,7 @@ services:
 
   # ---------- 6. Log Viewer siêu nhẹ (~15MB RAM) — bật bằng --profile logs ----------
   dozzle:
-    image: amir20/dozzle:latest
+    image: amir20/dozzle:v8.0.0
     profiles: ["logs"]
     restart: unless-stopped
     # Chỉ bind localhost trên VPS, truy cập qua SSH tunnel: ssh -L 8080:127.0.0.1:8080 user@vps
@@ -210,6 +228,7 @@ services:
     image: prom/node-exporter:v1.9.0
     profiles: ["obs"]
     restart: unless-stopped
+    pid: host  # thấy tiến trình của VPS, không chỉ của container
     command:
       - "--path.rootfs=/host"
     volumes:
@@ -228,7 +247,7 @@ services:
       - "127.0.0.1:3001:3000"
     environment:
       GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
-      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-changeme_grafana}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:?Chua dien GRAFANA_PASSWORD trong infra/.env.prod}
       GF_USERS_ALLOW_SIGN_UP: "false"
       GF_ANALYTICS_REPORTING_ENABLED: "false"
     volumes:
@@ -248,6 +267,9 @@ networks:
   internal:
     driver: bridge
     internal: false # API cần gọi ra ngoài tới OpenRouter; các service vẫn không expose port ra host
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16  # khớp FORWARDED_ALLOW_IPS trong Dockerfile.api: chỉ tin X-Forwarded-For từ đây
 
 volumes:
   certbot_www:
