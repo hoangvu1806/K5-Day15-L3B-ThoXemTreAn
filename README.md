@@ -1,5 +1,7 @@
 # ThoXemTreAn: GrowSafe AI, game tình huống giáo dục giới tính và tự bảo vệ cho trẻ
 
+**Bản đang chạy:** https://canthansaulungkiabeiu.site/ (người lớn tạo tài khoản trong game rồi mới chơi được các phần có AI).
+
 **Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md). **Điền TEAMS.md đúng format**: khi chấm và đánh giá, BTC quét file này để ghép điểm cho từng người.
 
 *Lát cắt = phần nhỏ nhất làm xong được trong hackathon: một người dùng · một việc · một quyết định AI · một kết quả.*
@@ -73,7 +75,7 @@ python codebase/server.py        # API ở http://127.0.0.1:6161
 cd frontend && npm install && npm run dev    # mở http://localhost:3016
 ```
 
-Chi tiết giao diện: [frontend/README.md](frontend/README.md). Không có `.env` (và không đặt biến môi trường `MODEL_PROVIDER`) thì API chạy chế độ giả: Giám khảo chấm bằng từ khóa, lời của Tin ghép từ câu viết sẵn trong `data/lines.json`, đọc to dùng giọng của trình duyệt.
+Chi tiết giao diện: [frontend/README.md](frontend/README.md). Mọi endpoint có AI hoặc TTS cần đăng nhập (`codebase/auth.py`): mở game → "Đăng nhập / Đăng ký" → người lớn tạo tài khoản và tick ô đồng ý. Tài khoản lưu trong SQLite (`GROWSAFE_DB`, mặc định `data/runtime/growsafe.db`). Không có `.env` (và không đặt biến môi trường `MODEL_PROVIDER`) thì API chạy chế độ giả: Giám khảo chấm bằng từ khóa, lời của Tin ghép từ câu viết sẵn trong `data/lines.json`, đọc to dùng giọng của trình duyệt.
 
 Màn mới của Sprint 3 còn là bản nháp (`duyet: false` trong `data/scenarios.json`), trẻ không gặp. Nhóm muốn chơi thử để duyệt thì chạy server với `GROWSAFE_SHOW_DRAFT_SCENES=1` (PowerShell: `$env:GROWSAFE_SHOW_DRAFT_SCENES="1"; python codebase/server.py`).
 
@@ -96,10 +98,12 @@ Màn mới của Sprint 3 còn là bản nháp (`duyet: false` trong `data/scena
 | Lời gọi AI ở quyết định trung tâm | **Thật** | Model: `openai/gpt-6-luna` qua OpenRouter, agent Google ADK + LiteLLM |
 | Guardrail (precheck 111, chặn injection, che thông tin, postcheck) | Thật | Viết bằng code, `codebase/guardrails.py` |
 | Kho tình huống, quy tắc chuẩn | Thật, nhóm tự soạn | 11 màn, 12 quy tắc có nguồn, `data/DATA_CARD.md`. Đáp án nút bấm và thẻ quy tắc chờ duyệt |
-| Giao diện game | Thật | `frontend/` (Next.js), gọi API `codebase/server.py`. Màn hình chính, bản đồ 6-10 / điện thoại 11-15, Sổ tay thẻ, Bàn tay tin cậy, Cài đặt, khoá người lớn |
+| Giao diện game | Thật | `frontend/` (Next.js), gọi API `codebase/server.py`, chạy tại https://canthansaulungkiabeiu.site/ (Docker Compose + Nginx, `infra/`). Màn hình chính, bản đồ 6-10 / điện thoại 11-15, Sổ tay thẻ, Bàn tay tin cậy, Góc Tò Mò, Góc phụ huynh, Cài đặt. Khoá phép tính đã bỏ, chỉ còn bước xác nhận khi xoá tiến độ |
+| Góc Tò Mò (hỏi đáp giáo dục giới tính đúng trần tuổi) | Thật | `codebase/ask.py`, 12 chủ đề trong `data/topics.json` (soạn từ UNESCO 2018), tối đa 10 câu mỗi phiên, chặn 18+ và kê thuốc. Ngoài lát cắt chấm điểm, có bộ câu thử riêng `eval/extra/hoi-tin.csv` |
+| Tài khoản | Thật | Tên đăng nhập + mật khẩu (băm scrypt) trong SQLite, người lớn tick đồng ý khi tạo. Chỉ lưu mã màn đã chơi, mã thẻ, vai trong Bàn tay tin cậy; không lưu câu trả lời, giới tính, bản nháp. Giới hạn 30 lượt gọi AI mỗi phút mỗi tài khoản |
 | Giọng nói | Thật | Câu cố định đọc sẵn thành file (`frontend/public/assets/voice/`); lời AI vừa viết đọc qua `POST /api/tts` (OpenRouter), lỗi thì dùng giọng trình duyệt. Mic: Web Speech API, hiện cùng ô gõ lúc trả lời, chỉ thu sau khi trẻ bấm bật, bấm lần nữa hoặc ngừng nói là tắt |
-| Lưu phiên, bản nháp cho phụ huynh | Tạm | Chỉ nằm trong bộ nhớ server, tắt là mất; chưa có đăng nhập cho người lớn. Tiến độ và thẻ lưu trong trình duyệt của trẻ |
-| Màn hội thoại người lạ (kịch bản có sẵn), thám tử nhận chiêu, màn bậc 4–5 | Có code, màn là bản nháp | 7 màn chờ Diệp duyệt (`data/DATA_CARD.md`) |
+| Lưu phiên, bản nháp cho phụ huynh | Tạm | Phiên chơi và bản nháp chỉ nằm trong bộ nhớ server, tắt là mất. Tiến độ và thẻ lưu trong trình duyệt, và đồng bộ vào tài khoản khi đã đăng nhập |
+| Màn hội thoại người lạ (kịch bản có sẵn), thám tử nhận chiêu, màn bậc 4–5 | Có code, màn là bản nháp | 7 màn chờ Diệp duyệt (`data/DATA_CARD.md`); bản chạy thật đặt `GROWSAFE_SHOW_DRAFT_SCENES=0` nên trẻ không gặp |
 | Chế độ AI đóng vai người lạ, màn AI biến tấu | Chưa làm | Chờ nhóm chốt mục 8 của `docs/de-xuat-sprint-3.md` |
 
 ## Dùng AI vào việc gì
@@ -136,5 +140,5 @@ Nhóm dùng Claude Code để viết code game (backend phiên chơi, giao diệ
 | 4 | Bản chạy thử làm trọn lát cắt | `codebase/` · lệnh ở mục "Lệnh" |
 | 5 | Định nghĩa "tốt" + bộ câu thử | `data/DATA_CARD.md` · `eval/` |
 | 6 | Mô phỏng chi phí khi dùng thật | `cost/` |
-| 7 | Slide + demo + video dự phòng | `demo-slides.pdf` ở thư mục gốc · link video: ____ |
+| 7 | Slide + demo + video dự phòng | `demo-slides.pdf` ở thư mục gốc · video: `demo_video/final/GrowSafe_demo_4K.mp4` (bản quay game thật, ~2 phút), link online: ____ |
 | + | *Bonus:* người dùng thử | `validation/log.md` |

@@ -4,14 +4,15 @@ Bản chốt ngày 27/11. Minh dựa vào đây để làm assets, Diệp để 
 
 ## Một phiên chơi
 
+0. Người lớn đăng nhập hoặc tạo tài khoản (tên đăng nhập + mật khẩu, tick đồng ý). Không đăng nhập thì không gọi được phần có AI; nút "Con cần giúp" và 111 vẫn chạy (`codebase/auth.py`).
 1. Phụ huynh hoặc giáo viên mở game, chọn nhóm tuổi 6-10 hoặc 11-15, giới tính của trẻ (Nam / Nữ, bắt buộc, để chọn nhân vật chính Bin/Na hoặc Khôi/Mai). Game không hỏi tên hay biệt danh, không lưu thông tin định danh.
 2. Game mở màn đầu tiên hợp với nhóm tuổi và giới tính đó trong kho.
 3. Mỗi màn có một cảnh minh họa kèm lời kể tình huống, ví dụ "Một chú quen cho con kẹo và dặn đây là bí mật của hai chú cháu. Con sẽ làm gì?". Trẻ trả lời theo một trong hai cách:
    - tự gõ cách mình sẽ làm, bằng lời của mình
-   - hoặc giữ nút mic để nói, rồi bấm "Đúng rồi" để xác nhận chữ (người lớn bật mic)
+   - hoặc bấm nút mic để nói (bấm lần nữa hoặc ngừng nói là tắt), rồi xác nhận chữ trước khi gửi. Nút mic và ô gõ luôn hiện cùng lúc
    Không còn nút đáp án (Sprint 3, `docs/de-xuat-tinh-nang.md` mục 4.3). Trẻ bí thì bấm "Gợi ý": Tin hỏi gợi mở, không đưa đáp án.
-4. AI phản hồi: khen điều trẻ làm đúng, chỉ ra hành động an toàn còn thiếu, rồi sang màn mới luôn: mỗi màn trẻ trả lời một lần, không thử lại. Câu trả lời mơ hồ ("con chạy") thì AI không hỏi lại mà nói ngắn cách làm an toàn; chỗ còn thiếu ghi vào mục "Từng màn" của báo cáo cho phụ huynh.
-5. Kết màn, trẻ nhận thẻ quy tắc của màn đó (ví dụ "Bí mật làm con sợ là bí mật xấu, con kể với người lớn") và sao hoặc huy hiệu.
+4. Giám khảo chấm ngầm (không hiện đúng sai). Tin nhận xét: nhắc lại lời trẻ, gợi mở hành động an toàn còn thiếu, không đặt câu hỏi, không nói kết luận. Trẻ chọn "Trả lời lại" (tối đa 3 lần) hoặc "Đi tiếp". Báo cáo ghi lần đầu và lần cuối trẻ trả lời.
+5. Sao và thẻ quy tắc (ví dụ "Bí mật làm con sợ là bí mật xấu, con kể với người lớn") chỉ hiện ở cuối phiên, không hiện sau từng màn, để trẻ không đoán đáp án.
 6. AI chọn màn tiếp theo trong kho, ưu tiên chủ đề trẻ còn yếu. Đủ 5 màn, hoặc hết màn phù hợp, thì kết phiên.
 7. Kết phiên, AI soạn bản nháp cho phụ huynh: con làm tốt gì, còn lúng túng ở đâu, một câu gợi ý để mở lời nói chuyện với con. Người lớn đọc rồi tự quyết dùng thế nào, game không tự gửi đi đâu.
 
@@ -146,7 +147,9 @@ Mỗi nhóm tuổi cần ít nhất 3 màn, mỗi màn một chủ đề khác n
 - Màn "Con cần giúp" với số 111, tông màu bình tĩnh, không gây sợ.
 - Màn kết phiên.
 
-## API cho giao diện (bản dự kiến, server chạy ở port 6161)
+## API cho giao diện (server chạy ở port 6161)
+
+Bảng dưới là bản dự kiến lúc chốt kịch bản. Bản đang chạy: `codebase/server.py`. Khác với bảng: mọi endpoint có AI/TTS cần token đăng nhập (`/api/auth/*`, `PUT /api/progress`); thêm `POST /api/ask/start`, `/api/ask/message`, `/api/ask/end` cho Góc Tò Mò; chưa có `dialogue_mode = ai_dong_vai` và `/api/admin/scenario-draft`.
 
 | Gọi | Gửi | Nhận |
 |---|---|---|
