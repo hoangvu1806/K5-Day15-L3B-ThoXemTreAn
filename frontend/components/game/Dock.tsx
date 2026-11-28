@@ -33,10 +33,18 @@ export default function Dock({ age, onSend, allowHint = true, onListen, placehol
     say([{ file: MIC.confirm[age].voice }]);
   }, [age, say]);
   const onError = useCallback((code: Exclude<SpeechError, "">) => {
-    if (code === "not-allowed") {
-      // Bị từ chối quyền mic: ẩn nút mic, chuyển sang ô gõ, không dừng game.
-      setMicBlocked(true);
-      setNote(age === "6-10" ? "Mic chưa được bật. Cậu gõ giúp tớ nhé." : "Mic chưa được bật, bạn gõ nhé.");
+    const me = age === "6-10" ? "Cậu" : "Bạn";
+    const help: Partial<Record<typeof code, string>> = {
+      "not-allowed": `Mic đang bị chặn. Nhờ người lớn bấm biểu tượng cạnh thanh địa chỉ, cho phép Micro rồi bấm mic lại. ${me} gõ cũng được.`,
+      "no-mic": `Máy không mở được mic. Nhờ người lớn kiểm tra mic của máy. ${me} gõ cũng được.`,
+      insecure: `Trang này chưa bảo mật (https) nên không dùng được mic. ${me} gõ nhé.`,
+      service: `Trình duyệt này chưa nghe được giọng nói. Mở game bằng Chrome hoặc Edge để nói, còn giờ ${me.toLowerCase()} gõ nhé.`,
+    };
+    const text = help[code];
+    if (text) {
+      // Trình duyệt hoặc trang không dùng được mic thì ẩn nút. Bị chặn hay thiếu mic thì giữ nút để thử lại.
+      if (code === "service" || code === "insecure") setMicBlocked(true);
+      setNote(text);
       setTimeout(() => input.current?.focus(), 50);
       return;
     }
@@ -62,7 +70,7 @@ export default function Dock({ age, onSend, allowHint = true, onListen, placehol
     setNote("");
     setConfirm(null);
     sound.play("micOn");
-    sp.start();
+    void sp.start();
   };
   const release = () => {
     if (!sp.listening) return;
