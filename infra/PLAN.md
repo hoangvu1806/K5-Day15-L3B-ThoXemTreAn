@@ -25,7 +25,7 @@ Người dùng (Trình duyệt)
    ▼
 [Nginx Reverse Proxy + limit_req]
    ├── /assets/*, /_next/static/*  → Cache 1 năm (immutable) + nén gzip
-   ├── /                           → frontend:3000 (Next.js)
+   ├── /                           → frontend:3016 (Next.js)
    ├── /api/help                   → Không áp limit_req (luôn mở cho nút 111)
    ├── /api/auth/*                 → limit_req 10r/m → api:6161
    ├── /api/*, /health             → limit_req 30r/m + least_conn → api-1, api-2, ... (6161)

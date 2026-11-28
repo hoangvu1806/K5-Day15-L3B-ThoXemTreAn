@@ -24,20 +24,21 @@ FROM node:22-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
-    PORT=3000 \
+    PORT=3016 \
     HOSTNAME=0.0.0.0
 
 RUN addgroup -g 10001 -S nodejs && adduser -S nextjs -u 10001
 
+# output: "standalone" (frontend/next.config.ts): chỉ chép server tối giản + đúng các gói cần chạy.
+# standalone không tự kèm public/ và .next/static/, phải chép vào cạnh server.js.
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 
 USER nextjs
-EXPOSE 3000
+EXPOSE 3016
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-    CMD wget -qO- http://127.0.0.1:3000/ >/dev/null || exit 1
+    CMD wget -qO- http://127.0.0.1:3016/ >/dev/null || exit 1
 
-CMD ["npm", "run", "start"]
+CMD ["node", "server.js"]

@@ -73,7 +73,7 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 ```
 python -m pip install -r requirements.txt
 python codebase/server.py        # API ở http://127.0.0.1:6161
-cd frontend && npm install && npm run dev    # mở http://localhost:3000
+cd frontend && npm install && npm run dev    # mở http://localhost:3016
 ```
 
 Chi tiết giao diện: [frontend/README.md](frontend/README.md). Không có `.env` (và không đặt biến môi trường `MODEL_PROVIDER`) thì API chạy chế độ giả: Giám khảo chấm bằng từ khóa, lời của Tin ghép từ câu viết sẵn trong `data/lines.json`, đọc to dùng giọng của trình duyệt.

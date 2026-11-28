@@ -13,6 +13,7 @@ Luồng mỗi câu hỏi:
 import json
 import os
 import re
+import time
 import uuid
 
 from ai import call_model, is_fake
@@ -295,6 +296,7 @@ def start(age_group="6-10", gender="nam", game_session_id=""):
         "over_streak": {"topic": "", "count": 0},
         "stopped": "",
         "spoken": set(),
+        "touched": time.time(),
     }
     _speak(session, greeting)
     ASK_SESSIONS[sid] = session
@@ -315,6 +317,7 @@ def message(ask_session_id, text):
     session = ASK_SESSIONS.get(ask_session_id)
     if not session:
         raise AskError("Không tìm thấy phiên Góc Tò Mò. Mở lại nhé.", 404)
+    session["touched"] = time.time()
     age = session["age_group"]
     gen = session["gender"]
     raw_text = (text or "").strip()[:300]

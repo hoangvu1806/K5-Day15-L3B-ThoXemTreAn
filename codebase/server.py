@@ -8,6 +8,8 @@ Trace dùng biến toàn cục nên server xử lý tuần tự từng lượt (
 Bật GROWSAFE_SHOW_DRAFT_SCENES=1 để nhóm chơi thử các màn chưa duyệt (duyet = false trong data/scenarios.json).
 """
 import asyncio
+import os
+import time
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,10 +24,15 @@ import tracing
 import tts
 from agent import answer_async
 from ai import MODEL_NAME, is_fake
-from tools import DRAFTS
 
 app = FastAPI(title="GrowSafe AI")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+# CORS_ORIGINS: danh sách domain cách nhau bằng dấu phẩy. Không đặt (hoặc để trống) thì chỉ cho localhost dev,
+# KHÔNG mở "*" vì server lưu token đăng nhập và bản nháp của trẻ. Cùng domain qua Nginx thì để trống NEXT_PUBLIC_API_URL
+# ở frontend và server không cần CORS, nhưng vẫn giữ whitelist này để chạy riêng hai domain không bị hở.
+_cors_env = os.environ.get("CORS_ORIGINS", "").strip()
+_cors_origins = [o.strip() for o in _cors_env.split(",") if o.strip()] or [
+    "http://localhost:3016", "http://127.0.0.1:3016"]
+app.add_middleware(CORSMiddleware, allow_origins=_cors_origins, allow_methods=["*"], allow_headers=["*"])
 app.include_router(auth.router)  # đăng ký, đăng nhập, đồng bộ bộ thẻ (SQLite, xem auth.py)
 _lock = asyncio.Lock()
 
@@ -55,9 +62,37 @@ async def _warm_up():
             tracing.end()
 
 
+SESSION_TTL = int(os.environ.get("GROWSAFE_SESSION_TTL") or 45 * 60)
+CLEANUP_EVERY = 300
+
+
+def _purge_sessions(now: float) -> int:
+    """Chạy trên event loop, không await giữa chừng, nên không đụng với các lượt đang xử lý."""
+    removed = 0
+    for store in (game.SESSIONS, ask.ASK_SESSIONS):
+        for sid in [sid for sid, s in store.items() if now - s.get("touched", 0) > SESSION_TTL]:
+            del store[sid]
+            removed += 1
+    return removed
+
+
+async def _cleanup_loop():
+    while True:
+        await asyncio.sleep(CLEANUP_EVERY)
+        try:
+            removed = _purge_sessions(time.time())
+            auth.prune_counters()
+            await asyncio.to_thread(tts.prune_disk)
+            if removed:
+                print("đã dọn %d phiên quá %d phút" % (removed, SESSION_TTL // 60))
+        except Exception as e:  # dọn lỗi thì thử lại lượt sau, không làm chết server
+            print("dọn bộ nhớ lỗi: %s" % e)
+
+
 @app.on_event("startup")
 async def _startup():
     asyncio.create_task(_warm_up())
+    asyncio.create_task(_cleanup_loop())
 
 
 @app.get("/health")
@@ -222,12 +257,6 @@ async def speak(body: TTSIn, _user=Depends(auth.require_ai_user)):
     except tts.TTSError as e:
         raise HTTPException(status_code=503, detail=str(e))
     return Response(content=audio, media_type="audio/mpeg")
-
-
-@app.get("/api/drafts")
-def drafts(_user=Depends(auth.require_user)):
-    """Bản nháp gửi phụ huynh / giáo viên đang chờ duyệt. Không có endpoint nào tự gửi đi."""
-    return DRAFTS
 
 
 if __name__ == "__main__":
