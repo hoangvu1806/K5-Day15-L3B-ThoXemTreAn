@@ -64,7 +64,7 @@ function AuthForm() {
   };
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-4">
+    <form onSubmit={submit} className="flex flex-col gap-3">
       <div className="flex gap-2 self-center rounded-full bg-white/60 p-1">
         {(["login", "register"] as const).map((m) => (
           <button key={m} type="button" onClick={() => switchTo(m)}
@@ -79,6 +79,8 @@ function AuthForm() {
         <input className={INPUT} value={username} onChange={(e) => setUsername(e.target.value)} maxLength={20}
           autoComplete="username" autoCapitalize="none" spellCheck={false} />
       </Field>
+      {/* Đăng ký xếp hai ô mật khẩu cạnh nhau để cả form vừa khung game cao 768px. */}
+      <div className={clsx("grid items-start gap-4", mode === "register" ? "grid-cols-2" : "grid-cols-1")}>
       <Field label="Mật khẩu" hint={mode === "register" ? "Ít nhất 8 ký tự. Không có email nên quên mật khẩu thì không lấy lại được." : undefined}>
         <div className="relative">
           <input className={INPUT + " pr-[92px]"} type={show ? "text" : "password"} value={password}
@@ -91,11 +93,13 @@ function AuthForm() {
         </div>
       </Field>
       {mode === "register" && (
-        <>
-          <Field label="Nhập lại mật khẩu">
-            <input className={INPUT} type={show ? "text" : "password"} value={again} onChange={(e) => setAgain(e.target.value)}
-              maxLength={128} autoComplete="new-password" />
-          </Field>
+        <Field label="Nhập lại mật khẩu">
+          <input className={INPUT} type={show ? "text" : "password"} value={again} onChange={(e) => setAgain(e.target.value)}
+            maxLength={128} autoComplete="new-password" />
+        </Field>
+      )}
+      </div>
+      {mode === "register" && (
           <label className="flex cursor-pointer items-start gap-3 rounded-[18px] bg-white/60 px-4 py-3">
             <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)}
               className="mt-1 h-[24px] w-[24px] shrink-0 accent-[var(--mint-deep)]" />
@@ -104,7 +108,6 @@ function AuthForm() {
               Game không lưu câu trả lời, giới tính hay tên thật của con.
             </span>
           </label>
-        </>
       )}
 
       <AnimatePresence>
@@ -147,7 +150,7 @@ export default function AccountPanel() {
   };
   return (
     <Modal onClose={close} z={70}>
-      <div className="panel paper-grain flex w-[640px] flex-col gap-5 px-10 py-7">
+      <div className={clsx("panel paper-grain flex max-h-[736px] flex-col gap-3 overflow-y-auto px-10 py-5", account ? "w-[640px]" : "w-[880px]")}>
         <div className="flex items-center gap-4">
           <Pic src={ui.parent} w={512} h={512} className="h-[56px] w-[56px]" />
           <div className="flex-1">

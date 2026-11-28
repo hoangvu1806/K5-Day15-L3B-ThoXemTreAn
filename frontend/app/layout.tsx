@@ -17,7 +17,6 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   title: "GrowSafe — Tập phản xạ tự bảo vệ",
   description: "Game tình huống giúp trẻ 6-15 tuổi tập nói KHÔNG, rời đi và kể với người lớn tin cậy.",
-  icons: { icon: "/assets/ui/controls/logo_growsafe.webp" },
 };
 
 export const viewport: Viewport = {

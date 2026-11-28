@@ -94,7 +94,7 @@ services:
       MODEL_TEMPERATURE: ${MODEL_TEMPERATURE:-0.3}
       SAFE_MODE: ${SAFE_MODE:-0}
       CORS_ORIGINS: ${CORS_ORIGINS:-}
-      GROWSAFE_SHOW_DRAFT_SCENES: ${GROWSAFE_SHOW_DRAFT_SCENES:-0}
+      GROWSAFE_SHOW_DRAFT_SCENES: "0"  # production luôn tắt: trẻ chỉ gặp màn đã có người duyệt
       GROWSAFE_AI_RATE_LIMIT: ${GROWSAFE_AI_RATE_LIMIT:-30}
       GROWSAFE_DB: /var/lib/growsafe/growsafe.db
       DATABASE_URL: ${DATABASE_URL:-}
