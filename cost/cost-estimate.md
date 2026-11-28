@@ -9,7 +9,7 @@
 - **Persona** (`cost/personas.yaml`): 3 kiểu — `dung_it` 33% · 3 phiên/tháng, `dung_vua` 56% · 6 phiên/tháng, `dung_nhieu` 11% · 280 phiên/tháng (một lớp học); mỗi phiên 3 lượt hỏi. Nguồn: khảo sát 20 phiếu, câu 7 (`evidence/survey/results.csv`); số phiên và số lượt cụ thể là *(tự ước tính)*, ghi từng dòng trong `personas.yaml`
 - **Số người dùng thật** 3 kịch bản: thấp 500 · cơ sở 2.000 · cao 10.000 phụ huynh hoặc giáo viên. Nguồn: *(tự ước tính)*, mốc so sánh 19,08 triệu học sinh phổ thông năm học 2025-2026 (Bộ GD&ĐT qua https://giaoduc.net.vn/ban-in/post262421.gd, xem 28/11/2026)
 - **Giá** 2 mức model (USD / 1 triệu token, xem 28/11/2026): `openai/gpt-6-luna` vào 0,10 · ra 0,50 (https://openrouter.ai/openai/gpt-6-luna; trang này có hiện thêm mức 0,05 / 0,25, có vẻ là giá batch nên không dùng) · `anthropic/claude-sonnet-5.5` vào 2,00 · ra 10,00 (https://openrouter.ai/anthropic/claude-sonnet-5.5). Chưa đối chiếu với `further-reading/model-prices.md` của repo đề
-- **Tỉ lệ đạt** dùng để tính: 22/24 (92%) — lượt `run-3` (lượt 2), điểm chấm nháp chờ người kiểm
+- **Tỉ lệ đạt** dùng để tính: 22/24 (92%) — lượt `run-3` (lượt 2), điểm do Claude Code chấm nháp, Trần Thị Hà Anh đã kiểm tay
 - Luồng đo: `simulate-1` chạy trên luồng trước Sprint 3 (một agent). Luồng đang chạy thêm vai Giám khảo; `run-4` đo khoảng 2,7 lần gọi model và ~4.100 token vào mỗi câu (`eval/README.md` mục 5), gần với ~4.400–4.800 token vào mỗi lượt của `simulate-1`. Chưa có file `simulate-N` nào đo luồng mới, nên số dưới đây vẫn là của `simulate-1`. Góc Tò Mò và TTS chưa nằm trong mô phỏng
 - Đo token trên model `openai/gpt-6-luna`, tính giá model `openai/gpt-6-luna` và `anthropic/claude-sonnet-5.5` (Claude tách token khác nên số token thật có thể lệch)
 

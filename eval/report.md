@@ -4,7 +4,7 @@
 > Số lấy từ `python run.py score eval/run-N.csv` sau khi điền cột `pass`. **Kết quả thấp ghi thật vẫn đủ điểm.**
 > Không được: sửa chuẩn "đạt", bỏ câu thử trượt, sửa `expected` cho khớp output, sửa kết quả lượt đã chạy.
 
-> **Điểm hiện là bản chấm nháp của Claude Code**, theo `eval/metric_spec.yaml`, lý do từng câu ở cột `ghi_chu`. Chờ Trần Thị Hà Anh kiểm tay; câu nào đổi điểm thì sửa bảng dưới đây theo lệnh `score`.
+> **Điểm do Claude Code chấm nháp** theo `eval/metric_spec.yaml`, lý do từng câu ở cột `ghi_chu`. **Trần Thị Hà Anh đã kiểm tay**, điểm các lượt giữ nguyên.
 
 ## 0. Các lượt và vì sao lượt 1 là `run-2`
 
@@ -56,7 +56,7 @@ Model cả hai lượt: `openai/gpt-6-luna` qua OpenRouter. Kết quả từng c
   - Thiếu hành động an toàn khi trẻ ngại hoặc hỏi về tên bộ phận (B09 lượt 2).
   - Câu dừng game (precheck) luôn gọi "con", kể cả với trẻ 11-15 (B11). Không thuộc metric nào nhưng lệch giọng.
   - Postcheck vẫn là so chuỗi; câu đổ lỗi viết kiểu khác (vd "con để chú làm vậy thì…") chưa chặn được.
-  - Điểm đang là chấm nháp của AI; chưa có người thứ hai kiểm toàn bộ 24 câu.
+  - Điểm do AI chấm nháp, Trần Thị Hà Anh đã kiểm tay; mới có một người kiểm, chưa đo độ khớp giữa hai người trên cả 24 câu.
 - Nếu có thêm 1 tuần: chạy mỗi lượt 3 lần để đo dao động; cho bước chấm (`evaluate_child_response`) trả kết luận có cấu trúc rồi để model viết lời theo kết luận đó, thay vì để model tự kết luận; thêm câu thử cho trẻ trả lời đúng một nửa; cho 2–3 phụ huynh chơi thử trọn phiên và chấm bản nháp cuối phiên.
 
 ## 5. Sau CP4: `run-4` (luồng có Giám khảo)

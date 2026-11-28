@@ -140,5 +140,5 @@ Nhóm dùng Claude Code để viết code game (backend phiên chơi, giao diệ
 | 4 | Bản chạy thử làm trọn lát cắt | `codebase/` · lệnh ở mục "Lệnh" |
 | 5 | Định nghĩa "tốt" + bộ câu thử | `data/DATA_CARD.md` · `eval/` |
 | 6 | Mô phỏng chi phí khi dùng thật | `cost/` |
-| 7 | Slide + demo + video dự phòng | `demo-slides.pdf` ở thư mục gốc · video: `demo_video/final/GrowSafe_demo_4K.mp4` (bản quay game thật, ~2 phút), link online: ____ |
+| 7 | Slide + demo + video dự phòng | `demo-slides.pdf` ở thư mục gốc · video demo (~2 phút, quay game thật): https://www.youtube.com/watch?v=PTSQJiK4QUo |
 | + | *Bonus:* người dùng thử | `validation/log.md` |
