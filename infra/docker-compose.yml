@@ -1,0 +1,259 @@
+# GrowSafe AI — Production Docker Compose (Nginx + FastAPI + Next.js + Redis + Postgres + Observability)
+# Chạy từ thư mục infra/:
+#   Cơ bản (Nginx + Frontend + API + Redis):   docker compose --env-file .env.prod up -d --build
+#   Thêm xem log realtime nhẹ (Dozzle):        docker compose --env-file .env.prod --profile logs up -d
+#   Đủ giám sát (Prometheus + Grafana + Loki): docker compose --env-file .env.prod --profile obs up -d
+#   Mở rộng nhiều replica + Postgres:          docker compose --env-file .env.prod --profile scale --profile obs up -d
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  # ---------- 1. Nginx Reverse Proxy + Load Balancer (least_conn) + Rate Limit ----------
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+      NGINX_ENVSUBST_FILTER: "^DOMAIN$"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - certbot_www:/var/www/certbot:ro
+      - certbot_conf:/etc/letsencrypt:ro
+    depends_on:
+      frontend:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8081/stub_status >/dev/null || exit 1"]
+      interval: 20s
+      timeout: 3s
+      retries: 3
+    networks:
+      - edge
+      - internal
+    mem_limit: 96m
+    logging: *default-logging
+
+  # ---------- 2. Frontend Next.js ----------
+  frontend:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.frontend
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
+    restart: unless-stopped
+    expose:
+      - "3000"
+    networks:
+      - internal
+    mem_limit: 320m
+    cpus: 0.75
+    logging: *default-logging
+
+  # ---------- 3. Backend FastAPI (AI Agent + Auth + TTS) ----------
+  # Lưu ý: giữ API_REPLICAS=1 và UVICORN_WORKERS=1 cho đến khi hoàn thành Pha 1 trong infra/PLAN.md
+  # (tách session sang Redis và bỏ _lock bằng contextvars). Khi xong Pha 1 có thể nâng API_REPLICAS=2..4.
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    restart: unless-stopped
+    expose:
+      - "6161"
+    environment:
+      MODEL_PROVIDER: ${MODEL_PROVIDER:-openrouter}
+      MODEL_NAME: ${MODEL_NAME:-openai/gpt-6-luna}
+      API_KEY: ${API_KEY:?Chua dien API_KEY trong infra/.env.prod}
+      MODEL_TEMPERATURE: ${MODEL_TEMPERATURE:-0.3}
+      SAFE_MODE: ${SAFE_MODE:-0}
+      GROWSAFE_SHOW_DRAFT_SCENES: ${GROWSAFE_SHOW_DRAFT_SCENES:-0}
+      GROWSAFE_AI_RATE_LIMIT: ${GROWSAFE_AI_RATE_LIMIT:-30}
+      GROWSAFE_DB: /var/lib/growsafe/growsafe.db
+      REDIS_URL: redis://redis:6379/0
+      DATABASE_URL: ${DATABASE_URL:-}
+      UVICORN_WORKERS: ${UVICORN_WORKERS:-1}
+    volumes:
+      - growsafe_data:/var/lib/growsafe
+    depends_on:
+      redis:
+        condition: service_healthy
+    deploy:
+      replicas: ${API_REPLICAS:-1}
+      resources:
+        limits:
+          memory: 512m
+          cpus: "1.0"
+    networks:
+      - internal
+    logging: *default-logging
+
+  # ---------- 4. Redis (Session TTL, Rate Limit chung, TTS MP3 Cache) ----------
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--maxmemory", "96mb", "--maxmemory-policy", "allkeys-lru", "--save", ""]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+    networks:
+      - internal
+    mem_limit: 128m
+    logging: *default-logging
+
+  # ---------- 5. PostgreSQL (Bật bằng --profile scale khi chạy nhiều replica API) ----------
+  db:
+    image: postgres:16-alpine
+    profiles: ["scale"]
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-growsafe}
+      POSTGRES_USER: ${POSTGRES_USER:-growsafe}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme_strong_password}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-growsafe} -d ${POSTGRES_DB:-growsafe}"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+    mem_limit: 256m
+    logging: *default-logging
+
+  # ---------- 6. Log Viewer siêu nhẹ (~15MB RAM) — bật bằng --profile logs ----------
+  dozzle:
+    image: amir20/dozzle:latest
+    profiles: ["logs"]
+    restart: unless-stopped
+    # Chỉ bind localhost trên VPS, truy cập qua SSH tunnel: ssh -L 8080:127.0.0.1:8080 user@vps
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - internal
+    mem_limit: 64m
+    logging: *default-logging
+
+  # ---------- 7. Observability đầy đủ — bật bằng --profile obs ----------
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:1.4.1
+    profiles: ["obs"]
+    restart: unless-stopped
+    command: ["--nginx.scrape-uri=http://nginx:8081/stub_status"]
+    depends_on:
+      nginx:
+        condition: service_healthy
+    networks:
+      - internal
+    mem_limit: 32m
+    logging: *default-logging
+
+  prometheus:
+    image: prom/prometheus:v3.2.1
+    profiles: ["obs"]
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+      - "--storage.tsdb.retention.size=1GB"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prom_data:/prometheus
+    networks:
+      - internal
+    mem_limit: 192m
+    logging: *default-logging
+
+  loki:
+    image: grafana/loki:3.4.2
+    profiles: ["obs"]
+    restart: unless-stopped
+    command: ["-config.file=/etc/loki/local-config.yaml"]
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki/local-config.yaml:ro
+      - loki_data:/loki
+    networks:
+      - internal
+    mem_limit: 192m
+    logging: *default-logging
+
+  promtail:
+    image: grafana/promtail:3.4.2
+    profiles: ["obs"]
+    restart: unless-stopped
+    command: ["-config.file=/etc/promtail/config.yml"]
+    volumes:
+      - ./loki/promtail-config.yml:/etc/promtail/config.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - loki
+    networks:
+      - internal
+    mem_limit: 96m
+    logging: *default-logging
+
+  node-exporter:
+    image: prom/node-exporter:v1.9.0
+    profiles: ["obs"]
+    restart: unless-stopped
+    command:
+      - "--path.rootfs=/host"
+    volumes:
+      - /:/host:ro,rslave
+    networks:
+      - internal
+    mem_limit: 48m
+    logging: *default-logging
+
+  grafana:
+    image: grafana/grafana:11.5.2
+    profiles: ["obs"]
+    restart: unless-stopped
+    # Chỉ bind localhost trên VPS, truy cập an toàn qua SSH tunnel: ssh -L 3001:127.0.0.1:3001 user@vps
+    ports:
+      - "127.0.0.1:3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-changeme_grafana}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+    volumes:
+      - ./grafana/provisioning/datasources/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+      - loki
+    networks:
+      - internal
+    mem_limit: 256m
+    logging: *default-logging
+
+networks:
+  edge:
+    driver: bridge
+  internal:
+    driver: bridge
+    internal: false # API cần gọi ra ngoài tới OpenRouter; các service vẫn không expose port ra host
+
+volumes:
+  certbot_www:
+  certbot_conf:
+  growsafe_data:
+  pg_data:
+  prom_data:
+  loki_data:
+  grafana_data:
