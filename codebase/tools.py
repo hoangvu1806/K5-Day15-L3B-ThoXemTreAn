@@ -45,7 +45,7 @@ def get_scenario(age_group: str, topic: str = "") -> dict:
 
 @tool
 def search_safety_guideline(age_group: str, query: str) -> list:
-    """search_safety_guideline — tra quy tắc an toàn chuẩn (nguồn UNESCO, UNICEF) theo nhóm tuổi.
+    """search_safety_guideline — tra quy tắc an toàn chuẩn (nguồn UNESCO, NSPCC, Council of Europe, Tổng đài 111) theo nhóm tuổi.
     Input: age_group ("6-10" hoặc "11-15"), query (từ khóa hoặc câu trả lời của trẻ).
     Output: tối đa 3 quy tắc {"code", "title", "rule", "source"}; danh sách rỗng nếu không tìm thấy.
     Tác động ra ngoài: không (chỉ đọc)."""
