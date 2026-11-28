@@ -214,3 +214,4 @@ flowchart TD
 | 28/11 | Góc phụ huynh lưu lịch sử báo cáo trên máy (theo tài khoản, tối đa 30 bản) và cho xem lại. Sửa lỗi đóng Góc Tò Mò giữa phiên làm phiên đó không được soạn báo cáo. Sửa §9 cho khớp | Chạy thử: tải lại trang hoặc chơi phiên mới là mất báo cáo cũ |
 | 28/11 | Mic: xin quyền bằng `getUserMedia` trước khi nhận giọng (stream tắt ngay, không lưu, không gửi), báo đúng nguyên nhân (bị chặn, không có mic, không HTTPS, trình duyệt không nhận giọng), giữ chữ tạm để trẻ xác nhận | Chạy thử trên Opera và vài máy: không hỏi quyền, bấm mic không có phản hồi |
 >>>>>>> 9b92562c220a3955389eb02b8169c19d8352cbcd
+| 28/11 | Thêm hai linh vật trang trí, không chặn bấm: kỳ lân ở màn hình chính, mèo ở màn kết phiên (không hiện khi phiên dừng vì cần giúp) | Yêu cầu của nhóm |
