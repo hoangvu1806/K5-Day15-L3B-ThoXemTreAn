@@ -235,15 +235,14 @@
       "6-10",
       "11-15"
     ],
-    "source": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm trước CP3] | UNICEF, tài liệu an toàn trực tuyến cho trẻ em (nhóm cần tìm đúng trang của UNICEF Việt Nam). [CHƯA TÌM ĐƯỢC tài liệu cụ thể, phải thay bằng trang thật hoặc bỏ]",
+    "source": "UNESCO và các cơ quan LHQ (2018). International technical guidance on sexuality education: an evidence-informed approach (bản sửa đổi). Khái niệm chính 4: Bạo lực và giữ an toàn (4.2 Đồng thuận, riêng tư, toàn vẹn cơ thể; 4.3 An toàn khi dùng công nghệ); Khái niệm chính 6: Cơ thể người. [Chưa kiểm số mục và link, nhóm mở tài liệu để kiểm] (28/11: bỏ nguồn UNICEF vì chưa tìm được tài liệu cụ thể; nội dung quy tắc dựa trên UNESCO 4.3)",
     "loi_6_10": "Trên mạng có ai xin ảnh hay hỏi nhà cậu ở đâu thì đừng trả lời, gọi bố mẹ ngay.",
     "loi_11_15": "Đừng gửi ảnh riêng tư cho bất kỳ ai. Chặn, chụp màn hình giữ lại làm bằng chứng, rồi kể cho người lớn bạn tin.",
     "chu_de": [
       "an_toan_mang"
     ],
     "nguon_ids": [
-      "SRC-UNESCO-ITGSE",
-      "SRC-UNICEF-ONLINE"
+      "SRC-UNESCO-ITGSE"
     ],
     "ten_the": "An toàn trên mạng",
     "the": "online"
